@@ -11,6 +11,16 @@ describe('bundle', function() {
 		ASSERT(typeof BUNDLE.open === "function");
 	});
 
+	function compareAndRemove(source, target, callback) {
+		var sourceCode = FS.readFileSync(source).toString();
+		var targetCode = FS.readFileSync(target).toString();
+		if (sourceCode !== targetCode) {
+			return callback(new Error("Target file '" + target + "' is not identical to source file '" + source + "'"));
+		}
+		FS.removeSync(target);
+		return callback(null);
+	}
+
 	it('should read and write bundle with loader', function(done) {
 		var options = {
 			debug: true
@@ -29,9 +39,14 @@ describe('bundle', function() {
 				ASSERT.equal(bundle.bundleLoader[1].length, 2);
 				return bundle.saveTo(PATH.join(__dirname, "assets/bundles/with-loader.saved.js"), function(err) {
 					if (err) return done(err);
-
-
-					return bundle.close(done);
+					return bundle.close(function(err) {
+						if (err) return done(err);
+						return compareAndRemove(
+							PATH.join(__dirname, "assets/bundles/with-loader.js"),
+							PATH.join(__dirname, "assets/bundles/with-loader.saved.js"),
+							done
+						);
+					});
 				});
 			} catch(err) {
 				return done(err);
@@ -65,9 +80,14 @@ describe('bundle', function() {
 				ASSERT.deepEqual(bundle.bundleLoader, null);
 				return bundle.saveTo(PATH.join(__dirname, "assets/bundles/just-modules.saved.js"), function(err) {
 					if (err) return done(err);
-
-
-					return bundle.close(done);
+					return bundle.close(function(err) {
+						if (err) return done(err);
+						return compareAndRemove(
+							PATH.join(__dirname, "assets/bundles/just-modules.js"),
+							PATH.join(__dirname, "assets/bundles/just-modules.saved.js"),
+							done
+						);
+					});
 				});
 
 			} catch(err) {
@@ -92,9 +112,14 @@ describe('bundle', function() {
 				ASSERT.deepEqual(bundle.bundleLoader, null);
 				return bundle.saveTo(PATH.join(__dirname, "assets/bundles/with-header.saved.js"), function(err) {
 					if (err) return done(err);
-
-
-					return bundle.close(done);
+					return bundle.close(function(err) {
+						if (err) return done(err);
+						return compareAndRemove(
+							PATH.join(__dirname, "assets/bundles/with-header.js"),
+							PATH.join(__dirname, "assets/bundles/with-header.saved.js"),
+							done
+						);
+					});
 				});
 			} catch(err) {
 				return done(err);
