@@ -24,7 +24,12 @@ describe('bundle', function() {
 				ASSERT.deepEqual(Object.keys(bundle.modules), [ '/main.js' ]);
 				ASSERT.equal(typeof bundle.report, "object");
 				ASSERT.deepEqual(bundle.bundleLoader, [ true, { bundleUrlPrefix: '/bundles/' } ]);
-				return done(null);
+				return bundle.saveTo(PATH.join(__dirname, "assets/bundles/with-loader.saved.js"), function(err) {
+					if (err) return callback(err);
+
+
+					return bundle.close(done);
+				});
 			} catch(err) {
 				return done(err);
 			}
@@ -55,7 +60,13 @@ describe('bundle', function() {
 				]);
 				ASSERT.equal(typeof bundle.report, "object");
 				ASSERT.deepEqual(bundle.bundleLoader, [ false, {} ]);
-				return done(null);
+				return bundle.saveTo(PATH.join(__dirname, "assets/bundles/just-modules.saved.js"), function(err) {
+					if (err) return callback(err);
+
+
+					return bundle.close(done);
+				});
+
 			} catch(err) {
 				return done(err);
 			}
@@ -76,7 +87,12 @@ describe('bundle', function() {
 				ASSERT.deepEqual(Object.keys(bundle.modules), [ '/main.js', '/greeting.js' ]);
 				ASSERT.equal(typeof bundle.report, "object");
 				ASSERT.deepEqual(bundle.bundleLoader, [ false, {} ]);
-				return done(null);
+				return bundle.saveTo(PATH.join(__dirname, "assets/bundles/with-header.saved.js"), function(err) {
+					if (err) return callback(err);
+
+
+					return bundle.close(done);
+				});
 			} catch(err) {
 				return done(err);
 			}
