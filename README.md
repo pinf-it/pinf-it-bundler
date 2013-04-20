@@ -29,7 +29,9 @@ Usage
 
     const BUNDLER = require("pinf-it-bundler");
     
-    BUNDLER.bundleFile("<path>", {}, function(err, summary) {
+    BUNDLER.bundleFile("<path>", {
+        distPath: "<target directory>"
+    }, function(err, descriptor) {
     });
 
 

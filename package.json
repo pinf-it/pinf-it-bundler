@@ -6,12 +6,15 @@
 	"main": "./lib/bundler.js",
 	"dependencies": {
         "fs-extra": "~0.6.0",
-		"pinf-it-packageinsight": "~0.1.3",
-		"pinf-it-codeinsight": "~0.1.2",
-		"pinf-loader-js": "~0.4.2"
+        "waitfor": "~0.1.3",
+		"pinf-it-package-insight": "~0.1.3",
+		"pinf-it-module-insight": "~0.1.2",
+		"pinf-loader-js": "~0.4.2",
+		"collections": "~0.1.17"
 	},
     "devDependencies": {
-        "mocha": "~1.9.0"
+        "mocha": "~1.9.0",
+        "glob": "~3.1.21"
     },
     "scripts": {
         "test": "make test"
