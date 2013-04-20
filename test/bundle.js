@@ -19,13 +19,16 @@ describe('bundle', function() {
 			if (err) return done(err);
 			try {
 				ASSERT.equal(typeof bundle, "object");
-				ASSERT.deepEqual(bundle.header, [ undefined, {} ]);
+				ASSERT.deepEqual(bundle.header, null);
 				ASSERT.deepEqual(Object.keys(bundle.descriptors), [ '/package.json' ]);
 				ASSERT.deepEqual(Object.keys(bundle.modules), [ '/main.js' ]);
 				ASSERT.equal(typeof bundle.report, "object");
-				ASSERT.deepEqual(bundle.bundleLoader, [ true, { bundleUrlPrefix: '/bundles/' } ]);
+				ASSERT.equal(Array.isArray(bundle.bundleLoader), true);
+				ASSERT.deepEqual(bundle.bundleLoader[0], { bundleUrlPrefix: '/bundles/' });
+				ASSERT.equal(Array.isArray(bundle.bundleLoader[1]), true);
+				ASSERT.equal(bundle.bundleLoader[1].length, 2);
 				return bundle.saveTo(PATH.join(__dirname, "assets/bundles/with-loader.saved.js"), function(err) {
-					if (err) return callback(err);
+					if (err) return done(err);
 
 
 					return bundle.close(done);
@@ -44,7 +47,7 @@ describe('bundle', function() {
 			if (err) return done(err);
 			try {
 				ASSERT.equal(typeof bundle, "object");
-				ASSERT.deepEqual(bundle.header, [ undefined, {} ]);
+				ASSERT.deepEqual(bundle.header, null);
 				ASSERT.deepEqual(Object.keys(bundle.descriptors), [
 					'/package.json',
 					'9600bb1b572fba81a38e7d3c0eb638268e6a9d8d/package.json',
@@ -59,9 +62,9 @@ describe('bundle', function() {
 					'aa0b8cfbcfff960996a8692caee6ae43f33d6a67/H.js'
 				]);
 				ASSERT.equal(typeof bundle.report, "object");
-				ASSERT.deepEqual(bundle.bundleLoader, [ false, {} ]);
+				ASSERT.deepEqual(bundle.bundleLoader, null);
 				return bundle.saveTo(PATH.join(__dirname, "assets/bundles/just-modules.saved.js"), function(err) {
-					if (err) return callback(err);
+					if (err) return done(err);
 
 
 					return bundle.close(done);
@@ -86,9 +89,9 @@ describe('bundle', function() {
 				ASSERT.deepEqual(Object.keys(bundle.descriptors), [ '/package.json' ]);
 				ASSERT.deepEqual(Object.keys(bundle.modules), [ '/main.js', '/greeting.js' ]);
 				ASSERT.equal(typeof bundle.report, "object");
-				ASSERT.deepEqual(bundle.bundleLoader, [ false, {} ]);
+				ASSERT.deepEqual(bundle.bundleLoader, null);
 				return bundle.saveTo(PATH.join(__dirname, "assets/bundles/with-header.saved.js"), function(err) {
-					if (err) return callback(err);
+					if (err) return done(err);
 
 
 					return bundle.close(done);

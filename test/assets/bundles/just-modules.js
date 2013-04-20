@@ -1,7 +1,5 @@
 // @pinf-bundle-ignore: 
 sourcemint.bundle("", function(require) {
-// @pinf-bundle-header: {}
-
 // @pinf-bundle-module: {"file":"/02-LoaderFeatures/05-CrossPackageDependencies/main.js","fileMtime":1329109242000,"id":"/main.js"}
 require.memoize("/main.js", 
 function(require, exports, module)

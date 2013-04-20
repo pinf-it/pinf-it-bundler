@@ -1,11 +1,9 @@
-// @pinf-bundle-loader: {"bundleUrlPrefix":"/bundles/"}
+// @pinf-bundle-loader-top: {"bundleUrlPrefix":"/bundles/"}
 var require, sourcemint;
 (function() {
     var rootBundleLoader = function(uri, loadedCallback) {
 // @pinf-bundle-ignore: 
 sourcemint.bundle("", function(require) {
-// @pinf-bundle-header: {}
-
 // @pinf-bundle-module: {"file":"/example/main.js","fileMtime":1331407689000,"id":"/main.js"}
 require.memoize("/main.js", 
 function(require, exports, module)
@@ -52,7 +50,7 @@ require.memoize("/package.json",
 );
 // @pinf-bundle-ignore: 
 });
-// @pinf-bundle-ignore: 
+// @pinf-bundle-loader-bottom: 
         if (typeof loadedCallback === "function") loadedCallback();
     }
     function initLoader(exports) {
