@@ -11,30 +11,70 @@ describe('bundle', function() {
 		ASSERT(typeof BUNDLE.open === "function");
 	});
 
-	describe('`open()`', function() {
+	it('should read and write bundle with loader', function(done) {
 
-		it('should open bundle without loader', function(done) {
+		var options = {
+			debug: true
+		};
+		return BUNDLE.open(PATH.join(__dirname, "assets/bundles/with-loader.js"), options, function(err, bundle) {
+			if (err) return done(err);
 
-			var options = {
-				debug: true
-			};
-			return BUNDLE.open(PATH.join(__dirname, "assets/bundles/without-loader.js"), options, function(err, bundle) {
-				if (err) return done(err);
+			try {
 
-				try {
-
-					ASSERT(typeof bundle === "object");
+				ASSERT(typeof bundle === "object");
 
 console.log("bundle", bundle);
 
 
-					return done(null);
-				} catch(err) {
-					return done(err);
-				}
-			});
+				return done(null);
+			} catch(err) {
+				return done(err);
+			}
 		});
+	});
 
+	it('should read and write bundle with just modules', function(done) {
+
+		var options = {
+			debug: true
+		};
+		return BUNDLE.open(PATH.join(__dirname, "assets/bundles/just-modules.js"), options, function(err, bundle) {
+			if (err) return done(err);
+
+			try {
+
+				ASSERT(typeof bundle === "object");
+
+console.log("bundle", bundle);
+
+
+				return done(null);
+			} catch(err) {
+				return done(err);
+			}
+		});
+	});
+
+	it('should read and write bundle with header', function(done) {
+
+		var options = {
+			debug: true
+		};
+		return BUNDLE.open(PATH.join(__dirname, "assets/bundles/with-header.js"), options, function(err, bundle) {
+			if (err) return done(err);
+
+			try {
+
+				ASSERT(typeof bundle === "object");
+
+console.log("bundle", bundle);
+
+
+				return done(null);
+			} catch(err) {
+				return done(err);
+			}
+		});
 	});
 
 });
