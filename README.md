@@ -7,8 +7,8 @@ Code bundle standards are evolving but there are various differences across comm
 
 This library attempts to generate normalized code bundles for
 any code modules and packages that can be parsed by the
-[PackageInsight](https://github.com/pinf-it/pinf-it-packageinsight) and
-[CodeInsight](https://github.com/pinf-it/pinf-it-codeinsight) libraries.
+[Package Insight](https://github.com/pinf-it/pinf-it-package-insight) and
+[Module Insight](https://github.com/pinf-it/pinf-it-module-insight) libraries.
 
 This bundler is intended to replace the following tools and conventions:
 

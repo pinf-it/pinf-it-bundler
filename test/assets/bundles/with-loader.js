@@ -1,13 +1,13 @@
-// @sourcemint-bundle-loader: {"bundleUrlPrefix":"/bundles/"}
+// @pinf-bundle-loader: {"bundleUrlPrefix":"/bundles/"}
 var require, sourcemint;
 (function() {
     var rootBundleLoader = function(uri, loadedCallback) {
-// @sourcemint-bundle-ignore: 
+// @pinf-bundle-ignore: 
 sourcemint.bundle("", function(require)
 {
-// @sourcemint-bundle-header: {}
+// @pinf-bundle-header: {}
 
-// @sourcemint-bundle-module: {"file":"/pinf/workspaces/github.com/sourcemint/platform-nodejs/0/examples/04-PlatformFeatures/03-BundlerMiddlewareBundleLoader/example/main.js","fileMtime":1331407689000,"id":"/main.js"}
+// @pinf-bundle-module: {"file":"/example/main.js","fileMtime":1331407689000,"id":"/main.js"}
 require.memoize("/main.js", 
 function(require, exports, module)
 {
@@ -47,13 +47,13 @@ function(require, exports, module)
     }
 }
 );
-// @sourcemint-bundle-descriptor: {"file":"/pinf/workspaces/github.com/sourcemint/platform-nodejs/0/examples/04-PlatformFeatures/03-BundlerMiddlewareBundleLoader/example/package.json","id":"/package.json"}
+// @pinf-bundle-descriptor: {"file":"/example/package.json","id":"/package.json"}
 require.memoize("/package.json", 
 {"main":"/main.js","mappings":{},"directories":{"lib":""}}
 );
-// @sourcemint-bundle-ignore: 
+// @pinf-bundle-ignore: 
 });
-// @sourcemint-bundle-ignore: 
+// @pinf-bundle-ignore: 
         if (typeof loadedCallback === "function") loadedCallback();
     }
     function initLoader(exports) {
@@ -538,4 +538,4 @@ var sourcemint = null;
         rootBundleLoader();
     }
 })();
-// @sourcemint-bundle-report: {"sourceReport":{"mainPackage":"/pinf/workspaces/github.com/sourcemint/platform-nodejs/0/examples/04-PlatformFeatures/03-BundlerMiddlewareBundleLoader/example","packages":{"/pinf/workspaces/github.com/sourcemint/platform-nodejs/0/examples/04-PlatformFeatures/03-BundlerMiddlewareBundleLoader/example":{"mainModule":{"path":"/pinf/workspaces/github.com/sourcemint/platform-nodejs/0/examples/04-PlatformFeatures/03-BundlerMiddlewareBundleLoader/example/main.js"},"modules":{"/pinf/workspaces/github.com/sourcemint/platform-nodejs/0/examples/04-PlatformFeatures/03-BundlerMiddlewareBundleLoader/example/main.js":{"staticLinks":{},"dynamicLinks":{"\"./sub-module\"":"\"./sub-module\""},"fileMtime":1331407689000,"treatAs":"js-module"}},"mappings":{}}}},"mappedReport":{"mainPackage":"/pinf/workspaces/github.com/sourcemint/platform-nodejs/0/examples/04-PlatformFeatures/03-BundlerMiddlewareBundleLoader/example","packages":{"/pinf/workspaces/github.com/sourcemint/platform-nodejs/0/examples/04-PlatformFeatures/03-BundlerMiddlewareBundleLoader/example":{"mainModule":{"path":"/pinf/workspaces/github.com/sourcemint/platform-nodejs/0/examples/04-PlatformFeatures/03-BundlerMiddlewareBundleLoader/example/main.js"},"modules":{"/pinf/workspaces/github.com/sourcemint/platform-nodejs/0/examples/04-PlatformFeatures/03-BundlerMiddlewareBundleLoader/example/main.js":{"staticLinks":{},"dynamicLinks":{"\"./sub-module\"":"\"./sub-module\""},"fileMtime":1331407689000,"treatAs":"js-module"}},"mappings":{}}}},"bundleReport":{"mainBundle":"/pinf/workspaces/github.com/sourcemint/platform-nodejs/0/examples/04-PlatformFeatures/03-BundlerMiddlewareBundleLoader/dist/example.js","packages":{},"modules":{"/main.js":"/pinf/workspaces/github.com/sourcemint/platform-nodejs/0/examples/04-PlatformFeatures/03-BundlerMiddlewareBundleLoader/example/main.js"}}}
+// @pinf-bundle-report: {"sourceReport":{"mainPackage":"/example","packages":{"/example":{"mainModule":{"path":"/example/main.js"},"modules":{"/example/main.js":{"staticLinks":{},"dynamicLinks":{"\"./sub-module\"":"\"./sub-module\""},"fileMtime":1331407689000,"treatAs":"js-module"}},"mappings":{}}}},"mappedReport":{"mainPackage":"/example","packages":{"/example":{"mainModule":{"path":"/example/main.js"},"modules":{"/example/main.js":{"staticLinks":{},"dynamicLinks":{"\"./sub-module\"":"\"./sub-module\""},"fileMtime":1331407689000,"treatAs":"js-module"}},"mappings":{}}}},"bundleReport":{"mainBundle":"/dist/example.js","packages":{},"modules":{"/main.js":"/example/main.js"}}}

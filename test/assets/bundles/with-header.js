@@ -1,7 +1,7 @@
-// @sourcemint-bundle-ignore: 
+// @pinf-bundle-ignore: 
 require.bundle("", function(require)
 {
-// @sourcemint-bundle-header: {}
+// @pinf-bundle-header: {}
 function define(id, dependencies, moduleInitializer)
 {
     return function(require, exports, module) {
@@ -18,7 +18,7 @@ function define(id, dependencies, moduleInitializer)
         }
     }
 }
-// @sourcemint-bundle-module: {"file":"/pinf/workspaces/github.com/sourcemint/examples-js/0/01-RequireJSModulesToBrowser/modules/main.js","fileMtime":1329952704000,"id":"/main.js"}
+// @pinf-bundle-module: {"file":"/modules/main.js","fileMtime":1329952704000,"id":"/main.js"}
 require.memoize("/main.js", 
 define('',["./greeting"], function(GREETING)
 {
@@ -30,7 +30,7 @@ define('',["./greeting"], function(GREETING)
 	};
 })
 );
-// @sourcemint-bundle-module: {"file":"/pinf/workspaces/github.com/sourcemint/examples-js/0/01-RequireJSModulesToBrowser/modules/greeting.js","fileMtime":1329955170000,"id":"/greeting.js"}
+// @pinf-bundle-module: {"file":"/modules/greeting.js","fileMtime":1329955170000,"id":"/greeting.js"}
 require.memoize("/greeting.js", 
 define('',['require','exports','module'],function(require, exports, module)
 {
@@ -40,10 +40,10 @@ define('',['require','exports','module'],function(require, exports, module)
     }
 })
 );
-// @sourcemint-bundle-descriptor: {"file":"/pinf/workspaces/github.com/sourcemint/examples-js/0/01-RequireJSModulesToBrowser/modules/package.json","id":"/package.json"}
+// @pinf-bundle-descriptor: {"file":"/modules/package.json","id":"/package.json"}
 require.memoize("/package.json", 
 {"main":"/main.js","directories":{"lib":""},"mappings":{}}
 );
-// @sourcemint-bundle-ignore: 
+// @pinf-bundle-ignore: 
 });
-// @sourcemint-bundle-report: {"sourceReport":{"mainPackage":"/pinf/workspaces/github.com/sourcemint/examples-js/0/01-RequireJSModulesToBrowser/modules","packages":{"/pinf/workspaces/github.com/sourcemint/examples-js/0/01-RequireJSModulesToBrowser/modules":{"mainModule":{"path":"/pinf/workspaces/github.com/sourcemint/examples-js/0/01-RequireJSModulesToBrowser/modules/main.js"},"modules":{"/pinf/workspaces/github.com/sourcemint/examples-js/0/01-RequireJSModulesToBrowser/modules/main.js":{"staticLinks":{"./greeting":"./greeting"},"fileMtime":1329952704000,"treatAs":"js-module"},"/pinf/workspaces/github.com/sourcemint/examples-js/0/01-RequireJSModulesToBrowser/modules/greeting.js":{"staticLinks":{},"fileMtime":1329955170000,"treatAs":"js-module"}},"mappings":{}}}},"mappedReport":{"mainPackage":"/pinf/workspaces/github.com/sourcemint/examples-js/0/01-RequireJSModulesToBrowser/modules","packages":{"/pinf/workspaces/github.com/sourcemint/examples-js/0/01-RequireJSModulesToBrowser/modules":{"mainModule":{"path":"/pinf/workspaces/github.com/sourcemint/examples-js/0/01-RequireJSModulesToBrowser/modules/main.js"},"modules":{"/pinf/workspaces/github.com/sourcemint/examples-js/0/01-RequireJSModulesToBrowser/modules/main.js":{"staticLinks":{"./greeting":"./greeting"},"fileMtime":1329952704000,"treatAs":"js-module"},"/pinf/workspaces/github.com/sourcemint/examples-js/0/01-RequireJSModulesToBrowser/modules/greeting.js":{"staticLinks":{},"fileMtime":1329955170000,"treatAs":"js-module"}},"mappings":{}}}},"bundleReport":{"mainBundle":"/pinf/workspaces/github.com/sourcemint/examples-js/0/01-RequireJSModulesToBrowser/dist/modules.js","packages":{},"modules":{"/main.js":"/pinf/workspaces/github.com/sourcemint/examples-js/0/01-RequireJSModulesToBrowser/modules/main.js","/greeting.js":"/pinf/workspaces/github.com/sourcemint/examples-js/0/01-RequireJSModulesToBrowser/modules/greeting.js"}}}
+// @pinf-bundle-report: {"sourceReport":{"mainPackage":"/modules","packages":{"/modules":{"mainModule":{"path":"/modules/main.js"},"modules":{"/modules/main.js":{"staticLinks":{"./greeting":"./greeting"},"fileMtime":1329952704000,"treatAs":"js-module"},"/modules/greeting.js":{"staticLinks":{},"fileMtime":1329955170000,"treatAs":"js-module"}},"mappings":{}}}},"mappedReport":{"mainPackage":"/modules","packages":{"/modules":{"mainModule":{"path":"/modules/main.js"},"modules":{"/modules/main.js":{"staticLinks":{"./greeting":"./greeting"},"fileMtime":1329952704000,"treatAs":"js-module"},"/modules/greeting.js":{"staticLinks":{},"fileMtime":1329955170000,"treatAs":"js-module"}},"mappings":{}}}},"bundleReport":{"mainBundle":"/dist/modules.js","packages":{},"modules":{"/main.js":"/modules/main.js","/greeting.js":"/modules/greeting.js"}}}
