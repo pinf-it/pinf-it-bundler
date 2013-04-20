@@ -1,6 +1,5 @@
 // @pinf-bundle-ignore: 
-require.bundle("", function(require)
-{
+sourcemint.bundle("", function(require) {
 // @pinf-bundle-header: {}
 function define(id, dependencies, moduleInitializer)
 {
@@ -22,21 +21,21 @@ function define(id, dependencies, moduleInitializer)
 require.memoize("/main.js", 
 define('',["./greeting"], function(GREETING)
 {
-	return {
-	    main: function()
+    return {
+        main: function()
         {
-    		console.log(GREETING.getGreeting());
+            console.log(GREETING.getGreeting());
         }
-	};
+    };
 })
 );
 // @pinf-bundle-module: {"file":"/modules/greeting.js","fileMtime":1329955170000,"id":"/greeting.js"}
 require.memoize("/greeting.js", 
 define('',['require','exports','module'],function(require, exports, module)
 {
-	exports.getGreeting = function()
+    exports.getGreeting = function()
     {
-	    return "Hello from 01-RequireJSModulesToBrowser!";
+        return "Hello from 01-RequireJSModulesToBrowser!";
     }
 })
 );

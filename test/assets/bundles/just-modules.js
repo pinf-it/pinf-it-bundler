@@ -1,6 +1,5 @@
 // @pinf-bundle-ignore: 
-sourcemint.bundle("", function(require)
-{
+sourcemint.bundle("", function(require) {
 // @pinf-bundle-header: {}
 
 // @pinf-bundle-module: {"file":"/02-LoaderFeatures/05-CrossPackageDependencies/main.js","fileMtime":1329109242000,"id":"/main.js"}
@@ -12,11 +11,11 @@ function(require, exports, module)
     
     // One-way dependency.
     var GREETINGS = require("helpers/greetings"),
-    	LOGGER = require("helpers/logger");
+        LOGGER = require("helpers/logger");
     
     exports.main = function(options)
     {
-    	LOGGER.log(GREETINGS.getGreeting());
+        LOGGER.log(GREETINGS.getGreeting());
     }
     
 }
@@ -32,12 +31,12 @@ function(require, exports, module)
     
     exports.getGreeting = function()
     {
-    	return HELLO.getWord() + " from " + HELLO.getName() + "!";
+        return HELLO.getWord() + " from " + HELLO.getName() + "!";
     }
     
     exports.getName = function()
     {
-    	return "05-CrossPackageDependencies";
+        return "05-CrossPackageDependencies";
     }
     
 }
@@ -51,7 +50,7 @@ function(require, exports, module)
     
     exports.log = function(message)
     {
-    	module.log(message);
+        module.log(message);
     }
     
 }
@@ -67,12 +66,12 @@ function(require, exports, module)
     
     exports.getWord = function()
     {
-    	return require("letters/H").getLetter() + "ello";
+        return require("letters/H").getLetter() + "ello";
     }
     
     exports.getName = function()
     {
-    	return GREETINGS.getName();
+        return GREETINGS.getName();
     }
     
 }
