@@ -35,11 +35,12 @@ describe('bundler', function() {
 		}
 
 		it('should bundle various JavaScript files', function(done) {
-return done(null);
+
 			return getFiles([
-//				"umd/*.js",
+				"umd/*.js",
 				"various/*.js",
-//				"no-interface/*.js"
+//				"various/simple-commonjs.js"
+				"no-interface/*.js"
 			], function(err, files) {
 				if (err) return done(err);
 
@@ -48,16 +49,16 @@ return done(null);
 					waitfor(function(done) {
 						var options = {
 							debug: true,
-							distPath: PATH.join(__dirname, "assets/modules/", file)
+							distPath: PATH.join(__dirname, "assets/modules", PATH.dirname(file))
 						};
-						return BUNDLER.bundleFile(PATH.join(__dirname, "../node_modules/pinf-it-module-insight/test/assets"), options, function(err, descriptor) {
+						return BUNDLER.bundleFile(PATH.join(__dirname, "../node_modules/pinf-it-module-insight/test/assets", file), options, function(err, descriptor) {
 							if (err) return done(err);
 
 							try {
 
 								ASSERT(typeof descriptor === "object");
 
-console.log("descriptor", descriptor);
+//console.log("descriptor", descriptor);
 
 								if (descriptor.errors.length > 0) {
 									descriptor.errors.forEach(function(error) {

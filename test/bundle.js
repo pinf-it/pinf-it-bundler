@@ -21,6 +21,18 @@ describe('bundle', function() {
 		return callback(null);
 	}
 
+	it('should not allow 2+ `open()` on same bundle', function(done) {
+		var path = PATH.join(__dirname, "assets/bundles/with-loader.js");
+		return BUNDLE.open(path, {}, function(err, bundle) {
+			if (err) return done(err);
+			return BUNDLE.open(path, {}, function(err) {
+				ASSERT.equal(typeof err, "object");
+				ASSERT.equal(err.message, "Cannot open. Bundle already open by other instance.");
+				return bundle.close(done);
+			});
+		});
+	});
+
 	it('should read and write bundle with loader', function(done) {
 		var options = {
 			debug: true
@@ -29,7 +41,7 @@ describe('bundle', function() {
 			if (err) return done(err);
 			try {
 				ASSERT.equal(typeof bundle, "object");
-				ASSERT.deepEqual(bundle.header, null);
+				ASSERT.deepEqual(bundle.headers, {});
 				ASSERT.deepEqual(Object.keys(bundle.descriptors), [ '/package.json' ]);
 				ASSERT.deepEqual(Object.keys(bundle.modules), [ '/main.js' ]);
 				ASSERT.equal(typeof bundle.report, "object");
@@ -62,7 +74,7 @@ describe('bundle', function() {
 			if (err) return done(err);
 			try {
 				ASSERT.equal(typeof bundle, "object");
-				ASSERT.deepEqual(bundle.header, null);
+				ASSERT.deepEqual(bundle.headers, {});
 				ASSERT.deepEqual(Object.keys(bundle.descriptors), [
 					'/package.json',
 					'9600bb1b572fba81a38e7d3c0eb638268e6a9d8d/package.json',
@@ -104,8 +116,8 @@ describe('bundle', function() {
 			if (err) return done(err);
 			try {
 				ASSERT.equal(typeof bundle, "object");
-				ASSERT.equal(Array.isArray(bundle.header), true);
-				ASSERT.equal(typeof bundle.header[0], "string");
+				ASSERT.equal(typeof bundle.headers, "object");
+				ASSERT.equal(typeof bundle.headers["{}"], "string");
 				ASSERT.deepEqual(Object.keys(bundle.descriptors), [ '/package.json' ]);
 				ASSERT.deepEqual(Object.keys(bundle.modules), [ '/main.js', '/greeting.js' ]);
 				ASSERT.equal(typeof bundle.report, "object");
