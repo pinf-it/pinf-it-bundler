@@ -44,6 +44,12 @@ Development
     make test
 
 
+Links
+=====
+
+  * https://github.com/douglascrockford/JSDev
+
+
 License
 =======
 
