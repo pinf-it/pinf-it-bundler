@@ -42,29 +42,20 @@ function define(id, dependencies, moduleInitializer) {
     }
 }
 define.amd = true;
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/requirejs/anon-a.js","mtime":1366559177,"wrapper":"amd","format":"amd","id":"/anon-a.js"}
-require.memoize("/anon-a.js", 
-// @see https://github.com/jrburke/requirejs/blob/master/tests/anon/a.js
-define(['require','sub/b'],function (require) {
-    var b =  require("sub/b");
+// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/requirejs/anon-red.js","mtime":1366559363,"wrapper":"amd","format":"amd","id":"/anon-red.js"}
+require.memoize("/anon-red.js", 
+// @see https://github.com/jrburke/requirejs/blob/master/tests/anon/red.js
+define("red",[], function () {
     return {
-        name: "a",
-        bName: b.f()
+        name: "red"
     };
-})
-);
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/anon-a.js/sub+b.js","mtime":1367685668,"wrapper":"amd","format":"amd","id":"/sub/b.js"}
-require.memoize("/sub/b.js", 
-// @see https://raw.github.com/jrburke/requirejs/master/tests/anon/sub/b.js
-define(['require','exports','module'],function(require, exports, module) {   
-   exports.f = function () { return "sub/b" }; 
 })
 );
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
 require.memoize("/main.js", 
 function(require, exports, module) {
   exports.main = function() {
-    return require('./anon-a');
+    return require('./anon-red');
   }
 }
 );

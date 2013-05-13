@@ -1,5 +1,5 @@
 // @pinf-bundle-ignore: 
-sourcemint.bundle("", function(require) {
+PINF.bundle("", function(require) {
 // @pinf-bundle-header: {}
 function define(id, dependencies, moduleInitializer)
 {

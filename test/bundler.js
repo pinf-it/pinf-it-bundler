@@ -5,6 +5,7 @@ const WAITFOR = require("waitfor");
 const GLOB = require("glob");
 const FS = require("fs-extra");
 const BUNDLER = require("../lib/bundler");
+const PINF_FOR_NODEJS = require("pinf-for-nodejs");
 
 
 describe('bundler', function() {
@@ -37,28 +38,36 @@ describe('bundler', function() {
 		it('should bundle various JavaScript files', function(done) {
 
 			return getFiles([
-				"umd/*.js",
-				"various/*.js",
-//				"various/simple-commonjs.js"
-				"no-interface/*.js"
+//				"no-interface/*.js"
+//				"requirejs/*.js",
+//				"umd/*.js",
+//				"various/*.js"
+				"requirejs/nestedRelativeRequire-sub-a.js"
+//				"various/forge1.js"
 			], function(err, files) {
 				if (err) return done(err);
 
 				var waitfor = WAITFOR.serial(done);
 				files.forEach(function(file) {
 					waitfor(function(done) {
+						var basePath = PATH.join(__dirname, "../node_modules/pinf-it-module-insight/test/assets", PATH.dirname(file));
 						var options = {
 							debug: true,
-							distPath: PATH.join(__dirname, "assets/modules", PATH.dirname(file))
+							distPath: PATH.join(__dirname, "assets/modules", PATH.dirname(file)),
+							locateMissingFile: function(descriptor, path, callback) {
+//console.log("locate missing file", path);
+								if (path.substring(0, basePath.length) !== basePath) {
+									return callback(new Error("Cannot locate missing file '" + path + "'"));
+								}
+								return callback(null, PATH.join(options.distPath, "mocks", PATH.basename(file), path.substring(basePath.length+1).replace(/\//g, "+")));
+							}
 						};
-						return BUNDLER.bundleFile(PATH.join(__dirname, "../node_modules/pinf-it-module-insight/test/assets", file), options, function(err, descriptor) {
+						return BUNDLER.bundleFile(PATH.join(basePath, PATH.basename(file)), options, function(err, descriptor) {
 							if (err) return done(err);
 
 							try {
 
 								ASSERT(typeof descriptor === "object");
-
-//console.log("descriptor", descriptor);
 
 								if (descriptor.errors.length > 0) {
 									descriptor.errors.forEach(function(error) {
@@ -68,9 +77,52 @@ describe('bundler', function() {
 									});
 								}
 
-// TODO: Execute module and check for STRING and OBJECT exports.
+								return PINF_FOR_NODEJS.sandbox(PATH.join(options.distPath, PATH.basename(file)), function(sandbox) {
+									try {
+										var result = sandbox.main();
 
-								return done(null);
+console.log(options.distPath);
+console.log("result", typeof result, result);
+
+										if (typeof result === "function") {
+											result = result();
+										}
+
+console.log("result", typeof result, result);
+
+										// Special case to stringify `requirejs/circular-a.js`.
+										if (file === "requirejs/circular-a.js") {
+											result.b.c.a = result.b.c.a.name;
+										}
+
+console.log("result", JSON.stringify(result, null, 4));
+
+
+
+										try {
+											// See if `result` matches common test pattern.
+											ASSERT.deepEqual(result, {
+											    "STRING": "string-value",
+											    "OBJECT": {
+											        "id": "object-value"
+											    }
+											});
+										} catch(err) {
+											var resultPath = PATH.join(options.distPath, "results", PATH.basename(file));
+											if (FS.existsSync(resultPath)) {
+												var expectedResult = FS.readFileSync(resultPath).toString();
+												expectedResult = expectedResult.replace(/\$DIST_PATH/g, options.distPath);
+												ASSERT.deepEqual(result, JSON.parse(expectedResult));
+											} else {
+												throw err;
+											}
+										}
+										return done(null);
+									} catch(err) {
+										return done(err);
+									}
+								}, done);
+
 							} catch(err) {
 								return done(err);
 							}

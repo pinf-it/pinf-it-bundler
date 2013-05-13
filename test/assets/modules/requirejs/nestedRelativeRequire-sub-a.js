@@ -23,6 +23,20 @@ function define(id, dependencies, moduleInitializer) {
     }
     return function(realRequire, exports, module) {
         function require(id) {
+            if (Array.isArray(id)) {
+                var loaded = id.length;
+                var apis = [];
+                id.forEach(function(id, index) {
+console.log("INDEX", typeof index, index);
+                    realRequire.async(id, function(api) {
+                        apis[index] = api
+   console.log("LENGTH", apis.length); 
+                
+                    }, function(err) {
+                        throw err;
+                    });
+                });
+            }
             return realRequire(id.replace(/^[^!]*!/, ""));
         }
         require.toUrl = function(id) {
@@ -42,29 +56,18 @@ function define(id, dependencies, moduleInitializer) {
     }
 }
 define.amd = true;
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/requirejs/anon-a.js","mtime":1366559177,"wrapper":"amd","format":"amd","id":"/anon-a.js"}
-require.memoize("/anon-a.js", 
-// @see https://github.com/jrburke/requirejs/blob/master/tests/anon/a.js
-define(['require','sub/b'],function (require) {
-    var b =  require("sub/b");
-    return {
-        name: "a",
-        bName: b.f()
-    };
-})
-);
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/anon-a.js/sub+b.js","mtime":1367685668,"wrapper":"amd","format":"amd","id":"/sub/b.js"}
-require.memoize("/sub/b.js", 
-// @see https://raw.github.com/jrburke/requirejs/master/tests/anon/sub/b.js
-define(['require','exports','module'],function(require, exports, module) {   
-   exports.f = function () { return "sub/b" }; 
+// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/requirejs/nestedRelativeRequire-sub-a.js","mtime":1366563057,"wrapper":"amd","format":"amd","id":"/nestedRelativeRequire-sub-a.js"}
+require.memoize("/nestedRelativeRequire-sub-a.js", 
+// @see https://github.com/jrburke/requirejs/blob/master/tests/nestedRelativeRequire/sub/a.js
+define(['require'],function(require) {
+    require(['./b']);
 })
 );
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
 require.memoize("/main.js", 
 function(require, exports, module) {
   exports.main = function() {
-    return require('./anon-a');
+    return require('./nestedRelativeRequire-sub-a');
   }
 }
 );
