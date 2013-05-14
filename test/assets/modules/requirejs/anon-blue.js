@@ -23,10 +23,28 @@ function define(id, dependencies, moduleInitializer) {
     }
     return function(realRequire, exports, module) {
         function require(id) {
-            return realRequire(id.replace(/^[^!]*!/, ""));
+            if (Array.isArray(id)) {
+                var apis = [];
+                var callback = arguments[1];
+                id.forEach(function(moduleId, index) {
+                    realRequire.async(moduleId, function(api) {
+                        apis[index] = api
+                        if (apis.length === id.length) {
+                            if (callback) callback.apply(null, apis);
+                        }
+                    }, function(err) {
+                        throw err;
+                    });
+                });
+            } else {
+                return realRequire(id.replace(/^[^!]*!/, ""));
+            }
         }
         require.toUrl = function(id) {
             return realRequire.sandbox.id.replace(/\/[^\/]*$/, "") + realRequire.id(id);
+        }
+        if (typeof amdRequireImplementation !== "undefined") {
+            amdRequireImplementation = require;
         }
         if (typeof moduleInitializer === "function") {
             return moduleInitializer.apply(moduleInitializer, dependencies.map(function(name) {

@@ -3,6 +3,7 @@ const PATH = require("path");
 const ASSERT = require("assert");
 const WAITFOR = require("waitfor");
 const GLOB = require("glob");
+const Q = require("q");
 const FS = require("fs-extra");
 const BUNDLER = require("../lib/bundler");
 const PINF_FOR_NODEJS = require("pinf-for-nodejs");
@@ -41,9 +42,7 @@ describe('bundler', function() {
 //				"no-interface/*.js"
 //				"requirejs/*.js",
 //				"umd/*.js",
-//				"various/*.js"
-				"requirejs/nestedRelativeRequire-sub-a.js"
-//				"various/forge1.js"
+				"various/*.js"
 			], function(err, files) {
 				if (err) return done(err);
 
@@ -83,41 +82,55 @@ describe('bundler', function() {
 
 console.log(options.distPath);
 console.log("result", typeof result, result);
+										function testResult(result) {
+											try {
 
-										if (typeof result === "function") {
-											result = result();
-										}
+												if (typeof result === "function") {
+													result = result();
+												}
 
-console.log("result", typeof result, result);
+		console.log("result", typeof result, result);
 
-										// Special case to stringify `requirejs/circular-a.js`.
-										if (file === "requirejs/circular-a.js") {
-											result.b.c.a = result.b.c.a.name;
-										}
-
-console.log("result", JSON.stringify(result, null, 4));
+												// Special case to stringify `requirejs/circular-a.js`.
+												if (file === "requirejs/circular-a.js") {
+													result.b.c.a = result.b.c.a.name;
+												}
 
 
+		console.log("result", JSON.stringify(result, null, 4));
 
-										try {
-											// See if `result` matches common test pattern.
-											ASSERT.deepEqual(result, {
-											    "STRING": "string-value",
-											    "OBJECT": {
-											        "id": "object-value"
-											    }
-											});
-										} catch(err) {
-											var resultPath = PATH.join(options.distPath, "results", PATH.basename(file));
-											if (FS.existsSync(resultPath)) {
-												var expectedResult = FS.readFileSync(resultPath).toString();
-												expectedResult = expectedResult.replace(/\$DIST_PATH/g, options.distPath);
-												ASSERT.deepEqual(result, JSON.parse(expectedResult));
-											} else {
-												throw err;
+												result = JSON.parse(JSON.stringify(result));
+
+												try {
+													// See if `result` matches common test pattern.
+													ASSERT.deepEqual(result, {
+													    "STRING": "string-value",
+													    "OBJECT": {
+													        "id": "object-value"
+													    }
+													});
+												} catch(err) {
+													var resultPath = PATH.join(options.distPath, "results", PATH.basename(file));
+													if (FS.existsSync(resultPath)) {
+														var expectedResult = FS.readFileSync(resultPath).toString();
+														expectedResult = expectedResult.replace(/\$DIST_PATH/g, options.distPath);
+														ASSERT.deepEqual(result, JSON.parse(expectedResult));
+													} else {
+														throw err;
+													}
+												}
+												return done(null);
+											} catch(err) {
+												return done(err);
 											}
 										}
-										return done(null);
+
+										if (Q.isPromise(result)) {
+											return result.then(testResult, done);
+										} else {
+											return testResult(result);
+										}
+
 									} catch(err) {
 										return done(err);
 									}

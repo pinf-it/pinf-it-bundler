@@ -73,45 +73,132 @@ function wrapAMD(callback) {
     callback(amdRequire, wrappedDefine);
     return exports;
 }
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/various/amd-commonjs.js","mtime":1367782810,"wrapper":"amd-ish","format":"amd-ish","id":"/amd-commonjs.js"}
-require.memoize("/amd-commonjs.js", 
+// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/various/forge2.js","mtime":1368294283,"wrapper":"amd-ish","format":"amd-ish","id":"/forge2.js"}
+require.memoize("/forge2.js", 
 wrapAMD(function(require, define) {
-// @see http://addyosmani.com/writing-modular-js/
-// exports object based version, if you need to make a
-// circular dependency or need compatibility with
-// commonjs-like environments that are not Node.
-(function (define) {
-    //The 'id' is optional, but recommended if this is
-    //a popular web library that is used mostly in
-    //non-AMD/Node environments. However, if want
-    //to make an anonymous module, remove the 'id'
-    //below, and remove the id use in the define shim.
-    define('id', function (require, exports) {
-        exports.STRING = "string-value";
-        exports.OBJECT = {
-            id: "object-value"
-        };
-    });
-}(typeof define === 'function' && define.amd ? define : function (id, factory) {
-    if (typeof exports !== 'undefined') {
-        //commonjs
-        factory(require, exports);
-    } else {
-        //Create a global function. Only works if
-        //the code does not have dependencies, or
-        //dependencies fit the call pattern below.
-        factory(function(value) {
-            return window[value];
-        }, (window[id] = {}));
+// @see https://github.com/digitalbazaar/forge/blob/master/js/task.js
+(function() {
+/* ########## Begin module implementation ########## */
+function initModule(forge) {
+
+
+forge.task = forge.util;
+
+
+} // end module implementation
+
+/* ########## Begin module wrapper ########## */
+var name = 'task';
+var deps = ['./util'];
+var nodeDefine = null;
+if(typeof define !== 'function') {
+  // NodeJS -> AMD
+  if(typeof module === 'object' && module.exports) {
+    nodeDefine = function(ids, factory) {
+      factory(require, module);
+    };
+  }
+  // <script>
+  else {
+    forge = window.forge = window.forge || {};
+    initModule(forge);
+  }
+}
+// AMD
+if(nodeDefine || typeof define === 'function') {
+  // define module AMD style
+  (nodeDefine || define)(['require', 'module'].concat(deps),
+  function(require, module) {
+    module.exports = function(forge) {
+      var mods = deps.map(function(dep) {
+        return require(dep);
+      }).concat(initModule);
+      // handle circular dependencies
+      forge = forge || {};
+      forge.defined = forge.defined || {};
+      if(forge.defined[name]) {
+        return forge[name];
+      }
+      forge.defined[name] = true;
+      for(var i = 0; i < mods.length; ++i) {
+        mods[i](forge);
+      }
+      return forge[name];
+    };
+  });
+}
+})();
+
+})
+);
+// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/various/mocks/forge2.js/util.js","mtime":1368294293,"wrapper":"amd-ish","format":"amd-ish","id":"/util.js"}
+require.memoize("/util.js", 
+wrapAMD(function(require, define) {
+(function() {
+/* ########## Begin module implementation ########## */
+function initModule(forge) {
+
+
+forge.util = {
+  STRING: "string-value",
+  OBJECT: {
+    id: "object-value"
+  }
+};
+
+
+} // end module implementation
+
+/* ########## Begin module wrapper ########## */
+var name = 'util';
+var deps = [];
+var nodeDefine = null;
+if(typeof define !== 'function') {
+  // NodeJS -> AMD
+  if(typeof module === 'object' && module.exports) {
+    nodeDefine = function(ids, factory) {
+      factory(require, module);
+    };
+  }
+  // <script>
+  else {
+    if(typeof forge === 'undefined') {
+      forge = {};
     }
-}));
+    initModule(forge);
+  }
+}
+// AMD
+if(nodeDefine || typeof define === 'function') {
+  // define module AMD style
+  (nodeDefine || define)(['require', 'module'].concat(deps),
+  function(require, module) {
+    module.exports = function(forge) {
+      var mods = deps.map(function(dep) {
+        return require(dep);
+      }).concat(initModule);
+      // handle circular dependencies
+      forge = forge || {};
+      forge.defined = forge.defined || {};
+      if(forge.defined[name]) {
+        return forge[name];
+      }
+      forge.defined[name] = true;
+      for(var i = 0; i < mods.length; ++i) {
+        mods[i](forge);
+      }
+      return forge[name];
+    };
+  });
+}
+})();
 })
 );
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
 require.memoize("/main.js", 
 function(require, exports, module) {
   exports.main = function() {
-    return require('./amd-commonjs');
+    return require('./forge2');
   }
 }
 );

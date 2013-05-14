@@ -19,6 +19,7 @@
     "devDependencies": {
         "mocha": "~1.9.0",
         "glob": "~3.1.21",
+        "q": "~0.9.3",
         "pinf-for-nodejs": "0.1.2"
     },
     "scripts": {

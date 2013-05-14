@@ -60,39 +60,21 @@ function define(id, dependencies, moduleInitializer) {
     }
 }
 define.amd = true;
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/requirejs/nestedDefine-four.js","mtime":1366559708,"wrapper":"amd","format":"amd","id":"/nestedDefine-four.js"}
-require.memoize("/nestedDefine-four.js", 
-// @see https://github.com/jrburke/requirejs/blob/master/tests/nestedDefine/four.js
-define(['two', 'three'], function (two, three) {
-    return {
-        name: 'four',
-        twoName: two.name,
-        threeName: three.name
-    };
+// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/nestedRelativeRequire-sub-a.js/b.js","mtime":1368466699,"wrapper":"amd","format":"amd","id":"/b.js"}
+require.memoize("/b.js", 
+define([],function() {
+	return {
+		loaded: true
+	};
 })
 );
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
 require.memoize("/main.js", 
 function(require, exports, module) {
   exports.main = function() {
-    return require('./nestedDefine-four');
+    return require('./b');
   }
 }
-);
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/nestedDefine-four.js/two.js","mtime":1368388435,"wrapper":"amd","format":"amd","id":"/two.js"}
-require.memoize("/two.js", 
-// @see https://github.com/jrburke/requirejs/blob/master/tests/nestedDefine/two.js
-define({
-    name: 'two'
-})
-);
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/nestedDefine-four.js/three.js","mtime":1368388561,"wrapper":"amd","format":"amd","id":"/three.js"}
-require.memoize("/three.js", 
-define("three",[], function () {
-    return {
-        name: "three"
-    };
-})
 );
 // @pinf-bundle-ignore: 
 });
