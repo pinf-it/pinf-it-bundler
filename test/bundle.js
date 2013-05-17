@@ -35,7 +35,7 @@ describe('bundle', function() {
 
 	it('should read and write bundle with loader', function(done) {
 		var options = {
-			debug: true
+			//debug: true
 		};
 		return BUNDLE.open(PATH.join(__dirname, "assets/bundles/with-loader.js"), options, function(err, bundle) {
 			if (err) return done(err);
@@ -68,7 +68,7 @@ describe('bundle', function() {
 
 	it('should read and write bundle with just modules', function(done) {
 		var options = {
-			debug: true
+			//debug: true
 		};
 		return BUNDLE.open(PATH.join(__dirname, "assets/bundles/just-modules.js"), options, function(err, bundle) {
 			if (err) return done(err);
@@ -110,7 +110,7 @@ describe('bundle', function() {
 
 	it('should read and write bundle with header', function(done) {
 		var options = {
-			debug: true
+			//debug: true
 		};
 		return BUNDLE.open(PATH.join(__dirname, "assets/bundles/with-header.js"), options, function(err, bundle) {
 			if (err) return done(err);

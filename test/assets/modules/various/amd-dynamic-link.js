@@ -1,65 +1,5 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require) {
-// @pinf-bundle-header: {"helper":"amd"}
-function define(id, dependencies, moduleInitializer) {
-    if (typeof dependencies === "undefined" && typeof moduleInitializer === "undefined") {
-        if (typeof id === "function") {
-            moduleInitializer = id;
-        } else {
-            var exports = id;
-            moduleInitializer = function() { return exports; }
-        }
-        dependencies = ["require", "exports", "module"];
-        id = null;
-    } else
-    if (Array.isArray(id) && typeof dependencies === "function" && typeof moduleInitializer === "undefined") {
-        moduleInitializer = dependencies;
-        dependencies = id;
-        id = null;
-    } else
-    if (typeof id === "string" && typeof dependencies === "function" && typeof moduleInitializer === "undefined") {
-        moduleInitializer = dependencies;
-        dependencies = ["require", "exports", "module"];
-    }
-    return function(realRequire, exports, module) {
-        function require(id) {
-            if (Array.isArray(id)) {
-                var apis = [];
-                var callback = arguments[1];
-                id.forEach(function(moduleId, index) {
-                    realRequire.async(moduleId, function(api) {
-                        apis[index] = api
-                        if (apis.length === id.length) {
-                            if (callback) callback.apply(null, apis);
-                        }
-                    }, function(err) {
-                        throw err;
-                    });
-                });
-            } else {
-                return realRequire(id.replace(/^[^!]*!/, ""));
-            }
-        }
-        require.toUrl = function(id) {
-            return realRequire.sandbox.id.replace(/\/[^\/]*$/, "") + realRequire.id(id);
-        }
-        if (typeof amdRequireImplementation !== "undefined") {
-            amdRequireImplementation = require;
-        }
-        if (typeof moduleInitializer === "function") {
-            return moduleInitializer.apply(moduleInitializer, dependencies.map(function(name) {
-                if (name === "require") return require;
-                if (name === "exports") return exports;
-                if (name === "module") return module;
-                return require(name);
-            }));
-        } else
-        if (typeof dependencies === "object") {
-            return dependencies;
-        }
-    }
-}
-define.amd = { jQuery: true };
 // @pinf-bundle-header: {"helper":"amd-ish"}
 var amdRequireImplementation = null;
 function wrapAMD(callback) {
@@ -133,11 +73,71 @@ function wrapAMD(callback) {
     callback(amdRequire, wrappedDefine);
     return exports;
 }
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/requirejs/nestedRequire-a.js","mtime":1368468877,"wrapper":"amd-ish","format":"amd","id":"/nestedRequire-a.js"}
-require.memoize("/nestedRequire-a.js", 
+// @pinf-bundle-header: {"helper":"amd"}
+function define(id, dependencies, moduleInitializer) {
+    if (typeof dependencies === "undefined" && typeof moduleInitializer === "undefined") {
+        if (typeof id === "function") {
+            moduleInitializer = id;
+        } else {
+            var exports = id;
+            moduleInitializer = function() { return exports; }
+        }
+        dependencies = ["require", "exports", "module"];
+        id = null;
+    } else
+    if (Array.isArray(id) && typeof dependencies === "function" && typeof moduleInitializer === "undefined") {
+        moduleInitializer = dependencies;
+        dependencies = id;
+        id = null;
+    } else
+    if (typeof id === "string" && typeof dependencies === "function" && typeof moduleInitializer === "undefined") {
+        moduleInitializer = dependencies;
+        dependencies = ["require", "exports", "module"];
+    }
+    return function(realRequire, exports, module) {
+        function require(id) {
+            if (Array.isArray(id)) {
+                var apis = [];
+                var callback = arguments[1];
+                id.forEach(function(moduleId, index) {
+                    realRequire.async(moduleId, function(api) {
+                        apis[index] = api
+                        if (apis.length === id.length) {
+                            if (callback) callback.apply(null, apis);
+                        }
+                    }, function(err) {
+                        throw err;
+                    });
+                });
+            } else {
+                return realRequire(id.replace(/^[^!]*!/, ""));
+            }
+        }
+        require.toUrl = function(id) {
+            return realRequire.sandbox.id.replace(/\/[^\/]*$/, "") + realRequire.id(id);
+        }
+        if (typeof amdRequireImplementation !== "undefined") {
+            amdRequireImplementation = require;
+        }
+        if (typeof moduleInitializer === "function") {
+            return moduleInitializer.apply(moduleInitializer, dependencies.map(function(name) {
+                if (name === "require") return require;
+                if (name === "exports") return exports;
+                if (name === "module") return module;
+                return require(name);
+            }));
+        } else
+        if (typeof dependencies === "object") {
+            return dependencies;
+        }
+    }
+}
+define.amd = { jQuery: true };
+// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/various/amd-dynamic-link.js","mtime":1368588622,"wrapper":"amd-ish","format":"amd","id":"/amd-dynamic-link.js"}
+require.memoize("/amd-dynamic-link.js", 
 wrapAMD(function(require, define) {
 // @see https://github.com/jrburke/requirejs/blob/master/tests/nestedRequire/a.js
-define(['q', 'base'], function (Q, base) {
+define(['q-lib'], function (Q) {
 
     var deferred = Q.defer();
 
@@ -145,11 +145,12 @@ define(['q', 'base'], function (Q, base) {
         name: 'a',
         counter: 0,
         doSomething: function () {
-            this.counter += 1;
-            this.base = base;
+            var self = this;
+            self.counter += 1;
             var deferred = Q.defer();
             try {
-                require(['base'], function () {
+                require(['base'], function (base) {
+                    self.base = base;
                     deferred.resolve();
                 });
             } catch(err) {
@@ -167,23 +168,8 @@ define(['q', 'base'], function (Q, base) {
 })
 })
 );
-// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
-require.memoize("/main.js", 
-function(require, exports, module) {
-  exports.main = function() {
-    return require('./nestedRequire-a');
-  }
-}
-);
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/nestedRequire-a.js/base.js","mtime":1368468377,"wrapper":"amd","format":"amd","id":"/base.js"}
-require.memoize("/base.js", 
-// @see https://github.com/jrburke/requirejs/blob/master/tests/nestedRequire/base.js
-define({
-    name: 'base'
-})
-);
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/nestedRequire-a.js/q.js","mtime":1368509990,"wrapper":"amd-ish","format":"amd-ish","id":"/q.js"}
-require.memoize("/q.js", 
+// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/various/mocks/amd-dynamic-link.js/q-lib.js","mtime":1368588660,"wrapper":"amd-ish","format":"amd-ish","id":"/q-lib.js"}
+require.memoize("/q-lib.js", 
 wrapAMD(function(require, define) {
 // vim:ts=4:sts=4:sw=4:
 /*!
@@ -1712,6 +1698,20 @@ return Q;
 });
 
 })
+);
+// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/various/mocks/amd-dynamic-link.js/base.js","mtime":1368633501,"wrapper":"amd","format":"amd","id":"/base.js"}
+require.memoize("/base.js", 
+define({
+    name: 'base'
+})
+);
+// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
+require.memoize("/main.js", 
+function(require, exports, module) {
+  exports.main = function() {
+    return require('./amd-dynamic-link');
+  }
+}
 );
 // @pinf-bundle-ignore: 
 });

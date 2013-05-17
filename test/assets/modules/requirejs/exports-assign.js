@@ -9,7 +9,7 @@ function define(id, dependencies, moduleInitializer) {
             var exports = id;
             moduleInitializer = function() { return exports; }
         }
-        dependencies = [];
+        dependencies = ["require", "exports", "module"];
         id = null;
     } else
     if (Array.isArray(id) && typeof dependencies === "function" && typeof moduleInitializer === "undefined") {
@@ -59,7 +59,7 @@ function define(id, dependencies, moduleInitializer) {
         }
     }
 }
-define.amd = true;
+define.amd = { jQuery: true };
 // @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/requirejs/exports-assign.js","mtime":1366559525,"wrapper":"amd","format":"amd","id":"/exports-assign.js"}
 require.memoize("/exports-assign.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/exports/assign.js

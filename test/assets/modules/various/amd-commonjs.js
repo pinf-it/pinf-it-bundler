@@ -61,7 +61,7 @@ function wrapAMD(callback) {
             }
         }
     }
-    define.amd = true;
+    define.amd = { jQuery: true };
     var exports = null;
     function wrappedDefine() {
         exports = define.apply(null, arguments);
@@ -69,7 +69,7 @@ function wrapAMD(callback) {
     function amdRequire() {
         return amdRequireImplementation.apply(null, arguments);
     }
-    wrappedDefine.amd = true;
+    wrappedDefine.amd = { jQuery: true };
     callback(amdRequire, wrappedDefine);
     return exports;
 }

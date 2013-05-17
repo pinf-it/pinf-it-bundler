@@ -9,7 +9,7 @@ function define(id, dependencies, moduleInitializer) {
             var exports = id;
             moduleInitializer = function() { return exports; }
         }
-        dependencies = [];
+        dependencies = ["require", "exports", "module"];
         id = null;
     } else
     if (Array.isArray(id) && typeof dependencies === "function" && typeof moduleInitializer === "undefined") {
@@ -59,7 +59,7 @@ function define(id, dependencies, moduleInitializer) {
         }
     }
 }
-define.amd = true;
+define.amd = { jQuery: true };
 // @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/requirejs/anon-magenta.js","mtime":1366559327,"wrapper":"amd","format":"amd","id":"/anon-magenta.js"}
 require.memoize("/anon-magenta.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/anon/magenta.js
@@ -106,7 +106,7 @@ define([],function () {
     };
 })
 );
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/anon-magenta.js/message.txt","mtime":1368341433,"wrapper":"utf8","format":"utf8","id":"/message.txt"}
+// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/anon-magenta.js/message.txt","mtime":1368341433,"wrapper":"url-encoded","format":"utf8","id":"/message.txt"}
 require.memoize("/message.txt", 
 'hello%20world'
 );

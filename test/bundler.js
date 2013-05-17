@@ -39,9 +39,9 @@ describe('bundler', function() {
 		it('should bundle various JavaScript files', function(done) {
 
 			return getFiles([
-//				"no-interface/*.js"
-//				"requirejs/*.js",
-//				"umd/*.js",
+				"no-interface/*.js",
+				"requirejs/*.js",
+				"umd/*.js",
 				"various/*.js"
 			], function(err, files) {
 				if (err) return done(err);
@@ -51,16 +51,22 @@ describe('bundler', function() {
 					waitfor(function(done) {
 						var basePath = PATH.join(__dirname, "../node_modules/pinf-it-module-insight/test/assets", PATH.dirname(file));
 						var options = {
-							debug: true,
+							//debug: true,
 							distPath: PATH.join(__dirname, "assets/modules", PATH.dirname(file)),
 							locateMissingFile: function(descriptor, path, callback) {
-//console.log("locate missing file", path);
 								if (path.substring(0, basePath.length) !== basePath) {
 									return callback(new Error("Cannot locate missing file '" + path + "'"));
 								}
 								return callback(null, PATH.join(options.distPath, "mocks", PATH.basename(file), path.substring(basePath.length+1).replace(/\//g, "+")));
 							}
 						};
+						// Special case to prevent dynamic link and bundle it statically instead.
+						// This is not mandatory but used as a test here.
+						if (file === "various/amd-dynamic-link.js") {
+							options.forceMemoizeFiles = {
+								"/base.js": PATH.join(basePath, "base.js")
+							};
+						}
 						return BUNDLER.bundleFile(PATH.join(basePath, PATH.basename(file)), options, function(err, descriptor) {
 							if (err) return done(err);
 
@@ -76,12 +82,15 @@ describe('bundler', function() {
 									});
 								}
 
-								return PINF_FOR_NODEJS.sandbox(PATH.join(options.distPath, PATH.basename(file)), function(sandbox) {
+								return PINF_FOR_NODEJS.sandbox(PATH.join(options.distPath, PATH.basename(file)), {
+									globals: {
+								    	// Fake common globals.
+								    	window: {}
+									}
+								}, function(sandbox) {
 									try {
 										var result = sandbox.main();
 
-console.log(options.distPath);
-console.log("result", typeof result, result);
 										function testResult(result) {
 											try {
 
@@ -89,15 +98,10 @@ console.log("result", typeof result, result);
 													result = result();
 												}
 
-		console.log("result", typeof result, result);
-
 												// Special case to stringify `requirejs/circular-a.js`.
 												if (file === "requirejs/circular-a.js") {
 													result.b.c.a = result.b.c.a.name;
 												}
-
-
-		console.log("result", JSON.stringify(result, null, 4));
 
 												result = JSON.parse(JSON.stringify(result));
 

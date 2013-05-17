@@ -9,7 +9,7 @@ function define(id, dependencies, moduleInitializer) {
             var exports = id;
             moduleInitializer = function() { return exports; }
         }
-        dependencies = [];
+        dependencies = ["require", "exports", "module"];
         id = null;
     } else
     if (Array.isArray(id) && typeof dependencies === "function" && typeof moduleInitializer === "undefined") {
@@ -59,7 +59,7 @@ function define(id, dependencies, moduleInitializer) {
         }
     }
 }
-define.amd = true;
+define.amd = { jQuery: true };
 // @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/nestedRelativeRequire-sub-a.js/b.js","mtime":1368466699,"wrapper":"amd","format":"amd","id":"/b.js"}
 require.memoize("/b.js", 
 define([],function() {

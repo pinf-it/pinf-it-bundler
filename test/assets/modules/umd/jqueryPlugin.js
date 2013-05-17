@@ -61,7 +61,7 @@ function wrapAMD(callback) {
             }
         }
     }
-    define.amd = true;
+    define.amd = { jQuery: true };
     var exports = null;
     function wrappedDefine() {
         exports = define.apply(null, arguments);
@@ -69,7 +69,7 @@ function wrapAMD(callback) {
     function amdRequire() {
         return amdRequireImplementation.apply(null, arguments);
     }
-    wrappedDefine.amd = true;
+    wrappedDefine.amd = { jQuery: true };
     callback(amdRequire, wrappedDefine);
     return exports;
 }
@@ -132,8 +132,8 @@ function define(id, dependencies, moduleInitializer) {
         }
     }
 }
-define.amd = true;
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/umd/jqueryPlugin.js","mtime":1368512806,"wrapper":"amd-ish","format":"amd-ish","id":"/jqueryPlugin.js"}
+define.amd = { jQuery: true };
+// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/umd/jqueryPlugin.js","mtime":1368549516,"wrapper":"amd-ish","format":"amd-ish","id":"/jqueryPlugin.js"}
 require.memoize("/jqueryPlugin.js", 
 wrapAMD(function(require, define) {
 // @see https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
@@ -152,7 +152,7 @@ wrapAMD(function(require, define) {
         factory(jQuery);
     }
 }(function ($) {
-    $.fn.jqueryPlugin = function () {};
+    $.fn.jqueryPlugin = {};
     return $;
 }));
 

@@ -1,12 +1,12 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require) {
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/various/simple-global.js","mtime":1368763347,"wrapper":"commonjs/leaky","format":"leaky","id":"/simple-global.js"}
-require.memoize("/simple-global.js", 
+// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/various/simple-global-var.js","mtime":1368763380,"wrapper":"commonjs/leaky","format":"leaky","id":"/simple-global-var.js"}
+require.memoize("/simple-global-var.js", 
 function(require, exports, module) {
 
-STRING = "string-value";
+var STRING = "string-value";
 
-OBJECT = {
+var OBJECT = {
 	id: "object-value"
 };
 
@@ -20,7 +20,7 @@ return {
 require.memoize("/main.js", 
 function(require, exports, module) {
   exports.main = function() {
-    return require('./simple-global');
+    return require('./simple-global-var');
   }
 }
 );

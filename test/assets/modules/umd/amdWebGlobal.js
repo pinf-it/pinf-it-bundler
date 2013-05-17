@@ -61,7 +61,7 @@ function wrapAMD(callback) {
             }
         }
     }
-    define.amd = true;
+    define.amd = { jQuery: true };
     var exports = null;
     function wrappedDefine() {
         exports = define.apply(null, arguments);
@@ -69,7 +69,7 @@ function wrapAMD(callback) {
     function amdRequire() {
         return amdRequireImplementation.apply(null, arguments);
     }
-    wrappedDefine.amd = true;
+    wrappedDefine.amd = { jQuery: true };
     callback(amdRequire, wrappedDefine);
     return exports;
 }
@@ -132,7 +132,7 @@ function define(id, dependencies, moduleInitializer) {
         }
     }
 }
-define.amd = true;
+define.amd = { jQuery: true };
 // @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/umd/amdWebGlobal.js","mtime":1368512069,"wrapper":"amd-ish","format":"amd-ish","id":"/amdWebGlobal.js"}
 require.memoize("/amdWebGlobal.js", 
 wrapAMD(function(require, define) {
