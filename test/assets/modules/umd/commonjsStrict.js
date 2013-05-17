@@ -180,6 +180,11 @@ wrapAMD(function(require, define) {
 
 })
 );
+// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/umd/mocks/commonjsStrict.js/b.js","mtime":1368512701,"wrapper":"amd","format":"amd","id":"/b.js"}
+require.memoize("/b.js", 
+define([],function() {
+})
+);
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
 require.memoize("/main.js", 
 function(require, exports, module) {
@@ -187,11 +192,6 @@ function(require, exports, module) {
     return require('./commonjsStrict');
   }
 }
-);
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/umd/mocks/commonjsStrict.js/b.js","mtime":1368512701,"wrapper":"amd","format":"amd","id":"/b.js"}
-require.memoize("/b.js", 
-define([],function() {
-})
 );
 // @pinf-bundle-ignore: 
 });

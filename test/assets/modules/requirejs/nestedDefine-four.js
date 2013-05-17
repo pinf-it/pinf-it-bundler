@@ -71,14 +71,6 @@ define(['two', 'three'], function (two, three) {
     };
 })
 );
-// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
-require.memoize("/main.js", 
-function(require, exports, module) {
-  exports.main = function() {
-    return require('./nestedDefine-four');
-  }
-}
-);
 // @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/nestedDefine-four.js/two.js","mtime":1368388435,"wrapper":"amd","format":"amd","id":"/two.js"}
 require.memoize("/two.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/nestedDefine/two.js
@@ -93,6 +85,14 @@ define("three",[], function () {
         name: "three"
     };
 })
+);
+// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
+require.memoize("/main.js", 
+function(require, exports, module) {
+  exports.main = function() {
+    return require('./nestedDefine-four');
+  }
+}
 );
 // @pinf-bundle-ignore: 
 });

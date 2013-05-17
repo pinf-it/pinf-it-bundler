@@ -69,6 +69,10 @@ define(['text!./resources/local.html'], function (localHtml) {
     }
 })
 );
+// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/text-local.js/resources+local.html","mtime":1368511772,"wrapper":"url-encoded","format":"utf8","id":"/resources/local.html"}
+require.memoize("/resources/local.html", 
+'%3Ch1%3ELocal%3C%2Fh1%3E'
+);
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
 require.memoize("/main.js", 
 function(require, exports, module) {
@@ -76,10 +80,6 @@ function(require, exports, module) {
     return require('./text-local');
   }
 }
-);
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/text-local.js/resources+local.html","mtime":1368511772,"wrapper":"url-encoded","format":"utf8","id":"/resources/local.html"}
-require.memoize("/resources/local.html", 
-'%3Ch1%3ELocal%3C%2Fh1%3E'
 );
 // @pinf-bundle-ignore: 
 });

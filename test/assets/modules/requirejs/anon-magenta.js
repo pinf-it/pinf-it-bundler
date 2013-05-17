@@ -80,14 +80,6 @@ define(['require','exports','module','red','./blue','text!./message.txt'],functi
     exports.message = message;
 })
 );
-// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
-require.memoize("/main.js", 
-function(require, exports, module) {
-  exports.main = function() {
-    return require('./anon-magenta');
-  }
-}
-);
 // @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/anon-magenta.js/red.js","mtime":1368341466,"wrapper":"amd","format":"amd","id":"/red.js"}
 require.memoize("/red.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/anon/red.js
@@ -109,6 +101,14 @@ define([],function () {
 // @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/anon-magenta.js/message.txt","mtime":1368341433,"wrapper":"url-encoded","format":"utf8","id":"/message.txt"}
 require.memoize("/message.txt", 
 'hello%20world'
+);
+// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
+require.memoize("/main.js", 
+function(require, exports, module) {
+  exports.main = function() {
+    return require('./anon-magenta');
+  }
+}
 );
 // @pinf-bundle-ignore: 
 });
