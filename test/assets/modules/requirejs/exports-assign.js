@@ -69,12 +69,10 @@ define("assign",
     module.exports = "assign";
 })
 );
-// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
-require.memoize("/main.js", 
-function(require, exports, module) {
-  exports.main = function() {
-    return require('./exports-assign');
-  }
+// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
+require.memoize("/package.json", 
+{
+    "main": "/exports-assign.js"
 }
 );
 // @pinf-bundle-ignore: 

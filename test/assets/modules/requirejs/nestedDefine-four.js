@@ -86,12 +86,10 @@ define("three",[], function () {
     };
 })
 );
-// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
-require.memoize("/main.js", 
-function(require, exports, module) {
-  exports.main = function() {
-    return require('./nestedDefine-four');
-  }
+// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
+require.memoize("/package.json", 
+{
+    "main": "/nestedDefine-four.js"
 }
 );
 // @pinf-bundle-ignore: 

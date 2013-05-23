@@ -15,6 +15,11 @@ describe('bundler', function() {
 		ASSERT(typeof BUNDLER.bundleFile === "function");
 	});
 
+	it('should export `bundlePackage()`', function() {
+		ASSERT(typeof BUNDLER.bundlePackage === "function");
+	});
+
+
 	describe('`bundleFile()`', function() {
 
 		function getFiles(rules, callback) {
@@ -85,7 +90,10 @@ describe('bundler', function() {
 								return PINF_FOR_NODEJS.sandbox(PATH.join(options.distPath, PATH.basename(file)), {
 									globals: {
 								    	// Fake common globals.
-								    	window: {}
+								    	window: {},
+								    	console: {
+											log: function(message) {}
+										}
 									}
 								}, function(sandbox) {
 									try {
@@ -123,6 +131,112 @@ describe('bundler', function() {
 														throw err;
 													}
 												}
+												return done(null);
+											} catch(err) {
+												return done(err);
+											}
+										}
+
+										if (Q.isPromise(result)) {
+											return result.then(testResult, done);
+										} else {
+											return testResult(result);
+										}
+
+									} catch(err) {
+										return done(err);
+									}
+								}, done);
+
+							} catch(err) {
+								return done(err);
+							}
+						});
+					});
+				});
+			});
+		});
+	});
+
+
+	describe('`bundlePackage()`', function() {
+
+		function getFiles(rules, callback) {
+			var files = [];
+			var waitfor = WAITFOR.serial(function(err) {
+				if (err) return callback(err);
+				return callback(null, files);
+			});
+			rules.forEach(function(rule) {
+				waitfor(function(done) {
+					return GLOB(rule, {
+				        cwd: PATH.join(__dirname, "assets")
+				    }, function (err, paths) {
+				        if (err) return done(err);
+				        files = files.concat(paths);
+				        return done(null);
+				    });
+				});
+			});
+		}
+
+		it('should bundle various packages', function(done) {
+
+			return getFiles([
+				"packages/single",
+				"packages/multiple-nodejs",
+			], function(err, files) {
+				if (err) return done(err);
+
+				var waitfor = WAITFOR.serial(done);
+				files.forEach(function(file) {
+					waitfor(function(done) {
+						var basePath = PATH.join(__dirname, "assets", file);
+						var options = {
+							//debug: true,
+							distPath: PATH.join(basePath, ".dist")
+						};
+						return BUNDLER.bundlePackage(basePath, options, function(err, descriptor) {
+							if (err) return done(err);
+
+							try {
+
+								ASSERT(typeof descriptor === "object");
+
+								if (descriptor.errors.length > 0) {
+									descriptor.errors.forEach(function(error) {
+										var err = new Error("Got '" + error[0] + "' error '" + error[1] + "' for file '" + PATH.join("assets", file) + "'");
+										err.stack = error[2];
+										throw err;
+									});
+								}
+
+								var buffer = [];
+
+								return PINF_FOR_NODEJS.sandbox(PATH.join(options.distPath, descriptor.exports.main), {
+									globals: {
+										console: {
+											log: function(message) {
+												buffer.push(message);
+											}
+										}
+									}
+								}, function(sandbox) {
+									try {
+										var result = sandbox.main();
+
+										function testResult(result) {
+											try {
+
+												if (typeof result === "function") {
+													result = result();
+												}
+
+												result = JSON.parse(JSON.stringify(result));
+
+												ASSERT.deepEqual(result, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/api.json"))));
+												ASSERT.deepEqual(buffer, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/console.json"))));
+
 												return done(null);
 											} catch(err) {
 												return done(err);

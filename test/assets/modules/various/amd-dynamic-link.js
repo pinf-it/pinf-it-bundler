@@ -1705,12 +1705,10 @@ define({
     name: 'base'
 })
 );
-// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
-require.memoize("/main.js", 
-function(require, exports, module) {
-  exports.main = function() {
-    return require('./amd-dynamic-link');
-  }
+// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
+require.memoize("/package.json", 
+{
+    "main": "/amd-dynamic-link.js"
 }
 );
 // @pinf-bundle-ignore: 

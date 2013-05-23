@@ -69,12 +69,10 @@ define("red",[], function () {
     };
 })
 );
-// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
-require.memoize("/main.js", 
-function(require, exports, module) {
-  exports.main = function() {
-    return require('./anon-red');
-  }
+// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
+require.memoize("/package.json", 
+{
+    "main": "/anon-red.js"
 }
 );
 // @pinf-bundle-ignore: 

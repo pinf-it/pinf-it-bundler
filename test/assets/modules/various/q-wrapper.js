@@ -157,12 +157,10 @@ return Q;
 });
 })
 );
-// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
-require.memoize("/main.js", 
-function(require, exports, module) {
-  exports.main = function() {
-    return require('./q-wrapper');
-  }
+// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
+require.memoize("/package.json", 
+{
+    "main": "/q-wrapper.js"
 }
 );
 // @pinf-bundle-ignore: 

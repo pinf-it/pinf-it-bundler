@@ -84,12 +84,10 @@ define(['circular-a', 'exports'], function (a, exports) {
     exports.a = a;
 })
 );
-// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
-require.memoize("/main.js", 
-function(require, exports, module) {
-  exports.main = function() {
-    return require('./circular-a');
-  }
+// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
+require.memoize("/package.json", 
+{
+    "main": "/circular-a.js"
 }
 );
 // @pinf-bundle-ignore: 

@@ -73,12 +73,10 @@ define(['text!./resources/local.html'], function (localHtml) {
 require.memoize("/resources/local.html", 
 '%3Ch1%3ELocal%3C%2Fh1%3E'
 );
-// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/main.js"}
-require.memoize("/main.js", 
-function(require, exports, module) {
-  exports.main = function() {
-    return require('./text-local');
-  }
+// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
+require.memoize("/package.json", 
+{
+    "main": "/text-local.js"
 }
 );
 // @pinf-bundle-ignore: 
