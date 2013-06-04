@@ -246,7 +246,7 @@ describe('bundler', function() {
 											}
 										},
 										// We encountered a dynamic sync require.
-										resolveDynamic: function(pkg, sandbox, canonicalId, options) {
+										resolveDynamicSync: function(pkg, sandbox, canonicalId, options) {
 											var path = PATH.join(sandbox.id, canonicalId);
 											if (!FS.existsSync(path)) {
 
