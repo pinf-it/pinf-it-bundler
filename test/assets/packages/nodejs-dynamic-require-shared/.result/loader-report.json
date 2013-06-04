@@ -1,0 +1,20 @@
+{
+    "bundles": {
+        "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-dynamic-require-shared/.dist/app.js": "",
+        "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-dynamic-require-shared/.dist/app/greeting.js": ""
+    },
+    "packages": {
+        "": {
+            "mappings": {}
+        }
+    },
+    "modules": {
+        "/app.js": {
+            "exports": 1
+        },
+        "/package.json": {},
+        "/greeting.js": {
+            "exports": 1
+        }
+    }
+}

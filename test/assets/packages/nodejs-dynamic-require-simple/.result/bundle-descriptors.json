@@ -1,0 +1,117 @@
+{
+    "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-dynamic-require-simple": {
+        "bundles": {
+            "/app.js": {
+                "modules": {
+                    "/app": {
+                        "requireId": "/app",
+                        "memoizeId": "/app.js",
+                        "descriptor": {
+                            "filename": "app.js",
+                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-dynamic-require-simple/app.js",
+                            "mtime": 1370117725,
+                            "code": "\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
+                            "globals": {
+                                "main": {
+                                    "type": "assign"
+                                },
+                                "require": {
+                                    "type": "call"
+                                },
+                                "console": {
+                                    "type": "reference"
+                                }
+                            },
+                            "syntax": "javascript",
+                            "format": "leaky",
+                            "undefine": [],
+                            "uses": {
+                                "require.main": true
+                            },
+                            "dependencies": {
+                                "static": {},
+                                "dynamic": {},
+                                "computed": false
+                            }
+                        },
+                        "wrapper": {
+                            "type": "commonjs/leaky",
+                            "top": "function(require, exports, module) {",
+                            "code": null,
+                            "bottom": "return {\n    require: require,\n    console: console\n};\n}"
+                        },
+                        "dependencies": {
+                            "static": {},
+                            "dynamic": {},
+                            "computed": false
+                        },
+                        "warnings": [],
+                        "errors": []
+                    },
+                    "/package.json": {
+                        "requireId": "/package.json",
+                        "memoizeId": "/package.json",
+                        "wrapper": "json"
+                    }
+                },
+                "bundle": {
+                    "path": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-dynamic-require-simple/.dist/app.js"
+                },
+                "warnings": [],
+                "errors": [],
+                "id": "/app.js"
+            }
+        },
+        "warnings": [],
+        "errors": [],
+        "exports": {
+            "main": "/app.js"
+        }
+    },
+    "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-dynamic-require-simple/greeting.js": {
+        "modules": {
+            "/greeting": {
+                "requireId": "/greeting",
+                "memoizeId": "/greeting.js",
+                "descriptor": {
+                    "filename": "greeting.js",
+                    "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-dynamic-require-simple/greeting.js",
+                    "mtime": 1370117747,
+                    "code": "\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n",
+                    "globals": {
+                        "exports": {
+                            "type": "reference"
+                        }
+                    },
+                    "syntax": "javascript",
+                    "format": "commonjs",
+                    "undefine": [],
+                    "uses": {},
+                    "dependencies": {
+                        "static": {},
+                        "dynamic": {},
+                        "computed": false
+                    }
+                },
+                "wrapper": {
+                    "type": "commonjs",
+                    "top": "function(require, exports, module) {",
+                    "code": null,
+                    "bottom": "}"
+                },
+                "dependencies": {
+                    "static": {},
+                    "dynamic": {},
+                    "computed": false
+                },
+                "warnings": [],
+                "errors": []
+            }
+        },
+        "bundle": {
+            "path": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-dynamic-require-simple/.dist/app/greeting.js"
+        },
+        "warnings": [],
+        "errors": []
+    }
+}

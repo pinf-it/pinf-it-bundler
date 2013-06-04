@@ -1,0 +1,15 @@
+{
+    "bundles": {
+        "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/single/.dist/app.js": ""
+    },
+    "packages": {
+        "": {
+            "mappings": {}
+        }
+    },
+    "modules": {
+        "/app.js": {
+            "exports": 1
+        }
+    }
+}

@@ -1,0 +1,54 @@
+{
+    "bundles": {
+        "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-multiple/.dist/app.js": ""
+    },
+    "packages": {
+        "": {
+            "mappings": {
+                "greeting": "866cd8b2fec4d849bcacad09b53e232728faa395-greeting"
+            }
+        },
+        "866cd8b2fec4d849bcacad09b53e232728faa395-greeting": {
+            "mappings": {
+                "words": "4735705177f627a8cf46a2f09e7aa9e3727972a1-words"
+            }
+        },
+        "4735705177f627a8cf46a2f09e7aa9e3727972a1-words": {
+            "mappings": {
+                "letters": "41c15c9e2f7c0fac66c70bc7128690859cf36a2f-letters"
+            }
+        },
+        "41c15c9e2f7c0fac66c70bc7128690859cf36a2f-letters": {
+            "mappings": {
+                "letter-e": "350a489dc1c0bb1f2b3af10269ad29e51ab21eb9-letter-e",
+                "o": "8287407c9afb17da1df3c24b21eb8b5f07d3c425-o"
+            }
+        },
+        "350a489dc1c0bb1f2b3af10269ad29e51ab21eb9-letter-e": {
+            "mappings": {}
+        },
+        "8287407c9afb17da1df3c24b21eb8b5f07d3c425-o": {
+            "mappings": {}
+        }
+    },
+    "modules": {
+        "/app.js": {
+            "exports": 3
+        },
+        "866cd8b2fec4d849bcacad09b53e232728faa395-greeting/greeting.js": {
+            "exports": 1
+        },
+        "4735705177f627a8cf46a2f09e7aa9e3727972a1-words/hello.js": {
+            "exports": 1
+        },
+        "41c15c9e2f7c0fac66c70bc7128690859cf36a2f-letters/index.js": {
+            "exports": 2
+        },
+        "350a489dc1c0bb1f2b3af10269ad29e51ab21eb9-letter-e/e.js": {
+            "exports": 1
+        },
+        "8287407c9afb17da1df3c24b21eb8b5f07d3c425-o/index.js": {
+            "exports": 1
+        }
+    }
+}

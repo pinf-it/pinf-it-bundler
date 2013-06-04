@@ -1,0 +1,119 @@
+{
+    "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/commonjs-lib": {
+        "bundles": {
+            "/app.js": {
+                "modules": {
+                    "/app": {
+                        "requireId": "/app",
+                        "memoizeId": "/app.js",
+                        "descriptor": {
+                            "filename": "app.js",
+                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/commonjs-lib/app.js",
+                            "mtime": 1369322451,
+                            "code": "\nvar GREETING = require(\"greeting/greeting\");\n\nfunction main() {\n\tconsole.log(GREETING.getGreeting());\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
+                            "globals": {
+                                "GREETING": {
+                                    "type": "assign"
+                                },
+                                "require": {
+                                    "type": "call"
+                                },
+                                "main": {
+                                    "type": "assign"
+                                },
+                                "console": {
+                                    "type": "reference"
+                                }
+                            },
+                            "syntax": "javascript",
+                            "format": "leaky",
+                            "undefine": [],
+                            "uses": {
+                                "require.main": true
+                            },
+                            "dependencies": {
+                                "static": {
+                                    "greeting/greeting": {
+                                        "where": "inline"
+                                    }
+                                },
+                                "dynamic": {},
+                                "computed": false
+                            }
+                        },
+                        "wrapper": {
+                            "type": "commonjs/leaky",
+                            "top": "function(require, exports, module) {",
+                            "code": null,
+                            "bottom": "return {\n    GREETING: GREETING,\n    require: require,\n    console: console\n};\n}"
+                        },
+                        "dependencies": {
+                            "static": {
+                                "greeting/greeting": {
+                                    "where": "inline"
+                                }
+                            },
+                            "dynamic": {},
+                            "computed": false
+                        },
+                        "warnings": [],
+                        "errors": []
+                    },
+                    "616e128aa1ea154fbb6145a6d9928e02063132b9-greeting/lib-dir/greeting": {
+                        "requireId": "616e128aa1ea154fbb6145a6d9928e02063132b9-greeting/lib-dir/greeting",
+                        "memoizeId": "616e128aa1ea154fbb6145a6d9928e02063132b9-greeting/lib-dir/greeting.js",
+                        "descriptor": {
+                            "filename": "greeting.js",
+                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/commonjs-lib/node_modules/greeting/lib-dir/greeting.js",
+                            "mtime": 1369322859,
+                            "code": "\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n",
+                            "globals": {
+                                "exports": {
+                                    "type": "reference"
+                                }
+                            },
+                            "syntax": "javascript",
+                            "format": "commonjs",
+                            "undefine": [],
+                            "uses": {},
+                            "dependencies": {
+                                "static": {},
+                                "dynamic": {},
+                                "computed": false
+                            }
+                        },
+                        "wrapper": {
+                            "type": "commonjs",
+                            "top": "function(require, exports, module) {",
+                            "code": null,
+                            "bottom": "}"
+                        },
+                        "dependencies": {
+                            "static": {},
+                            "dynamic": {},
+                            "computed": false
+                        },
+                        "warnings": [],
+                        "errors": []
+                    },
+                    "/package.json": {
+                        "requireId": "/package.json",
+                        "memoizeId": "/package.json",
+                        "wrapper": "json"
+                    }
+                },
+                "bundle": {
+                    "path": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/commonjs-lib/.dist/app.js"
+                },
+                "warnings": [],
+                "errors": [],
+                "id": "/app.js"
+            }
+        },
+        "warnings": [],
+        "errors": [],
+        "exports": {
+            "main": "/app.js"
+        }
+    }
+}

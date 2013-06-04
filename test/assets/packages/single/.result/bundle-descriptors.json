@@ -1,0 +1,68 @@
+{
+    "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/single": {
+        "bundles": {
+            "/app.js": {
+                "modules": {
+                    "/app": {
+                        "requireId": "/app",
+                        "memoizeId": "/app.js",
+                        "descriptor": {
+                            "filename": "app.js",
+                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/single/app.js",
+                            "mtime": 1369152002,
+                            "code": "\nfunction main() {\n\tconsole.log(\"Hello World\");\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
+                            "globals": {
+                                "main": {
+                                    "type": "assign"
+                                },
+                                "console": {
+                                    "type": "reference"
+                                }
+                            },
+                            "syntax": "javascript",
+                            "format": "leaky",
+                            "undefine": [],
+                            "uses": {
+                                "require.main": true
+                            },
+                            "dependencies": {
+                                "static": {},
+                                "dynamic": {},
+                                "computed": false
+                            }
+                        },
+                        "wrapper": {
+                            "type": "commonjs/leaky",
+                            "top": "function(require, exports, module) {",
+                            "code": null,
+                            "bottom": "return {\n    console: console\n};\n}"
+                        },
+                        "dependencies": {
+                            "static": {},
+                            "dynamic": {},
+                            "computed": false
+                        },
+                        "warnings": [],
+                        "errors": []
+                    },
+                    "/package.json": {
+                        "requireId": "/package.json",
+                        "memoizeId": "/package.json",
+                        "wrapper": "json"
+                    }
+                },
+                "bundle": {
+                    "path": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/single/.dist/app.js"
+                },
+                "warnings": [],
+                "errors": [],
+                "id": "/app.js"
+            }
+        },
+        "warnings": [],
+        "errors": [],
+        "exports": {
+            "main": "/app.js"
+        }
+    }
+}

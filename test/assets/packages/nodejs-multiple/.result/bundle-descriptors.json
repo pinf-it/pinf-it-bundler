@@ -1,0 +1,318 @@
+{
+    "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-multiple": {
+        "bundles": {
+            "/app.js": {
+                "modules": {
+                    "/app": {
+                        "requireId": "/app",
+                        "memoizeId": "/app.js",
+                        "descriptor": {
+                            "filename": "app.js",
+                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-multiple/app.js",
+                            "mtime": 1369184299,
+                            "code": "\nvar GREETING = require(\"greeting\");\n\nfunction main() {\n\tconsole.log(GREETING.getGreeting());\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
+                            "globals": {
+                                "GREETING": {
+                                    "type": "assign"
+                                },
+                                "require": {
+                                    "type": "call"
+                                },
+                                "main": {
+                                    "type": "assign"
+                                },
+                                "console": {
+                                    "type": "reference"
+                                }
+                            },
+                            "syntax": "javascript",
+                            "format": "leaky",
+                            "undefine": [],
+                            "uses": {
+                                "require.main": true
+                            },
+                            "dependencies": {
+                                "static": {
+                                    "greeting": {
+                                        "where": "inline"
+                                    }
+                                },
+                                "dynamic": {},
+                                "computed": false
+                            }
+                        },
+                        "wrapper": {
+                            "type": "commonjs/leaky",
+                            "top": "function(require, exports, module) {",
+                            "code": null,
+                            "bottom": "return {\n    GREETING: GREETING,\n    require: require,\n    console: console\n};\n}"
+                        },
+                        "dependencies": {
+                            "static": {
+                                "greeting": {
+                                    "where": "inline"
+                                }
+                            },
+                            "dynamic": {},
+                            "computed": false
+                        },
+                        "warnings": [],
+                        "errors": []
+                    },
+                    "866cd8b2fec4d849bcacad09b53e232728faa395-greeting/greeting.js": {
+                        "requireId": "866cd8b2fec4d849bcacad09b53e232728faa395-greeting/greeting.js",
+                        "memoizeId": "866cd8b2fec4d849bcacad09b53e232728faa395-greeting/greeting.js",
+                        "descriptor": {
+                            "filename": "greeting.js",
+                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-multiple/node_modules/greeting/greeting.js",
+                            "mtime": 1369184343,
+                            "code": "\nvar HELLO = require(\"words/hello\");\n\nexports.getGreeting = function() {\n\treturn HELLO.getWord() + \" World\";\n}\n",
+                            "globals": {
+                                "HELLO": {
+                                    "type": "assign"
+                                },
+                                "require": {
+                                    "type": "call"
+                                },
+                                "exports": {
+                                    "type": "reference"
+                                }
+                            },
+                            "syntax": "javascript",
+                            "format": "commonjs",
+                            "undefine": [],
+                            "uses": {},
+                            "dependencies": {
+                                "static": {
+                                    "words/hello": {
+                                        "where": "inline"
+                                    }
+                                },
+                                "dynamic": {},
+                                "computed": false
+                            }
+                        },
+                        "wrapper": {
+                            "type": "commonjs",
+                            "top": "function(require, exports, module) {",
+                            "code": null,
+                            "bottom": "}"
+                        },
+                        "dependencies": {
+                            "static": {
+                                "words/hello": {
+                                    "where": "inline"
+                                }
+                            },
+                            "dynamic": {},
+                            "computed": false
+                        },
+                        "warnings": [],
+                        "errors": []
+                    },
+                    "4735705177f627a8cf46a2f09e7aa9e3727972a1-words/hello": {
+                        "requireId": "4735705177f627a8cf46a2f09e7aa9e3727972a1-words/hello",
+                        "memoizeId": "4735705177f627a8cf46a2f09e7aa9e3727972a1-words/hello.js",
+                        "descriptor": {
+                            "filename": "hello.js",
+                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-multiple/node_modules/words/hello.js",
+                            "mtime": 1369273442,
+                            "code": "\nvar LETTERS = require(\"letters\");\n\nexports.getWord = function() {\n\treturn \"H\" + LETTERS.getLetterE() + \"ll\" + LETTERS.getLetterO();\n}\n",
+                            "globals": {
+                                "LETTERS": {
+                                    "type": "assign"
+                                },
+                                "require": {
+                                    "type": "call"
+                                },
+                                "exports": {
+                                    "type": "reference"
+                                }
+                            },
+                            "syntax": "javascript",
+                            "format": "commonjs",
+                            "undefine": [],
+                            "uses": {},
+                            "dependencies": {
+                                "static": {
+                                    "letters": {
+                                        "where": "inline"
+                                    }
+                                },
+                                "dynamic": {},
+                                "computed": false
+                            }
+                        },
+                        "wrapper": {
+                            "type": "commonjs",
+                            "top": "function(require, exports, module) {",
+                            "code": null,
+                            "bottom": "}"
+                        },
+                        "dependencies": {
+                            "static": {
+                                "letters": {
+                                    "where": "inline"
+                                }
+                            },
+                            "dynamic": {},
+                            "computed": false
+                        },
+                        "warnings": [],
+                        "errors": []
+                    },
+                    "41c15c9e2f7c0fac66c70bc7128690859cf36a2f-letters/index.js": {
+                        "requireId": "41c15c9e2f7c0fac66c70bc7128690859cf36a2f-letters/index.js",
+                        "memoizeId": "41c15c9e2f7c0fac66c70bc7128690859cf36a2f-letters/index.js",
+                        "descriptor": {
+                            "filename": "index.js",
+                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-multiple/node_modules/words/node_modules/letters/index.js",
+                            "mtime": 1369273376,
+                            "code": "\nvar LETTER_E = require(\"letter-e/e\");\nvar LETTER_O = require(\"o\");\n\nexports.getLetterE = function() {\n\treturn LETTER_E.getLetter();\n}\n\nexports.getLetterO = function() {\n\treturn LETTER_O;\n}\n",
+                            "globals": {
+                                "LETTER_E": {
+                                    "type": "assign"
+                                },
+                                "require": {
+                                    "type": "call"
+                                },
+                                "LETTER_O": {
+                                    "type": "assign"
+                                },
+                                "exports": {
+                                    "type": "reference"
+                                }
+                            },
+                            "syntax": "javascript",
+                            "format": "commonjs",
+                            "undefine": [],
+                            "uses": {},
+                            "dependencies": {
+                                "static": {
+                                    "letter-e/e": {
+                                        "where": "inline"
+                                    },
+                                    "o": {
+                                        "where": "inline"
+                                    }
+                                },
+                                "dynamic": {},
+                                "computed": false
+                            }
+                        },
+                        "wrapper": {
+                            "type": "commonjs",
+                            "top": "function(require, exports, module) {",
+                            "code": null,
+                            "bottom": "}"
+                        },
+                        "dependencies": {
+                            "static": {
+                                "letter-e/e": {
+                                    "where": "inline"
+                                },
+                                "o": {
+                                    "where": "inline"
+                                }
+                            },
+                            "dynamic": {},
+                            "computed": false
+                        },
+                        "warnings": [],
+                        "errors": []
+                    },
+                    "350a489dc1c0bb1f2b3af10269ad29e51ab21eb9-letter-e/e": {
+                        "requireId": "350a489dc1c0bb1f2b3af10269ad29e51ab21eb9-letter-e/e",
+                        "memoizeId": "350a489dc1c0bb1f2b3af10269ad29e51ab21eb9-letter-e/e.js",
+                        "descriptor": {
+                            "filename": "e.js",
+                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-multiple/node_modules/letter-e/e.js",
+                            "mtime": 1369273586,
+                            "code": "\nexports.getLetter = function() {\n\treturn \"e\";\n}\n",
+                            "globals": {
+                                "exports": {
+                                    "type": "reference"
+                                }
+                            },
+                            "syntax": "javascript",
+                            "format": "commonjs",
+                            "undefine": [],
+                            "uses": {},
+                            "dependencies": {
+                                "static": {},
+                                "dynamic": {},
+                                "computed": false
+                            }
+                        },
+                        "wrapper": {
+                            "type": "commonjs",
+                            "top": "function(require, exports, module) {",
+                            "code": null,
+                            "bottom": "}"
+                        },
+                        "dependencies": {
+                            "static": {},
+                            "dynamic": {},
+                            "computed": false
+                        },
+                        "warnings": [],
+                        "errors": []
+                    },
+                    "8287407c9afb17da1df3c24b21eb8b5f07d3c425-o/index.js": {
+                        "requireId": "8287407c9afb17da1df3c24b21eb8b5f07d3c425-o/index.js",
+                        "memoizeId": "8287407c9afb17da1df3c24b21eb8b5f07d3c425-o/index.js",
+                        "descriptor": {
+                            "filename": "index.js",
+                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-multiple/node_modules/words/node_modules/o/index.js",
+                            "mtime": 1369273405,
+                            "code": "\nmodule.exports = \"o\";\n",
+                            "globals": {
+                                "module": {
+                                    "type": "reference"
+                                }
+                            },
+                            "syntax": "javascript",
+                            "format": "leaky",
+                            "undefine": [],
+                            "uses": {},
+                            "dependencies": {
+                                "static": {},
+                                "dynamic": {},
+                                "computed": false
+                            }
+                        },
+                        "wrapper": {
+                            "type": "commonjs/leaky",
+                            "top": "function(require, exports, module) {",
+                            "code": null,
+                            "bottom": "return {\n    module: module\n};\n}"
+                        },
+                        "dependencies": {
+                            "static": {},
+                            "dynamic": {},
+                            "computed": false
+                        },
+                        "warnings": [],
+                        "errors": []
+                    },
+                    "/package.json": {
+                        "requireId": "/package.json",
+                        "memoizeId": "/package.json",
+                        "wrapper": "json"
+                    }
+                },
+                "bundle": {
+                    "path": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-multiple/.dist/app.js"
+                },
+                "warnings": [],
+                "errors": [],
+                "id": "/app.js"
+            }
+        },
+        "warnings": [],
+        "errors": [],
+        "exports": {
+            "main": "/app.js"
+        }
+    }
+}

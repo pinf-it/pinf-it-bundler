@@ -1,0 +1,19 @@
+{
+    "bundles": {
+        "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-dynamic-require-simple/.dist/app.js": "",
+        "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-dynamic-require-simple/.dist/app/greeting.js": ""
+    },
+    "packages": {
+        "": {
+            "mappings": {}
+        }
+    },
+    "modules": {
+        "/app.js": {
+            "exports": 2
+        },
+        "/greeting.js": {
+            "exports": 1
+        }
+    }
+}
