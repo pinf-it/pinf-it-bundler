@@ -49,6 +49,11 @@
         },
         "8287407c9afb17da1df3c24b21eb8b5f07d3c425-o/index.js": {
             "exports": 1
-        }
+        },
+        "/package.json": {},
+        "866cd8b2fec4d849bcacad09b53e232728faa395-greeting/package.json": {},
+        "4735705177f627a8cf46a2f09e7aa9e3727972a1-words/package.json": {},
+        "41c15c9e2f7c0fac66c70bc7128690859cf36a2f-letters/package.json": {},
+        "8287407c9afb17da1df3c24b21eb8b5f07d3c425-o/package.json": {}
     }
 }

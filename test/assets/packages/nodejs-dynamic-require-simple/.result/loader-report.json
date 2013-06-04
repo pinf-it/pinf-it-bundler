@@ -12,6 +12,7 @@
         "/app.js": {
             "exports": 2
         },
+        "/package.json": {},
         "/greeting.js": {
             "exports": 1
         }

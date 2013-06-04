@@ -18,6 +18,8 @@
         },
         "616e128aa1ea154fbb6145a6d9928e02063132b9-greeting/lib-dir/greeting.js": {
             "exports": 1
-        }
+        },
+        "/package.json": {},
+        "616e128aa1ea154fbb6145a6d9928e02063132b9-greeting/package.json": {}
     }
 }
