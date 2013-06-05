@@ -17,7 +17,7 @@ This bundler is intended to replace the following tools and conventions:
   * [almond](https://github.com/jrburke/almond)
   * [component builder](https://github.com/component/builder.js)
   * [component require](https://github.com/component/require)
-  * [Grunt](http://gruntjs.com/) scripts that create concatenated and optimized code bundles
+  * [Grunt](http://gruntjs.com/) plugins and scripts that create concatenated and optimized code bundles
   * Build scripts that create concatenated and optimized code bundles
 
 
@@ -33,6 +33,11 @@ Usage
     const BUNDLER = require("pinf-it-bundler");
     
     BUNDLER.bundleFile("<path>", {
+        distPath: "<target directory>"
+    }, function(err, descriptor) {
+    });
+    
+    BUNDLER.bundlePackage("<path>", {
         distPath: "<target directory>"
     }, function(err, descriptor) {
     });
