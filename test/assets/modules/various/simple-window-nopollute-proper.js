@@ -1,6 +1,6 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require) {
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/various/simple-window-nopollute-proper.js","mtime":1368763431,"wrapper":"commonjs/leaky","format":"leaky","id":"/simple-window-nopollute-proper.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/simple-window-nopollute-proper.js","mtime":1368763431,"wrapper":"commonjs/leaky","format":"leaky","id":"/simple-window-nopollute-proper.js"}
 require.memoize("/simple-window-nopollute-proper.js", 
 function(require, exports, module) {
 ((function (window) {

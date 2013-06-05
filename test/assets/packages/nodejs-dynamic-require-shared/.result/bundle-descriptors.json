@@ -1,5 +1,5 @@
 {
-    "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-dynamic-require-shared": {
+    "test/assets/packages/nodejs-dynamic-require-shared": {
         "bundles": {
             "/app.js": {
                 "modules": {
@@ -8,7 +8,7 @@
                         "memoizeId": "/app.js",
                         "descriptor": {
                             "filename": "app.js",
-                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-dynamic-require-shared/app.js",
+                            "filepath": "test/assets/packages/nodejs-dynamic-require-shared/app.js",
                             "mtime": 1370114274,
                             "code": "\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nexports.getWorld = function() {\n\treturn \"World\";\t\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
                             "globals": {
@@ -58,7 +58,7 @@
                     }
                 },
                 "bundle": {
-                    "path": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-dynamic-require-shared/.dist/app.js"
+                    "path": "test/assets/packages/nodejs-dynamic-require-shared/.dist/app.js"
                 },
                 "warnings": [],
                 "errors": [],
@@ -71,14 +71,14 @@
             "main": "/app.js"
         }
     },
-    "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-dynamic-require-shared/greeting.js": {
+    "test/assets/packages/nodejs-dynamic-require-shared/greeting.js": {
         "modules": {
             "/greeting": {
                 "requireId": "/greeting",
                 "memoizeId": "/greeting.js",
                 "descriptor": {
                     "filename": "greeting.js",
-                    "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-dynamic-require-shared/greeting.js",
+                    "filepath": "test/assets/packages/nodejs-dynamic-require-shared/greeting.js",
                     "mtime": 1370114336,
                     "code": "\nvar APP = require(\"./app\");\n\nexports.getGreeting = function() {\n\treturn \"Hello \" + APP.getWorld();\n}\n",
                     "globals": {
@@ -126,7 +126,7 @@
             }
         },
         "bundle": {
-            "path": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-dynamic-require-shared/.dist/app/greeting.js"
+            "path": "test/assets/packages/nodejs-dynamic-require-shared/.dist/app/greeting.js"
         },
         "warnings": [],
         "errors": []

@@ -1,6 +1,6 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require) {
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/single/app.js","mtime":1369152002,"wrapper":"commonjs/leaky","format":"leaky","id":"/app.js"}
+// @pinf-bundle-module: {"file":"test/assets/packages/single/app.js","mtime":1369152002,"wrapper":"commonjs/leaky","format":"leaky","id":"/app.js"}
 require.memoize("/app.js", 
 function(require, exports, module) {
 

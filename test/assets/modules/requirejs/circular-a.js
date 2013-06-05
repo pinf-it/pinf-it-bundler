@@ -60,7 +60,7 @@ function define(id, dependencies, moduleInitializer) {
     }
 }
 define.amd = { jQuery: true };
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/requirejs/circular-a.js","mtime":1366559449,"wrapper":"amd","format":"amd","id":"/circular-a.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/circular-a.js","mtime":1366559449,"wrapper":"amd","format":"amd","id":"/circular-a.js"}
 require.memoize("/circular-a.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/circular/a.js
 define(['b', 'exports'], function (b, exports) {
@@ -68,7 +68,7 @@ define(['b', 'exports'], function (b, exports) {
     exports.b = b;
 })
 );
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/circular-a.js/b.js","mtime":1368386694,"wrapper":"amd","format":"amd","id":"/b.js"}
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/circular-a.js/b.js","mtime":1368386694,"wrapper":"amd","format":"amd","id":"/b.js"}
 require.memoize("/b.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/circular/b.js
 define(['c', 'exports'], function (c, exports) {
@@ -76,7 +76,7 @@ define(['c', 'exports'], function (c, exports) {
     exports.c = c;
 })
 );
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/circular-a.js/c.js","mtime":1368387913,"wrapper":"amd","format":"amd","id":"/c.js"}
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/circular-a.js/c.js","mtime":1368387913,"wrapper":"amd","format":"amd","id":"/c.js"}
 require.memoize("/c.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/circular/c.js
 define(['circular-a', 'exports'], function (a, exports) {

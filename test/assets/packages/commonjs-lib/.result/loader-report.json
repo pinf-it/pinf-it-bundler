@@ -1,14 +1,14 @@
 {
     "bundles": {
-        "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/commonjs-lib/.dist/app.js": ""
+        "test/assets/packages/commonjs-lib/.dist/app.js": ""
     },
     "packages": {
         "": {
             "mappings": {
-                "greeting": "616e128aa1ea154fbb6145a6d9928e02063132b9-greeting"
+                "greeting": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting"
             }
         },
-        "616e128aa1ea154fbb6145a6d9928e02063132b9-greeting": {
+        "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting": {
             "mappings": {}
         }
     },
@@ -16,10 +16,10 @@
         "/app.js": {
             "exports": 3
         },
-        "616e128aa1ea154fbb6145a6d9928e02063132b9-greeting/lib-dir/greeting.js": {
+        "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/lib-dir/greeting.js": {
             "exports": 1
         },
         "/package.json": {},
-        "616e128aa1ea154fbb6145a6d9928e02063132b9-greeting/package.json": {}
+        "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/package.json": {}
     }
 }

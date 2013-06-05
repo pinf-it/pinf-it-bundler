@@ -55,25 +55,28 @@ describe('bundler', function() {
 				var waitfor = WAITFOR.serial(done);
 				files.forEach(function(file) {
 					waitfor(function(done) {
-						var basePath = PATH.join(__dirname, "../node_modules/pinf-it-module-insight/test/assets", PATH.dirname(file));
+						var rootPath = PATH.dirname(__dirname);
+						var relPath = PATH.join("node_modules/pinf-it-module-insight/test/assets", PATH.dirname(file));
+						var basePath = PATH.join(rootPath, relPath);
 						var options = {
 							//debug: true,
-							distPath: PATH.join(__dirname, "assets/modules", PATH.dirname(file)),
+							rootPath: rootPath,
+							distPath: PATH.join("test/assets/modules", PATH.dirname(file)),
 							locateMissingFile: function(descriptor, path, callback) {
-								if (path.substring(0, basePath.length) !== basePath) {
+								if (path.substring(0, relPath.length) !== relPath) {
 									return callback(new Error("Cannot locate missing file '" + path + "'"));
 								}
-								return callback(null, PATH.join(options.distPath, "mocks", PATH.basename(file), path.substring(basePath.length+1).replace(/\//g, "+")));
+								return callback(null, PATH.join(options.distPath, "mocks", PATH.basename(file), path.substring(relPath.length+1).replace(/\//g, "+")));
 							}
 						};
 						// Special case to prevent dynamic link and bundle it statically instead.
 						// This is not mandatory but used as a test here.
 						if (file === "various/amd-dynamic-link.js") {
 							options.forceMemoizeFiles = {
-								"/base.js": PATH.join(basePath, "base.js")
+								"/base.js": PATH.join(relPath, "base.js")
 							};
 						}
-						return BUNDLER.bundleFile(PATH.join(basePath, PATH.basename(file)), options, function(err, descriptor) {
+						return BUNDLER.bundleFile(PATH.join(relPath, PATH.basename(file)), options, function(err, descriptor) {
 							if (err) return done(err);
 
 							try {
@@ -89,6 +92,7 @@ describe('bundler', function() {
 								}
 
 								return PINF_FOR_NODEJS.sandbox(PATH.join(options.distPath, PATH.basename(file)), {
+									rootPath: rootPath,
 									globals: {
 								    	// Fake common globals.
 								    	window: {},
@@ -123,7 +127,7 @@ describe('bundler', function() {
 													    }
 													});
 												} catch(err) {
-													var resultPath = PATH.join(options.distPath, "results", PATH.basename(file));
+													var resultPath = PATH.join(rootPath, options.distPath, "results", PATH.basename(file));
 													if (FS.existsSync(resultPath)) {
 														var expectedResult = FS.readFileSync(resultPath).toString();
 														expectedResult = expectedResult.replace(/\$DIST_PATH/g, options.distPath);
@@ -159,7 +163,6 @@ describe('bundler', function() {
 		});
 	});
 */
-
 	describe('`bundlePackage()`', function() {
 
 		function getFiles(rules, callback) {
@@ -196,19 +199,22 @@ describe('bundler', function() {
 				var waitfor = WAITFOR.serial(done);
 				files.forEach(function(file) {
 					waitfor(function(done) {
-						var basePath = PATH.join(__dirname, "assets", file);
+						var rootPath = PATH.dirname(__dirname);
+						var relPath = PATH.join("test/assets", file);
+						var basePath = PATH.join(rootPath, relPath);
 						var options = {
 							//debug: true,
-							distPath: PATH.join(basePath, ".dist")
+							rootPath: rootPath,
+							distPath: PATH.join(relPath, ".dist"),
 						};
 						FS.removeSync(options.distPath);
 
 						var bundleDescriptors = {};
 
-						return BUNDLER.bundlePackage(basePath, options, function(err, descriptor) {
+						return BUNDLER.bundlePackage(relPath, options, function(err, descriptor) {
 							if (err) return done(err);
 
-							bundleDescriptors[basePath] = descriptor;
+							bundleDescriptors[relPath] = descriptor;
 
 							try {
 
@@ -248,13 +254,14 @@ describe('bundler', function() {
 										// We encountered a dynamic sync require.
 										resolveDynamicSync: function(pkg, sandbox, canonicalId, options) {
 											var path = PATH.join(sandbox.id, canonicalId);
-											if (!FS.existsSync(path)) {
+											if (!FS.existsSync(PATH.join(rootPath, path))) {
 
 												// TODO: Resolve `pkg.id` to source path by looking at `descriptor`.
 
-												var filePath = PATH.join(__dirname, "assets", file, canonicalId);
+												var filePath = PATH.join(relPath, canonicalId);
 												var options = {
 													//debug: true,
+													rootPath: rootPath,
 													distPath: sandbox.id,
 													existingModules: descriptor.bundles[descriptor.exports.main].modules
 												};

@@ -60,7 +60,7 @@ function define(id, dependencies, moduleInitializer) {
     }
 }
 define.amd = { jQuery: true };
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/requirejs/nestedRelativeRequire-sub-a.js","mtime":1368511624,"wrapper":"amd","format":"amd","id":"/nestedRelativeRequire-sub-a.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/nestedRelativeRequire-sub-a.js","mtime":1368511624,"wrapper":"amd","format":"amd","id":"/nestedRelativeRequire-sub-a.js"}
 require.memoize("/nestedRelativeRequire-sub-a.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/nestedRelativeRequire/sub/a.js
 define(['require'],function(require) {

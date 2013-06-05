@@ -133,7 +133,7 @@ function define(id, dependencies, moduleInitializer) {
     }
 }
 define.amd = { jQuery: true };
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/requirejs/nestedRequire-a.js","mtime":1368468877,"wrapper":"amd-ish","format":"amd","id":"/nestedRequire-a.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/nestedRequire-a.js","mtime":1368468877,"wrapper":"amd-ish","format":"amd","id":"/nestedRequire-a.js"}
 require.memoize("/nestedRequire-a.js", 
 wrapAMD(function(require, define) {
 // @see https://github.com/jrburke/requirejs/blob/master/tests/nestedRequire/a.js
@@ -167,7 +167,7 @@ define(['q', 'base'], function (Q, base) {
 })
 })
 );
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/nestedRequire-a.js/q.js","mtime":1368509990,"wrapper":"amd-ish","format":"amd-ish","id":"/q.js"}
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/nestedRequire-a.js/q.js","mtime":1368509990,"wrapper":"amd-ish","format":"amd-ish","id":"/q.js"}
 require.memoize("/q.js", 
 wrapAMD(function(require, define) {
 // vim:ts=4:sts=4:sw=4:
@@ -1698,7 +1698,7 @@ return Q;
 
 })
 );
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/nestedRequire-a.js/base.js","mtime":1368468377,"wrapper":"amd","format":"amd","id":"/base.js"}
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/nestedRequire-a.js/base.js","mtime":1368468377,"wrapper":"amd","format":"amd","id":"/base.js"}
 require.memoize("/base.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/nestedRequire/base.js
 define({

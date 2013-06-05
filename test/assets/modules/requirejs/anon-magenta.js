@@ -60,7 +60,7 @@ function define(id, dependencies, moduleInitializer) {
     }
 }
 define.amd = { jQuery: true };
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/requirejs/anon-magenta.js","mtime":1366559327,"wrapper":"amd","format":"amd","id":"/anon-magenta.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/anon-magenta.js","mtime":1366559327,"wrapper":"amd","format":"amd","id":"/anon-magenta.js"}
 require.memoize("/anon-magenta.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/anon/magenta.js
 define(['require','exports','module','red','./blue','text!./message.txt'],function (require, exports, module) {
@@ -80,7 +80,7 @@ define(['require','exports','module','red','./blue','text!./message.txt'],functi
     exports.message = message;
 })
 );
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/anon-magenta.js/red.js","mtime":1368341466,"wrapper":"amd","format":"amd","id":"/red.js"}
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/anon-magenta.js/red.js","mtime":1368341466,"wrapper":"amd","format":"amd","id":"/red.js"}
 require.memoize("/red.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/anon/red.js
 define("red",[], function () {
@@ -89,7 +89,7 @@ define("red",[], function () {
     };
 })
 );
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/anon-magenta.js/blue.js","mtime":1368341486,"wrapper":"amd","format":"amd","id":"/blue.js"}
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/anon-magenta.js/blue.js","mtime":1368341486,"wrapper":"amd","format":"amd","id":"/blue.js"}
 require.memoize("/blue.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/anon/blue.js
 define([],function () {
@@ -98,7 +98,7 @@ define([],function () {
     };
 })
 );
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/requirejs/mocks/anon-magenta.js/message.txt","mtime":1368341433,"wrapper":"url-encoded","format":"utf8","id":"/message.txt"}
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/anon-magenta.js/message.txt","mtime":1368341433,"wrapper":"url-encoded","format":"utf8","id":"/message.txt"}
 require.memoize("/message.txt", 
 'hello%20world'
 );

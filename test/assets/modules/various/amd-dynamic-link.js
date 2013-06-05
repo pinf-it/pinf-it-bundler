@@ -133,7 +133,7 @@ function define(id, dependencies, moduleInitializer) {
     }
 }
 define.amd = { jQuery: true };
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/various/amd-dynamic-link.js","mtime":1368588622,"wrapper":"amd-ish","format":"amd","id":"/amd-dynamic-link.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/amd-dynamic-link.js","mtime":1368588622,"wrapper":"amd-ish","format":"amd","id":"/amd-dynamic-link.js"}
 require.memoize("/amd-dynamic-link.js", 
 wrapAMD(function(require, define) {
 // @see https://github.com/jrburke/requirejs/blob/master/tests/nestedRequire/a.js
@@ -168,7 +168,7 @@ define(['q-lib'], function (Q) {
 })
 })
 );
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/various/mocks/amd-dynamic-link.js/q-lib.js","mtime":1368588660,"wrapper":"amd-ish","format":"amd-ish","id":"/q-lib.js"}
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/amd-dynamic-link.js/q-lib.js","mtime":1368588660,"wrapper":"amd-ish","format":"amd-ish","id":"/q-lib.js"}
 require.memoize("/q-lib.js", 
 wrapAMD(function(require, define) {
 // vim:ts=4:sts=4:sw=4:
@@ -1699,7 +1699,7 @@ return Q;
 
 })
 );
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/modules/various/mocks/amd-dynamic-link.js/base.js","mtime":1368633501,"wrapper":"amd","format":"amd","id":"/base.js"}
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/amd-dynamic-link.js/base.js","mtime":1368633501,"wrapper":"amd","format":"amd","id":"/base.js"}
 require.memoize("/base.js", 
 define({
     name: 'base'

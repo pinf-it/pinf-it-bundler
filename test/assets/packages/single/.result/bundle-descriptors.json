@@ -1,5 +1,5 @@
 {
-    "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/single": {
+    "test/assets/packages/single": {
         "bundles": {
             "/app.js": {
                 "modules": {
@@ -8,7 +8,7 @@
                         "memoizeId": "/app.js",
                         "descriptor": {
                             "filename": "app.js",
-                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/single/app.js",
+                            "filepath": "test/assets/packages/single/app.js",
                             "mtime": 1369152002,
                             "code": "\nfunction main() {\n\tconsole.log(\"Hello World\");\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
                             "globals": {
@@ -52,7 +52,7 @@
                     }
                 },
                 "bundle": {
-                    "path": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/single/.dist/app.js"
+                    "path": "test/assets/packages/single/.dist/app.js"
                 },
                 "warnings": [],
                 "errors": [],

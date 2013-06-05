@@ -1,6 +1,6 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require) {
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/no-interface/no-globals-2.js","mtime":1366479052,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/no-globals-2.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/no-interface/no-globals-2.js","mtime":1366479052,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/no-globals-2.js"}
 require.memoize("/no-globals-2.js", 
 function(require, exports, module) {
 

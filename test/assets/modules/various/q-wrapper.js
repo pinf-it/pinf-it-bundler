@@ -73,7 +73,7 @@ function wrapAMD(callback) {
     callback(amdRequire, wrappedDefine);
     return exports;
 }
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/various/q-wrapper.js","mtime":1368549736,"wrapper":"amd-ish","format":"amd-ish","id":"/q-wrapper.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/q-wrapper.js","mtime":1368549736,"wrapper":"amd-ish","format":"amd-ish","id":"/q-wrapper.js"}
 require.memoize("/q-wrapper.js", 
 wrapAMD(function(require, define) {
 // @see https://github.com/kriskowal/q/blob/master/q.js

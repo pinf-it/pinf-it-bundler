@@ -1,5 +1,5 @@
 {
-    "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-multiple": {
+    "test/assets/packages/nodejs-multiple": {
         "bundles": {
             "/app.js": {
                 "modules": {
@@ -8,7 +8,7 @@
                         "memoizeId": "/app.js",
                         "descriptor": {
                             "filename": "app.js",
-                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-multiple/app.js",
+                            "filepath": "test/assets/packages/nodejs-multiple/app.js",
                             "mtime": 1369184299,
                             "code": "\nvar GREETING = require(\"greeting\");\n\nfunction main() {\n\tconsole.log(GREETING.getGreeting());\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
                             "globals": {
@@ -59,12 +59,12 @@
                         "warnings": [],
                         "errors": []
                     },
-                    "866cd8b2fec4d849bcacad09b53e232728faa395-greeting/greeting.js": {
-                        "requireId": "866cd8b2fec4d849bcacad09b53e232728faa395-greeting/greeting.js",
-                        "memoizeId": "866cd8b2fec4d849bcacad09b53e232728faa395-greeting/greeting.js",
+                    "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting/greeting.js": {
+                        "requireId": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting/greeting.js",
+                        "memoizeId": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting/greeting.js",
                         "descriptor": {
                             "filename": "greeting.js",
-                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-multiple/node_modules/greeting/greeting.js",
+                            "filepath": "test/assets/packages/nodejs-multiple/node_modules/greeting/greeting.js",
                             "mtime": 1369184343,
                             "code": "\nvar HELLO = require(\"words/hello\");\n\nexports.getGreeting = function() {\n\treturn HELLO.getWord() + \" World\";\n}\n",
                             "globals": {
@@ -110,12 +110,12 @@
                         "warnings": [],
                         "errors": []
                     },
-                    "4735705177f627a8cf46a2f09e7aa9e3727972a1-words/hello": {
-                        "requireId": "4735705177f627a8cf46a2f09e7aa9e3727972a1-words/hello",
-                        "memoizeId": "4735705177f627a8cf46a2f09e7aa9e3727972a1-words/hello.js",
+                    "85b2fe6f2976fbb5995739b47d993956ad97c068-words/hello": {
+                        "requireId": "85b2fe6f2976fbb5995739b47d993956ad97c068-words/hello",
+                        "memoizeId": "85b2fe6f2976fbb5995739b47d993956ad97c068-words/hello.js",
                         "descriptor": {
                             "filename": "hello.js",
-                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-multiple/node_modules/words/hello.js",
+                            "filepath": "test/assets/packages/nodejs-multiple/node_modules/words/hello.js",
                             "mtime": 1369273442,
                             "code": "\nvar LETTERS = require(\"letters\");\n\nexports.getWord = function() {\n\treturn \"H\" + LETTERS.getLetterE() + \"ll\" + LETTERS.getLetterO();\n}\n",
                             "globals": {
@@ -161,12 +161,12 @@
                         "warnings": [],
                         "errors": []
                     },
-                    "41c15c9e2f7c0fac66c70bc7128690859cf36a2f-letters/index.js": {
-                        "requireId": "41c15c9e2f7c0fac66c70bc7128690859cf36a2f-letters/index.js",
-                        "memoizeId": "41c15c9e2f7c0fac66c70bc7128690859cf36a2f-letters/index.js",
+                    "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters/index.js": {
+                        "requireId": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters/index.js",
+                        "memoizeId": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters/index.js",
                         "descriptor": {
                             "filename": "index.js",
-                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-multiple/node_modules/words/node_modules/letters/index.js",
+                            "filepath": "test/assets/packages/nodejs-multiple/node_modules/words/node_modules/letters/index.js",
                             "mtime": 1369273376,
                             "code": "\nvar LETTER_E = require(\"letter-e/e\");\nvar LETTER_O = require(\"o\");\n\nexports.getLetterE = function() {\n\treturn LETTER_E.getLetter();\n}\n\nexports.getLetterO = function() {\n\treturn LETTER_O;\n}\n",
                             "globals": {
@@ -221,12 +221,12 @@
                         "warnings": [],
                         "errors": []
                     },
-                    "350a489dc1c0bb1f2b3af10269ad29e51ab21eb9-letter-e/e": {
-                        "requireId": "350a489dc1c0bb1f2b3af10269ad29e51ab21eb9-letter-e/e",
-                        "memoizeId": "350a489dc1c0bb1f2b3af10269ad29e51ab21eb9-letter-e/e.js",
+                    "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e/e": {
+                        "requireId": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e/e",
+                        "memoizeId": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e/e.js",
                         "descriptor": {
                             "filename": "e.js",
-                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-multiple/node_modules/letter-e/e.js",
+                            "filepath": "test/assets/packages/nodejs-multiple/node_modules/letter-e/e.js",
                             "mtime": 1369273586,
                             "code": "\nexports.getLetter = function() {\n\treturn \"e\";\n}\n",
                             "globals": {
@@ -258,12 +258,12 @@
                         "warnings": [],
                         "errors": []
                     },
-                    "8287407c9afb17da1df3c24b21eb8b5f07d3c425-o/index.js": {
-                        "requireId": "8287407c9afb17da1df3c24b21eb8b5f07d3c425-o/index.js",
-                        "memoizeId": "8287407c9afb17da1df3c24b21eb8b5f07d3c425-o/index.js",
+                    "0d9a386644a6bc19a809e0eb36349e69e24c8501-o/index.js": {
+                        "requireId": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o/index.js",
+                        "memoizeId": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o/index.js",
                         "descriptor": {
                             "filename": "index.js",
-                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-multiple/node_modules/words/node_modules/o/index.js",
+                            "filepath": "test/assets/packages/nodejs-multiple/node_modules/words/node_modules/o/index.js",
                             "mtime": 1369273405,
                             "code": "\nmodule.exports = \"o\";\n",
                             "globals": {
@@ -302,7 +302,7 @@
                     }
                 },
                 "bundle": {
-                    "path": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/nodejs-multiple/.dist/app.js"
+                    "path": "test/assets/packages/nodejs-multiple/.dist/app.js"
                 },
                 "warnings": [],
                 "errors": [],

@@ -1,5 +1,5 @@
 {
-    "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/commonjs-lib": {
+    "test/assets/packages/commonjs-lib": {
         "bundles": {
             "/app.js": {
                 "modules": {
@@ -8,7 +8,7 @@
                         "memoizeId": "/app.js",
                         "descriptor": {
                             "filename": "app.js",
-                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/commonjs-lib/app.js",
+                            "filepath": "test/assets/packages/commonjs-lib/app.js",
                             "mtime": 1369322451,
                             "code": "\nvar GREETING = require(\"greeting/greeting\");\n\nfunction main() {\n\tconsole.log(GREETING.getGreeting());\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
                             "globals": {
@@ -59,12 +59,12 @@
                         "warnings": [],
                         "errors": []
                     },
-                    "616e128aa1ea154fbb6145a6d9928e02063132b9-greeting/lib-dir/greeting": {
-                        "requireId": "616e128aa1ea154fbb6145a6d9928e02063132b9-greeting/lib-dir/greeting",
-                        "memoizeId": "616e128aa1ea154fbb6145a6d9928e02063132b9-greeting/lib-dir/greeting.js",
+                    "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/lib-dir/greeting": {
+                        "requireId": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/lib-dir/greeting",
+                        "memoizeId": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/lib-dir/greeting.js",
                         "descriptor": {
                             "filename": "greeting.js",
-                            "filepath": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/commonjs-lib/node_modules/greeting/lib-dir/greeting.js",
+                            "filepath": "test/assets/packages/commonjs-lib/node_modules/greeting/lib-dir/greeting.js",
                             "mtime": 1369322859,
                             "code": "\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n",
                             "globals": {
@@ -103,7 +103,7 @@
                     }
                 },
                 "bundle": {
-                    "path": "/pinf/projects/github.com+pinf-it+pinf-it-bundler/test/assets/packages/commonjs-lib/.dist/app.js"
+                    "path": "test/assets/packages/commonjs-lib/.dist/app.js"
                 },
                 "warnings": [],
                 "errors": [],

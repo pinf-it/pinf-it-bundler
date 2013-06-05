@@ -73,7 +73,7 @@ function wrapAMD(callback) {
     callback(amdRequire, wrappedDefine);
     return exports;
 }
-// @pinf-bundle-module: {"file":"/pinf/projects/github.com+pinf-it+pinf-it-bundler/node_modules/pinf-it-module-insight/test/assets/various/universal-module.js","mtime":1366479052,"wrapper":"amd-ish","format":"amd-ish","id":"/universal-module.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/universal-module.js","mtime":1366479052,"wrapper":"amd-ish","format":"amd-ish","id":"/universal-module.js"}
 require.memoize("/universal-module.js", 
 wrapAMD(function(require, define) {
 // @see https://gist.github.com/kitcambridge/1251221
