@@ -48,6 +48,32 @@
                     "/package.json": {
                         "requireId": "/package.json",
                         "memoizeId": "/package.json",
+                        "descriptor": {
+                            "dirpath": "test/assets/packages/single",
+                            "id": "",
+                            "raw": {
+                                "package.json": {
+                                    "main": "app.js"
+                                }
+                            },
+                            "normalized": {
+                                "package.json": {
+                                    "exports": {
+                                        "main": "./app.js"
+                                    }
+                                }
+                            },
+                            "combined": {
+                                "exports": {
+                                    "main": "./app.js"
+                                }
+                            },
+                            "warnings": [],
+                            "errors": [],
+                            "memoized": {
+                                "main": "/app.js"
+                            }
+                        },
                         "wrapper": "json"
                     }
                 },

@@ -85,23 +85,48 @@ return {
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
-{"main":"/app.js","mappings":{"greeting":"8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting"}}
+{
+    "main": "/app.js",
+    "mappings": {
+        "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
+        "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+    }
+}
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting/package.json"}
 require.memoize("8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting/package.json", 
-{"main":"/greeting.js","mappings":{"words":"85b2fe6f2976fbb5995739b47d993956ad97c068-words"}}
+{
+    "main": "/greeting.js",
+    "mappings": {
+        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+    }
+}
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"85b2fe6f2976fbb5995739b47d993956ad97c068-words/package.json"}
 require.memoize("85b2fe6f2976fbb5995739b47d993956ad97c068-words/package.json", 
-{"mappings":{"letters":"bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters"}}
+{
+    "mappings": {
+        "letters": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters",
+        "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o"
+    }
+}
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters/package.json"}
 require.memoize("bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters/package.json", 
-{"main":"/index.js","mappings":{"letter-e":"a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e","o":"0d9a386644a6bc19a809e0eb36349e69e24c8501-o"}}
+{
+    "main": "/index.js",
+    "mappings": {
+        "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+        "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o"
+    }
+}
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"0d9a386644a6bc19a809e0eb36349e69e24c8501-o/package.json"}
 require.memoize("0d9a386644a6bc19a809e0eb36349e69e24c8501-o/package.json", 
-{"main":"/index.js"}
+{
+    "main": "/index.js"
+}
 );
 // @pinf-bundle-ignore: 
 });

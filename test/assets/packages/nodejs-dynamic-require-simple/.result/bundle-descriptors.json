@@ -51,6 +51,32 @@
                     "/package.json": {
                         "requireId": "/package.json",
                         "memoizeId": "/package.json",
+                        "descriptor": {
+                            "dirpath": "test/assets/packages/nodejs-dynamic-require-simple",
+                            "id": "",
+                            "raw": {
+                                "package.json": {
+                                    "main": "app"
+                                }
+                            },
+                            "normalized": {
+                                "package.json": {
+                                    "exports": {
+                                        "main": "./app.js"
+                                    }
+                                }
+                            },
+                            "combined": {
+                                "exports": {
+                                    "main": "./app.js"
+                                }
+                            },
+                            "warnings": [],
+                            "errors": [],
+                            "memoized": {
+                                "main": "/app.js"
+                            }
+                        },
                         "wrapper": "json"
                     }
                 },

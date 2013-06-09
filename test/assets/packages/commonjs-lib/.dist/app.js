@@ -33,11 +33,20 @@ exports.getGreeting = function() {
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
-{"main":"/app.js","mappings":{"greeting":"aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting"}}
+{
+    "main": "/app.js",
+    "mappings": {
+        "greeting": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting"
+    }
+}
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/package.json"}
 require.memoize("aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/package.json", 
-{"directories":{"lib":"lib-dir"}}
+{
+    "directories": {
+        "lib": "lib-dir"
+    }
+}
 );
 // @pinf-bundle-ignore: 
 });
