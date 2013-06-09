@@ -1,20 +1,22 @@
 {
-    "bundles": {
-        "test/assets/packages/nodejs-dynamic-require-simple/.dist/app.js": "",
-        "test/assets/packages/nodejs-dynamic-require-simple/.dist/app/greeting.js": ""
-    },
-    "packages": {
-        "": {
-            "mappings": {}
-        }
-    },
-    "modules": {
-        "/app.js": {
-            "exports": 2
+    "test/assets/packages/nodejs-dynamic-require-simple/.dist/app": {
+        "bundles": {
+            "test/assets/packages/nodejs-dynamic-require-simple/.dist/app.js": "",
+            "test/assets/packages/nodejs-dynamic-require-simple/.dist/app/greeting.js": ""
         },
-        "/package.json": {},
-        "/greeting.js": {
-            "exports": 1
+        "packages": {
+            "": {
+                "mappings": {}
+            }
+        },
+        "modules": {
+            "/app.js": {
+                "exports": 2
+            },
+            "/package.json": {},
+            "/greeting.js": {
+                "exports": 1
+            }
         }
     }
 }

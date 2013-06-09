@@ -1,59 +1,64 @@
 {
-    "bundles": {
-        "test/assets/packages/nodejs-multiple/.dist/app.js": ""
-    },
-    "packages": {
-        "": {
-            "mappings": {
-                "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting"
+    "test/assets/packages/nodejs-multiple/.dist/app": {
+        "bundles": {
+            "test/assets/packages/nodejs-multiple/.dist/app.js": ""
+        },
+        "packages": {
+            "": {
+                "mappings": {
+                    "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
+                    "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+                    "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                }
+            },
+            "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting": {
+                "mappings": {
+                    "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                }
+            },
+            "85b2fe6f2976fbb5995739b47d993956ad97c068-words": {
+                "mappings": {
+                    "letters": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters",
+                    "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o"
+                }
+            },
+            "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters": {
+                "mappings": {
+                    "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+                    "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o"
+                }
+            },
+            "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e": {
+                "mappings": {}
+            },
+            "0d9a386644a6bc19a809e0eb36349e69e24c8501-o": {
+                "mappings": {}
             }
         },
-        "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting": {
-            "mappings": {
-                "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
-            }
-        },
-        "85b2fe6f2976fbb5995739b47d993956ad97c068-words": {
-            "mappings": {
-                "letters": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters"
-            }
-        },
-        "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters": {
-            "mappings": {
-                "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o"
-            }
-        },
-        "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e": {
-            "mappings": {}
-        },
-        "0d9a386644a6bc19a809e0eb36349e69e24c8501-o": {
-            "mappings": {}
+        "modules": {
+            "/app.js": {
+                "exports": 3
+            },
+            "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting/greeting.js": {
+                "exports": 1
+            },
+            "85b2fe6f2976fbb5995739b47d993956ad97c068-words/hello.js": {
+                "exports": 1
+            },
+            "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters/index.js": {
+                "exports": 2
+            },
+            "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e/e.js": {
+                "exports": 1
+            },
+            "0d9a386644a6bc19a809e0eb36349e69e24c8501-o/index.js": {
+                "exports": 1
+            },
+            "/package.json": {},
+            "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting/package.json": {},
+            "85b2fe6f2976fbb5995739b47d993956ad97c068-words/package.json": {},
+            "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters/package.json": {},
+            "0d9a386644a6bc19a809e0eb36349e69e24c8501-o/package.json": {}
         }
-    },
-    "modules": {
-        "/app.js": {
-            "exports": 3
-        },
-        "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting/greeting.js": {
-            "exports": 1
-        },
-        "85b2fe6f2976fbb5995739b47d993956ad97c068-words/hello.js": {
-            "exports": 1
-        },
-        "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters/index.js": {
-            "exports": 2
-        },
-        "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e/e.js": {
-            "exports": 1
-        },
-        "0d9a386644a6bc19a809e0eb36349e69e24c8501-o/index.js": {
-            "exports": 1
-        },
-        "/package.json": {},
-        "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting/package.json": {},
-        "85b2fe6f2976fbb5995739b47d993956ad97c068-words/package.json": {},
-        "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters/package.json": {},
-        "0d9a386644a6bc19a809e0eb36349e69e24c8501-o/package.json": {}
     }
 }

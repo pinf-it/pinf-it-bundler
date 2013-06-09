@@ -1,16 +1,18 @@
 {
-    "bundles": {
-        "test/assets/packages/single/.dist/app.js": ""
-    },
-    "packages": {
-        "": {
-            "mappings": {}
-        }
-    },
-    "modules": {
-        "/app.js": {
-            "exports": 1
+    "test/assets/packages/single/.dist/app": {
+        "bundles": {
+            "test/assets/packages/single/.dist/app.js": ""
         },
-        "/package.json": {}
+        "packages": {
+            "": {
+                "mappings": {}
+            }
+        },
+        "modules": {
+            "/app.js": {
+                "exports": 1
+            },
+            "/package.json": {}
+        }
     }
 }
