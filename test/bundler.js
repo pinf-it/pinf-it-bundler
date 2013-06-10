@@ -229,6 +229,9 @@ describe('bundler', function() {
 									}
 									return callback();
 								}, callback);
+							},
+							getLoaderReport: function() {
+								return PINF_FOR_NODEJS.getReport();
 							}
 						};
 						FS.removeSync(options.distPath);
