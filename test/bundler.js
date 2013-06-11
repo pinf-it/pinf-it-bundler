@@ -188,11 +188,12 @@ describe('bundler', function() {
 		it('should bundle various packages', function(done) {
 
 			return getFiles([
-				"packages/single",
-				"packages/nodejs-multiple",
-				"packages/nodejs-dynamic-require-simple",
-				"packages/nodejs-dynamic-require-shared",
-				"packages/commonjs-lib",
+//				"packages/single",
+//				"packages/nodejs-multiple",
+//				"packages/nodejs-dynamic-require-simple",
+//				"packages/nodejs-dynamic-require-shared",
+				"packages/nodejs-dynamic-require-nested",
+//				"packages/commonjs-lib",
 //				"packages/nodejs-dynamic-require-complex"
 			], function(err, files) {
 				if (err) return done(err);
