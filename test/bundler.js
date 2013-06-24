@@ -253,7 +253,7 @@ describe('bundler', function() {
 											JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/loader-report.json")))
 										);
 									} else {
-										FS.writeFileSync(PATH.join(basePath, ".result/bundle-descriptors.json"), JSON.stringify(bundleDescriptors, null, 4));
+										FS.outputFileSync(PATH.join(basePath, ".result/bundle-descriptors.json"), JSON.stringify(bundleDescriptors, null, 4));
 										FS.writeFileSync(PATH.join(basePath, ".result/console.json"), JSON.stringify(buffer, null, 4));
 										FS.writeFileSync(PATH.join(basePath, ".result/api.json"), JSON.stringify(result, null, 4));
 										FS.writeFileSync(PATH.join(basePath, ".result/loader-report.json"), JSON.stringify(PINF_FOR_NODEJS.getReport().sandboxes, null, 4));
