@@ -3,7 +3,7 @@
         "bundles": {
             "/app.js": {
                 "modules": {
-                    "/app": {
+                    "/app.js": {
                         "requireId": "/app",
                         "memoizeId": "/app.js",
                         "descriptor": {
@@ -83,6 +83,7 @@
                         "wrapper": "json"
                     }
                 },
+                "expectExistingModules": {},
                 "bundle": {
                     "path": "test/assets/packages/nodejs-dynamic-require-shared/.dist/app.js"
                 },
@@ -97,9 +98,9 @@
             "main": "/app.js"
         }
     },
-    "test/assets/packages/nodejs-dynamic-require-shared/greeting.js": {
+    "test/assets/packages/nodejs-dynamic-require-shared/.dist/app/greeting.js": {
         "modules": {
-            "/greeting": {
+            "/greeting.js": {
                 "requireId": "/greeting",
                 "memoizeId": "/greeting.js",
                 "descriptor": {
@@ -149,6 +150,87 @@
                 },
                 "warnings": [],
                 "errors": []
+            }
+        },
+        "expectExistingModules": {
+            "/app": {
+                "requireId": "/app",
+                "memoizeId": "/app.js",
+                "descriptor": {
+                    "filename": "app.js",
+                    "filepath": "test/assets/packages/nodejs-dynamic-require-shared/app.js",
+                    "mtime": 1370114274,
+                    "code": "\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nexports.getWorld = function() {\n\treturn \"World\";\t\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
+                    "globals": {
+                        "main": {
+                            "type": "assign"
+                        },
+                        "require": {
+                            "type": "call"
+                        },
+                        "console": {
+                            "type": "reference"
+                        },
+                        "exports": {
+                            "type": "reference"
+                        }
+                    },
+                    "syntax": "javascript",
+                    "format": "commonjs",
+                    "undefine": [],
+                    "uses": {
+                        "require.main": true
+                    },
+                    "dependencies": {
+                        "static": {},
+                        "dynamic": {},
+                        "computed": false
+                    }
+                },
+                "wrapper": {
+                    "type": "commonjs",
+                    "top": "function(require, exports, module) {",
+                    "code": null,
+                    "bottom": "}"
+                },
+                "dependencies": {
+                    "static": {},
+                    "dynamic": {},
+                    "computed": false
+                },
+                "warnings": [],
+                "errors": []
+            },
+            "/package.json": {
+                "requireId": "/package.json",
+                "memoizeId": "/package.json",
+                "descriptor": {
+                    "dirpath": "test/assets/packages/nodejs-dynamic-require-shared",
+                    "id": "",
+                    "raw": {
+                        "package.json": {
+                            "main": "app"
+                        }
+                    },
+                    "normalized": {
+                        "package.json": {
+                            "exports": {
+                                "main": "./app.js"
+                            }
+                        }
+                    },
+                    "combined": {
+                        "exports": {
+                            "main": "./app.js"
+                        }
+                    },
+                    "warnings": [],
+                    "errors": [],
+                    "memoized": {
+                        "main": "/app.js"
+                    }
+                },
+                "wrapper": "json"
             }
         },
         "bundle": {

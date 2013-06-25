@@ -3,7 +3,7 @@
         "bundles": {
             "/app.js": {
                 "modules": {
-                    "/app": {
+                    "/app.js": {
                         "requireId": "/app",
                         "memoizeId": "/app.js",
                         "descriptor": {
@@ -77,6 +77,7 @@
                         "wrapper": "json"
                     }
                 },
+                "expectExistingModules": {},
                 "bundle": {
                     "path": "test/assets/packages/single/.dist/app.js"
                 },

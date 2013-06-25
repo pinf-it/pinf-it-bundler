@@ -5,7 +5,10 @@
         },
         "packages": {
             "": {
-                "mappings": {}
+                "main": "/app.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
             }
         },
         "modules": {

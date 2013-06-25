@@ -1,5 +1,5 @@
 {
-    "test/assets/packages/commonjs-lib": {
+    "test/assets/packages/nodejs-dynamic-require-pkg": {
         "bundles": {
             "/app.js": {
                 "modules": {
@@ -8,18 +8,15 @@
                         "memoizeId": "/app.js",
                         "descriptor": {
                             "filename": "app.js",
-                            "filepath": "test/assets/packages/commonjs-lib/app.js",
-                            "mtime": 1369322451,
-                            "code": "\nvar GREETING = require(\"greeting/greeting\");\n\nfunction main() {\n\tconsole.log(GREETING.getGreeting());\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
+                            "filepath": "test/assets/packages/nodejs-dynamic-require-pkg/app.js",
+                            "mtime": 1371052244,
+                            "code": "\nfunction main() {\n\n\tvar moduleId = \"greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
                             "globals": {
-                                "GREETING": {
+                                "main": {
                                     "type": "assign"
                                 },
                                 "require": {
                                     "type": "call"
-                                },
-                                "main": {
-                                    "type": "assign"
                                 },
                                 "console": {
                                     "type": "reference"
@@ -32,11 +29,7 @@
                                 "require.main": true
                             },
                             "dependencies": {
-                                "static": {
-                                    "greeting/greeting": {
-                                        "where": "inline"
-                                    }
-                                },
+                                "static": {},
                                 "dynamic": {},
                                 "computed": false
                             }
@@ -45,27 +38,109 @@
                             "type": "commonjs/leaky",
                             "top": "function(require, exports, module) {",
                             "code": null,
-                            "bottom": "return {\n    GREETING: GREETING,\n    require: require,\n    console: console\n};\n}"
+                            "bottom": "return {\n    require: require,\n    console: console\n};\n}"
                         },
                         "dependencies": {
-                            "static": {
-                                "greeting/greeting": {
-                                    "where": "inline"
-                                }
-                            },
+                            "static": {},
                             "dynamic": {},
                             "computed": false
                         },
                         "warnings": [],
                         "errors": []
                     },
-                    "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/lib-dir/greeting.js": {
-                        "requireId": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/lib-dir/greeting",
-                        "memoizeId": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/lib-dir/greeting.js",
+                    "/package.json": {
+                        "requireId": "/package.json",
+                        "memoizeId": "/package.json",
                         "descriptor": {
-                            "filename": "greeting.js",
-                            "filepath": "test/assets/packages/commonjs-lib/node_modules/greeting/lib-dir/greeting.js",
-                            "mtime": 1369322859,
+                            "dirpath": "test/assets/packages/nodejs-dynamic-require-pkg",
+                            "id": "",
+                            "raw": {
+                                "package.json": {
+                                    "main": "app"
+                                }
+                            },
+                            "normalized": {
+                                "package.json": {
+                                    "exports": {
+                                        "main": "./app.js"
+                                    },
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "config": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "greeting": "./node_modules/greeting"
+                                        }
+                                    },
+                                    "mappings": {
+                                        "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting"
+                                    }
+                                }
+                            },
+                            "combined": {
+                                "exports": {
+                                    "main": "./app.js"
+                                },
+                                "pm": {
+                                    "install": "npm"
+                                },
+                                "config": {
+                                    "directories": {
+                                        "dependency": "./node_modules"
+                                    }
+                                },
+                                "dependencies": {
+                                    "bundled": {
+                                        "greeting": "./node_modules/greeting"
+                                    }
+                                },
+                                "mappings": {
+                                    "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting"
+                                }
+                            },
+                            "warnings": [],
+                            "errors": [],
+                            "memoized": {
+                                "main": "/app.js",
+                                "mappings": {
+                                    "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting"
+                                }
+                            }
+                        },
+                        "wrapper": "json"
+                    }
+                },
+                "expectExistingModules": {},
+                "bundle": {
+                    "path": "test/assets/packages/nodejs-dynamic-require-pkg/.dist/app.js"
+                },
+                "warnings": [],
+                "errors": [],
+                "id": "/app.js"
+            }
+        },
+        "warnings": [],
+        "errors": [],
+        "exports": {
+            "main": "/app.js"
+        }
+    },
+    "test/assets/packages/nodejs-dynamic-require-pkg/.dist/app/5a760ab35d3f7b067635df668f0a516e020147a6-greeting.js": {
+        "bundles": {
+            "/index.js": {
+                "modules": {
+                    "5a760ab35d3f7b067635df668f0a516e020147a6-greeting/index.js": {
+                        "requireId": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting/index",
+                        "memoizeId": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting/index.js",
+                        "descriptor": {
+                            "filename": "index.js",
+                            "filepath": "test/assets/packages/nodejs-dynamic-require-pkg/node_modules/greeting/index.js",
+                            "mtime": 1371052229,
                             "code": "\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n",
                             "globals": {
                                 "exports": {
@@ -96,96 +171,27 @@
                         "warnings": [],
                         "errors": []
                     },
-                    "/package.json": {
-                        "requireId": "/package.json",
-                        "memoizeId": "/package.json",
+                    "5a760ab35d3f7b067635df668f0a516e020147a6-greeting/package.json": {
+                        "requireId": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting/package.json",
+                        "memoizeId": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting/package.json",
                         "descriptor": {
-                            "dirpath": "test/assets/packages/commonjs-lib",
+                            "dirpath": "test/assets/packages/nodejs-dynamic-require-pkg/node_modules/greeting",
                             "id": "",
                             "raw": {
-                                "package.json": {
-                                    "main": "app"
-                                }
+                                "package.json": {}
                             },
                             "normalized": {
                                 "package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "config": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
                                     "exports": {
-                                        "main": "./app.js"
-                                    },
-                                    "pm": {
-                                        "install": "npm"
-                                    },
-                                    "config": {
-                                        "directories": {
-                                            "dependency": "./node_modules"
-                                        }
-                                    },
-                                    "dependencies": {
-                                        "bundled": {
-                                            "greeting": "./node_modules/greeting"
-                                        }
-                                    },
-                                    "mappings": {
-                                        "greeting": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting"
-                                    }
-                                }
-                            },
-                            "combined": {
-                                "exports": {
-                                    "main": "./app.js"
-                                },
-                                "pm": {
-                                    "install": "npm"
-                                },
-                                "config": {
-                                    "directories": {
-                                        "dependency": "./node_modules"
-                                    }
-                                },
-                                "dependencies": {
-                                    "bundled": {
-                                        "greeting": "./node_modules/greeting"
-                                    }
-                                },
-                                "mappings": {
-                                    "greeting": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting"
-                                }
-                            },
-                            "warnings": [],
-                            "errors": [],
-                            "memoized": {
-                                "main": "/app.js",
-                                "mappings": {
-                                    "greeting": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting"
-                                }
-                            }
-                        },
-                        "wrapper": "json"
-                    },
-                    "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/package.json": {
-                        "requireId": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/package.json",
-                        "memoizeId": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/package.json",
-                        "descriptor": {
-                            "dirpath": "test/assets/packages/commonjs-lib/node_modules/greeting",
-                            "id": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting",
-                            "raw": {
-                                "package.json": {
-                                    "directories": {
-                                        "lib": "./lib-dir",
-                                        "dependency": "./node_modules"
-                                    }
-                                }
-                            },
-                            "normalized": {
-                                "package.json": {
-                                    "config": {
-                                        "directories": {
-                                            "lib": "./lib-dir",
-                                            "dependency": "./node_modules"
-                                        }
-                                    },
-                                    "pm": {
-                                        "install": "npm"
+                                        "main": "./index.js"
                                     },
                                     "dependencies": {
                                         "bundled": {
@@ -193,19 +199,21 @@
                                         }
                                     },
                                     "mappings": {
-                                        "greeting": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting"
+                                        "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting"
                                     }
                                 }
                             },
                             "combined": {
+                                "pm": {
+                                    "install": "npm"
+                                },
                                 "config": {
                                     "directories": {
-                                        "lib": "./lib-dir",
                                         "dependency": "./node_modules"
                                     }
                                 },
-                                "pm": {
-                                    "install": "npm"
+                                "exports": {
+                                    "main": "./index.js"
                                 },
                                 "dependencies": {
                                     "bundled": {
@@ -213,15 +221,13 @@
                                     }
                                 },
                                 "mappings": {
-                                    "greeting": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting"
+                                    "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting"
                                 }
                             },
                             "warnings": [],
                             "errors": [],
                             "memoized": {
-                                "directories": {
-                                    "lib": "lib-dir"
-                                }
+                                "main": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting/index.js"
                             }
                         },
                         "wrapper": "json"
@@ -229,17 +235,17 @@
                 },
                 "expectExistingModules": {},
                 "bundle": {
-                    "path": "test/assets/packages/commonjs-lib/.dist/app.js"
+                    "path": "test/assets/packages/nodejs-dynamic-require-pkg/.dist/app/5a760ab35d3f7b067635df668f0a516e020147a6-greeting.js"
                 },
                 "warnings": [],
                 "errors": [],
-                "id": "/app.js"
+                "id": "/index.js"
             }
         },
         "warnings": [],
         "errors": [],
         "exports": {
-            "main": "/app.js"
+            "main": "/index.js"
         }
     }
 }

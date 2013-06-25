@@ -3,7 +3,7 @@
         "bundles": {
             "/app.js": {
                 "modules": {
-                    "/app": {
+                    "/app.js": {
                         "requireId": "/app",
                         "memoizeId": "/app.js",
                         "descriptor": {
@@ -80,6 +80,7 @@
                         "wrapper": "json"
                     }
                 },
+                "expectExistingModules": {},
                 "bundle": {
                     "path": "test/assets/packages/nodejs-dynamic-require-simple/.dist/app.js"
                 },
@@ -94,9 +95,9 @@
             "main": "/app.js"
         }
     },
-    "test/assets/packages/nodejs-dynamic-require-simple/greeting.js": {
+    "test/assets/packages/nodejs-dynamic-require-simple/.dist/app/greeting.js": {
         "modules": {
-            "/greeting": {
+            "/greeting.js": {
                 "requireId": "/greeting",
                 "memoizeId": "/greeting.js",
                 "descriptor": {
@@ -132,6 +133,39 @@
                 },
                 "warnings": [],
                 "errors": []
+            }
+        },
+        "expectExistingModules": {
+            "/package.json": {
+                "requireId": "/package.json",
+                "memoizeId": "/package.json",
+                "descriptor": {
+                    "dirpath": "test/assets/packages/nodejs-dynamic-require-simple",
+                    "id": "",
+                    "raw": {
+                        "package.json": {
+                            "main": "app"
+                        }
+                    },
+                    "normalized": {
+                        "package.json": {
+                            "exports": {
+                                "main": "./app.js"
+                            }
+                        }
+                    },
+                    "combined": {
+                        "exports": {
+                            "main": "./app.js"
+                        }
+                    },
+                    "warnings": [],
+                    "errors": [],
+                    "memoized": {
+                        "main": "/app.js"
+                    }
+                },
+                "wrapper": "json"
             }
         },
         "bundle": {

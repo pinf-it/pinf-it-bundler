@@ -188,13 +188,14 @@ describe('bundler', function() {
 		it('should bundle various packages', function(done) {
 
 			return getFiles([
-//				"packages/single",
-//				"packages/nodejs-multiple",
-//				"packages/nodejs-dynamic-require-simple",
-//				"packages/nodejs-dynamic-require-shared",
+				"packages/single",
+				"packages/nodejs-multiple",
+				"packages/nodejs-dynamic-require-simple",
+				"packages/nodejs-dynamic-require-shared",
 				"packages/nodejs-dynamic-require-nested",
-//				"packages/commonjs-lib",
-//				"packages/nodejs-dynamic-require-complex"
+				"packages/nodejs-dynamic-require-pkg",
+				"packages/commonjs-lib",
+				"packages/nodejs-dynamic-require-complex"
 			], function(err, files) {
 				if (err) return done(err);
 
@@ -209,6 +210,7 @@ describe('bundler', function() {
 						var buffer = [];
 						var result = null;
 
+						var lastBundlePath = null;
 						var options = {
 							debug: true,
 							rootPath: rootPath,
@@ -222,6 +224,7 @@ describe('bundler', function() {
 									}
 								};
 								PINF_FOR_NODEJS.reset();
+								lastBundlePath = bundlePath;
 								return PINF_FOR_NODEJS.sandbox(bundlePath, sandboxOptions, function(sandbox) {
 									try {
 										result = sandbox.main();
@@ -244,6 +247,8 @@ describe('bundler', function() {
 										result = result();
 									}
 									result = JSON.parse(JSON.stringify(result));
+
+//console.log(JSON.stringify(PINF_FOR_NODEJS.getReport().sandboxes, null, 4));
 									if (MODE === "test") {
 										ASSERT.deepEqual(bundleDescriptors, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/bundle-descriptors.json"))));
 										ASSERT.deepEqual(buffer, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/console.json"))));
@@ -258,7 +263,40 @@ describe('bundler', function() {
 										FS.writeFileSync(PATH.join(basePath, ".result/api.json"), JSON.stringify(result, null, 4));
 										FS.writeFileSync(PATH.join(basePath, ".result/loader-report.json"), JSON.stringify(PINF_FOR_NODEJS.getReport().sandboxes, null, 4));
 									}
-									return done();
+
+									// Now that bundling was successful, run the bundled program.
+
+									buffer = [];
+									result = null;
+									PINF_FOR_NODEJS.reset();
+
+									return PINF_FOR_NODEJS.sandbox(lastBundlePath, {
+										globals: {
+											console: {
+												log: function(message) {
+													buffer.push(message);
+												}
+											}
+										}
+									}, function(sandbox) {
+										try {
+											result = sandbox.main();
+										} catch(err) {
+											return done(err);
+										}
+										if (typeof result === "function") {
+											result = result();
+										}
+										result = JSON.parse(JSON.stringify(result));
+
+										ASSERT.deepEqual(buffer, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/console.json"))));
+										ASSERT.deepEqual(result, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/api.json"))));
+										ASSERT.deepEqual(
+											PINF_FOR_NODEJS.getReport().sandboxes,
+											JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/loader-report.json")))
+										);
+										return done();
+									}, done);
 								} catch(err) {
 									return done(err);
 								}

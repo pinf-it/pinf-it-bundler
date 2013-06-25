@@ -3,7 +3,7 @@
         "bundles": {
             "/app.js": {
                 "modules": {
-                    "/app": {
+                    "/app.js": {
                         "requireId": "/app",
                         "memoizeId": "/app.js",
                         "descriptor": {
@@ -110,7 +110,7 @@
                         "warnings": [],
                         "errors": []
                     },
-                    "85b2fe6f2976fbb5995739b47d993956ad97c068-words/hello": {
+                    "85b2fe6f2976fbb5995739b47d993956ad97c068-words/hello.js": {
                         "requireId": "85b2fe6f2976fbb5995739b47d993956ad97c068-words/hello",
                         "memoizeId": "85b2fe6f2976fbb5995739b47d993956ad97c068-words/hello.js",
                         "descriptor": {
@@ -221,7 +221,7 @@
                         "warnings": [],
                         "errors": []
                     },
-                    "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e/e": {
+                    "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e/e.js": {
                         "requireId": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e/e",
                         "memoizeId": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e/e.js",
                         "descriptor": {
@@ -363,15 +363,319 @@
                             "memoized": {
                                 "main": "/app.js",
                                 "mappings": {
+                                    "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting"
+                                }
+                            }
+                        },
+                        "wrapper": "json"
+                    },
+                    "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting/package.json": {
+                        "requireId": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting/package.json",
+                        "memoizeId": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting/package.json",
+                        "descriptor": {
+                            "dirpath": "test/assets/packages/nodejs-multiple/node_modules/greeting",
+                            "id": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
+                            "raw": {
+                                "package.json": {
+                                    "main": "./greeting.js"
+                                }
+                            },
+                            "normalized": {
+                                "package.json": {
+                                    "exports": {
+                                        "main": "./greeting.js"
+                                    },
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "config": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "greeting": "",
+                                            "letter-e": "../letter-e",
+                                            "words": "../words"
+                                        }
+                                    },
+                                    "mappings": {
+                                        "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
+                                        "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                    }
+                                }
+                            },
+                            "combined": {
+                                "exports": {
+                                    "main": "./greeting.js"
+                                },
+                                "pm": {
+                                    "install": "npm"
+                                },
+                                "config": {
+                                    "directories": {
+                                        "dependency": "./node_modules"
+                                    }
+                                },
+                                "dependencies": {
+                                    "bundled": {
+                                        "greeting": "",
+                                        "letter-e": "../letter-e",
+                                        "words": "../words"
+                                    }
+                                },
+                                "mappings": {
                                     "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
                                     "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+                                    "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                }
+                            },
+                            "warnings": [],
+                            "errors": [],
+                            "memoized": {
+                                "main": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting/greeting.js",
+                                "mappings": {
                                     "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
                                 }
                             }
                         },
                         "wrapper": "json"
+                    },
+                    "85b2fe6f2976fbb5995739b47d993956ad97c068-words/package.json": {
+                        "requireId": "85b2fe6f2976fbb5995739b47d993956ad97c068-words/package.json",
+                        "memoizeId": "85b2fe6f2976fbb5995739b47d993956ad97c068-words/package.json",
+                        "descriptor": {
+                            "dirpath": "test/assets/packages/nodejs-multiple/node_modules/words",
+                            "id": "85b2fe6f2976fbb5995739b47d993956ad97c068-words",
+                            "raw": {
+                                "package.json": {}
+                            },
+                            "normalized": {
+                                "package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "config": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "letters": "./node_modules/letters",
+                                            "o": "./node_modules/o",
+                                            "greeting": "../greeting",
+                                            "letter-e": "../letter-e",
+                                            "words": ""
+                                        }
+                                    },
+                                    "mappings": {
+                                        "letters": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters",
+                                        "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
+                                        "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
+                                        "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                    }
+                                }
+                            },
+                            "combined": {
+                                "pm": {
+                                    "install": "npm"
+                                },
+                                "config": {
+                                    "directories": {
+                                        "dependency": "./node_modules"
+                                    }
+                                },
+                                "dependencies": {
+                                    "bundled": {
+                                        "letters": "./node_modules/letters",
+                                        "o": "./node_modules/o",
+                                        "greeting": "../greeting",
+                                        "letter-e": "../letter-e",
+                                        "words": ""
+                                    }
+                                },
+                                "mappings": {
+                                    "letters": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters",
+                                    "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
+                                    "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
+                                    "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+                                    "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                }
+                            },
+                            "warnings": [],
+                            "errors": [],
+                            "memoized": {
+                                "mappings": {
+                                    "letters": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters"
+                                }
+                            }
+                        },
+                        "wrapper": "json"
+                    },
+                    "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters/package.json": {
+                        "requireId": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters/package.json",
+                        "memoizeId": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters/package.json",
+                        "descriptor": {
+                            "dirpath": "test/assets/packages/nodejs-multiple/node_modules/words/node_modules/letters",
+                            "id": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters",
+                            "raw": {
+                                "package.json": {}
+                            },
+                            "normalized": {
+                                "package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "config": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "exports": {
+                                        "main": "./index.js"
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "letters": "",
+                                            "o": "../o",
+                                            "greeting": "../../../greeting",
+                                            "letter-e": "../../../letter-e",
+                                            "words": "../.."
+                                        }
+                                    },
+                                    "mappings": {
+                                        "letters": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters",
+                                        "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
+                                        "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
+                                        "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                    }
+                                }
+                            },
+                            "combined": {
+                                "pm": {
+                                    "install": "npm"
+                                },
+                                "config": {
+                                    "directories": {
+                                        "dependency": "./node_modules"
+                                    }
+                                },
+                                "exports": {
+                                    "main": "./index.js"
+                                },
+                                "dependencies": {
+                                    "bundled": {
+                                        "letters": "",
+                                        "o": "../o",
+                                        "greeting": "../../../greeting",
+                                        "letter-e": "../../../letter-e",
+                                        "words": "../.."
+                                    }
+                                },
+                                "mappings": {
+                                    "letters": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters",
+                                    "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
+                                    "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
+                                    "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+                                    "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                }
+                            },
+                            "warnings": [],
+                            "errors": [],
+                            "memoized": {
+                                "main": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters/index.js",
+                                "mappings": {
+                                    "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+                                    "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o"
+                                }
+                            }
+                        },
+                        "wrapper": "json"
+                    },
+                    "0d9a386644a6bc19a809e0eb36349e69e24c8501-o/package.json": {
+                        "requireId": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o/package.json",
+                        "memoizeId": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o/package.json",
+                        "descriptor": {
+                            "dirpath": "test/assets/packages/nodejs-multiple/node_modules/words/node_modules/o",
+                            "id": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
+                            "raw": {
+                                "package.json": {}
+                            },
+                            "normalized": {
+                                "package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "config": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "exports": {
+                                        "main": "./index.js"
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "letters": "../letters",
+                                            "o": "",
+                                            "greeting": "../../../greeting",
+                                            "letter-e": "../../../letter-e",
+                                            "words": "../.."
+                                        }
+                                    },
+                                    "mappings": {
+                                        "letters": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters",
+                                        "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
+                                        "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
+                                        "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                    }
+                                }
+                            },
+                            "combined": {
+                                "pm": {
+                                    "install": "npm"
+                                },
+                                "config": {
+                                    "directories": {
+                                        "dependency": "./node_modules"
+                                    }
+                                },
+                                "exports": {
+                                    "main": "./index.js"
+                                },
+                                "dependencies": {
+                                    "bundled": {
+                                        "letters": "../letters",
+                                        "o": "",
+                                        "greeting": "../../../greeting",
+                                        "letter-e": "../../../letter-e",
+                                        "words": "../.."
+                                    }
+                                },
+                                "mappings": {
+                                    "letters": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters",
+                                    "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
+                                    "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
+                                    "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+                                    "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                }
+                            },
+                            "warnings": [],
+                            "errors": [],
+                            "memoized": {
+                                "main": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o/index.js"
+                            }
+                        },
+                        "wrapper": "json"
                     }
                 },
+                "expectExistingModules": {},
                 "bundle": {
                     "path": "test/assets/packages/nodejs-multiple/.dist/app.js"
                 },

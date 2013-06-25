@@ -5,12 +5,20 @@
         },
         "packages": {
             "": {
+                "main": "/app.js",
                 "mappings": {
                     "greeting": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting"
-                }
+                },
+                "directories": {},
+                "libPath": ""
             },
             "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting": {
-                "mappings": {}
+                "main": "/main.js",
+                "mappings": {},
+                "directories": {
+                    "lib": "lib-dir"
+                },
+                "libPath": "lib-dir/"
             }
         },
         "modules": {
