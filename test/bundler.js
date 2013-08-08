@@ -12,6 +12,8 @@ const PINF_FOR_NODEJS = require("pinf-for-nodejs");
 const MODE = "test";
 //const MODE = "write";
 
+const DEBUG = false;
+
 describe('bundler', function() {
 
 	it('should export `bundleFile()`', function() {
@@ -60,7 +62,7 @@ describe('bundler', function() {
 						var relPath = PATH.join("node_modules/pinf-it-module-insight/test/assets", PATH.dirname(file));
 						var basePath = PATH.join(rootPath, relPath);
 						var options = {
-							//debug: true,
+							debug: DEBUG,
 							rootPath: rootPath,
 							distPath: PATH.join("test/assets/modules", PATH.dirname(file)),
 							locateMissingFile: function(descriptor, path, callback) {
@@ -212,7 +214,7 @@ describe('bundler', function() {
 
 						var lastBundlePath = null;
 						var options = {
-							debug: true,
+							debug: DEBUG,
 							rootPath: rootPath,
 							distPath: distPath,
 							onRun: function(bundlePath, sandboxOptions, callback) {
