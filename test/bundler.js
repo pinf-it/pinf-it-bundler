@@ -23,8 +23,9 @@ describe('bundler', function() {
 	it('should export `bundlePackage()`', function() {
 		ASSERT(typeof BUNDLER.bundlePackage === "function");
 	});
-/*
+
 	describe('`bundleFile()`', function() {
+		this.timeout(10 * 1000);
 
 		function getFiles(rules, callback) {
 			var files = [];
@@ -63,6 +64,7 @@ describe('bundler', function() {
 						var basePath = PATH.join(rootPath, relPath);
 						var options = {
 							debug: DEBUG,
+							test: true,
 							rootPath: rootPath,
 							distPath: PATH.join("test/assets/modules", PATH.dirname(file)),
 							locateMissingFile: function(descriptor, path, callback) {
@@ -145,7 +147,7 @@ describe('bundler', function() {
 											}
 										}
 
-										if (Q.isPromise(result)) {
+										if (Q.isPromiseAlike(result)) {
 											return result.then(testResult, done);
 										} else {
 											return testResult(result);
@@ -165,7 +167,7 @@ describe('bundler', function() {
 			});
 		});
 	});
-*/
+
 	describe('`bundlePackage()`', function() {
 
 		function getFiles(rules, callback) {

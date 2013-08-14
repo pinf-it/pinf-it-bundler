@@ -73,7 +73,7 @@ function wrapAMD(callback) {
     callback(amdRequire, wrappedDefine);
     return exports;
 }
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/q.js","mtime":1368549759,"wrapper":"amd-ish","format":"amd-ish","id":"/q.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/q.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/q.js"}
 require.memoize("/q.js", 
 wrapAMD(function(require, define) {
 // vim:ts=4:sts=4:sw=4:

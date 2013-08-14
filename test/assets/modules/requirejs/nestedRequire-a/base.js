@@ -60,18 +60,17 @@ function define(id, dependencies, moduleInitializer) {
     }
 }
 define.amd = { jQuery: true };
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/nestedRelativeRequire-sub-a.js","mtime":0,"wrapper":"amd","format":"amd","id":"/nestedRelativeRequire-sub-a.js"}
-require.memoize("/nestedRelativeRequire-sub-a.js", 
-// @see https://github.com/jrburke/requirejs/blob/master/tests/nestedRelativeRequire/sub/a.js
-define(['require'],function(require) {
-    require(['./b']);
-    return "ok";
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/nestedRequire-a.js/base.js","mtime":1376453676,"wrapper":"amd","format":"amd","id":"/base.js"}
+require.memoize("/base.js", 
+// @see https://github.com/jrburke/requirejs/blob/master/tests/nestedRequire/base.js
+define({
+    name: 'base'
 })
 );
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
-    "main": "/nestedRelativeRequire-sub-a.js"
+    "main": "/base.js"
 }
 );
 // @pinf-bundle-ignore: 

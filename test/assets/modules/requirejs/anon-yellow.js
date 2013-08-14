@@ -60,7 +60,7 @@ function define(id, dependencies, moduleInitializer) {
     }
 }
 define.amd = { jQuery: true };
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/anon-yellow.js","mtime":1366559399,"wrapper":"amd","format":"amd","id":"/anon-yellow.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/anon-yellow.js","mtime":0,"wrapper":"amd","format":"amd","id":"/anon-yellow.js"}
 require.memoize("/anon-yellow.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/anon/yellow.js
 define("yellow", {

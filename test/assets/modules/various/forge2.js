@@ -73,7 +73,7 @@ function wrapAMD(callback) {
     callback(amdRequire, wrappedDefine);
     return exports;
 }
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/forge2.js","mtime":1368294283,"wrapper":"amd-ish","format":"amd-ish","id":"/forge2.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/forge2.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/forge2.js"}
 require.memoize("/forge2.js", 
 wrapAMD(function(require, define) {
 // @see https://github.com/digitalbazaar/forge/blob/master/js/task.js
@@ -131,7 +131,7 @@ if(nodeDefine || typeof define === 'function') {
 
 })
 );
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/forge2.js/util.js","mtime":1368294293,"wrapper":"amd-ish","format":"amd-ish","id":"/util.js"}
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/forge2.js/util.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/util.js"}
 require.memoize("/util.js", 
 wrapAMD(function(require, define) {
 (function() {

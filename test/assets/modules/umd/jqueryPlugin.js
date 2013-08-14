@@ -133,7 +133,7 @@ function define(id, dependencies, moduleInitializer) {
     }
 }
 define.amd = { jQuery: true };
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/umd/jqueryPlugin.js","mtime":1368549516,"wrapper":"amd-ish","format":"amd-ish","id":"/jqueryPlugin.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/umd/jqueryPlugin.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/jqueryPlugin.js"}
 require.memoize("/jqueryPlugin.js", 
 wrapAMD(function(require, define) {
 // @see https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
@@ -158,7 +158,7 @@ wrapAMD(function(require, define) {
 
 })
 );
-// @pinf-bundle-module: {"file":"test/assets/modules/umd/mocks/jqueryPlugin.js/jquery.js","mtime":1368512842,"wrapper":"amd","format":"amd","id":"/jquery.js"}
+// @pinf-bundle-module: {"file":"test/assets/modules/umd/mocks/jqueryPlugin.js/jquery.js","mtime":0,"wrapper":"amd","format":"amd","id":"/jquery.js"}
 require.memoize("/jquery.js", 
 define([],function() {
 	return {

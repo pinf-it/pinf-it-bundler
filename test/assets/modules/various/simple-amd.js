@@ -60,7 +60,7 @@ function define(id, dependencies, moduleInitializer) {
     }
 }
 define.amd = { jQuery: true };
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/simple-amd.js","mtime":1366479052,"wrapper":"amd","format":"amd","id":"/simple-amd.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/simple-amd.js","mtime":0,"wrapper":"amd","format":"amd","id":"/simple-amd.js"}
 require.memoize("/simple-amd.js", 
 
 define([],function() {

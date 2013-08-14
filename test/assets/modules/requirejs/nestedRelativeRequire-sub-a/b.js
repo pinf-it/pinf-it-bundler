@@ -60,7 +60,7 @@ function define(id, dependencies, moduleInitializer) {
     }
 }
 define.amd = { jQuery: true };
-// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/nestedRelativeRequire-sub-a.js/b.js","mtime":1368466699,"wrapper":"amd","format":"amd","id":"/b.js"}
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/nestedRelativeRequire-sub-a.js/b.js","mtime":0,"wrapper":"amd","format":"amd","id":"/b.js"}
 require.memoize("/b.js", 
 define([],function() {
 	return {

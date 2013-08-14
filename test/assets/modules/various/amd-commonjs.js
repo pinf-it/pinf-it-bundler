@@ -73,7 +73,7 @@ function wrapAMD(callback) {
     callback(amdRequire, wrappedDefine);
     return exports;
 }
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/amd-commonjs.js","mtime":1367782810,"wrapper":"amd-ish","format":"amd-ish","id":"/amd-commonjs.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/amd-commonjs.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/amd-commonjs.js"}
 require.memoize("/amd-commonjs.js", 
 wrapAMD(function(require, define) {
 // @see http://addyosmani.com/writing-modular-js/

@@ -1,6 +1,6 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require) {
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/simple-global.js","mtime":1368763347,"wrapper":"commonjs/leaky","format":"leaky","id":"/simple-global.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/simple-global.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"/simple-global.js"}
 require.memoize("/simple-global.js", 
 function(require, exports, module) {
 

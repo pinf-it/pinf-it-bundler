@@ -73,7 +73,7 @@ function wrapAMD(callback) {
     callback(amdRequire, wrappedDefine);
     return exports;
 }
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/jquery.js","mtime":1368549458,"wrapper":"amd-ish","format":"amd-ish","id":"/jquery.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/jquery.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/jquery.js"}
 require.memoize("/jquery.js", 
 wrapAMD(function(require, define) {
 // @see http://code.jquery.com/jquery-1.9.1.js
