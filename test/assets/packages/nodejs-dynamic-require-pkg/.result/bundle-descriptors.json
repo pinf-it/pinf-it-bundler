@@ -9,7 +9,7 @@
                         "descriptor": {
                             "filename": "app.js",
                             "filepath": "test/assets/packages/nodejs-dynamic-require-pkg/app.js",
-                            "mtime": 1371052244,
+                            "mtime": 0,
                             "code": "\nfunction main() {\n\n\tvar moduleId = \"greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
                             "globals": {
                                 "main": {
@@ -67,7 +67,7 @@
                                     "pm": {
                                         "install": "npm"
                                     },
-                                    "config": {
+                                    "layout": {
                                         "directories": {
                                             "dependency": "./node_modules"
                                         }
@@ -89,7 +89,7 @@
                                 "pm": {
                                     "install": "npm"
                                 },
-                                "config": {
+                                "layout": {
                                     "directories": {
                                         "dependency": "./node_modules"
                                     }
@@ -110,7 +110,8 @@
                                 "mappings": {
                                     "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting"
                                 }
-                            }
+                            },
+                            "mtime": "0"
                         },
                         "wrapper": "json"
                     }
@@ -140,7 +141,7 @@
                         "descriptor": {
                             "filename": "index.js",
                             "filepath": "test/assets/packages/nodejs-dynamic-require-pkg/node_modules/greeting/index.js",
-                            "mtime": 1371052229,
+                            "mtime": 0,
                             "code": "\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n",
                             "globals": {
                                 "exports": {
@@ -185,7 +186,7 @@
                                     "pm": {
                                         "install": "npm"
                                     },
-                                    "config": {
+                                    "layout": {
                                         "directories": {
                                             "dependency": "./node_modules"
                                         }
@@ -207,7 +208,7 @@
                                 "pm": {
                                     "install": "npm"
                                 },
-                                "config": {
+                                "layout": {
                                     "directories": {
                                         "dependency": "./node_modules"
                                     }
@@ -228,7 +229,8 @@
                             "errors": [],
                             "memoized": {
                                 "main": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting/index.js"
-                            }
+                            },
+                            "mtime": "0"
                         },
                         "wrapper": "json"
                     }

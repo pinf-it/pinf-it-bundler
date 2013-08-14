@@ -9,7 +9,7 @@
                         "descriptor": {
                             "filename": "app.js",
                             "filepath": "test/assets/packages/single/app.js",
-                            "mtime": 1369152002,
+                            "mtime": 0,
                             "code": "\nfunction main() {\n\tconsole.log(\"Hello World\");\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
                             "globals": {
                                 "main": {
@@ -72,7 +72,8 @@
                             "errors": [],
                             "memoized": {
                                 "main": "/app.js"
-                            }
+                            },
+                            "mtime": "0"
                         },
                         "wrapper": "json"
                     }

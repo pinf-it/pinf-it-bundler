@@ -9,7 +9,7 @@
                         "descriptor": {
                             "filename": "app.js",
                             "filepath": "test/assets/packages/nodejs-dynamic-require-nested/app.js",
-                            "mtime": 1370880049,
+                            "mtime": 0,
                             "code": "\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nexports.getWorld = function() {\n\treturn \"World\";\t\n}\n\nexports.getLetterH = function() {\n\treturn \"H\";\t\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
                             "globals": {
                                 "main": {
@@ -78,7 +78,8 @@
                             "errors": [],
                             "memoized": {
                                 "main": "/app.js"
-                            }
+                            },
+                            "mtime": "0"
                         },
                         "wrapper": "json"
                     }
@@ -106,7 +107,7 @@
                 "descriptor": {
                     "filename": "greeting.js",
                     "filepath": "test/assets/packages/nodejs-dynamic-require-nested/greeting.js",
-                    "mtime": 1370880095,
+                    "mtime": 0,
                     "code": "\nvar APP = require(\"./app\");\n\nexports.getGreeting = function() {\n\n\tvar moduleId = \"./hello\";\n\n\tvar HELLO = require(moduleId);\n\n\treturn HELLO.getWord() + \" \" + APP.getWorld();\n}\n\nexports.getLetterL = function() {\n\treturn \"l\";\t\n}\n",
                     "globals": {
                         "APP": {
@@ -159,7 +160,7 @@
                 "descriptor": {
                     "filename": "app.js",
                     "filepath": "test/assets/packages/nodejs-dynamic-require-nested/app.js",
-                    "mtime": 1370880049,
+                    "mtime": 0,
                     "code": "\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nexports.getWorld = function() {\n\treturn \"World\";\t\n}\n\nexports.getLetterH = function() {\n\treturn \"H\";\t\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
                     "globals": {
                         "main": {
@@ -228,7 +229,8 @@
                     "errors": [],
                     "memoized": {
                         "main": "/app.js"
-                    }
+                    },
+                    "mtime": "0"
                 },
                 "wrapper": "json"
             }
@@ -247,7 +249,7 @@
                 "descriptor": {
                     "filename": "hello.js",
                     "filepath": "test/assets/packages/nodejs-dynamic-require-nested/hello.js",
-                    "mtime": 1370964000,
+                    "mtime": 0,
                     "code": "\nvar APP = require(\"./app\");\n\nexports.getWord = function() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\treturn APP.getLetterH() + \"e\" + GREETING.getLetterL() + \"l\" + require((\"./\" + \"o\")).getLetter();\n}\n",
                     "globals": {
                         "APP": {
@@ -300,7 +302,7 @@
                 "descriptor": {
                     "filename": "app.js",
                     "filepath": "test/assets/packages/nodejs-dynamic-require-nested/app.js",
-                    "mtime": 1370880049,
+                    "mtime": 0,
                     "code": "\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nexports.getWorld = function() {\n\treturn \"World\";\t\n}\n\nexports.getLetterH = function() {\n\treturn \"H\";\t\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
                     "globals": {
                         "main": {
@@ -369,7 +371,8 @@
                     "errors": [],
                     "memoized": {
                         "main": "/app.js"
-                    }
+                    },
+                    "mtime": "0"
                 },
                 "wrapper": "json"
             }
@@ -388,7 +391,7 @@
                 "descriptor": {
                     "filename": "o.js",
                     "filepath": "test/assets/packages/nodejs-dynamic-require-nested/o.js",
-                    "mtime": 1370964025,
+                    "mtime": 0,
                     "code": "\nexports.getLetter = function() {\n\treturn \"o\";\n}\n",
                     "globals": {
                         "exports": {
@@ -448,7 +451,8 @@
                     "errors": [],
                     "memoized": {
                         "main": "/app.js"
-                    }
+                    },
+                    "mtime": "0"
                 },
                 "wrapper": "json"
             }

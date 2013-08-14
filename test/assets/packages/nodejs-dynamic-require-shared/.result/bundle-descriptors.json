@@ -9,7 +9,7 @@
                         "descriptor": {
                             "filename": "app.js",
                             "filepath": "test/assets/packages/nodejs-dynamic-require-shared/app.js",
-                            "mtime": 1370114274,
+                            "mtime": 0,
                             "code": "\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nexports.getWorld = function() {\n\treturn \"World\";\t\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
                             "globals": {
                                 "main": {
@@ -78,7 +78,8 @@
                             "errors": [],
                             "memoized": {
                                 "main": "/app.js"
-                            }
+                            },
+                            "mtime": "0"
                         },
                         "wrapper": "json"
                     }
@@ -106,7 +107,7 @@
                 "descriptor": {
                     "filename": "greeting.js",
                     "filepath": "test/assets/packages/nodejs-dynamic-require-shared/greeting.js",
-                    "mtime": 1370114336,
+                    "mtime": 0,
                     "code": "\nvar APP = require(\"./app\");\n\nexports.getGreeting = function() {\n\treturn \"Hello \" + APP.getWorld();\n}\n",
                     "globals": {
                         "APP": {
@@ -159,7 +160,7 @@
                 "descriptor": {
                     "filename": "app.js",
                     "filepath": "test/assets/packages/nodejs-dynamic-require-shared/app.js",
-                    "mtime": 1370114274,
+                    "mtime": 0,
                     "code": "\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nexports.getWorld = function() {\n\treturn \"World\";\t\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
                     "globals": {
                         "main": {
@@ -228,7 +229,8 @@
                     "errors": [],
                     "memoized": {
                         "main": "/app.js"
-                    }
+                    },
+                    "mtime": "0"
                 },
                 "wrapper": "json"
             }

@@ -215,6 +215,7 @@ describe('bundler', function() {
 						var lastBundlePath = null;
 						var options = {
 							debug: DEBUG,
+							test: true,
 							rootPath: rootPath,
 							distPath: distPath,
 							onRun: function(bundlePath, sandboxOptions, callback) {

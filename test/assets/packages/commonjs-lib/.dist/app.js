@@ -1,6 +1,6 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require) {
-// @pinf-bundle-module: {"file":"test/assets/packages/commonjs-lib/app.js","mtime":1369322451,"wrapper":"commonjs/leaky","format":"leaky","id":"/app.js"}
+// @pinf-bundle-module: {"file":"test/assets/packages/commonjs-lib/app.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"/app.js"}
 require.memoize("/app.js", 
 function(require, exports, module) {
 
@@ -21,7 +21,7 @@ return {
 };
 }
 );
-// @pinf-bundle-module: {"file":"test/assets/packages/commonjs-lib/node_modules/greeting/lib-dir/greeting.js","mtime":1369322859,"wrapper":"commonjs","format":"commonjs","id":"aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/lib-dir/greeting.js"}
+// @pinf-bundle-module: {"file":"test/assets/packages/commonjs-lib/node_modules/greeting/lib-dir/greeting.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/lib-dir/greeting.js"}
 require.memoize("aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/lib-dir/greeting.js", 
 function(require, exports, module) {
 

@@ -9,7 +9,7 @@
                         "descriptor": {
                             "filename": "app.js",
                             "filepath": "test/assets/packages/commonjs-lib/app.js",
-                            "mtime": 1369322451,
+                            "mtime": 0,
                             "code": "\nvar GREETING = require(\"greeting/greeting\");\n\nfunction main() {\n\tconsole.log(GREETING.getGreeting());\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
                             "globals": {
                                 "GREETING": {
@@ -65,7 +65,7 @@
                         "descriptor": {
                             "filename": "greeting.js",
                             "filepath": "test/assets/packages/commonjs-lib/node_modules/greeting/lib-dir/greeting.js",
-                            "mtime": 1369322859,
+                            "mtime": 0,
                             "code": "\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n",
                             "globals": {
                                 "exports": {
@@ -115,7 +115,7 @@
                                     "pm": {
                                         "install": "npm"
                                     },
-                                    "config": {
+                                    "layout": {
                                         "directories": {
                                             "dependency": "./node_modules"
                                         }
@@ -137,7 +137,7 @@
                                 "pm": {
                                     "install": "npm"
                                 },
-                                "config": {
+                                "layout": {
                                     "directories": {
                                         "dependency": "./node_modules"
                                     }
@@ -158,7 +158,8 @@
                                 "mappings": {
                                     "greeting": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting"
                                 }
-                            }
+                            },
+                            "mtime": "0"
                         },
                         "wrapper": "json"
                     },
@@ -178,7 +179,7 @@
                             },
                             "normalized": {
                                 "package.json": {
-                                    "config": {
+                                    "layout": {
                                         "directories": {
                                             "lib": "./lib-dir",
                                             "dependency": "./node_modules"
@@ -198,7 +199,7 @@
                                 }
                             },
                             "combined": {
-                                "config": {
+                                "layout": {
                                     "directories": {
                                         "lib": "./lib-dir",
                                         "dependency": "./node_modules"
@@ -222,7 +223,8 @@
                                 "directories": {
                                     "lib": "lib-dir"
                                 }
-                            }
+                            },
+                            "mtime": "0"
                         },
                         "wrapper": "json"
                     }

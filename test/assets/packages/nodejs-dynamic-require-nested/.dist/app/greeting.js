@@ -1,6 +1,6 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require) {
-// @pinf-bundle-module: {"file":"test/assets/packages/nodejs-dynamic-require-nested/greeting.js","mtime":1370880095,"wrapper":"commonjs","format":"commonjs","id":"/greeting.js"}
+// @pinf-bundle-module: {"file":"test/assets/packages/nodejs-dynamic-require-nested/greeting.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/greeting.js"}
 require.memoize("/greeting.js", 
 function(require, exports, module) {
 

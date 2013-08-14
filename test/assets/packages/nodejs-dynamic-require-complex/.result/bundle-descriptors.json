@@ -9,7 +9,7 @@
                         "descriptor": {
                             "filename": "app.js",
                             "filepath": "test/assets/packages/nodejs-dynamic-require-complex/app.js",
-                            "mtime": 1369325029,
+                            "mtime": 0,
                             "code": "\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
                             "globals": {
                                 "main": {
@@ -67,7 +67,7 @@
                                     "pm": {
                                         "install": "npm"
                                     },
-                                    "config": {
+                                    "layout": {
                                         "directories": {
                                             "dependency": "./node_modules"
                                         }
@@ -93,7 +93,7 @@
                                 "pm": {
                                     "install": "npm"
                                 },
-                                "config": {
+                                "layout": {
                                     "directories": {
                                         "dependency": "./node_modules"
                                     }
@@ -120,7 +120,8 @@
                                     "letter-l": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l",
                                     "letter-o": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o"
                                 }
-                            }
+                            },
+                            "mtime": "0"
                         },
                         "wrapper": "json"
                     }
@@ -148,7 +149,7 @@
                 "descriptor": {
                     "filename": "greeting.js",
                     "filepath": "test/assets/packages/nodejs-dynamic-require-complex/greeting.js",
-                    "mtime": 1370444188,
+                    "mtime": 0,
                     "code": "\nexports.getGreeting = function() {\n\n\tvar moduleId = \"./assemble\";\n\n\treturn require(moduleId).assemble();\n}\n",
                     "globals": {
                         "exports": {
@@ -203,7 +204,7 @@
                             "pm": {
                                 "install": "npm"
                             },
-                            "config": {
+                            "layout": {
                                 "directories": {
                                     "dependency": "./node_modules"
                                 }
@@ -229,7 +230,7 @@
                         "pm": {
                             "install": "npm"
                         },
-                        "config": {
+                        "layout": {
                             "directories": {
                                 "dependency": "./node_modules"
                             }
@@ -256,7 +257,8 @@
                             "letter-l": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l",
                             "letter-o": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o"
                         }
-                    }
+                    },
+                    "mtime": "0"
                 },
                 "wrapper": "json"
             }
@@ -275,7 +277,7 @@
                 "descriptor": {
                     "filename": "assemble.js",
                     "filepath": "test/assets/packages/nodejs-dynamic-require-complex/assemble.js",
-                    "mtime": 1370444139,
+                    "mtime": 0,
                     "code": "\nexports.assemble = function() {\n\n\tvar moduleId = \"letters/e\";\n\n\tvar LETTER_E = require(moduleId).getLetter();\n\tvar LETTER_L = require(\"letter-l/l\").getLetter();\n\tvar LETTER_O = require(\"letter-o/o\").getLetter();\n\n\treturn \"H\" + LETTER_E + \"l\" + LETTER_L + LETTER_O + \" W\" + require(moduleId).getLetterO() + \"r\" + require(moduleId).getLetterL() + \"d\";\n}\n",
                     "globals": {
                         "exports": {
@@ -325,12 +327,12 @@
                     [
                         "bundle-static",
                         "Missing dependency 'test/assets/packages/nodejs-dynamic-require-complex/letter-l/l.js'",
-                        "Error: Missing dependency 'test/assets/packages/nodejs-dynamic-require-complex/letter-l/l.js'\n    at /pinf/projects/github.com+pinf-it+pinf-it-bundler/lib/bundler.js:281:21\n    at Object.cb [as oncomplete] (fs.js:168:19)"
+                        "Error: Missing dependency 'test/assets/packages/nodejs-dynamic-require-complex/letter-l/l.js'\n    "
                     ],
                     [
                         "bundle-static",
                         "Missing dependency 'test/assets/packages/nodejs-dynamic-require-complex/letter-o/o.js'",
-                        "Error: Missing dependency 'test/assets/packages/nodejs-dynamic-require-complex/letter-o/o.js'\n    at /pinf/projects/github.com+pinf-it+pinf-it-bundler/lib/bundler.js:281:21\n    at Object.cb [as oncomplete] (fs.js:168:19)"
+                        "Error: Missing dependency 'test/assets/packages/nodejs-dynamic-require-complex/letter-o/o.js'\n    "
                     ]
                 ]
             }
@@ -355,7 +357,7 @@
                             "pm": {
                                 "install": "npm"
                             },
-                            "config": {
+                            "layout": {
                                 "directories": {
                                     "dependency": "./node_modules"
                                 }
@@ -381,7 +383,7 @@
                         "pm": {
                             "install": "npm"
                         },
-                        "config": {
+                        "layout": {
                             "directories": {
                                 "dependency": "./node_modules"
                             }
@@ -408,7 +410,8 @@
                             "letter-l": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l",
                             "letter-o": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o"
                         }
-                    }
+                    },
+                    "mtime": "0"
                 },
                 "wrapper": "json"
             }
@@ -421,14 +424,14 @@
             [
                 "bundle-static",
                 "Missing dependency 'test/assets/packages/nodejs-dynamic-require-complex/letter-l/l.js'",
-                "Error: Missing dependency 'test/assets/packages/nodejs-dynamic-require-complex/letter-l/l.js'\n    at /pinf/projects/github.com+pinf-it+pinf-it-bundler/lib/bundler.js:281:21\n    at Object.cb [as oncomplete] (fs.js:168:19)",
+                "Error: Missing dependency 'test/assets/packages/nodejs-dynamic-require-complex/letter-l/l.js'\n    ",
                 "module",
                 "/assemble.js"
             ],
             [
                 "bundle-static",
                 "Missing dependency 'test/assets/packages/nodejs-dynamic-require-complex/letter-o/o.js'",
-                "Error: Missing dependency 'test/assets/packages/nodejs-dynamic-require-complex/letter-o/o.js'\n    at /pinf/projects/github.com+pinf-it+pinf-it-bundler/lib/bundler.js:281:21\n    at Object.cb [as oncomplete] (fs.js:168:19)",
+                "Error: Missing dependency 'test/assets/packages/nodejs-dynamic-require-complex/letter-o/o.js'\n    ",
                 "module",
                 "/assemble.js"
             ]
@@ -444,7 +447,7 @@
                         "descriptor": {
                             "filename": "e.js",
                             "filepath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters/e.js",
-                            "mtime": 1370444157,
+                            "mtime": 0,
                             "code": "\nvar moduleId = \"./more\";\n\nvar MORE = require(moduleId);\n\nexports.getLetter = function() {\n\treturn \"e\";\n}\n\nexports.getLetterL = MORE.getLetterL;\n\nexports.getLetterO = MORE.getLetterO;\n",
                             "globals": {
                                 "moduleId": {
@@ -498,7 +501,7 @@
                                     "pm": {
                                         "install": "npm"
                                     },
-                                    "config": {
+                                    "layout": {
                                         "directories": {
                                             "dependency": "./node_modules"
                                         }
@@ -521,7 +524,7 @@
                                 "pm": {
                                     "install": "npm"
                                 },
-                                "config": {
+                                "layout": {
                                     "directories": {
                                         "dependency": "./node_modules"
                                     }
@@ -576,7 +579,7 @@
                         "descriptor": {
                             "filename": "more.js",
                             "filepath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters/more.js",
-                            "mtime": 1370444010,
+                            "mtime": 0,
                             "code": "\nexports.getLetterL = function() {\n\treturn require(\"letter-l/l\").getLetter();\n}\n\nexports.getLetterO = function() {\n\tvar moduleId = \"letter-o/o\";\n\treturn require(moduleId).getLetter();\n}\n",
                             "globals": {
                                 "exports": {
@@ -624,7 +627,7 @@
                         "descriptor": {
                             "filename": "l.js",
                             "filepath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l/l.js",
-                            "mtime": 1369411690,
+                            "mtime": 0,
                             "code": "\nexports.getLetter = function() {\n\treturn \"l\";\n}\n",
                             "globals": {
                                 "exports": {
@@ -669,7 +672,7 @@
                                     "pm": {
                                         "install": "npm"
                                     },
-                                    "config": {
+                                    "layout": {
                                         "directories": {
                                             "dependency": "./node_modules"
                                         }
@@ -692,7 +695,7 @@
                                 "pm": {
                                     "install": "npm"
                                 },
-                                "config": {
+                                "layout": {
                                     "directories": {
                                         "dependency": "./node_modules"
                                     }
@@ -717,7 +720,8 @@
                                     "letter-l": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l",
                                     "letter-o": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o"
                                 }
-                            }
+                            },
+                            "mtime": "0"
                         },
                         "wrapper": "json"
                     }
@@ -737,7 +741,7 @@
                                     "pm": {
                                         "install": "npm"
                                     },
-                                    "config": {
+                                    "layout": {
                                         "directories": {
                                             "dependency": "./node_modules"
                                         }
@@ -760,7 +764,7 @@
                                 "pm": {
                                     "install": "npm"
                                 },
-                                "config": {
+                                "layout": {
                                     "directories": {
                                         "dependency": "./node_modules"
                                     }
@@ -814,7 +818,7 @@
                         "descriptor": {
                             "filename": "l.js",
                             "filepath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l/l.js",
-                            "mtime": 1369411690,
+                            "mtime": 0,
                             "code": "\nexports.getLetter = function() {\n\treturn \"l\";\n}\n",
                             "globals": {
                                 "exports": {
@@ -859,7 +863,7 @@
                                     "pm": {
                                         "install": "npm"
                                     },
-                                    "config": {
+                                    "layout": {
                                         "directories": {
                                             "dependency": "./node_modules"
                                         }
@@ -882,7 +886,7 @@
                                 "pm": {
                                     "install": "npm"
                                 },
-                                "config": {
+                                "layout": {
                                     "directories": {
                                         "dependency": "./node_modules"
                                     }
@@ -934,7 +938,7 @@
                         "descriptor": {
                             "filename": "o.js",
                             "filepath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o/o.js",
-                            "mtime": 1369412092,
+                            "mtime": 0,
                             "code": "\nexports.getLetter = function() {\n\treturn \"o\";\n}\n",
                             "globals": {
                                 "exports": {
@@ -979,7 +983,7 @@
                                     "pm": {
                                         "install": "npm"
                                     },
-                                    "config": {
+                                    "layout": {
                                         "directories": {
                                             "dependency": "./node_modules"
                                         }
@@ -1002,7 +1006,7 @@
                                 "pm": {
                                     "install": "npm"
                                 },
-                                "config": {
+                                "layout": {
                                     "directories": {
                                         "dependency": "./node_modules"
                                     }
@@ -1054,7 +1058,7 @@
                         "descriptor": {
                             "filename": "o.js",
                             "filepath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o/o.js",
-                            "mtime": 1369412092,
+                            "mtime": 0,
                             "code": "\nexports.getLetter = function() {\n\treturn \"o\";\n}\n",
                             "globals": {
                                 "exports": {
@@ -1099,7 +1103,7 @@
                                     "pm": {
                                         "install": "npm"
                                     },
-                                    "config": {
+                                    "layout": {
                                         "directories": {
                                             "dependency": "./node_modules"
                                         }
@@ -1122,7 +1126,7 @@
                                 "pm": {
                                     "install": "npm"
                                 },
-                                "config": {
+                                "layout": {
                                     "directories": {
                                         "dependency": "./node_modules"
                                     }

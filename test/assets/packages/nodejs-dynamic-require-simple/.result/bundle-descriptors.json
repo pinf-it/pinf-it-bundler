@@ -9,7 +9,7 @@
                         "descriptor": {
                             "filename": "app.js",
                             "filepath": "test/assets/packages/nodejs-dynamic-require-simple/app.js",
-                            "mtime": 1370117725,
+                            "mtime": 0,
                             "code": "\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
                             "globals": {
                                 "main": {
@@ -75,7 +75,8 @@
                             "errors": [],
                             "memoized": {
                                 "main": "/app.js"
-                            }
+                            },
+                            "mtime": "0"
                         },
                         "wrapper": "json"
                     }
@@ -103,7 +104,7 @@
                 "descriptor": {
                     "filename": "greeting.js",
                     "filepath": "test/assets/packages/nodejs-dynamic-require-simple/greeting.js",
-                    "mtime": 1370117747,
+                    "mtime": 0,
                     "code": "\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n",
                     "globals": {
                         "exports": {
@@ -163,7 +164,8 @@
                     "errors": [],
                     "memoized": {
                         "main": "/app.js"
-                    }
+                    },
+                    "mtime": "0"
                 },
                 "wrapper": "json"
             }

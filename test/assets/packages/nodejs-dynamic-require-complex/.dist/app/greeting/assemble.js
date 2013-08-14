@@ -1,6 +1,6 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require) {
-// @pinf-bundle-module: {"file":"test/assets/packages/nodejs-dynamic-require-complex/assemble.js","mtime":1370444139,"wrapper":"commonjs","format":"commonjs","id":"/assemble.js"}
+// @pinf-bundle-module: {"file":"test/assets/packages/nodejs-dynamic-require-complex/assemble.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/assemble.js"}
 require.memoize("/assemble.js", 
 function(require, exports, module) {
 
