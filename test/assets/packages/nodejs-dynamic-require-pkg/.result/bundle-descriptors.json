@@ -54,12 +54,37 @@
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-pkg",
                             "id": "",
+                            "lookupPaths": [
+                                "test/assets/packages/nodejs-dynamic-require-pkg/package.json",
+                                "test/assets/packages/nodejs-dynamic-require-pkg/.package.json"
+                            ],
+                            "descriptorPaths": [
+                                "test/assets/packages/nodejs-dynamic-require-pkg/package.json"
+                            ],
                             "raw": {
                                 "package.json": {
                                     "main": "app"
                                 }
                             },
                             "normalized": {
+                                ".package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "layout": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "greeting": "./node_modules/greeting"
+                                        }
+                                    },
+                                    "mappings": {
+                                        "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting"
+                                    }
+                                },
                                 "package.json": {
                                     "exports": {
                                         "main": "./app.js"
@@ -178,10 +203,34 @@
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-pkg/node_modules/greeting",
                             "id": "",
-                            "raw": {
-                                "package.json": {}
-                            },
+                            "lookupPaths": [
+                                "test/assets/packages/nodejs-dynamic-require-pkg/node_modules/greeting/package.json",
+                                "test/assets/packages/nodejs-dynamic-require-pkg/node_modules/greeting/.package.json"
+                            ],
+                            "descriptorPaths": [],
+                            "raw": {},
                             "normalized": {
+                                ".package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "layout": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "exports": {
+                                        "main": "./index.js"
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "greeting": "."
+                                        }
+                                    },
+                                    "mappings": {
+                                        "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting"
+                                    }
+                                },
                                 "package.json": {
                                     "pm": {
                                         "install": "npm"
@@ -196,7 +245,7 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "greeting": ""
+                                            "greeting": "."
                                         }
                                     },
                                     "mappings": {
@@ -218,7 +267,7 @@
                                 },
                                 "dependencies": {
                                     "bundled": {
-                                        "greeting": ""
+                                        "greeting": "."
                                     }
                                 },
                                 "mappings": {

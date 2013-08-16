@@ -301,12 +301,41 @@
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-multiple",
                             "id": "",
+                            "lookupPaths": [
+                                "test/assets/packages/nodejs-multiple/package.json",
+                                "test/assets/packages/nodejs-multiple/.package.json"
+                            ],
+                            "descriptorPaths": [
+                                "test/assets/packages/nodejs-multiple/package.json"
+                            ],
                             "raw": {
                                 "package.json": {
                                     "main": "app"
                                 }
                             },
                             "normalized": {
+                                ".package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "layout": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "greeting": "./node_modules/greeting",
+                                            "letter-e": "./node_modules/letter-e",
+                                            "words": "./node_modules/words"
+                                        }
+                                    },
+                                    "mappings": {
+                                        "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
+                                        "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                    }
+                                },
                                 "package.json": {
                                     "exports": {
                                         "main": "./app.js"
@@ -376,12 +405,41 @@
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-multiple/node_modules/greeting",
                             "id": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
+                            "lookupPaths": [
+                                "test/assets/packages/nodejs-multiple/node_modules/greeting/package.json",
+                                "test/assets/packages/nodejs-multiple/node_modules/greeting/.package.json"
+                            ],
+                            "descriptorPaths": [
+                                "test/assets/packages/nodejs-multiple/node_modules/greeting/package.json"
+                            ],
                             "raw": {
                                 "package.json": {
                                     "main": "./greeting.js"
                                 }
                             },
                             "normalized": {
+                                ".package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "layout": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "greeting": ".",
+                                            "letter-e": "../letter-e",
+                                            "words": "../words"
+                                        }
+                                    },
+                                    "mappings": {
+                                        "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
+                                        "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                    }
+                                },
                                 "package.json": {
                                     "exports": {
                                         "main": "./greeting.js"
@@ -396,7 +454,7 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "greeting": "",
+                                            "greeting": ".",
                                             "letter-e": "../letter-e",
                                             "words": "../words"
                                         }
@@ -422,7 +480,7 @@
                                 },
                                 "dependencies": {
                                     "bundled": {
-                                        "greeting": "",
+                                        "greeting": ".",
                                         "letter-e": "../letter-e",
                                         "words": "../words"
                                     }
@@ -451,10 +509,39 @@
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-multiple/node_modules/words",
                             "id": "85b2fe6f2976fbb5995739b47d993956ad97c068-words",
-                            "raw": {
-                                "package.json": {}
-                            },
+                            "lookupPaths": [
+                                "test/assets/packages/nodejs-multiple/node_modules/words/package.json",
+                                "test/assets/packages/nodejs-multiple/node_modules/words/.package.json"
+                            ],
+                            "descriptorPaths": [],
+                            "raw": {},
                             "normalized": {
+                                ".package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "layout": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "letters": "./node_modules/letters",
+                                            "o": "./node_modules/o",
+                                            "greeting": "../greeting",
+                                            "letter-e": "../letter-e",
+                                            "words": "."
+                                        }
+                                    },
+                                    "mappings": {
+                                        "letters": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters",
+                                        "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
+                                        "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
+                                        "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                    }
+                                },
                                 "package.json": {
                                     "pm": {
                                         "install": "npm"
@@ -470,7 +557,7 @@
                                             "o": "./node_modules/o",
                                             "greeting": "../greeting",
                                             "letter-e": "../letter-e",
-                                            "words": ""
+                                            "words": "."
                                         }
                                     },
                                     "mappings": {
@@ -497,7 +584,7 @@
                                         "o": "./node_modules/o",
                                         "greeting": "../greeting",
                                         "letter-e": "../letter-e",
-                                        "words": ""
+                                        "words": "."
                                     }
                                 },
                                 "mappings": {
@@ -525,10 +612,42 @@
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-multiple/node_modules/words/node_modules/letters",
                             "id": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters",
-                            "raw": {
-                                "package.json": {}
-                            },
+                            "lookupPaths": [
+                                "test/assets/packages/nodejs-multiple/node_modules/words/node_modules/letters/package.json",
+                                "test/assets/packages/nodejs-multiple/node_modules/words/node_modules/letters/.package.json"
+                            ],
+                            "descriptorPaths": [],
+                            "raw": {},
                             "normalized": {
+                                ".package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "layout": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "exports": {
+                                        "main": "./index.js"
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "letters": ".",
+                                            "o": "../o",
+                                            "greeting": "../../../greeting",
+                                            "letter-e": "../../../letter-e",
+                                            "words": "../.."
+                                        }
+                                    },
+                                    "mappings": {
+                                        "letters": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters",
+                                        "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
+                                        "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
+                                        "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                    }
+                                },
                                 "package.json": {
                                     "pm": {
                                         "install": "npm"
@@ -543,7 +662,7 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "letters": "",
+                                            "letters": ".",
                                             "o": "../o",
                                             "greeting": "../../../greeting",
                                             "letter-e": "../../../letter-e",
@@ -573,7 +692,7 @@
                                 },
                                 "dependencies": {
                                     "bundled": {
-                                        "letters": "",
+                                        "letters": ".",
                                         "o": "../o",
                                         "greeting": "../../../greeting",
                                         "letter-e": "../../../letter-e",
@@ -607,10 +726,42 @@
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-multiple/node_modules/words/node_modules/o",
                             "id": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
-                            "raw": {
-                                "package.json": {}
-                            },
+                            "lookupPaths": [
+                                "test/assets/packages/nodejs-multiple/node_modules/words/node_modules/o/package.json",
+                                "test/assets/packages/nodejs-multiple/node_modules/words/node_modules/o/.package.json"
+                            ],
+                            "descriptorPaths": [],
+                            "raw": {},
                             "normalized": {
+                                ".package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "layout": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "exports": {
+                                        "main": "./index.js"
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "letters": "../letters",
+                                            "o": ".",
+                                            "greeting": "../../../greeting",
+                                            "letter-e": "../../../letter-e",
+                                            "words": "../.."
+                                        }
+                                    },
+                                    "mappings": {
+                                        "letters": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters",
+                                        "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
+                                        "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
+                                        "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                    }
+                                },
                                 "package.json": {
                                     "pm": {
                                         "install": "npm"
@@ -626,7 +777,7 @@
                                     "dependencies": {
                                         "bundled": {
                                             "letters": "../letters",
-                                            "o": "",
+                                            "o": ".",
                                             "greeting": "../../../greeting",
                                             "letter-e": "../../../letter-e",
                                             "words": "../.."
@@ -656,7 +807,7 @@
                                 "dependencies": {
                                     "bundled": {
                                         "letters": "../letters",
-                                        "o": "",
+                                        "o": ".",
                                         "greeting": "../../../greeting",
                                         "letter-e": "../../../letter-e",
                                         "words": "../.."

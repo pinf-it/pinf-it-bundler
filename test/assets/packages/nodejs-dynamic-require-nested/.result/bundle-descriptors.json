@@ -57,12 +57,20 @@
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-nested",
                             "id": "",
+                            "lookupPaths": [
+                                "test/assets/packages/nodejs-dynamic-require-nested/package.json",
+                                "test/assets/packages/nodejs-dynamic-require-nested/.package.json"
+                            ],
+                            "descriptorPaths": [
+                                "test/assets/packages/nodejs-dynamic-require-nested/package.json"
+                            ],
                             "raw": {
                                 "package.json": {
                                     "main": "app"
                                 }
                             },
                             "normalized": {
+                                ".package.json": {},
                                 "package.json": {
                                     "exports": {
                                         "main": "./app.js"
@@ -208,12 +216,20 @@
                 "descriptor": {
                     "dirpath": "test/assets/packages/nodejs-dynamic-require-nested",
                     "id": "",
+                    "lookupPaths": [
+                        "test/assets/packages/nodejs-dynamic-require-nested/package.json",
+                        "test/assets/packages/nodejs-dynamic-require-nested/.package.json"
+                    ],
+                    "descriptorPaths": [
+                        "test/assets/packages/nodejs-dynamic-require-nested/package.json"
+                    ],
                     "raw": {
                         "package.json": {
                             "main": "app"
                         }
                     },
                     "normalized": {
+                        ".package.json": {},
                         "package.json": {
                             "exports": {
                                 "main": "./app.js"
@@ -350,12 +366,20 @@
                 "descriptor": {
                     "dirpath": "test/assets/packages/nodejs-dynamic-require-nested",
                     "id": "",
+                    "lookupPaths": [
+                        "test/assets/packages/nodejs-dynamic-require-nested/package.json",
+                        "test/assets/packages/nodejs-dynamic-require-nested/.package.json"
+                    ],
+                    "descriptorPaths": [
+                        "test/assets/packages/nodejs-dynamic-require-nested/package.json"
+                    ],
                     "raw": {
                         "package.json": {
                             "main": "app"
                         }
                     },
                     "normalized": {
+                        ".package.json": {},
                         "package.json": {
                             "exports": {
                                 "main": "./app.js"
@@ -430,12 +454,20 @@
                 "descriptor": {
                     "dirpath": "test/assets/packages/nodejs-dynamic-require-nested",
                     "id": "",
+                    "lookupPaths": [
+                        "test/assets/packages/nodejs-dynamic-require-nested/package.json",
+                        "test/assets/packages/nodejs-dynamic-require-nested/.package.json"
+                    ],
+                    "descriptorPaths": [
+                        "test/assets/packages/nodejs-dynamic-require-nested/package.json"
+                    ],
                     "raw": {
                         "package.json": {
                             "main": "app"
                         }
                     },
                     "normalized": {
+                        ".package.json": {},
                         "package.json": {
                             "exports": {
                                 "main": "./app.js"

@@ -54,12 +54,41 @@
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-complex",
                             "id": "",
+                            "lookupPaths": [
+                                "test/assets/packages/nodejs-dynamic-require-complex/package.json",
+                                "test/assets/packages/nodejs-dynamic-require-complex/.package.json"
+                            ],
+                            "descriptorPaths": [
+                                "test/assets/packages/nodejs-dynamic-require-complex/package.json"
+                            ],
                             "raw": {
                                 "package.json": {
                                     "main": "app"
                                 }
                             },
                             "normalized": {
+                                ".package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "layout": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "letter-l": "./node_modules/letter-l",
+                                            "letter-o": "./node_modules/letter-o",
+                                            "letters": "./node_modules/letters"
+                                        }
+                                    },
+                                    "mappings": {
+                                        "letter-l": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l",
+                                        "letter-o": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o",
+                                        "letters": "698b594771c54e63058ef9073aaf59f1e529c21f-letters"
+                                    }
+                                },
                                 "package.json": {
                                     "exports": {
                                         "main": "./app.js"
@@ -191,12 +220,41 @@
                 "descriptor": {
                     "dirpath": "test/assets/packages/nodejs-dynamic-require-complex",
                     "id": "",
+                    "lookupPaths": [
+                        "test/assets/packages/nodejs-dynamic-require-complex/package.json",
+                        "test/assets/packages/nodejs-dynamic-require-complex/.package.json"
+                    ],
+                    "descriptorPaths": [
+                        "test/assets/packages/nodejs-dynamic-require-complex/package.json"
+                    ],
                     "raw": {
                         "package.json": {
                             "main": "app"
                         }
                     },
                     "normalized": {
+                        ".package.json": {
+                            "pm": {
+                                "install": "npm"
+                            },
+                            "layout": {
+                                "directories": {
+                                    "dependency": "./node_modules"
+                                }
+                            },
+                            "dependencies": {
+                                "bundled": {
+                                    "letter-l": "./node_modules/letter-l",
+                                    "letter-o": "./node_modules/letter-o",
+                                    "letters": "./node_modules/letters"
+                                }
+                            },
+                            "mappings": {
+                                "letter-l": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l",
+                                "letter-o": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o",
+                                "letters": "698b594771c54e63058ef9073aaf59f1e529c21f-letters"
+                            }
+                        },
                         "package.json": {
                             "exports": {
                                 "main": "./app.js"
@@ -344,12 +402,41 @@
                 "descriptor": {
                     "dirpath": "test/assets/packages/nodejs-dynamic-require-complex",
                     "id": "",
+                    "lookupPaths": [
+                        "test/assets/packages/nodejs-dynamic-require-complex/package.json",
+                        "test/assets/packages/nodejs-dynamic-require-complex/.package.json"
+                    ],
+                    "descriptorPaths": [
+                        "test/assets/packages/nodejs-dynamic-require-complex/package.json"
+                    ],
                     "raw": {
                         "package.json": {
                             "main": "app"
                         }
                     },
                     "normalized": {
+                        ".package.json": {
+                            "pm": {
+                                "install": "npm"
+                            },
+                            "layout": {
+                                "directories": {
+                                    "dependency": "./node_modules"
+                                }
+                            },
+                            "dependencies": {
+                                "bundled": {
+                                    "letter-l": "./node_modules/letter-l",
+                                    "letter-o": "./node_modules/letter-o",
+                                    "letters": "./node_modules/letters"
+                                }
+                            },
+                            "mappings": {
+                                "letter-l": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l",
+                                "letter-o": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o",
+                                "letters": "698b594771c54e63058ef9073aaf59f1e529c21f-letters"
+                            }
+                        },
                         "package.json": {
                             "exports": {
                                 "main": "./app.js"
@@ -493,10 +580,35 @@
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters",
                             "id": "",
-                            "raw": {
-                                "package.json": {}
-                            },
+                            "lookupPaths": [
+                                "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters/package.json",
+                                "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters/.package.json"
+                            ],
+                            "descriptorPaths": [],
+                            "raw": {},
                             "normalized": {
+                                ".package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "layout": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "letter-l": "../letter-l",
+                                            "letter-o": "../letter-o",
+                                            "letters": "."
+                                        }
+                                    },
+                                    "mappings": {
+                                        "letter-l": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l",
+                                        "letter-o": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o",
+                                        "letters": "698b594771c54e63058ef9073aaf59f1e529c21f-letters"
+                                    }
+                                },
                                 "package.json": {
                                     "pm": {
                                         "install": "npm"
@@ -510,7 +622,7 @@
                                         "bundled": {
                                             "letter-l": "../letter-l",
                                             "letter-o": "../letter-o",
-                                            "letters": ""
+                                            "letters": "."
                                         }
                                     },
                                     "mappings": {
@@ -533,7 +645,7 @@
                                     "bundled": {
                                         "letter-l": "../letter-l",
                                         "letter-o": "../letter-o",
-                                        "letters": ""
+                                        "letters": "."
                                     }
                                 },
                                 "mappings": {
@@ -664,10 +776,35 @@
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters",
                             "id": "",
-                            "raw": {
-                                "package.json": {}
-                            },
+                            "lookupPaths": [
+                                "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters/package.json",
+                                "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters/.package.json"
+                            ],
+                            "descriptorPaths": [],
+                            "raw": {},
                             "normalized": {
+                                ".package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "layout": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "letter-l": "../letter-l",
+                                            "letter-o": "../letter-o",
+                                            "letters": "."
+                                        }
+                                    },
+                                    "mappings": {
+                                        "letter-l": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l",
+                                        "letter-o": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o",
+                                        "letters": "698b594771c54e63058ef9073aaf59f1e529c21f-letters"
+                                    }
+                                },
                                 "package.json": {
                                     "pm": {
                                         "install": "npm"
@@ -681,7 +818,7 @@
                                         "bundled": {
                                             "letter-l": "../letter-l",
                                             "letter-o": "../letter-o",
-                                            "letters": ""
+                                            "letters": "."
                                         }
                                     },
                                     "mappings": {
@@ -704,7 +841,7 @@
                                     "bundled": {
                                         "letter-l": "../letter-l",
                                         "letter-o": "../letter-o",
-                                        "letters": ""
+                                        "letters": "."
                                     }
                                 },
                                 "mappings": {
@@ -733,10 +870,35 @@
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters",
                             "id": "",
-                            "raw": {
-                                "package.json": {}
-                            },
+                            "lookupPaths": [
+                                "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters/package.json",
+                                "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters/.package.json"
+                            ],
+                            "descriptorPaths": [],
+                            "raw": {},
                             "normalized": {
+                                ".package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "layout": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "letter-l": "../letter-l",
+                                            "letter-o": "../letter-o",
+                                            "letters": "."
+                                        }
+                                    },
+                                    "mappings": {
+                                        "letter-l": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l",
+                                        "letter-o": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o",
+                                        "letters": "698b594771c54e63058ef9073aaf59f1e529c21f-letters"
+                                    }
+                                },
                                 "package.json": {
                                     "pm": {
                                         "install": "npm"
@@ -750,7 +912,7 @@
                                         "bundled": {
                                             "letter-l": "../letter-l",
                                             "letter-o": "../letter-o",
-                                            "letters": ""
+                                            "letters": "."
                                         }
                                     },
                                     "mappings": {
@@ -773,7 +935,7 @@
                                     "bundled": {
                                         "letter-l": "../letter-l",
                                         "letter-o": "../letter-o",
-                                        "letters": ""
+                                        "letters": "."
                                     }
                                 },
                                 "mappings": {
@@ -855,10 +1017,35 @@
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l",
                             "id": "",
-                            "raw": {
-                                "package.json": {}
-                            },
+                            "lookupPaths": [
+                                "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l/package.json",
+                                "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l/.package.json"
+                            ],
+                            "descriptorPaths": [],
+                            "raw": {},
                             "normalized": {
+                                ".package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "layout": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "letter-l": ".",
+                                            "letter-o": "../letter-o",
+                                            "letters": "../letters"
+                                        }
+                                    },
+                                    "mappings": {
+                                        "letter-l": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l",
+                                        "letter-o": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o",
+                                        "letters": "698b594771c54e63058ef9073aaf59f1e529c21f-letters"
+                                    }
+                                },
                                 "package.json": {
                                     "pm": {
                                         "install": "npm"
@@ -870,7 +1057,7 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "letter-l": "",
+                                            "letter-l": ".",
                                             "letter-o": "../letter-o",
                                             "letters": "../letters"
                                         }
@@ -893,7 +1080,7 @@
                                 },
                                 "dependencies": {
                                     "bundled": {
-                                        "letter-l": "",
+                                        "letter-l": ".",
                                         "letter-o": "../letter-o",
                                         "letters": "../letters"
                                     }
@@ -975,10 +1162,35 @@
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o",
                             "id": "",
-                            "raw": {
-                                "package.json": {}
-                            },
+                            "lookupPaths": [
+                                "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o/package.json",
+                                "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o/.package.json"
+                            ],
+                            "descriptorPaths": [],
+                            "raw": {},
                             "normalized": {
+                                ".package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "layout": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "letter-l": "../letter-l",
+                                            "letter-o": ".",
+                                            "letters": "../letters"
+                                        }
+                                    },
+                                    "mappings": {
+                                        "letter-l": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l",
+                                        "letter-o": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o",
+                                        "letters": "698b594771c54e63058ef9073aaf59f1e529c21f-letters"
+                                    }
+                                },
                                 "package.json": {
                                     "pm": {
                                         "install": "npm"
@@ -991,7 +1203,7 @@
                                     "dependencies": {
                                         "bundled": {
                                             "letter-l": "../letter-l",
-                                            "letter-o": "",
+                                            "letter-o": ".",
                                             "letters": "../letters"
                                         }
                                     },
@@ -1014,7 +1226,7 @@
                                 "dependencies": {
                                     "bundled": {
                                         "letter-l": "../letter-l",
-                                        "letter-o": "",
+                                        "letter-o": ".",
                                         "letters": "../letters"
                                     }
                                 },
@@ -1095,10 +1307,35 @@
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o",
                             "id": "",
-                            "raw": {
-                                "package.json": {}
-                            },
+                            "lookupPaths": [
+                                "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o/package.json",
+                                "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o/.package.json"
+                            ],
+                            "descriptorPaths": [],
+                            "raw": {},
                             "normalized": {
+                                ".package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "layout": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "letter-l": "../letter-l",
+                                            "letter-o": ".",
+                                            "letters": "../letters"
+                                        }
+                                    },
+                                    "mappings": {
+                                        "letter-l": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l",
+                                        "letter-o": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o",
+                                        "letters": "698b594771c54e63058ef9073aaf59f1e529c21f-letters"
+                                    }
+                                },
                                 "package.json": {
                                     "pm": {
                                         "install": "npm"
@@ -1111,7 +1348,7 @@
                                     "dependencies": {
                                         "bundled": {
                                             "letter-l": "../letter-l",
-                                            "letter-o": "",
+                                            "letter-o": ".",
                                             "letters": "../letters"
                                         }
                                     },
@@ -1134,7 +1371,7 @@
                                 "dependencies": {
                                     "bundled": {
                                         "letter-l": "../letter-l",
-                                        "letter-o": "",
+                                        "letter-o": ".",
                                         "letters": "../letters"
                                     }
                                 },

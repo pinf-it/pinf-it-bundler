@@ -102,12 +102,37 @@
                         "descriptor": {
                             "dirpath": "test/assets/packages/commonjs-lib",
                             "id": "",
+                            "lookupPaths": [
+                                "test/assets/packages/commonjs-lib/package.json",
+                                "test/assets/packages/commonjs-lib/.package.json"
+                            ],
+                            "descriptorPaths": [
+                                "test/assets/packages/commonjs-lib/package.json"
+                            ],
                             "raw": {
                                 "package.json": {
                                     "main": "app"
                                 }
                             },
                             "normalized": {
+                                ".package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "layout": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "greeting": "./node_modules/greeting"
+                                        }
+                                    },
+                                    "mappings": {
+                                        "greeting": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting"
+                                    }
+                                },
                                 "package.json": {
                                     "exports": {
                                         "main": "./app.js"
@@ -169,15 +194,39 @@
                         "descriptor": {
                             "dirpath": "test/assets/packages/commonjs-lib/node_modules/greeting",
                             "id": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting",
+                            "lookupPaths": [
+                                "test/assets/packages/commonjs-lib/node_modules/greeting/package.json",
+                                "test/assets/packages/commonjs-lib/node_modules/greeting/.package.json"
+                            ],
+                            "descriptorPaths": [
+                                "test/assets/packages/commonjs-lib/node_modules/greeting/package.json"
+                            ],
                             "raw": {
                                 "package.json": {
                                     "directories": {
-                                        "lib": "./lib-dir",
-                                        "dependency": "./node_modules"
+                                        "lib": "lib-dir/"
                                     }
                                 }
                             },
                             "normalized": {
+                                ".package.json": {
+                                    "pm": {
+                                        "install": "npm"
+                                    },
+                                    "layout": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    },
+                                    "dependencies": {
+                                        "bundled": {
+                                            "greeting": "."
+                                        }
+                                    },
+                                    "mappings": {
+                                        "greeting": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting"
+                                    }
+                                },
                                 "package.json": {
                                     "layout": {
                                         "directories": {
@@ -190,7 +239,7 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "greeting": ""
+                                            "greeting": "."
                                         }
                                     },
                                     "mappings": {
@@ -210,7 +259,7 @@
                                 },
                                 "dependencies": {
                                     "bundled": {
-                                        "greeting": ""
+                                        "greeting": "."
                                     }
                                 },
                                 "mappings": {
