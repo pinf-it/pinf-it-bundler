@@ -1,0 +1,21 @@
+{
+    "test/assets/packages/nodejs-built-in/.dist/app": {
+        "bundles": {
+            "test/assets/packages/nodejs-built-in/.dist/app.js": ""
+        },
+        "packages": {
+            "": {
+                "main": "/app.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            }
+        },
+        "modules": {
+            "/app.js": {
+                "exports": 4
+            },
+            "/package.json": {}
+        }
+    }
+}

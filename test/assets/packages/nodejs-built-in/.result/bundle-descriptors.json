@@ -1,0 +1,150 @@
+{
+    "test/assets/packages/nodejs-built-in": {
+        "bundles": {
+            "/app.js": {
+                "modules": {
+                    "/app.js": {
+                        "requireId": "/app",
+                        "memoizeId": "/app.js",
+                        "descriptor": {
+                            "filename": "app.js",
+                            "filepath": "test/assets/packages/nodejs-built-in/app.js",
+                            "mtime": 0,
+                            "code": "\nconst ASSERT = require(\"assert\");\nconst PATH = require(\"path\");\n\nfunction main() {\n\n\tASSERT(typeof PATH, \"object\");\n\n\tconsole.log(\"Hello World\");\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
+                            "globals": {
+                                "ASSERT": {
+                                    "type": "assign"
+                                },
+                                "require": {
+                                    "type": "call"
+                                },
+                                "PATH": {
+                                    "type": "assign"
+                                },
+                                "main": {
+                                    "type": "assign"
+                                },
+                                "console": {
+                                    "type": "reference"
+                                }
+                            },
+                            "syntax": "javascript",
+                            "format": "leaky",
+                            "undefine": [],
+                            "uses": {
+                                "require.main": true
+                            },
+                            "dependencies": {
+                                "static": {
+                                    "assert": {
+                                        "where": "inline"
+                                    },
+                                    "path": {
+                                        "where": "inline"
+                                    }
+                                },
+                                "dynamic": {},
+                                "computed": false
+                            }
+                        },
+                        "wrapper": {
+                            "type": "commonjs/leaky",
+                            "top": "function(require, exports, module) {",
+                            "code": "function(require, exports, module) {\n\nconst ASSERT = require(\"__SYSTEM__/assert\");\nconst PATH = require(\"__SYSTEM__/path\");\n\nfunction main() {\n\n\tASSERT(typeof PATH, \"object\");\n\n\tconsole.log(\"Hello World\");\n}\n\nif (require.main === module) {\n\tmain();\n}\n\nreturn {\n    ASSERT: ASSERT,\n    require: require,\n    PATH: PATH,\n    console: console\n};\n}",
+                            "bottom": "return {\n    ASSERT: ASSERT,\n    require: require,\n    PATH: PATH,\n    console: console\n};\n}"
+                        },
+                        "dependencies": {
+                            "static": {
+                                "assert": {
+                                    "where": "inline"
+                                },
+                                "path": {
+                                    "where": "inline"
+                                }
+                            },
+                            "dynamic": {},
+                            "computed": false
+                        },
+                        "warnings": [],
+                        "errors": []
+                    },
+                    "/package.json": {
+                        "requireId": "/package.json",
+                        "memoizeId": "/package.json",
+                        "descriptor": {
+                            "dirpath": "test/assets/packages/nodejs-built-in",
+                            "id": "",
+                            "lookupPaths": [
+                                "test/assets/packages/nodejs-built-in/package.json",
+                                "test/assets/packages/nodejs-built-in/.package.json"
+                            ],
+                            "descriptorPaths": [
+                                "test/assets/packages/nodejs-built-in/package.json"
+                            ],
+                            "raw": {
+                                "package.json": {
+                                    "main": "app",
+                                    "engines": {
+                                        "node": "~0.10.15"
+                                    }
+                                }
+                            },
+                            "normalized": {
+                                ".package.json": {},
+                                "package.json": {
+                                    "requirements": {
+                                        "engines": {
+                                            "node": "~0.10.15"
+                                        }
+                                    },
+                                    "exports": {
+                                        "main": "./app.js"
+                                    },
+                                    "layout": {
+                                        "directories": {
+                                            "dependency": "./node_modules"
+                                        }
+                                    }
+                                }
+                            },
+                            "combined": {
+                                "requirements": {
+                                    "engines": {
+                                        "node": "~0.10.15"
+                                    }
+                                },
+                                "exports": {
+                                    "main": "./app.js"
+                                },
+                                "layout": {
+                                    "directories": {
+                                        "dependency": "./node_modules"
+                                    }
+                                }
+                            },
+                            "warnings": [],
+                            "errors": [],
+                            "memoized": {
+                                "main": "/app.js"
+                            },
+                            "mtime": "0"
+                        },
+                        "wrapper": "json"
+                    }
+                },
+                "expectExistingModules": {},
+                "bundle": {
+                    "path": "test/assets/packages/nodejs-built-in/.dist/app.js"
+                },
+                "warnings": [],
+                "errors": [],
+                "id": "/app.js"
+            }
+        },
+        "warnings": [],
+        "errors": [],
+        "exports": {
+            "main": "/app.js"
+        }
+    }
+}

@@ -199,7 +199,8 @@ describe('bundler', function() {
 				"packages/nodejs-dynamic-require-nested",
 				"packages/nodejs-dynamic-require-pkg",
 				"packages/commonjs-lib",
-				"packages/nodejs-dynamic-require-complex"
+				"packages/nodejs-dynamic-require-complex",
+				"packages/nodejs-built-in"
 			], function(err, files) {
 				if (err) return done(err);
 
@@ -225,6 +226,7 @@ describe('bundler', function() {
 									console: {
 										log: function(message) {
 											buffer.push(message);
+//											if (DEBUG) console.log(["[log]"].concat(arguments));
 										}
 									}
 								};
@@ -251,7 +253,18 @@ describe('bundler', function() {
 									if (typeof result === "function") {
 										result = result();
 									}
+									var keys = null;
+									if (typeof result === "object") {
+										keys = Object.keys(result);
+									}
 									result = JSON.parse(JSON.stringify(result));
+									if (keys) {
+										keys.forEach(function(name) {
+											if (typeof result[name] === "undefined") {
+												result[name] = {};
+											}
+										});
+									}
 
 //console.log(JSON.stringify(PINF_FOR_NODEJS.getReport().sandboxes, null, 4));
 									if (MODE === "test") {
@@ -292,7 +305,18 @@ describe('bundler', function() {
 										if (typeof result === "function") {
 											result = result();
 										}
+										var keys = null;
+										if (typeof result === "object") {
+											keys = Object.keys(result);
+										}
 										result = JSON.parse(JSON.stringify(result));
+										if (keys) {
+											keys.forEach(function(name) {
+												if (typeof result[name] === "undefined") {
+													result[name] = {};
+												}
+											});
+										}
 
 										ASSERT.deepEqual(buffer, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/console.json"))));
 										ASSERT.deepEqual(result, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/api.json"))));

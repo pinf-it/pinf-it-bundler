@@ -1,0 +1,9 @@
+{
+    "PATH": {
+        "sep": "/",
+        "delimiter": ":"
+    },
+    "console": {},
+    "ASSERT": {},
+    "require": {}
+}
