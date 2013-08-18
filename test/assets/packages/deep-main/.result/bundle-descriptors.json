@@ -1,61 +1,44 @@
 {
-    "test/assets/packages/self-require": {
+    "test/assets/packages/deep-main": {
         "bundles": {
-            "/app.js": {
+            "/lib/app.js": {
                 "modules": {
-                    "/app.js": {
-                        "requireId": "/app",
-                        "memoizeId": "/app.js",
+                    "/lib/app.js": {
+                        "requireId": "/lib/app",
+                        "memoizeId": "/lib/app.js",
                         "descriptor": {
                             "filename": "app.js",
-                            "filepath": "test/assets/packages/self-require/app.js",
+                            "filepath": "test/assets/packages/deep-main/lib/app.js",
                             "mtime": 0,
-                            "code": "\nconst APP = require(\".\");\n\nfunction main() {\n\tconsole.log(APP.getGreeting());\n}\n\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
+                            "code": "\nfunction main() {\n\tconsole.log(\"Hello World\");\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
                             "globals": {
-                                "APP": {
-                                    "type": "assign"
-                                },
-                                "require": {
-                                    "type": "call"
-                                },
                                 "main": {
                                     "type": "assign"
                                 },
                                 "console": {
                                     "type": "reference"
-                                },
-                                "exports": {
-                                    "type": "reference"
                                 }
                             },
                             "syntax": "javascript",
-                            "format": "commonjs",
+                            "format": "leaky",
                             "undefine": [],
                             "uses": {
                                 "require.main": true
                             },
                             "dependencies": {
-                                "static": {
-                                    ".": {
-                                        "where": "inline"
-                                    }
-                                },
+                                "static": {},
                                 "dynamic": {},
                                 "computed": false
                             }
                         },
                         "wrapper": {
-                            "type": "commonjs",
+                            "type": "commonjs/leaky",
                             "top": "function(require, exports, module) {",
-                            "code": "function(require, exports, module) {\n\nconst APP = require(\".\");\n\nfunction main() {\n\tconsole.log(APP.getGreeting());\n}\n\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n\nif (require.main === module) {\n\tmain();\n}\n\n}",
-                            "bottom": "}"
+                            "code": "function(require, exports, module) {\n\nfunction main() {\n\tconsole.log(\"Hello World\");\n}\n\nif (require.main === module) {\n\tmain();\n}\n\nreturn {\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}",
+                            "bottom": "return {\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}"
                         },
                         "dependencies": {
-                            "static": {
-                                ".": {
-                                    "where": "inline"
-                                }
-                            },
+                            "static": {},
                             "dynamic": {},
                             "computed": false
                         },
@@ -66,38 +49,37 @@
                         "requireId": "/package.json",
                         "memoizeId": "/package.json",
                         "descriptor": {
-                            "dirpath": "test/assets/packages/self-require",
+                            "dirpath": "test/assets/packages/deep-main",
                             "id": "",
                             "lookupPaths": [
-                                "test/assets/packages/self-require/package.json",
-                                "test/assets/packages/self-require/.package.json"
+                                "test/assets/packages/deep-main/package.json",
+                                "test/assets/packages/deep-main/.package.json"
                             ],
                             "descriptorPaths": [
-                                "test/assets/packages/self-require/package.json"
+                                "test/assets/packages/deep-main/package.json"
                             ],
                             "raw": {
                                 "package.json": {
-                                    "main": "app.js"
+                                    "main": "./lib/app.js"
                                 }
                             },
                             "normalized": {
                                 ".package.json": {},
                                 "package.json": {
                                     "exports": {
-                                        "main": "./app.js"
+                                        "main": "./lib/app.js"
                                     }
                                 }
                             },
                             "combined": {
                                 "exports": {
-                                    "main": "./app.js"
+                                    "main": "./lib/app.js"
                                 }
                             },
                             "warnings": [],
                             "errors": [],
                             "memoized": {
-                                "main": "/app.js",
-                                "mappings": {}
+                                "main": "/lib/app.js"
                             },
                             "mtime": "0"
                         },
@@ -106,17 +88,17 @@
                 },
                 "expectExistingModules": {},
                 "bundle": {
-                    "path": "test/assets/packages/self-require/.dist/app.js"
+                    "path": "test/assets/packages/deep-main/.dist/lib/app.js"
                 },
                 "warnings": [],
                 "errors": [],
-                "id": "/app.js"
+                "id": "/lib/app.js"
             }
         },
         "warnings": [],
         "errors": [],
         "exports": {
-            "main": "/app.js"
+            "main": "/lib/app.js"
         }
     }
 }

@@ -1,30 +1,26 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require) {
-// @pinf-bundle-module: {"file":"test/assets/packages/self-require/app.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/app.js"}
-require.memoize("/app.js", 
+// @pinf-bundle-module: {"file":"test/assets/packages/deep-main/lib/app.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"/lib/app.js"}
+require.memoize("/lib/app.js", 
 function(require, exports, module) {
 
-const APP = require(".");
-
 function main() {
-	console.log(APP.getGreeting());
-}
-
-exports.getGreeting = function() {
-	return "Hello World";
+	console.log("Hello World");
 }
 
 if (require.main === module) {
 	main();
 }
 
+return {
+    console: (typeof console !== "undefined") ? console : null
+};
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
-    "main": "/app.js",
-    "mappings": {}
+    "main": "/lib/app.js"
 }
 );
 // @pinf-bundle-ignore: 

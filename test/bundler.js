@@ -25,7 +25,8 @@ describe('bundler', function() {
 	});
 
 	describe('`bundleFile()`', function() {
-		this.timeout(10 * 1000);
+
+		this.timeout(20 * 1000);
 
 		function getFiles(rules, callback) {
 			var files = [];
@@ -67,6 +68,7 @@ describe('bundler', function() {
 							test: !DEBUG,
 							rootPath: rootPath,
 							distPath: PATH.join("test/assets/modules", PATH.dirname(file)),
+							distFilename: PATH.basename(file),
 							locateMissingFile: function(descriptor, path, callback) {
 								if (path.substring(0, relPath.length) !== relPath) {
 									return callback(new Error("Cannot locate missing file '" + path + "'"));
@@ -171,7 +173,7 @@ describe('bundler', function() {
 
 	describe('`bundlePackage()`', function() {
 
-		this.timeout(10 * 1000);
+		this.timeout(20 * 1000);
 
 		function getFiles(rules, callback) {
 			var files = [];
@@ -196,7 +198,6 @@ describe('bundler', function() {
 
 			return getFiles([
 				"packages/single",
-				"packages/nodejs-multiple",
 				"packages/nodejs-dynamic-require-simple",
 				"packages/nodejs-dynamic-require-shared",
 				"packages/nodejs-dynamic-require-nested",
@@ -204,7 +205,10 @@ describe('bundler', function() {
 				"packages/commonjs-lib",
 				"packages/nodejs-dynamic-require-complex",
 				"packages/nodejs-built-in",
-				"packages/self-require"
+				"packages/self-require",
+				"packages/deep-main",
+				"packages/self-require-deep",
+				"packages/nodejs-multiple"
 			], function(err, files) {
 				if (err) return done(err);
 

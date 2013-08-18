@@ -1,18 +1,18 @@
 {
-    "test/assets/packages/self-require/.dist/app": {
+    "test/assets/packages/self-require-deep/.dist/lib/app": {
         "bundles": {
-            "test/assets/packages/self-require/.dist/app.js": ""
+            "test/assets/packages/self-require-deep/.dist/lib/app.js": ""
         },
         "packages": {
             "": {
-                "main": "/app.js",
+                "main": "/lib/app.js",
                 "mappings": {},
                 "directories": {},
                 "libPath": ""
             }
         },
         "modules": {
-            "/app.js": {
+            "/lib/app.js": {
                 "exports": 1
             },
             "/package.json": {}
