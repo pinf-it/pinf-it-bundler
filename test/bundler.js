@@ -203,7 +203,8 @@ describe('bundler', function() {
 				"packages/nodejs-dynamic-require-pkg",
 				"packages/commonjs-lib",
 				"packages/nodejs-dynamic-require-complex",
-				"packages/nodejs-built-in"
+				"packages/nodejs-built-in",
+				"packages/self-require"
 			], function(err, files) {
 				if (err) return done(err);
 

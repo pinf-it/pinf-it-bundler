@@ -18,6 +18,7 @@
                 "mappings": {
                     "jsonfile": "d5ba5d20168aa9175f55feda3f60aab1a6ace818-jsonfile",
                     "mkdirp": "693ec9cb1f2f61428c63e9cd17e57775f4df0f74-mkdirp",
+                    "": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
                     "ncp": "c99227b03d285ab9292c0748af53c56ffc9ac859-ncp",
                     "rimraf": "16117a71d212e842209fc0336b7b2cf0572a5023-rimraf"
                 },
