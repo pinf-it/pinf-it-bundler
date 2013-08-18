@@ -2,7 +2,7 @@
 PINF.bundle("", function(require) {
 // @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/node-http-signature-parser.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"/node-http-signature-parser.js"}
 require.memoize("/node-http-signature-parser.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/pinf-it-module-insight/test/assets/various';
 
 // @source https://github.com/joyent/node-http-signature/blob/81ddc9f7100944f476cb1caf107488f4cb7c666e/lib/parser.js
 

@@ -75,7 +75,7 @@ function wrapAMD(callback) {
 }
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-built-in/app.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"/app.js"}
 require.memoize("/app.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-built-in';
 
 const ASSERT = require("__SYSTEM__/assert");
 const PATH = require("__SYSTEM__/path");
@@ -105,7 +105,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/fs-extra/lib/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/index.js"}
 require.memoize("b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/fs-extra/lib';
 "use strict"
 
 var fs = null
@@ -235,7 +235,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/fs-extra/node_modules/jsonfile/lib/jsonfile.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"d5ba5d20168aa9175f55feda3f60aab1a6ace818-jsonfile/lib/jsonfile.js"}
 require.memoize("d5ba5d20168aa9175f55feda3f60aab1a6ace818-jsonfile/lib/jsonfile.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/fs-extra/node_modules/jsonfile/lib';
 var fs = require('__SYSTEM__/fs');
 
 var me = module.exports;
@@ -284,7 +284,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/fs-extra/lib/json.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/json.js"}
 require.memoize("b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/json.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/fs-extra/lib';
 "use strict"
 
 var jsonFile = require('jsonfile')
@@ -328,7 +328,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/fs-extra/lib/mkdir.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/mkdir.js"}
 require.memoize("b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/mkdir.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/fs-extra/lib';
 "use strict"
 
 var mkdirp = require('mkdirp');
@@ -347,7 +347,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/fs-extra/node_modules/mkdirp/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"693ec9cb1f2f61428c63e9cd17e57775f4df0f74-mkdirp/index.js"}
 require.memoize("693ec9cb1f2f61428c63e9cd17e57775f4df0f74-mkdirp/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/fs-extra/node_modules/mkdirp';
 var path = require('__SYSTEM__/path');
 var fs = require('__SYSTEM__/fs');
 
@@ -444,7 +444,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/fs-extra/lib/copy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/copy.js"}
 require.memoize("b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/copy.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/fs-extra/lib';
 "use strict"
 
 var fs = require('__SYSTEM__/fs')
@@ -504,7 +504,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/fs-extra/node_modules/ncp/lib/ncp.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"c99227b03d285ab9292c0748af53c56ffc9ac859-ncp/lib/ncp.js"}
 require.memoize("c99227b03d285ab9292c0748af53c56ffc9ac859-ncp/lib/ncp.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/fs-extra/node_modules/ncp/lib';
 var fs = require('__SYSTEM__/fs'),
     path = require('__SYSTEM__/path');
 
@@ -741,7 +741,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/fs-extra/lib/remove.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/remove.js"}
 require.memoize("b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/remove.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/fs-extra/lib';
 "use strict"
 
 var rimraf = require('rimraf')
@@ -774,7 +774,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/fs-extra/node_modules/rimraf/rimraf.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"16117a71d212e842209fc0336b7b2cf0572a5023-rimraf/rimraf.js"}
 require.memoize("16117a71d212e842209fc0336b7b2cf0572a5023-rimraf/rimraf.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/fs-extra/node_modules/rimraf';
 module.exports = rimraf
 rimraf.sync = rimrafSync
 
@@ -964,7 +964,7 @@ function rmkidsSync (p) {
 );
 // @pinf-bundle-module: {"file":"node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/graceful-fs.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/graceful-fs.js"}
 require.memoize("8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/graceful-fs.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
 // Monkey-patching the fs module.
 // It's ugly, but there is simply no other way to do this.
 var fs = module.exports = require('__SYSTEM__/fs')
@@ -1148,7 +1148,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/polyfills.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/polyfills.js"}
 require.memoize("8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/polyfills.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
 var fs = require('__SYSTEM__/fs')
 var constants = require('__SYSTEM__/constants')
 
@@ -1398,7 +1398,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/fs-extra/lib/create.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/create.js"}
 require.memoize("b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/create.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/fs-extra/lib';
 "use strict"
 
 var mkdir = require('./mkdir')
@@ -1469,7 +1469,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/fs-extra/lib/output.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/output.js"}
 require.memoize("b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/output.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/fs-extra/lib';
 "use strict"
 
 var mkdir = require('./mkdir')
@@ -1522,7 +1522,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"ed4bb06796db1905581e7b400da006dd7b8b1b55-request/index.js"}
 require.memoize("ed4bb06796db1905581e7b400da006dd7b8b1b55-request/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request';
 // Copyright 2010-2012 Mikeal Rogers
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -1689,7 +1689,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/cookie-jar/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"96d6c97b8f07f8f227fbeb5b214187b162ad8c7c-cookie-jar/index.js"}
 require.memoize("96d6c97b8f07f8f227fbeb5b214187b162ad8c7c-cookie-jar/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/cookie-jar';
 /*!
  * Tobi - Cookie
  * Copyright(c) 2010 LearnBoost <dev@learnboost.com>
@@ -1761,7 +1761,7 @@ module.exports.Jar = require('./jar')
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/cookie-jar/jar.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"96d6c97b8f07f8f227fbeb5b214187b162ad8c7c-cookie-jar/jar.js"}
 require.memoize("96d6c97b8f07f8f227fbeb5b214187b162ad8c7c-cookie-jar/jar.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/cookie-jar';
 /*!
 * Tobi - CookieJar
 * Copyright(c) 2010 LearnBoost <dev@learnboost.com>
@@ -1839,7 +1839,7 @@ CookieJar.prototype.cookieString = function(req){
 );
 // @pinf-bundle-module: {"file":"node_modules/request/lib/copy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"ed4bb06796db1905581e7b400da006dd7b8b1b55-request/lib/copy.js"}
 require.memoize("ed4bb06796db1905581e7b400da006dd7b8b1b55-request/lib/copy.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/lib';
 module.exports =
 function copy (obj) {
   var o = {}
@@ -1856,7 +1856,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/request.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"ed4bb06796db1905581e7b400da006dd7b8b1b55-request/request.js"}
 require.memoize("ed4bb06796db1905581e7b400da006dd7b8b1b55-request/request.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request';
 var http = require('__SYSTEM__/http')
   , https = false
   , tls = false
@@ -3145,7 +3145,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/qs/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"bad905498fb7a8a034fa664d6ed1a9c67f1b189c-qs/index.js"}
 require.memoize("bad905498fb7a8a034fa664d6ed1a9c67f1b189c-qs/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/qs';
 /**
  * Object#toString() ref for stringify().
  */
@@ -3538,7 +3538,7 @@ function decode(str) {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/oauth-sign/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"4c8c493e0464365389fe0601e4bb6254d3b41a3c-oauth-sign/index.js"}
 require.memoize("4c8c493e0464365389fe0601e4bb6254d3b41a3c-oauth-sign/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/oauth-sign';
 var crypto = require('__SYSTEM__/crypto')
   , qs = require('__SYSTEM__/querystring')
   ;
@@ -3587,7 +3587,7 @@ exports.rfc3986 = rfc3986
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/hawk/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"29eb5a18eb620cc598527d89a0c5c611db63e91b-hawk/index.js"}
 require.memoize("29eb5a18eb620cc598527d89a0c5c611db63e91b-hawk/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/hawk';
 module.exports = require('./lib');
 return {
     module: (typeof module !== "undefined") ? module : null,
@@ -3597,7 +3597,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/hawk/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"29eb5a18eb620cc598527d89a0c5c611db63e91b-hawk/lib/index.js"}
 require.memoize("29eb5a18eb620cc598527d89a0c5c611db63e91b-hawk/lib/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/hawk/lib';
 // Export sub-modules
 
 exports.error = exports.Error = require('boom');
@@ -3618,7 +3618,7 @@ exports.uri = {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/hawk/node_modules/boom/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"799caeb4798b9c4de483910de2aa52868f1f47d9-boom/index.js"}
 require.memoize("799caeb4798b9c4de483910de2aa52868f1f47d9-boom/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/hawk/node_modules/boom';
 module.exports = require('./lib');
 return {
     module: (typeof module !== "undefined") ? module : null,
@@ -3628,7 +3628,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/hawk/node_modules/boom/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"799caeb4798b9c4de483910de2aa52868f1f47d9-boom/lib/index.js"}
 require.memoize("799caeb4798b9c4de483910de2aa52868f1f47d9-boom/lib/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/hawk/node_modules/boom/lib';
 // Load modules
 
 var Http = require('__SYSTEM__/http');
@@ -3841,7 +3841,7 @@ internals.Boom.passThrough = function (code, payload, contentType, headers) {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/hawk/node_modules/hoek/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f7d6999ac201573ce8335e058ee0439994171772-hoek/index.js"}
 require.memoize("f7d6999ac201573ce8335e058ee0439994171772-hoek/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/hawk/node_modules/hoek';
 module.exports = require('./lib');
 return {
     module: (typeof module !== "undefined") ? module : null,
@@ -3851,7 +3851,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/hawk/node_modules/hoek/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"f7d6999ac201573ce8335e058ee0439994171772-hoek/lib/index.js"}
 require.memoize("f7d6999ac201573ce8335e058ee0439994171772-hoek/lib/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/hawk/node_modules/hoek/lib';
 // Load modules
 
 var Fs = require('__SYSTEM__/fs');
@@ -4442,7 +4442,7 @@ exports.nextTick = function (callback) {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/hawk/node_modules/hoek/lib/escape.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"f7d6999ac201573ce8335e058ee0439994171772-hoek/lib/escape.js"}
 require.memoize("f7d6999ac201573ce8335e058ee0439994171772-hoek/lib/escape.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/hawk/node_modules/hoek/lib';
 // Declare internals
 
 var internals = {};
@@ -4579,7 +4579,7 @@ internals.safeCharCodes = (function () {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/hawk/node_modules/sntp/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"99cc0c112bc5e48183c985f6e4c69af129c98ba7-sntp/index.js"}
 require.memoize("99cc0c112bc5e48183c985f6e4c69af129c98ba7-sntp/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/hawk/node_modules/sntp';
 module.exports = require('./lib');
 return {
     module: (typeof module !== "undefined") ? module : null,
@@ -4589,7 +4589,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/hawk/node_modules/sntp/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"99cc0c112bc5e48183c985f6e4c69af129c98ba7-sntp/lib/index.js"}
 require.memoize("99cc0c112bc5e48183c985f6e4c69af129c98ba7-sntp/lib/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/hawk/node_modules/sntp/lib';
 // Load modules
 
 var Dgram = require('__SYSTEM__/dgram');
@@ -5004,7 +5004,7 @@ exports.now = function () {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/hawk/lib/server.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"29eb5a18eb620cc598527d89a0c5c611db63e91b-hawk/lib/server.js"}
 require.memoize("29eb5a18eb620cc598527d89a0c5c611db63e91b-hawk/lib/server.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/hawk/lib';
 // Load modules
 
 var Boom = require('boom');
@@ -5534,7 +5534,7 @@ exports.authenticateMessage = function (host, port, message, authorization, cred
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/hawk/node_modules/cryptiles/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"0d16239d3ef60fdd17d17b1d50d2c59ee8e63166-cryptiles/index.js"}
 require.memoize("0d16239d3ef60fdd17d17b1d50d2c59ee8e63166-cryptiles/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/hawk/node_modules/cryptiles';
 module.exports = require('./lib');
 return {
     module: (typeof module !== "undefined") ? module : null,
@@ -5544,7 +5544,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/hawk/node_modules/cryptiles/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"0d16239d3ef60fdd17d17b1d50d2c59ee8e63166-cryptiles/lib/index.js"}
 require.memoize("0d16239d3ef60fdd17d17b1d50d2c59ee8e63166-cryptiles/lib/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/hawk/node_modules/cryptiles/lib';
 // Load modules
 
 var Crypto = require('__SYSTEM__/crypto');
@@ -5618,7 +5618,7 @@ exports.fixedTimeComparison = function (a, b) {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/hawk/lib/crypto.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"29eb5a18eb620cc598527d89a0c5c611db63e91b-hawk/lib/crypto.js"}
 require.memoize("29eb5a18eb620cc598527d89a0c5c611db63e91b-hawk/lib/crypto.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/hawk/lib';
 // Load modules
 
 var Crypto = require('__SYSTEM__/crypto');
@@ -5735,7 +5735,7 @@ exports.calculateTsMac = function (ts, credentials) {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/hawk/lib/utils.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"29eb5a18eb620cc598527d89a0c5c611db63e91b-hawk/lib/utils.js"}
 require.memoize("29eb5a18eb620cc598527d89a0c5c611db63e91b-hawk/lib/utils.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/hawk/lib';
 // Load modules
 
 var Hoek = require('hoek');
@@ -5766,7 +5766,7 @@ internals.import();
 
 exports.version = function () {
 
-    return exports.loadPackage("/Volumes/Ginseng-Independence-Desktop/ginseng-source/projects/github.com+pinf-it+pinf-it-bundler/node_modules/request/node_modules/hawk/lib" + '/..').version;
+    return exports.loadPackage(__dirname + '/..').version;
 };
 
 
@@ -5924,7 +5924,7 @@ exports.unauthorized = function (message) {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/hawk/lib/client.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"29eb5a18eb620cc598527d89a0c5c611db63e91b-hawk/lib/client.js"}
 require.memoize("29eb5a18eb620cc598527d89a0c5c611db63e91b-hawk/lib/client.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/hawk/lib';
 // Load modules
 
 var Url = require('__SYSTEM__/url');
@@ -6297,7 +6297,7 @@ exports.message = function (host, port, message, options) {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/aws-sign/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"effa10bda53b956d3e4fe3fada19d444ee3ea1ac-aws-sign/index.js"}
 require.memoize("effa10bda53b956d3e4fe3fada19d444ee3ea1ac-aws-sign/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/aws-sign';
 
 /*!
  * knox - auth
@@ -6522,7 +6522,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/http-signature/lib/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature/lib/index.js"}
 require.memoize("6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature/lib/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/http-signature/lib';
 // Copyright 2011 Joyent, Inc.  All rights reserved.
 
 var parser = require('./parser');
@@ -6561,7 +6561,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/http-signature/lib/parser.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature/lib/parser.js"}
 require.memoize("6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature/lib/parser.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/http-signature/lib';
 // Copyright 2012 Joyent, Inc.  All rights reserved.
 
 var assert = require('assert-plus');
@@ -6888,7 +6888,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/http-signature/node_modules/assert-plus/assert.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"fbda01465fe6db497c8c3e6b1a4a2bfae5a62cfc-assert-plus/assert.js"}
 require.memoize("fbda01465fe6db497c8c3e6b1a4a2bfae5a62cfc-assert-plus/assert.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/http-signature/node_modules/assert-plus';
 // Copyright (c) 2012, Mark Cavage. All rights reserved.
 
 var assert = require('__SYSTEM__/assert');
@@ -7116,7 +7116,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/http-signature/lib/signer.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature/lib/signer.js"}
 require.memoize("6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature/lib/signer.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/http-signature/lib';
 // Copyright 2012 Joyent, Inc.  All rights reserved.
 
 var assert = require('assert-plus');
@@ -7316,7 +7316,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/http-signature/lib/verify.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature/lib/verify.js"}
 require.memoize("6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature/lib/verify.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/http-signature/lib';
 // Copyright 2011 Joyent, Inc.  All rights reserved.
 
 var assert = require('assert-plus');
@@ -7370,7 +7370,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/http-signature/lib/util.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature/lib/util.js"}
 require.memoize("6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature/lib/util.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/http-signature/lib';
 // Copyright 2012 Joyent, Inc.  All rights reserved.
 
 var assert = require('assert-plus');
@@ -7639,7 +7639,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/http-signature/node_modules/asn1/lib/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"e612e189cff4640079c1b54bfddcf962015c2f30-asn1/lib/index.js"}
 require.memoize("e612e189cff4640079c1b54bfddcf962015c2f30-asn1/lib/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/http-signature/node_modules/asn1/lib';
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 // If you have no idea what ASN.1 or BER is, see this:
@@ -7670,7 +7670,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"e612e189cff4640079c1b54bfddcf962015c2f30-asn1/lib/ber/index.js"}
 require.memoize("e612e189cff4640079c1b54bfddcf962015c2f30-asn1/lib/ber/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 var errors = require('./errors');
@@ -7713,7 +7713,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/errors.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"e612e189cff4640079c1b54bfddcf962015c2f30-asn1/lib/ber/errors.js"}
 require.memoize("e612e189cff4640079c1b54bfddcf962015c2f30-asn1/lib/ber/errors.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 
@@ -7735,7 +7735,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/types.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"e612e189cff4640079c1b54bfddcf962015c2f30-asn1/lib/ber/types.js"}
 require.memoize("e612e189cff4640079c1b54bfddcf962015c2f30-asn1/lib/ber/types.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 
@@ -7780,7 +7780,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/reader.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"e612e189cff4640079c1b54bfddcf962015c2f30-asn1/lib/ber/reader.js"}
 require.memoize("e612e189cff4640079c1b54bfddcf962015c2f30-asn1/lib/ber/reader.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 var assert = require('__SYSTEM__/assert');
@@ -8063,7 +8063,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/writer.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"e612e189cff4640079c1b54bfddcf962015c2f30-asn1/lib/ber/writer.js"}
 require.memoize("e612e189cff4640079c1b54bfddcf962015c2f30-asn1/lib/ber/writer.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 var assert = require('__SYSTEM__/assert');
@@ -8401,7 +8401,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/http-signature/node_modules/ctype/ctype.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"772d995e44ccaf42f98f64a0097b4a58863c38af-ctype/ctype.js"}
 require.memoize("772d995e44ccaf42f98f64a0097b4a58863c38af-ctype/ctype.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/http-signature/node_modules/ctype';
 /*
  * rm - Feb 2011
  * ctype.js
@@ -9351,7 +9351,7 @@ exports.wdouble = mod_ctio.wdouble;
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/http-signature/node_modules/ctype/ctf.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"772d995e44ccaf42f98f64a0097b4a58863c38af-ctype/ctf.js"}
 require.memoize("772d995e44ccaf42f98f64a0097b4a58863c38af-ctype/ctf.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/http-signature/node_modules/ctype';
 /*
  * ctf.js
  *
@@ -9602,7 +9602,7 @@ exports.ctfParseJson = ctfParseJson;
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/http-signature/node_modules/ctype/ctio.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"772d995e44ccaf42f98f64a0097b4a58863c38af-ctype/ctio.js"}
 require.memoize("772d995e44ccaf42f98f64a0097b4a58863c38af-ctype/ctio.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/http-signature/node_modules/ctype';
 /*
  * rm - Feb 2011
  * ctio.js:
@@ -11344,7 +11344,7 @@ wrapAMD(function(require, define) {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/mime/mime.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"acbfdcf6c33b2a153969671d593b45e4d0cd5768-mime/mime.js"}
 require.memoize("acbfdcf6c33b2a153969671d593b45e4d0cd5768-mime/mime.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/mime';
 var path = require('__SYSTEM__/path');
 var fs = require('__SYSTEM__/fs');
 
@@ -11434,10 +11434,10 @@ var mime = new Mime();
 
 // Load local copy of
 // http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types
-mime.load(path.join("/Volumes/Ginseng-Independence-Desktop/ginseng-source/projects/github.com+pinf-it+pinf-it-bundler/node_modules/request/node_modules/mime", 'types/mime.types'));
+mime.load(path.join(__dirname, 'types/mime.types'));
 
 // Load additional types from node.js community
-mime.load(path.join("/Volumes/Ginseng-Independence-Desktop/ginseng-source/projects/github.com+pinf-it+pinf-it-bundler/node_modules/request/node_modules/mime", 'types/node.types'));
+mime.load(path.join(__dirname, 'types/node.types'));
 
 // Default type
 mime.default_type = mime.lookup('bin');
@@ -11469,14 +11469,14 @@ return {
     process: (typeof process !== "undefined") ? process : null,
     console: (typeof console !== "undefined") ? console : null,
     mime: (typeof mime !== "undefined") ? mime : null,
-    "/Volumes/Ginseng-Independence-Desktop/ginseng-source/projects/github.com+pinf-it+pinf-it-bundler/node_modules/request/node_modules/mime": (typeof "/Volumes/Ginseng-Independence-Desktop/ginseng-source/projects/github.com+pinf-it+pinf-it-bundler/node_modules/request/node_modules/mime" !== "undefined") ? "/Volumes/Ginseng-Independence-Desktop/ginseng-source/projects/github.com+pinf-it+pinf-it-bundler/node_modules/request/node_modules/mime" : null,
+    __dirname: (typeof __dirname !== "undefined") ? __dirname : null,
     module: (typeof module !== "undefined") ? module : null
 };
 }
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/tunnel-agent/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"11cb05bc0940ffae1a1e1f73ca7c89e4731519fe-tunnel-agent/index.js"}
 require.memoize("11cb05bc0940ffae1a1e1f73ca7c89e4731519fe-tunnel-agent/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/tunnel-agent';
 'use strict'
 
 var net = require('__SYSTEM__/net')
@@ -11709,7 +11709,7 @@ exports.debug = debug // for test
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/json-stringify-safe/stringify.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"cd513417702c216d7e831b5e07732580c4cd46ff-json-stringify-safe/stringify.js"}
 require.memoize("cd513417702c216d7e831b5e07732580c4cd46ff-json-stringify-safe/stringify.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/json-stringify-safe';
 module.exports = stringify;
 
 function getSerialize (fn, decycle) {
@@ -11761,7 +11761,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/forever-agent/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"0aece9af14f253ebe7db431e7f82a4db65578bac-forever-agent/index.js"}
 require.memoize("0aece9af14f253ebe7db431e7f82a4db65578bac-forever-agent/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/forever-agent';
 module.exports = ForeverAgent
 ForeverAgent.SSL = ForeverAgentSSL
 
@@ -11898,7 +11898,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/form-data/lib/form_data.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"30e023fb56d12219edd0fa0dc5fec5bc671e23d7-form-data/lib/form_data.js"}
 require.memoize("30e023fb56d12219edd0fa0dc5fec5bc671e23d7-form-data/lib/form_data.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/form-data/lib';
 var CombinedStream = require('combined-stream');
 var util = require('__SYSTEM__/util');
 var path = require('__SYSTEM__/path');
@@ -12239,7 +12239,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/form-data/node_modules/combined-stream/lib/combined_stream.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"06cbcc54faef9f40e30e431889706609e5cfcee5-combined-stream/lib/combined_stream.js"}
 require.memoize("06cbcc54faef9f40e30e431889706609e5cfcee5-combined-stream/lib/combined_stream.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/form-data/node_modules/combined-stream/lib';
 var util = require('__SYSTEM__/util');
 var Stream = require('__SYSTEM__/stream').Stream;
 var DelayedStream = require('delayed-stream');
@@ -12439,7 +12439,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/lib/delayed_stream.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"199a58ca20a8d32f3b68d292b20fd112db88b5ec-delayed-stream/lib/delayed_stream.js"}
 require.memoize("199a58ca20a8d32f3b68d292b20fd112db88b5ec-delayed-stream/lib/delayed_stream.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/lib';
 var Stream = require('__SYSTEM__/stream').Stream;
 var util = require('__SYSTEM__/util');
 
@@ -13512,7 +13512,7 @@ wrapAMD(function(require, define) {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/lib/debug.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"ed4bb06796db1905581e7b400da006dd7b8b1b55-request/lib/debug.js"}
 require.memoize("ed4bb06796db1905581e7b400da006dd7b8b1b55-request/lib/debug.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/lib';
 module.exports =
 function debug () {
   if (/\brequest\b/.test(process.env.NODE_DEBUG))
@@ -13528,7 +13528,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"node_modules/request/lib/getSafe.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"ed4bb06796db1905581e7b400da006dd7b8b1b55-request/lib/getSafe.js"}
 require.memoize("ed4bb06796db1905581e7b400da006dd7b8b1b55-request/lib/getSafe.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'node_modules/request/lib';
 // Safe toJSON
 module.exports =
 function getSafe (self, uuid) {

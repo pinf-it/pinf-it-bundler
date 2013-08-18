@@ -43,8 +43,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs/leaky",
-                            "top": "function(require, exports, module) {",
-                            "code": "function(require, exports, module) {\n\nvar GREETING = require(\"greeting/greeting\");\n\nfunction main() {\n\tconsole.log(GREETING.getGreeting());\n}\n\nif (require.main === module) {\n\tmain();\n}\n\nreturn {\n    GREETING: (typeof GREETING !== \"undefined\") ? GREETING : null,\n    require: (typeof require !== \"undefined\") ? require : null,\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}",
+                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/commonjs-lib';",
+                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/commonjs-lib';\n\nvar GREETING = require(\"greeting/greeting\");\n\nfunction main() {\n\tconsole.log(GREETING.getGreeting());\n}\n\nif (require.main === module) {\n\tmain();\n}\n\nreturn {\n    GREETING: (typeof GREETING !== \"undefined\") ? GREETING : null,\n    require: (typeof require !== \"undefined\") ? require : null,\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}",
                             "bottom": "return {\n    GREETING: (typeof GREETING !== \"undefined\") ? GREETING : null,\n    require: (typeof require !== \"undefined\") ? require : null,\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}"
                         },
                         "dependencies": {
@@ -84,8 +84,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs",
-                            "top": "function(require, exports, module) {",
-                            "code": "function(require, exports, module) {\n\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n\n}",
+                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/commonjs-lib/node_modules/greeting/lib-dir';",
+                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/commonjs-lib/node_modules/greeting/lib-dir';\n\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {

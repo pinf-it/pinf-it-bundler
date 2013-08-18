@@ -2,7 +2,7 @@
 PINF.bundle("", function(require) {
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-dynamic-require-complex/assemble.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/assemble.js"}
 require.memoize("/assemble.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex';
 
 exports.assemble = function() {
 

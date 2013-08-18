@@ -2,7 +2,7 @@
 PINF.bundle("", function(require) {
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o/o.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o/o.js"}
 require.memoize("b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o/o.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o';
 
 exports.getLetter = function() {
 	return "o";

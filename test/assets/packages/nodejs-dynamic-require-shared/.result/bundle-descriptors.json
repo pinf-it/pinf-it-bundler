@@ -39,8 +39,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs",
-                            "top": "function(require, exports, module) {",
-                            "code": "function(require, exports, module) {\n\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nexports.getWorld = function() {\n\treturn \"World\";\t\n}\n\nif (require.main === module) {\n\tmain();\n}\n\n}",
+                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-shared';",
+                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-shared';\n\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nexports.getWorld = function() {\n\treturn \"World\";\t\n}\n\nif (require.main === module) {\n\tmain();\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {
@@ -144,8 +144,8 @@
                 },
                 "wrapper": {
                     "type": "commonjs",
-                    "top": "function(require, exports, module) {",
-                    "code": "function(require, exports, module) {\n\nvar APP = require(\"./app\");\n\nexports.getGreeting = function() {\n\treturn \"Hello \" + APP.getWorld();\n}\n\n}",
+                    "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-shared';",
+                    "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-shared';\n\nvar APP = require(\"./app\");\n\nexports.getGreeting = function() {\n\treturn \"Hello \" + APP.getWorld();\n}\n\n}",
                     "bottom": "}"
                 },
                 "dependencies": {
@@ -198,8 +198,8 @@
                 },
                 "wrapper": {
                     "type": "commonjs",
-                    "top": "function(require, exports, module) {",
-                    "code": "function(require, exports, module) {\n\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nexports.getWorld = function() {\n\treturn \"World\";\t\n}\n\nif (require.main === module) {\n\tmain();\n}\n\n}",
+                    "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-shared';",
+                    "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-shared';\n\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nexports.getWorld = function() {\n\treturn \"World\";\t\n}\n\nif (require.main === module) {\n\tmain();\n}\n\n}",
                     "bottom": "}"
                 },
                 "dependencies": {

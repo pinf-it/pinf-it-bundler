@@ -2,7 +2,7 @@
 PINF.bundle("", function(require) {
 // @pinf-bundle-module: {"file":"test/assets/packages/self-require/app.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/app.js"}
 require.memoize("/app.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'test/assets/packages/self-require';
 
 const APP = require(".");
 

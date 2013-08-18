@@ -2,7 +2,7 @@
 PINF.bundle("", function(require) {
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-dynamic-require-complex/greeting.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/greeting.js"}
 require.memoize("/greeting.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex';
 
 exports.getGreeting = function() {
 

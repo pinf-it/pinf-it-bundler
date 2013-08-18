@@ -2,7 +2,7 @@
 PINF.bundle("", function(require) {
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-multiple/app.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"/app.js"}
 require.memoize("/app.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple';
 
 var GREETING = require("greeting");
 var LIB = require("./lib");
@@ -25,7 +25,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-multiple/node_modules/greeting/greeting.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting/greeting.js"}
 require.memoize("8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting/greeting.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/node_modules/greeting';
 
 var HELLO = require("words/hello");
 
@@ -37,7 +37,7 @@ exports.getGreeting = function() {
 );
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-multiple/node_modules/words/hello.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"85b2fe6f2976fbb5995739b47d993956ad97c068-words/hello.js"}
 require.memoize("85b2fe6f2976fbb5995739b47d993956ad97c068-words/hello.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/node_modules/words';
 
 var LETTERS = require("letters");
 
@@ -49,7 +49,7 @@ exports.getWord = function() {
 );
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-multiple/node_modules/words/node_modules/letters/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters/index.js"}
 require.memoize("bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/node_modules/words/node_modules/letters';
 
 var LETTER_E = require("letter-e/e");
 var LETTER_O = require("o");
@@ -66,7 +66,7 @@ exports.getLetterO = function() {
 );
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-multiple/node_modules/letter-e/e.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e/e.js"}
 require.memoize("a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e/e.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/node_modules/letter-e';
 
 exports.getLetter = function() {
 	return "e";
@@ -76,7 +76,7 @@ exports.getLetter = function() {
 );
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-multiple/node_modules/words/node_modules/o/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"0d9a386644a6bc19a809e0eb36349e69e24c8501-o/index.js"}
 require.memoize("0d9a386644a6bc19a809e0eb36349e69e24c8501-o/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/node_modules/words/node_modules/o';
 
 module.exports = "o";
 
@@ -87,7 +87,7 @@ return {
 );
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-multiple/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/lib/index.js"}
 require.memoize("/lib/index.js", 
-function(require, exports, module) {
+function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/lib';
 
 exports.getGreetingMethodName = function() {
 	return "getGreeting";
