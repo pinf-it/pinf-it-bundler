@@ -18,8 +18,8 @@ if (require.main === module) {
 }
 
 return {
-    require: require,
-    console: console
+    require: (typeof require !== "undefined") ? require : null,
+    console: (typeof console !== "undefined") ? console : null
 };
 }
 );

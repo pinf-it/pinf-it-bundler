@@ -170,6 +170,8 @@ describe('bundler', function() {
 
 	describe('`bundlePackage()`', function() {
 
+		this.timeout(10 * 1000);
+
 		function getFiles(rules, callback) {
 			var files = [];
 			var waitfor = WAITFOR.serial(function(err) {
@@ -218,7 +220,7 @@ describe('bundler', function() {
 						var lastBundlePath = null;
 						var options = {
 							debug: DEBUG,
-							test: true,
+							test: !DEBUG,
 							rootPath: rootPath,
 							distPath: distPath,
 							onRun: function(bundlePath, sandboxOptions, callback) {

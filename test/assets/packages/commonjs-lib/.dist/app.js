@@ -15,9 +15,9 @@ if (require.main === module) {
 }
 
 return {
-    GREETING: GREETING,
-    require: require,
-    console: console
+    GREETING: (typeof GREETING !== "undefined") ? GREETING : null,
+    require: (typeof require !== "undefined") ? require : null,
+    console: (typeof console !== "undefined") ? console : null
 };
 }
 );

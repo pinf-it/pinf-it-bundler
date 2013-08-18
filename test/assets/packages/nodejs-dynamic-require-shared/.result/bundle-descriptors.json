@@ -40,7 +40,7 @@
                         "wrapper": {
                             "type": "commonjs",
                             "top": "function(require, exports, module) {",
-                            "code": null,
+                            "code": "function(require, exports, module) {\n\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nexports.getWorld = function() {\n\treturn \"World\";\t\n}\n\nif (require.main === module) {\n\tmain();\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {
@@ -145,7 +145,7 @@
                 "wrapper": {
                     "type": "commonjs",
                     "top": "function(require, exports, module) {",
-                    "code": null,
+                    "code": "function(require, exports, module) {\n\nvar APP = require(\"./app\");\n\nexports.getGreeting = function() {\n\treturn \"Hello \" + APP.getWorld();\n}\n\n}",
                     "bottom": "}"
                 },
                 "dependencies": {
@@ -199,7 +199,7 @@
                 "wrapper": {
                     "type": "commonjs",
                     "top": "function(require, exports, module) {",
-                    "code": null,
+                    "code": "function(require, exports, module) {\n\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nexports.getWorld = function() {\n\treturn \"World\";\t\n}\n\nif (require.main === module) {\n\tmain();\n}\n\n}",
                     "bottom": "}"
                 },
                 "dependencies": {

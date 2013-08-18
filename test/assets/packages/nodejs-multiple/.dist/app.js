@@ -5,9 +5,10 @@ require.memoize("/app.js",
 function(require, exports, module) {
 
 var GREETING = require("greeting");
+var LIB = require("./lib");
 
 function main() {
-	console.log(GREETING.getGreeting());
+	console.log(GREETING[LIB.getGreetingMethodName()]());
 }
 
 if (require.main === module) {
@@ -15,9 +16,10 @@ if (require.main === module) {
 }
 
 return {
-    GREETING: GREETING,
-    require: require,
-    console: console
+    GREETING: (typeof GREETING !== "undefined") ? GREETING : null,
+    require: (typeof require !== "undefined") ? require : null,
+    LIB: (typeof LIB !== "undefined") ? LIB : null,
+    console: (typeof console !== "undefined") ? console : null
 };
 }
 );
@@ -79,8 +81,18 @@ function(require, exports, module) {
 module.exports = "o";
 
 return {
-    module: module
+    module: (typeof module !== "undefined") ? module : null
 };
+}
+);
+// @pinf-bundle-module: {"file":"test/assets/packages/nodejs-multiple/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/lib/index.js"}
+require.memoize("/lib/index.js", 
+function(require, exports, module) {
+
+exports.getGreetingMethodName = function() {
+	return "getGreeting";
+}
+
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}

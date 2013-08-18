@@ -37,8 +37,8 @@
                         "wrapper": {
                             "type": "commonjs/leaky",
                             "top": "function(require, exports, module) {",
-                            "code": null,
-                            "bottom": "return {\n    require: require,\n    console: console\n};\n}"
+                            "code": "function(require, exports, module) {\n\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nif (require.main === module) {\n\tmain();\n}\n\nreturn {\n    require: (typeof require !== \"undefined\") ? require : null,\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}",
+                            "bottom": "return {\n    require: (typeof require !== \"undefined\") ? require : null,\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}"
                         },
                         "dependencies": {
                             "static": {},
@@ -132,7 +132,7 @@
                 "wrapper": {
                     "type": "commonjs",
                     "top": "function(require, exports, module) {",
-                    "code": null,
+                    "code": "function(require, exports, module) {\n\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n\n}",
                     "bottom": "}"
                 },
                 "dependencies": {

@@ -52,7 +52,7 @@
         },
         "modules": {
             "/app.js": {
-                "exports": 3
+                "exports": 4
             },
             "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting/greeting.js": {
                 "exports": 1
@@ -67,6 +67,9 @@
                 "exports": 1
             },
             "0d9a386644a6bc19a809e0eb36349e69e24c8501-o/index.js": {
+                "exports": 1
+            },
+            "/lib/index.js": {
                 "exports": 1
             },
             "/package.json": {},

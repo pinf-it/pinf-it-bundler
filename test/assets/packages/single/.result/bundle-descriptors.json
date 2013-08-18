@@ -34,8 +34,8 @@
                         "wrapper": {
                             "type": "commonjs/leaky",
                             "top": "function(require, exports, module) {",
-                            "code": null,
-                            "bottom": "return {\n    console: console\n};\n}"
+                            "code": "function(require, exports, module) {\n\nfunction main() {\n\tconsole.log(\"Hello World\");\n}\n\nif (require.main === module) {\n\tmain();\n}\n\nreturn {\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}",
+                            "bottom": "return {\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}"
                         },
                         "dependencies": {
                             "static": {},

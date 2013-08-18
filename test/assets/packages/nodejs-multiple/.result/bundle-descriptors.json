@@ -10,13 +10,16 @@
                             "filename": "app.js",
                             "filepath": "test/assets/packages/nodejs-multiple/app.js",
                             "mtime": 0,
-                            "code": "\nvar GREETING = require(\"greeting\");\n\nfunction main() {\n\tconsole.log(GREETING.getGreeting());\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
+                            "code": "\nvar GREETING = require(\"greeting\");\nvar LIB = require(\"./lib\");\n\nfunction main() {\n\tconsole.log(GREETING[LIB.getGreetingMethodName()]());\n}\n\nif (require.main === module) {\n\tmain();\n}\n",
                             "globals": {
                                 "GREETING": {
                                     "type": "assign"
                                 },
                                 "require": {
                                     "type": "call"
+                                },
+                                "LIB": {
+                                    "type": "assign"
                                 },
                                 "main": {
                                     "type": "assign"
@@ -35,6 +38,9 @@
                                 "static": {
                                     "greeting": {
                                         "where": "inline"
+                                    },
+                                    "./lib": {
+                                        "where": "inline"
                                     }
                                 },
                                 "dynamic": {},
@@ -44,12 +50,15 @@
                         "wrapper": {
                             "type": "commonjs/leaky",
                             "top": "function(require, exports, module) {",
-                            "code": null,
-                            "bottom": "return {\n    GREETING: GREETING,\n    require: require,\n    console: console\n};\n}"
+                            "code": "function(require, exports, module) {\n\nvar GREETING = require(\"greeting\");\nvar LIB = require(\"./lib\");\n\nfunction main() {\n\tconsole.log(GREETING[LIB.getGreetingMethodName()]());\n}\n\nif (require.main === module) {\n\tmain();\n}\n\nreturn {\n    GREETING: (typeof GREETING !== \"undefined\") ? GREETING : null,\n    require: (typeof require !== \"undefined\") ? require : null,\n    LIB: (typeof LIB !== \"undefined\") ? LIB : null,\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}",
+                            "bottom": "return {\n    GREETING: (typeof GREETING !== \"undefined\") ? GREETING : null,\n    require: (typeof require !== \"undefined\") ? require : null,\n    LIB: (typeof LIB !== \"undefined\") ? LIB : null,\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}"
                         },
                         "dependencies": {
                             "static": {
                                 "greeting": {
+                                    "where": "inline"
+                                },
+                                "./lib": {
                                     "where": "inline"
                                 }
                             },
@@ -95,7 +104,7 @@
                         "wrapper": {
                             "type": "commonjs",
                             "top": "function(require, exports, module) {",
-                            "code": null,
+                            "code": "function(require, exports, module) {\n\nvar HELLO = require(\"words/hello\");\n\nexports.getGreeting = function() {\n\treturn HELLO.getWord() + \" World\";\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {
@@ -146,7 +155,7 @@
                         "wrapper": {
                             "type": "commonjs",
                             "top": "function(require, exports, module) {",
-                            "code": null,
+                            "code": "function(require, exports, module) {\n\nvar LETTERS = require(\"letters\");\n\nexports.getWord = function() {\n\treturn \"H\" + LETTERS.getLetterE() + \"ll\" + LETTERS.getLetterO();\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {
@@ -203,7 +212,7 @@
                         "wrapper": {
                             "type": "commonjs",
                             "top": "function(require, exports, module) {",
-                            "code": null,
+                            "code": "function(require, exports, module) {\n\nvar LETTER_E = require(\"letter-e/e\");\nvar LETTER_O = require(\"o\");\n\nexports.getLetterE = function() {\n\treturn LETTER_E.getLetter();\n}\n\nexports.getLetterO = function() {\n\treturn LETTER_O;\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {
@@ -247,7 +256,7 @@
                         "wrapper": {
                             "type": "commonjs",
                             "top": "function(require, exports, module) {",
-                            "code": null,
+                            "code": "function(require, exports, module) {\n\nexports.getLetter = function() {\n\treturn \"e\";\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {
@@ -284,8 +293,45 @@
                         "wrapper": {
                             "type": "commonjs/leaky",
                             "top": "function(require, exports, module) {",
-                            "code": null,
-                            "bottom": "return {\n    module: module\n};\n}"
+                            "code": "function(require, exports, module) {\n\nmodule.exports = \"o\";\n\nreturn {\n    module: (typeof module !== \"undefined\") ? module : null\n};\n}",
+                            "bottom": "return {\n    module: (typeof module !== \"undefined\") ? module : null\n};\n}"
+                        },
+                        "dependencies": {
+                            "static": {},
+                            "dynamic": {},
+                            "computed": false
+                        },
+                        "warnings": [],
+                        "errors": []
+                    },
+                    "/lib/index.js": {
+                        "requireId": "/lib/index",
+                        "memoizeId": "/lib/index.js",
+                        "descriptor": {
+                            "filename": "index.js",
+                            "filepath": "test/assets/packages/nodejs-multiple/lib/index.js",
+                            "mtime": 0,
+                            "code": "\nexports.getGreetingMethodName = function() {\n\treturn \"getGreeting\";\n}\n",
+                            "globals": {
+                                "exports": {
+                                    "type": "reference"
+                                }
+                            },
+                            "syntax": "javascript",
+                            "format": "commonjs",
+                            "undefine": [],
+                            "uses": {},
+                            "dependencies": {
+                                "static": {},
+                                "dynamic": {},
+                                "computed": false
+                            }
+                        },
+                        "wrapper": {
+                            "type": "commonjs",
+                            "top": "function(require, exports, module) {",
+                            "code": "function(require, exports, module) {\n\nexports.getGreetingMethodName = function() {\n\treturn \"getGreeting\";\n}\n\n}",
+                            "bottom": "}"
                         },
                         "dependencies": {
                             "static": {},
@@ -327,13 +373,39 @@
                                         "bundled": {
                                             "greeting": "./node_modules/greeting",
                                             "letter-e": "./node_modules/letter-e",
-                                            "words": "./node_modules/words"
+                                            "words": "./node_modules/words",
+                                            ".bin": "../../../../node_modules/.bin",
+                                            "deepcopy": "../../../../node_modules/deepcopy",
+                                            "fs-extra": "../../../../node_modules/fs-extra",
+                                            "glob": "../../../../node_modules/glob",
+                                            "mocha": "../../../../node_modules/mocha",
+                                            "pinf-for-nodejs": "../../../../node_modules/pinf-for-nodejs",
+                                            "pinf-it-module-insight": "../../../../node_modules/pinf-it-module-insight",
+                                            "pinf-it-package-insight": "../../../../node_modules/pinf-it-package-insight",
+                                            "pinf-loader-js": "../../../../node_modules/pinf-loader-js",
+                                            "q": "../../../../node_modules/q",
+                                            "request": "../../../../node_modules/request",
+                                            "requirejs": "../../../../node_modules/requirejs",
+                                            "waitfor": "../../../../node_modules/waitfor"
                                         }
                                     },
                                     "mappings": {
                                         "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
                                         "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words",
+                                        ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
+                                        "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
+                                        "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
+                                        "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
+                                        "mocha": "cc0e4bdb970b4c51a2be73182b12639aea627660-mocha",
+                                        "pinf-for-nodejs": "c4a92d31f3e288b82d5c985dbcbe3d12735cb33e-pinf-for-nodejs",
+                                        "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
+                                        "pinf-it-package-insight": "79c3886f38d246eca26d997a4cde1dc621d53b56-pinf-it-package-insight",
+                                        "pinf-loader-js": "46436413248440678ad5c9378e5dd00081b623bd-pinf-loader-js",
+                                        "q": "289ab28d99ade60eb35e118aa9a775aee509f57c-q",
+                                        "request": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request",
+                                        "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs",
+                                        "waitfor": "416bf2c65cd8db6a197939f8a9c5b953245a0d2f-waitfor"
                                     }
                                 },
                                 "package.json": {
@@ -352,13 +424,39 @@
                                         "bundled": {
                                             "greeting": "./node_modules/greeting",
                                             "letter-e": "./node_modules/letter-e",
-                                            "words": "./node_modules/words"
+                                            "words": "./node_modules/words",
+                                            ".bin": "../../../../node_modules/.bin",
+                                            "deepcopy": "../../../../node_modules/deepcopy",
+                                            "fs-extra": "../../../../node_modules/fs-extra",
+                                            "glob": "../../../../node_modules/glob",
+                                            "mocha": "../../../../node_modules/mocha",
+                                            "pinf-for-nodejs": "../../../../node_modules/pinf-for-nodejs",
+                                            "pinf-it-module-insight": "../../../../node_modules/pinf-it-module-insight",
+                                            "pinf-it-package-insight": "../../../../node_modules/pinf-it-package-insight",
+                                            "pinf-loader-js": "../../../../node_modules/pinf-loader-js",
+                                            "q": "../../../../node_modules/q",
+                                            "request": "../../../../node_modules/request",
+                                            "requirejs": "../../../../node_modules/requirejs",
+                                            "waitfor": "../../../../node_modules/waitfor"
                                         }
                                     },
                                     "mappings": {
                                         "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
                                         "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words",
+                                        ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
+                                        "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
+                                        "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
+                                        "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
+                                        "mocha": "cc0e4bdb970b4c51a2be73182b12639aea627660-mocha",
+                                        "pinf-for-nodejs": "c4a92d31f3e288b82d5c985dbcbe3d12735cb33e-pinf-for-nodejs",
+                                        "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
+                                        "pinf-it-package-insight": "79c3886f38d246eca26d997a4cde1dc621d53b56-pinf-it-package-insight",
+                                        "pinf-loader-js": "46436413248440678ad5c9378e5dd00081b623bd-pinf-loader-js",
+                                        "q": "289ab28d99ade60eb35e118aa9a775aee509f57c-q",
+                                        "request": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request",
+                                        "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs",
+                                        "waitfor": "416bf2c65cd8db6a197939f8a9c5b953245a0d2f-waitfor"
                                     }
                                 }
                             },
@@ -378,13 +476,39 @@
                                     "bundled": {
                                         "greeting": "./node_modules/greeting",
                                         "letter-e": "./node_modules/letter-e",
-                                        "words": "./node_modules/words"
+                                        "words": "./node_modules/words",
+                                        ".bin": "../../../../node_modules/.bin",
+                                        "deepcopy": "../../../../node_modules/deepcopy",
+                                        "fs-extra": "../../../../node_modules/fs-extra",
+                                        "glob": "../../../../node_modules/glob",
+                                        "mocha": "../../../../node_modules/mocha",
+                                        "pinf-for-nodejs": "../../../../node_modules/pinf-for-nodejs",
+                                        "pinf-it-module-insight": "../../../../node_modules/pinf-it-module-insight",
+                                        "pinf-it-package-insight": "../../../../node_modules/pinf-it-package-insight",
+                                        "pinf-loader-js": "../../../../node_modules/pinf-loader-js",
+                                        "q": "../../../../node_modules/q",
+                                        "request": "../../../../node_modules/request",
+                                        "requirejs": "../../../../node_modules/requirejs",
+                                        "waitfor": "../../../../node_modules/waitfor"
                                     }
                                 },
                                 "mappings": {
                                     "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
                                     "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                                    "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                    "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words",
+                                    ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
+                                    "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
+                                    "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
+                                    "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
+                                    "mocha": "cc0e4bdb970b4c51a2be73182b12639aea627660-mocha",
+                                    "pinf-for-nodejs": "c4a92d31f3e288b82d5c985dbcbe3d12735cb33e-pinf-for-nodejs",
+                                    "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
+                                    "pinf-it-package-insight": "79c3886f38d246eca26d997a4cde1dc621d53b56-pinf-it-package-insight",
+                                    "pinf-loader-js": "46436413248440678ad5c9378e5dd00081b623bd-pinf-loader-js",
+                                    "q": "289ab28d99ade60eb35e118aa9a775aee509f57c-q",
+                                    "request": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request",
+                                    "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs",
+                                    "waitfor": "416bf2c65cd8db6a197939f8a9c5b953245a0d2f-waitfor"
                                 }
                             },
                             "warnings": [],
@@ -431,13 +555,39 @@
                                         "bundled": {
                                             "greeting": ".",
                                             "letter-e": "../letter-e",
-                                            "words": "../words"
+                                            "words": "../words",
+                                            ".bin": "../../../../../../node_modules/.bin",
+                                            "deepcopy": "../../../../../../node_modules/deepcopy",
+                                            "fs-extra": "../../../../../../node_modules/fs-extra",
+                                            "glob": "../../../../../../node_modules/glob",
+                                            "mocha": "../../../../../../node_modules/mocha",
+                                            "pinf-for-nodejs": "../../../../../../node_modules/pinf-for-nodejs",
+                                            "pinf-it-module-insight": "../../../../../../node_modules/pinf-it-module-insight",
+                                            "pinf-it-package-insight": "../../../../../../node_modules/pinf-it-package-insight",
+                                            "pinf-loader-js": "../../../../../../node_modules/pinf-loader-js",
+                                            "q": "../../../../../../node_modules/q",
+                                            "request": "../../../../../../node_modules/request",
+                                            "requirejs": "../../../../../../node_modules/requirejs",
+                                            "waitfor": "../../../../../../node_modules/waitfor"
                                         }
                                     },
                                     "mappings": {
                                         "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
                                         "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words",
+                                        ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
+                                        "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
+                                        "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
+                                        "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
+                                        "mocha": "cc0e4bdb970b4c51a2be73182b12639aea627660-mocha",
+                                        "pinf-for-nodejs": "c4a92d31f3e288b82d5c985dbcbe3d12735cb33e-pinf-for-nodejs",
+                                        "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
+                                        "pinf-it-package-insight": "79c3886f38d246eca26d997a4cde1dc621d53b56-pinf-it-package-insight",
+                                        "pinf-loader-js": "46436413248440678ad5c9378e5dd00081b623bd-pinf-loader-js",
+                                        "q": "289ab28d99ade60eb35e118aa9a775aee509f57c-q",
+                                        "request": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request",
+                                        "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs",
+                                        "waitfor": "416bf2c65cd8db6a197939f8a9c5b953245a0d2f-waitfor"
                                     }
                                 },
                                 "package.json": {
@@ -456,13 +606,39 @@
                                         "bundled": {
                                             "greeting": ".",
                                             "letter-e": "../letter-e",
-                                            "words": "../words"
+                                            "words": "../words",
+                                            ".bin": "../../../../../../node_modules/.bin",
+                                            "deepcopy": "../../../../../../node_modules/deepcopy",
+                                            "fs-extra": "../../../../../../node_modules/fs-extra",
+                                            "glob": "../../../../../../node_modules/glob",
+                                            "mocha": "../../../../../../node_modules/mocha",
+                                            "pinf-for-nodejs": "../../../../../../node_modules/pinf-for-nodejs",
+                                            "pinf-it-module-insight": "../../../../../../node_modules/pinf-it-module-insight",
+                                            "pinf-it-package-insight": "../../../../../../node_modules/pinf-it-package-insight",
+                                            "pinf-loader-js": "../../../../../../node_modules/pinf-loader-js",
+                                            "q": "../../../../../../node_modules/q",
+                                            "request": "../../../../../../node_modules/request",
+                                            "requirejs": "../../../../../../node_modules/requirejs",
+                                            "waitfor": "../../../../../../node_modules/waitfor"
                                         }
                                     },
                                     "mappings": {
                                         "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
                                         "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words",
+                                        ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
+                                        "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
+                                        "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
+                                        "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
+                                        "mocha": "cc0e4bdb970b4c51a2be73182b12639aea627660-mocha",
+                                        "pinf-for-nodejs": "c4a92d31f3e288b82d5c985dbcbe3d12735cb33e-pinf-for-nodejs",
+                                        "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
+                                        "pinf-it-package-insight": "79c3886f38d246eca26d997a4cde1dc621d53b56-pinf-it-package-insight",
+                                        "pinf-loader-js": "46436413248440678ad5c9378e5dd00081b623bd-pinf-loader-js",
+                                        "q": "289ab28d99ade60eb35e118aa9a775aee509f57c-q",
+                                        "request": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request",
+                                        "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs",
+                                        "waitfor": "416bf2c65cd8db6a197939f8a9c5b953245a0d2f-waitfor"
                                     }
                                 }
                             },
@@ -482,13 +658,39 @@
                                     "bundled": {
                                         "greeting": ".",
                                         "letter-e": "../letter-e",
-                                        "words": "../words"
+                                        "words": "../words",
+                                        ".bin": "../../../../../../node_modules/.bin",
+                                        "deepcopy": "../../../../../../node_modules/deepcopy",
+                                        "fs-extra": "../../../../../../node_modules/fs-extra",
+                                        "glob": "../../../../../../node_modules/glob",
+                                        "mocha": "../../../../../../node_modules/mocha",
+                                        "pinf-for-nodejs": "../../../../../../node_modules/pinf-for-nodejs",
+                                        "pinf-it-module-insight": "../../../../../../node_modules/pinf-it-module-insight",
+                                        "pinf-it-package-insight": "../../../../../../node_modules/pinf-it-package-insight",
+                                        "pinf-loader-js": "../../../../../../node_modules/pinf-loader-js",
+                                        "q": "../../../../../../node_modules/q",
+                                        "request": "../../../../../../node_modules/request",
+                                        "requirejs": "../../../../../../node_modules/requirejs",
+                                        "waitfor": "../../../../../../node_modules/waitfor"
                                     }
                                 },
                                 "mappings": {
                                     "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
                                     "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                                    "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                    "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words",
+                                    ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
+                                    "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
+                                    "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
+                                    "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
+                                    "mocha": "cc0e4bdb970b4c51a2be73182b12639aea627660-mocha",
+                                    "pinf-for-nodejs": "c4a92d31f3e288b82d5c985dbcbe3d12735cb33e-pinf-for-nodejs",
+                                    "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
+                                    "pinf-it-package-insight": "79c3886f38d246eca26d997a4cde1dc621d53b56-pinf-it-package-insight",
+                                    "pinf-loader-js": "46436413248440678ad5c9378e5dd00081b623bd-pinf-loader-js",
+                                    "q": "289ab28d99ade60eb35e118aa9a775aee509f57c-q",
+                                    "request": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request",
+                                    "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs",
+                                    "waitfor": "416bf2c65cd8db6a197939f8a9c5b953245a0d2f-waitfor"
                                 }
                             },
                             "warnings": [],
@@ -531,7 +733,20 @@
                                             "o": "./node_modules/o",
                                             "greeting": "../greeting",
                                             "letter-e": "../letter-e",
-                                            "words": "."
+                                            "words": ".",
+                                            ".bin": "../../../../../../node_modules/.bin",
+                                            "deepcopy": "../../../../../../node_modules/deepcopy",
+                                            "fs-extra": "../../../../../../node_modules/fs-extra",
+                                            "glob": "../../../../../../node_modules/glob",
+                                            "mocha": "../../../../../../node_modules/mocha",
+                                            "pinf-for-nodejs": "../../../../../../node_modules/pinf-for-nodejs",
+                                            "pinf-it-module-insight": "../../../../../../node_modules/pinf-it-module-insight",
+                                            "pinf-it-package-insight": "../../../../../../node_modules/pinf-it-package-insight",
+                                            "pinf-loader-js": "../../../../../../node_modules/pinf-loader-js",
+                                            "q": "../../../../../../node_modules/q",
+                                            "request": "../../../../../../node_modules/request",
+                                            "requirejs": "../../../../../../node_modules/requirejs",
+                                            "waitfor": "../../../../../../node_modules/waitfor"
                                         }
                                     },
                                     "mappings": {
@@ -539,7 +754,20 @@
                                         "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
                                         "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
                                         "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words",
+                                        ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
+                                        "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
+                                        "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
+                                        "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
+                                        "mocha": "cc0e4bdb970b4c51a2be73182b12639aea627660-mocha",
+                                        "pinf-for-nodejs": "c4a92d31f3e288b82d5c985dbcbe3d12735cb33e-pinf-for-nodejs",
+                                        "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
+                                        "pinf-it-package-insight": "79c3886f38d246eca26d997a4cde1dc621d53b56-pinf-it-package-insight",
+                                        "pinf-loader-js": "46436413248440678ad5c9378e5dd00081b623bd-pinf-loader-js",
+                                        "q": "289ab28d99ade60eb35e118aa9a775aee509f57c-q",
+                                        "request": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request",
+                                        "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs",
+                                        "waitfor": "416bf2c65cd8db6a197939f8a9c5b953245a0d2f-waitfor"
                                     }
                                 },
                                 "package.json": {
@@ -557,7 +785,20 @@
                                             "o": "./node_modules/o",
                                             "greeting": "../greeting",
                                             "letter-e": "../letter-e",
-                                            "words": "."
+                                            "words": ".",
+                                            ".bin": "../../../../../../node_modules/.bin",
+                                            "deepcopy": "../../../../../../node_modules/deepcopy",
+                                            "fs-extra": "../../../../../../node_modules/fs-extra",
+                                            "glob": "../../../../../../node_modules/glob",
+                                            "mocha": "../../../../../../node_modules/mocha",
+                                            "pinf-for-nodejs": "../../../../../../node_modules/pinf-for-nodejs",
+                                            "pinf-it-module-insight": "../../../../../../node_modules/pinf-it-module-insight",
+                                            "pinf-it-package-insight": "../../../../../../node_modules/pinf-it-package-insight",
+                                            "pinf-loader-js": "../../../../../../node_modules/pinf-loader-js",
+                                            "q": "../../../../../../node_modules/q",
+                                            "request": "../../../../../../node_modules/request",
+                                            "requirejs": "../../../../../../node_modules/requirejs",
+                                            "waitfor": "../../../../../../node_modules/waitfor"
                                         }
                                     },
                                     "mappings": {
@@ -565,7 +806,20 @@
                                         "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
                                         "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
                                         "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words",
+                                        ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
+                                        "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
+                                        "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
+                                        "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
+                                        "mocha": "cc0e4bdb970b4c51a2be73182b12639aea627660-mocha",
+                                        "pinf-for-nodejs": "c4a92d31f3e288b82d5c985dbcbe3d12735cb33e-pinf-for-nodejs",
+                                        "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
+                                        "pinf-it-package-insight": "79c3886f38d246eca26d997a4cde1dc621d53b56-pinf-it-package-insight",
+                                        "pinf-loader-js": "46436413248440678ad5c9378e5dd00081b623bd-pinf-loader-js",
+                                        "q": "289ab28d99ade60eb35e118aa9a775aee509f57c-q",
+                                        "request": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request",
+                                        "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs",
+                                        "waitfor": "416bf2c65cd8db6a197939f8a9c5b953245a0d2f-waitfor"
                                     }
                                 }
                             },
@@ -584,7 +838,20 @@
                                         "o": "./node_modules/o",
                                         "greeting": "../greeting",
                                         "letter-e": "../letter-e",
-                                        "words": "."
+                                        "words": ".",
+                                        ".bin": "../../../../../../node_modules/.bin",
+                                        "deepcopy": "../../../../../../node_modules/deepcopy",
+                                        "fs-extra": "../../../../../../node_modules/fs-extra",
+                                        "glob": "../../../../../../node_modules/glob",
+                                        "mocha": "../../../../../../node_modules/mocha",
+                                        "pinf-for-nodejs": "../../../../../../node_modules/pinf-for-nodejs",
+                                        "pinf-it-module-insight": "../../../../../../node_modules/pinf-it-module-insight",
+                                        "pinf-it-package-insight": "../../../../../../node_modules/pinf-it-package-insight",
+                                        "pinf-loader-js": "../../../../../../node_modules/pinf-loader-js",
+                                        "q": "../../../../../../node_modules/q",
+                                        "request": "../../../../../../node_modules/request",
+                                        "requirejs": "../../../../../../node_modules/requirejs",
+                                        "waitfor": "../../../../../../node_modules/waitfor"
                                     }
                                 },
                                 "mappings": {
@@ -592,7 +859,20 @@
                                     "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
                                     "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
                                     "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                                    "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                    "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words",
+                                    ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
+                                    "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
+                                    "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
+                                    "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
+                                    "mocha": "cc0e4bdb970b4c51a2be73182b12639aea627660-mocha",
+                                    "pinf-for-nodejs": "c4a92d31f3e288b82d5c985dbcbe3d12735cb33e-pinf-for-nodejs",
+                                    "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
+                                    "pinf-it-package-insight": "79c3886f38d246eca26d997a4cde1dc621d53b56-pinf-it-package-insight",
+                                    "pinf-loader-js": "46436413248440678ad5c9378e5dd00081b623bd-pinf-loader-js",
+                                    "q": "289ab28d99ade60eb35e118aa9a775aee509f57c-q",
+                                    "request": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request",
+                                    "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs",
+                                    "waitfor": "416bf2c65cd8db6a197939f8a9c5b953245a0d2f-waitfor"
                                 }
                             },
                             "warnings": [],
@@ -637,7 +917,20 @@
                                             "o": "../o",
                                             "greeting": "../../../greeting",
                                             "letter-e": "../../../letter-e",
-                                            "words": "../.."
+                                            "words": "../..",
+                                            ".bin": "../../../../../../../../node_modules/.bin",
+                                            "deepcopy": "../../../../../../../../node_modules/deepcopy",
+                                            "fs-extra": "../../../../../../../../node_modules/fs-extra",
+                                            "glob": "../../../../../../../../node_modules/glob",
+                                            "mocha": "../../../../../../../../node_modules/mocha",
+                                            "pinf-for-nodejs": "../../../../../../../../node_modules/pinf-for-nodejs",
+                                            "pinf-it-module-insight": "../../../../../../../../node_modules/pinf-it-module-insight",
+                                            "pinf-it-package-insight": "../../../../../../../../node_modules/pinf-it-package-insight",
+                                            "pinf-loader-js": "../../../../../../../../node_modules/pinf-loader-js",
+                                            "q": "../../../../../../../../node_modules/q",
+                                            "request": "../../../../../../../../node_modules/request",
+                                            "requirejs": "../../../../../../../../node_modules/requirejs",
+                                            "waitfor": "../../../../../../../../node_modules/waitfor"
                                         }
                                     },
                                     "mappings": {
@@ -645,7 +938,20 @@
                                         "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
                                         "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
                                         "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words",
+                                        ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
+                                        "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
+                                        "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
+                                        "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
+                                        "mocha": "cc0e4bdb970b4c51a2be73182b12639aea627660-mocha",
+                                        "pinf-for-nodejs": "c4a92d31f3e288b82d5c985dbcbe3d12735cb33e-pinf-for-nodejs",
+                                        "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
+                                        "pinf-it-package-insight": "79c3886f38d246eca26d997a4cde1dc621d53b56-pinf-it-package-insight",
+                                        "pinf-loader-js": "46436413248440678ad5c9378e5dd00081b623bd-pinf-loader-js",
+                                        "q": "289ab28d99ade60eb35e118aa9a775aee509f57c-q",
+                                        "request": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request",
+                                        "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs",
+                                        "waitfor": "416bf2c65cd8db6a197939f8a9c5b953245a0d2f-waitfor"
                                     }
                                 },
                                 "package.json": {
@@ -666,7 +972,20 @@
                                             "o": "../o",
                                             "greeting": "../../../greeting",
                                             "letter-e": "../../../letter-e",
-                                            "words": "../.."
+                                            "words": "../..",
+                                            ".bin": "../../../../../../../../node_modules/.bin",
+                                            "deepcopy": "../../../../../../../../node_modules/deepcopy",
+                                            "fs-extra": "../../../../../../../../node_modules/fs-extra",
+                                            "glob": "../../../../../../../../node_modules/glob",
+                                            "mocha": "../../../../../../../../node_modules/mocha",
+                                            "pinf-for-nodejs": "../../../../../../../../node_modules/pinf-for-nodejs",
+                                            "pinf-it-module-insight": "../../../../../../../../node_modules/pinf-it-module-insight",
+                                            "pinf-it-package-insight": "../../../../../../../../node_modules/pinf-it-package-insight",
+                                            "pinf-loader-js": "../../../../../../../../node_modules/pinf-loader-js",
+                                            "q": "../../../../../../../../node_modules/q",
+                                            "request": "../../../../../../../../node_modules/request",
+                                            "requirejs": "../../../../../../../../node_modules/requirejs",
+                                            "waitfor": "../../../../../../../../node_modules/waitfor"
                                         }
                                     },
                                     "mappings": {
@@ -674,7 +993,20 @@
                                         "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
                                         "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
                                         "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words",
+                                        ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
+                                        "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
+                                        "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
+                                        "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
+                                        "mocha": "cc0e4bdb970b4c51a2be73182b12639aea627660-mocha",
+                                        "pinf-for-nodejs": "c4a92d31f3e288b82d5c985dbcbe3d12735cb33e-pinf-for-nodejs",
+                                        "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
+                                        "pinf-it-package-insight": "79c3886f38d246eca26d997a4cde1dc621d53b56-pinf-it-package-insight",
+                                        "pinf-loader-js": "46436413248440678ad5c9378e5dd00081b623bd-pinf-loader-js",
+                                        "q": "289ab28d99ade60eb35e118aa9a775aee509f57c-q",
+                                        "request": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request",
+                                        "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs",
+                                        "waitfor": "416bf2c65cd8db6a197939f8a9c5b953245a0d2f-waitfor"
                                     }
                                 }
                             },
@@ -696,7 +1028,20 @@
                                         "o": "../o",
                                         "greeting": "../../../greeting",
                                         "letter-e": "../../../letter-e",
-                                        "words": "../.."
+                                        "words": "../..",
+                                        ".bin": "../../../../../../../../node_modules/.bin",
+                                        "deepcopy": "../../../../../../../../node_modules/deepcopy",
+                                        "fs-extra": "../../../../../../../../node_modules/fs-extra",
+                                        "glob": "../../../../../../../../node_modules/glob",
+                                        "mocha": "../../../../../../../../node_modules/mocha",
+                                        "pinf-for-nodejs": "../../../../../../../../node_modules/pinf-for-nodejs",
+                                        "pinf-it-module-insight": "../../../../../../../../node_modules/pinf-it-module-insight",
+                                        "pinf-it-package-insight": "../../../../../../../../node_modules/pinf-it-package-insight",
+                                        "pinf-loader-js": "../../../../../../../../node_modules/pinf-loader-js",
+                                        "q": "../../../../../../../../node_modules/q",
+                                        "request": "../../../../../../../../node_modules/request",
+                                        "requirejs": "../../../../../../../../node_modules/requirejs",
+                                        "waitfor": "../../../../../../../../node_modules/waitfor"
                                     }
                                 },
                                 "mappings": {
@@ -704,7 +1049,20 @@
                                     "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
                                     "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
                                     "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                                    "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                    "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words",
+                                    ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
+                                    "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
+                                    "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
+                                    "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
+                                    "mocha": "cc0e4bdb970b4c51a2be73182b12639aea627660-mocha",
+                                    "pinf-for-nodejs": "c4a92d31f3e288b82d5c985dbcbe3d12735cb33e-pinf-for-nodejs",
+                                    "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
+                                    "pinf-it-package-insight": "79c3886f38d246eca26d997a4cde1dc621d53b56-pinf-it-package-insight",
+                                    "pinf-loader-js": "46436413248440678ad5c9378e5dd00081b623bd-pinf-loader-js",
+                                    "q": "289ab28d99ade60eb35e118aa9a775aee509f57c-q",
+                                    "request": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request",
+                                    "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs",
+                                    "waitfor": "416bf2c65cd8db6a197939f8a9c5b953245a0d2f-waitfor"
                                 }
                             },
                             "warnings": [],
@@ -751,7 +1109,20 @@
                                             "o": ".",
                                             "greeting": "../../../greeting",
                                             "letter-e": "../../../letter-e",
-                                            "words": "../.."
+                                            "words": "../..",
+                                            ".bin": "../../../../../../../../node_modules/.bin",
+                                            "deepcopy": "../../../../../../../../node_modules/deepcopy",
+                                            "fs-extra": "../../../../../../../../node_modules/fs-extra",
+                                            "glob": "../../../../../../../../node_modules/glob",
+                                            "mocha": "../../../../../../../../node_modules/mocha",
+                                            "pinf-for-nodejs": "../../../../../../../../node_modules/pinf-for-nodejs",
+                                            "pinf-it-module-insight": "../../../../../../../../node_modules/pinf-it-module-insight",
+                                            "pinf-it-package-insight": "../../../../../../../../node_modules/pinf-it-package-insight",
+                                            "pinf-loader-js": "../../../../../../../../node_modules/pinf-loader-js",
+                                            "q": "../../../../../../../../node_modules/q",
+                                            "request": "../../../../../../../../node_modules/request",
+                                            "requirejs": "../../../../../../../../node_modules/requirejs",
+                                            "waitfor": "../../../../../../../../node_modules/waitfor"
                                         }
                                     },
                                     "mappings": {
@@ -759,7 +1130,20 @@
                                         "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
                                         "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
                                         "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words",
+                                        ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
+                                        "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
+                                        "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
+                                        "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
+                                        "mocha": "cc0e4bdb970b4c51a2be73182b12639aea627660-mocha",
+                                        "pinf-for-nodejs": "c4a92d31f3e288b82d5c985dbcbe3d12735cb33e-pinf-for-nodejs",
+                                        "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
+                                        "pinf-it-package-insight": "79c3886f38d246eca26d997a4cde1dc621d53b56-pinf-it-package-insight",
+                                        "pinf-loader-js": "46436413248440678ad5c9378e5dd00081b623bd-pinf-loader-js",
+                                        "q": "289ab28d99ade60eb35e118aa9a775aee509f57c-q",
+                                        "request": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request",
+                                        "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs",
+                                        "waitfor": "416bf2c65cd8db6a197939f8a9c5b953245a0d2f-waitfor"
                                     }
                                 },
                                 "package.json": {
@@ -780,7 +1164,20 @@
                                             "o": ".",
                                             "greeting": "../../../greeting",
                                             "letter-e": "../../../letter-e",
-                                            "words": "../.."
+                                            "words": "../..",
+                                            ".bin": "../../../../../../../../node_modules/.bin",
+                                            "deepcopy": "../../../../../../../../node_modules/deepcopy",
+                                            "fs-extra": "../../../../../../../../node_modules/fs-extra",
+                                            "glob": "../../../../../../../../node_modules/glob",
+                                            "mocha": "../../../../../../../../node_modules/mocha",
+                                            "pinf-for-nodejs": "../../../../../../../../node_modules/pinf-for-nodejs",
+                                            "pinf-it-module-insight": "../../../../../../../../node_modules/pinf-it-module-insight",
+                                            "pinf-it-package-insight": "../../../../../../../../node_modules/pinf-it-package-insight",
+                                            "pinf-loader-js": "../../../../../../../../node_modules/pinf-loader-js",
+                                            "q": "../../../../../../../../node_modules/q",
+                                            "request": "../../../../../../../../node_modules/request",
+                                            "requirejs": "../../../../../../../../node_modules/requirejs",
+                                            "waitfor": "../../../../../../../../node_modules/waitfor"
                                         }
                                     },
                                     "mappings": {
@@ -788,7 +1185,20 @@
                                         "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
                                         "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
                                         "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words",
+                                        ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
+                                        "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
+                                        "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
+                                        "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
+                                        "mocha": "cc0e4bdb970b4c51a2be73182b12639aea627660-mocha",
+                                        "pinf-for-nodejs": "c4a92d31f3e288b82d5c985dbcbe3d12735cb33e-pinf-for-nodejs",
+                                        "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
+                                        "pinf-it-package-insight": "79c3886f38d246eca26d997a4cde1dc621d53b56-pinf-it-package-insight",
+                                        "pinf-loader-js": "46436413248440678ad5c9378e5dd00081b623bd-pinf-loader-js",
+                                        "q": "289ab28d99ade60eb35e118aa9a775aee509f57c-q",
+                                        "request": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request",
+                                        "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs",
+                                        "waitfor": "416bf2c65cd8db6a197939f8a9c5b953245a0d2f-waitfor"
                                     }
                                 }
                             },
@@ -810,7 +1220,20 @@
                                         "o": ".",
                                         "greeting": "../../../greeting",
                                         "letter-e": "../../../letter-e",
-                                        "words": "../.."
+                                        "words": "../..",
+                                        ".bin": "../../../../../../../../node_modules/.bin",
+                                        "deepcopy": "../../../../../../../../node_modules/deepcopy",
+                                        "fs-extra": "../../../../../../../../node_modules/fs-extra",
+                                        "glob": "../../../../../../../../node_modules/glob",
+                                        "mocha": "../../../../../../../../node_modules/mocha",
+                                        "pinf-for-nodejs": "../../../../../../../../node_modules/pinf-for-nodejs",
+                                        "pinf-it-module-insight": "../../../../../../../../node_modules/pinf-it-module-insight",
+                                        "pinf-it-package-insight": "../../../../../../../../node_modules/pinf-it-package-insight",
+                                        "pinf-loader-js": "../../../../../../../../node_modules/pinf-loader-js",
+                                        "q": "../../../../../../../../node_modules/q",
+                                        "request": "../../../../../../../../node_modules/request",
+                                        "requirejs": "../../../../../../../../node_modules/requirejs",
+                                        "waitfor": "../../../../../../../../node_modules/waitfor"
                                     }
                                 },
                                 "mappings": {
@@ -818,7 +1241,20 @@
                                     "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
                                     "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
                                     "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                                    "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
+                                    "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words",
+                                    ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
+                                    "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
+                                    "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
+                                    "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
+                                    "mocha": "cc0e4bdb970b4c51a2be73182b12639aea627660-mocha",
+                                    "pinf-for-nodejs": "c4a92d31f3e288b82d5c985dbcbe3d12735cb33e-pinf-for-nodejs",
+                                    "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
+                                    "pinf-it-package-insight": "79c3886f38d246eca26d997a4cde1dc621d53b56-pinf-it-package-insight",
+                                    "pinf-loader-js": "46436413248440678ad5c9378e5dd00081b623bd-pinf-loader-js",
+                                    "q": "289ab28d99ade60eb35e118aa9a775aee509f57c-q",
+                                    "request": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request",
+                                    "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs",
+                                    "waitfor": "416bf2c65cd8db6a197939f8a9c5b953245a0d2f-waitfor"
                                 }
                             },
                             "warnings": [],

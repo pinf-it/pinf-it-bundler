@@ -13,7 +13,7 @@ if (require.main === module) {
 }
 
 return {
-    console: console
+    console: (typeof console !== "undefined") ? console : null
 };
 }
 );

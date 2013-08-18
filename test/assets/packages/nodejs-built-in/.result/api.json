@@ -3,7 +3,13 @@
         "sep": "/",
         "delimiter": ":"
     },
+    "FS": {
+        "jsonfile": {
+            "spaces": 2
+        }
+    },
     "console": {},
     "ASSERT": {},
-    "require": {}
+    "require": {},
+    "REQUEST": {}
 }
