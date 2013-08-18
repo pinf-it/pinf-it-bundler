@@ -11,8 +11,8 @@ var OBJECT = {
 };
 
 return {
-    STRING: STRING,
-    OBJECT: OBJECT
+    STRING: (typeof STRING !== "undefined") ? STRING : null,
+    OBJECT: (typeof OBJECT !== "undefined") ? OBJECT : null
 };
 }
 );

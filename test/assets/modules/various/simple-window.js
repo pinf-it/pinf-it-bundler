@@ -11,7 +11,7 @@ window.OBJECT = {
 };
 
 return {
-    window: window
+    window: (typeof window !== "undefined") ? window : null
 };
 }
 );

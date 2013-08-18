@@ -13,7 +13,7 @@ function(require, exports, module) {
 
 })());
 return {
-    window: window
+    window: (typeof window !== "undefined") ? window : null
 };
 }
 );

@@ -64,7 +64,7 @@ describe('bundler', function() {
 						var basePath = PATH.join(rootPath, relPath);
 						var options = {
 							debug: DEBUG,
-							test: true,
+							test: !DEBUG,
 							rootPath: rootPath,
 							distPath: PATH.join("test/assets/modules", PATH.dirname(file)),
 							locateMissingFile: function(descriptor, path, callback) {
@@ -138,6 +138,7 @@ describe('bundler', function() {
 														expectedResult = expectedResult.replace(/\$DIST_PATH/g, options.distPath);
 														ASSERT.deepEqual(result, JSON.parse(expectedResult));
 													} else {
+														console.error("file", file);
 														throw err;
 													}
 												}
