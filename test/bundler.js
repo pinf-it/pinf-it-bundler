@@ -208,7 +208,8 @@ describe('bundler', function() {
 				"packages/self-require",
 				"packages/deep-main",
 				"packages/self-require-deep",
-				"packages/nodejs-multiple"
+				"packages/nodejs-multiple",
+				"packages/require-async"
 			], function(err, files) {
 				if (err) return done(err);
 
@@ -240,13 +241,20 @@ describe('bundler', function() {
 								};
 								PINF_FOR_NODEJS.reset();
 								lastBundlePath = bundlePath;
+
 								return PINF_FOR_NODEJS.sandbox(bundlePath, sandboxOptions, function(sandbox) {
 									try {
-										result = sandbox.main();
+										result = sandbox.main(function (err, res) {
+											if (err) return callback(err);
+											result = res;
+											return callback();
+										});
 									} catch(err) {
 										return callback(err);
 									}
-									return callback();
+									if (result !== null) {
+										return callback();
+									}
 								}, callback);
 							},
 							getLoaderReport: function() {
@@ -254,7 +262,7 @@ describe('bundler', function() {
 							}
 						};
 						FS.removeSync(options.distPath);
-						RT_BUNDLER.bundlePackage(relPath, options, function(err, bundleDescriptors) {
+						RT_BUNDLER.bundlePackage(relPath, options, function(err, bundleDescriptors, helpers) {
 							if (err) return done(err);
 							function testResult(result) {
 								try {
@@ -303,36 +311,48 @@ describe('bundler', function() {
 													buffer.push(message);
 												}
 											}
-										}
+										},
+										ensureAsync: helpers.ensureAsync
 									}, function(sandbox) {
+										var returned = false;
+										function callback(err, result) {
+											if (returned) return;
+											returned = true;
+
+											if (err) return done(err);
+
+											var keys = null;
+											if (typeof result === "object") {
+												keys = Object.keys(result);
+											}
+											result = JSON.parse(JSON.stringify(result));
+											if (keys) {
+												keys.forEach(function(name) {
+													if (typeof result[name] === "undefined") {
+														result[name] = {};
+													}
+												});
+											}
+
+											ASSERT.deepEqual(buffer, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/console.json"))));
+											ASSERT.deepEqual(result, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/api.json"))));
+											ASSERT.deepEqual(
+												PINF_FOR_NODEJS.getReport().sandboxes,
+												JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/loader-report.json")))
+											);
+											return done();
+										}
 										try {
-											result = sandbox.main();
+											result = sandbox.main(callback);
 										} catch(err) {
 											return done(err);
 										}
 										if (typeof result === "function") {
 											result = result();
 										}
-										var keys = null;
-										if (typeof result === "object") {
-											keys = Object.keys(result);
+										if (result !== null) {
+											return callback(null, result);
 										}
-										result = JSON.parse(JSON.stringify(result));
-										if (keys) {
-											keys.forEach(function(name) {
-												if (typeof result[name] === "undefined") {
-													result[name] = {};
-												}
-											});
-										}
-
-										ASSERT.deepEqual(buffer, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/console.json"))));
-										ASSERT.deepEqual(result, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/api.json"))));
-										ASSERT.deepEqual(
-											PINF_FOR_NODEJS.getReport().sandboxes,
-											JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/loader-report.json")))
-										);
-										return done();
 									}, done);
 								} catch(err) {
 									return done(err);
