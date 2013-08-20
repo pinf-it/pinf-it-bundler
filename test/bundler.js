@@ -209,7 +209,8 @@ describe('bundler', function() {
 				"packages/deep-main",
 				"packages/self-require-deep",
 				"packages/nodejs-multiple",
-				"packages/require-async"
+				"packages/require-async",
+				"packages/require-async-deep-pkg"
 			], function(err, files) {
 				if (err) return done(err);
 
@@ -273,7 +274,9 @@ describe('bundler', function() {
 									if (typeof result === "object") {
 										keys = Object.keys(result);
 									}
-									result = JSON.parse(JSON.stringify(result));
+									result = JSON.stringify(result);
+									result = result.replace(new RegExp(rootPath.replace(/(\/|\+|\.)/g, "\\$1"), "g"), "");
+									result = JSON.parse(result);
 									if (keys) {
 										keys.forEach(function(name) {
 											if (typeof result[name] === "undefined") {
@@ -309,23 +312,31 @@ describe('bundler', function() {
 											console: {
 												log: function(message) {
 													buffer.push(message);
-												}
+//													if (DEBUG) console.log(["[log]"].concat(arguments));
+												},
+												error: console.error
 											}
 										},
-										ensureAsync: helpers.ensureAsync
+										rootPath: rootPath,
+										ensureAsync: helpers.ensureAsync,
 									}, function(sandbox) {
 										var returned = false;
 										function callback(err, result) {
 											if (returned) return;
 											returned = true;
 
-											if (err) return done(err);
+											if (err) {
+												console.error(err.stack);
+												return done(err);
+											}
 
 											var keys = null;
 											if (typeof result === "object") {
 												keys = Object.keys(result);
 											}
-											result = JSON.parse(JSON.stringify(result));
+											result = JSON.stringify(result);
+											result = result.replace(new RegExp(rootPath.replace(/(\/|\+|\.)/g, "\\$1"), "g"), "");
+											result = JSON.parse(result);
 											if (keys) {
 												keys.forEach(function(name) {
 													if (typeof result[name] === "undefined") {

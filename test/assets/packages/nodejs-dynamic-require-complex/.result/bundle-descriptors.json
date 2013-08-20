@@ -758,7 +758,7 @@
             ]
         ]
     },
-    "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/698b594771c54e63058ef9073aaf59f1e529c21f-letters+e.js": {
+    "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/698b594771c54e63058ef9073aaf59f1e529c21f-letters/e.js": {
         "bundles": {
             "/e.js": {
                 "modules": {
@@ -970,9 +970,7 @@
                             "errors": [],
                             "memoized": {
                                 "main": "698b594771c54e63058ef9073aaf59f1e529c21f-letters/e.js",
-                                "mappings": {
-                                    "letters": "698b594771c54e63058ef9073aaf59f1e529c21f-letters"
-                                }
+                                "mappings": {}
                             }
                         },
                         "wrapper": "json"
@@ -980,7 +978,7 @@
                 },
                 "expectExistingModules": {},
                 "bundle": {
-                    "path": "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/698b594771c54e63058ef9073aaf59f1e529c21f-letters+e.js"
+                    "path": "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/698b594771c54e63058ef9073aaf59f1e529c21f-letters/e.js"
                 },
                 "warnings": [],
                 "errors": [],
@@ -993,7 +991,7 @@
             "main": "/e.js"
         }
     },
-    "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/698b594771c54e63058ef9073aaf59f1e529c21f-letters+e/698b594771c54e63058ef9073aaf59f1e529c21f-letters+more.js": {
+    "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/698b594771c54e63058ef9073aaf59f1e529c21f-letters/e/698b594771c54e63058ef9073aaf59f1e529c21f-letters/more.js": {
         "bundles": {
             "//more.js": {
                 "modules": {
@@ -1416,16 +1414,14 @@
                             "errors": [],
                             "memoized": {
                                 "main": "698b594771c54e63058ef9073aaf59f1e529c21f-letters/e.js",
-                                "mappings": {
-                                    "letters": "698b594771c54e63058ef9073aaf59f1e529c21f-letters"
-                                }
+                                "mappings": {}
                             }
                         },
                         "wrapper": "json"
                     }
                 },
                 "bundle": {
-                    "path": "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/698b594771c54e63058ef9073aaf59f1e529c21f-letters+e/698b594771c54e63058ef9073aaf59f1e529c21f-letters+more.js"
+                    "path": "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/698b594771c54e63058ef9073aaf59f1e529c21f-letters/e/698b594771c54e63058ef9073aaf59f1e529c21f-letters/more.js"
                 },
                 "warnings": [],
                 "errors": [],
@@ -1438,7 +1434,7 @@
             "main": "//more.js"
         }
     },
-    "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l+l.js": {
+    "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l/l.js": {
         "bundles": {
             "/l.js": {
                 "modules": {
@@ -1648,7 +1644,7 @@
                 },
                 "expectExistingModules": {},
                 "bundle": {
-                    "path": "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l+l.js"
+                    "path": "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l/l.js"
                 },
                 "warnings": [],
                 "errors": [],
@@ -1661,7 +1657,7 @@
             "main": "/l.js"
         }
     },
-    "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o+o.js": {
+    "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o/o.js": {
         "bundles": {
             "/o.js": {
                 "modules": {
@@ -1871,7 +1867,7 @@
                 },
                 "expectExistingModules": {},
                 "bundle": {
-                    "path": "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o+o.js"
+                    "path": "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o/o.js"
                 },
                 "warnings": [],
                 "errors": [],
@@ -1884,7 +1880,7 @@
             "main": "/o.js"
         }
     },
-    "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/698b594771c54e63058ef9073aaf59f1e529c21f-letters+e/698b594771c54e63058ef9073aaf59f1e529c21f-letters+more/b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o+o.js": {
+    "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/698b594771c54e63058ef9073aaf59f1e529c21f-letters/e/698b594771c54e63058ef9073aaf59f1e529c21f-letters/more/b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o/o.js": {
         "bundles": {
             "/o.js": {
                 "modules": {
@@ -2094,7 +2090,7 @@
                 },
                 "expectExistingModules": {},
                 "bundle": {
-                    "path": "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/698b594771c54e63058ef9073aaf59f1e529c21f-letters+e/698b594771c54e63058ef9073aaf59f1e529c21f-letters+more/b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o+o.js"
+                    "path": "test/assets/packages/nodejs-dynamic-require-complex/.dist/app/greeting/assemble/698b594771c54e63058ef9073aaf59f1e529c21f-letters/e/698b594771c54e63058ef9073aaf59f1e529c21f-letters/more/b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o/o.js"
                 },
                 "warnings": [],
                 "errors": [],

@@ -1,0 +1,1146 @@
+{
+    "test/assets/packages/require-async-deep-pkg/.dist/app": {
+        "bundles": {
+            "test/assets/packages/require-async-deep-pkg/.dist/app.js": "",
+            "test/assets/packages/require-async-deep-pkg/.dist/app/extra.js": "",
+            "test/assets/packages/require-async-deep-pkg/.dist/app/extra/3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/context.js": ""
+        },
+        "packages": {
+            "": {
+                "main": "/app.js",
+                "mappings": {
+                    "pinf-for-nodejs": "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs": {
+                "main": "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/pinf.js",
+                "mappings": {
+                    "require.async": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async",
+                    "fs-extra": "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra",
+                    "waitfor": "57afe811a234d961a291b977f64e22b42a1b4735-waitfor",
+                    "deepmerge": "98c6b74665bd9abac5c33394e3edfcf04ef251a1-deepmerge",
+                    "deepcopy": "36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy",
+                    "pinf-primitives-js": "76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js",
+                    "pinf-it-package-insight": "a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insight",
+                    "pinf-it-program-insight": "c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight",
+                    "pinf-it-bundler": "5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler",
+                    "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs": "",
+                    "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
+                    "pinf-loader-js": "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async": {
+                "main": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/require.async.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra": {
+                "main": "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/index.js",
+                "mappings": {
+                    "jsonfile": "95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile",
+                    "mkdirp": "5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp",
+                    "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs": "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra",
+                    "ncp": "2b0048c6a305ad176d4e3489f01d68c879da772f-ncp",
+                    "rimraf": "67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile": {
+                "main": "95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile/lib/jsonfile.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp": {
+                "main": "5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "2b0048c6a305ad176d4e3489f01d68c879da772f-ncp": {
+                "main": "2b0048c6a305ad176d4e3489f01d68c879da772f-ncp/lib/ncp.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf": {
+                "main": "67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf/rimraf.js",
+                "mappings": {
+                    "graceful-fs": "b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs": {
+                "main": "b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/graceful-fs.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "57afe811a234d961a291b977f64e22b42a1b4735-waitfor": {
+                "main": "57afe811a234d961a291b977f64e22b42a1b4735-waitfor/waitfor.js",
+                "mappings": {
+                    "setimmediate": "5fab7dc417e5225664a9e48c30bbaa96a9da45fa-setimmediate"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "98c6b74665bd9abac5c33394e3edfcf04ef251a1-deepmerge": {
+                "main": "98c6b74665bd9abac5c33394e3edfcf04ef251a1-deepmerge/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy": {
+                "main": "36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js": {
+                "main": "76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js/primitives.js",
+                "mappings": {
+                    "deepcopy": "e3b83304b558e386f1e075262340169bec08eeba-deepcopy"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "e3b83304b558e386f1e075262340169bec08eeba-deepcopy": {
+                "main": "e3b83304b558e386f1e075262340169bec08eeba-deepcopy/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insight": {
+                "main": "a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insight/lib/package-insight.js",
+                "mappings": {
+                    "waitfor": "daa6fd2c901ebe1dd2fffd374aadc94a18acf03f-waitfor",
+                    "deepmerge": "314839f5c7c2de31691d70d145a810b24f13d359-deepmerge",
+                    "pinf-primitives-js": "a168e2ff3e007b8ae4b4dce8bb03fc10343d6411-pinf-primitives-js"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "daa6fd2c901ebe1dd2fffd374aadc94a18acf03f-waitfor": {
+                "main": "daa6fd2c901ebe1dd2fffd374aadc94a18acf03f-waitfor/waitfor.js",
+                "mappings": {
+                    "setimmediate": "0d84eddf2b38974fcbed1ef0232a4cdc7794d07a-setimmediate"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "314839f5c7c2de31691d70d145a810b24f13d359-deepmerge": {
+                "main": "314839f5c7c2de31691d70d145a810b24f13d359-deepmerge/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "a168e2ff3e007b8ae4b4dce8bb03fc10343d6411-pinf-primitives-js": {
+                "main": "a168e2ff3e007b8ae4b4dce8bb03fc10343d6411-pinf-primitives-js/primitives.js",
+                "mappings": {
+                    "deepcopy": "eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy": {
+                "main": "eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight": {
+                "main": "c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight/lib/program-insight.js",
+                "mappings": {
+                    "waitfor": "b782938965d4eecd6d293846c7ca82181935c0ab-waitfor",
+                    "deepmerge": "bae60f4c72f89c0542d04faab5f4e6c6f0678907-deepmerge",
+                    "deepcopy": "c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy",
+                    "pinf-it-package-insight": "f38e4f605d8ca2a7773428c53b62e3d07f59a736-pinf-it-package-insight"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "b782938965d4eecd6d293846c7ca82181935c0ab-waitfor": {
+                "main": "b782938965d4eecd6d293846c7ca82181935c0ab-waitfor/waitfor.js",
+                "mappings": {
+                    "setimmediate": "98f59820510eba78223c81ad6d109534d335f224-setimmediate"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "bae60f4c72f89c0542d04faab5f4e6c6f0678907-deepmerge": {
+                "main": "bae60f4c72f89c0542d04faab5f4e6c6f0678907-deepmerge/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy": {
+                "main": "c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "f38e4f605d8ca2a7773428c53b62e3d07f59a736-pinf-it-package-insight": {
+                "main": "f38e4f605d8ca2a7773428c53b62e3d07f59a736-pinf-it-package-insight/lib/package-insight.js",
+                "mappings": {
+                    "waitfor": "49f226cee0c79376b1d67307ff98169b5e3f7ac5-waitfor",
+                    "deepmerge": "ce11c10dca64b2b60e0fb1528b0b56c3811aa662-deepmerge",
+                    "pinf-primitives-js": "aabe78d7de2b47ab14e2726122f43c2e2c6f8113-pinf-primitives-js"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "49f226cee0c79376b1d67307ff98169b5e3f7ac5-waitfor": {
+                "main": "49f226cee0c79376b1d67307ff98169b5e3f7ac5-waitfor/waitfor.js",
+                "mappings": {
+                    "setimmediate": "34d03f6968e3f4fc04264f08c1450f78f5848fe4-setimmediate"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "ce11c10dca64b2b60e0fb1528b0b56c3811aa662-deepmerge": {
+                "main": "ce11c10dca64b2b60e0fb1528b0b56c3811aa662-deepmerge/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "aabe78d7de2b47ab14e2726122f43c2e2c6f8113-pinf-primitives-js": {
+                "main": "aabe78d7de2b47ab14e2726122f43c2e2c6f8113-pinf-primitives-js/primitives.js",
+                "mappings": {
+                    "deepcopy": "edc8d965636e19f737f2ececa6386b2162350540-deepcopy"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "edc8d965636e19f737f2ececa6386b2162350540-deepcopy": {
+                "main": "edc8d965636e19f737f2ececa6386b2162350540-deepcopy/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler": {
+                "main": "5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/bundler.js",
+                "mappings": {
+                    "fs-extra": "617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra",
+                    "q": "86a7c7b5fe60704afbe464069563b35be9b7cbae-q",
+                    "deepcopy": "a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy",
+                    "waitfor": "1c49116f920b3e4988a79b910e317654081e75c6-waitfor",
+                    "pinf-it-module-insight": "bf0ef0832fabbb13ac3cdcc25595e542732048f4-pinf-it-module-insight",
+                    "pinf-it-package-insight": "998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insight",
+                    "pinf-loader-js": "c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js",
+                    "requirejs": "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra": {
+                "main": "617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/index.js",
+                "mappings": {
+                    "jsonfile": "c080a61be940c5b59af0cef485503c204af31aa3-jsonfile",
+                    "mkdirp": "cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp",
+                    "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs": "617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra",
+                    "ncp": "b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp",
+                    "rimraf": "88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "c080a61be940c5b59af0cef485503c204af31aa3-jsonfile": {
+                "main": "c080a61be940c5b59af0cef485503c204af31aa3-jsonfile/lib/jsonfile.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp": {
+                "main": "cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp": {
+                "main": "b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp/lib/ncp.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf": {
+                "main": "88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf/rimraf.js",
+                "mappings": {
+                    "graceful-fs": "8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs": {
+                "main": "8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/graceful-fs.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "86a7c7b5fe60704afbe464069563b35be9b7cbae-q": {
+                "main": "86a7c7b5fe60704afbe464069563b35be9b7cbae-q/q.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy": {
+                "main": "a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "1c49116f920b3e4988a79b910e317654081e75c6-waitfor": {
+                "main": "1c49116f920b3e4988a79b910e317654081e75c6-waitfor/waitfor.js",
+                "mappings": {
+                    "setimmediate": "d739e44b4b3e49d3ecb628f8a908b40e63afa8e5-setimmediate"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "bf0ef0832fabbb13ac3cdcc25595e542732048f4-pinf-it-module-insight": {
+                "main": "bf0ef0832fabbb13ac3cdcc25595e542732048f4-pinf-it-module-insight/lib/module-insight.js",
+                "mappings": {
+                    "fs-extra": "bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra",
+                    "jslint": "d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint",
+                    "esprima": "5771ada65ad37907635d21e4c3b6e1bb0c9af9fc-esprima"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra": {
+                "main": "bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/index.js",
+                "mappings": {
+                    "jsonfile": "d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile",
+                    "mkdirp": "549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp",
+                    "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs": "bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra",
+                    "ncp": "b4c553f584b025a7c9b2375916830b245a00a167-ncp",
+                    "rimraf": "921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile": {
+                "main": "d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile/lib/jsonfile.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp": {
+                "main": "549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "b4c553f584b025a7c9b2375916830b245a00a167-ncp": {
+                "main": "b4c553f584b025a7c9b2375916830b245a00a167-ncp/lib/ncp.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf": {
+                "main": "921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf/rimraf.js",
+                "mappings": {
+                    "graceful-fs": "a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs": {
+                "main": "a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/graceful-fs.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint": {
+                "main": "d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/lib/nodelint.js",
+                "mappings": {},
+                "directories": {
+                    "lib": "lib"
+                },
+                "libPath": "lib/"
+            },
+            "5771ada65ad37907635d21e4c3b6e1bb0c9af9fc-esprima": {
+                "main": "5771ada65ad37907635d21e4c3b6e1bb0c9af9fc-esprima/esprima.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insight": {
+                "main": "998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insight/lib/package-insight.js",
+                "mappings": {
+                    "waitfor": "812d2540fcd8954a6f536f20ff75621af8578d89-waitfor",
+                    "deepmerge": "29f28531211b227d017dcf0cf57d7c26b36ab9ff-deepmerge",
+                    "pinf-primitives-js": "e72eacc9b0985a811179adfcfd7452b2cc6e904f-pinf-primitives-js"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "812d2540fcd8954a6f536f20ff75621af8578d89-waitfor": {
+                "main": "812d2540fcd8954a6f536f20ff75621af8578d89-waitfor/waitfor.js",
+                "mappings": {
+                    "setimmediate": "aad20786edb4bc037cc86c828e2729f5839d8ac6-setimmediate"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "29f28531211b227d017dcf0cf57d7c26b36ab9ff-deepmerge": {
+                "main": "29f28531211b227d017dcf0cf57d7c26b36ab9ff-deepmerge/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "e72eacc9b0985a811179adfcfd7452b2cc6e904f-pinf-primitives-js": {
+                "main": "e72eacc9b0985a811179adfcfd7452b2cc6e904f-pinf-primitives-js/primitives.js",
+                "mappings": {
+                    "deepcopy": "91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy": {
+                "main": "91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js": {
+                "main": "c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js/loader.js",
+                "mappings": {},
+                "directories": {
+                    "lib": "."
+                },
+                "libPath": "./"
+            },
+            "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs": {
+                "main": "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/bin/r.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request": {
+                "main": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request/index.js",
+                "mappings": {
+                    "qs": "a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs",
+                    "oauth-sign": "0a2767d204df2a563b9513a5b12e7f2ef737e245-oauth-sign",
+                    "hawk": "ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk",
+                    "aws-sign": "8d0d8b76fc7fb074fae1f24236fc2c5c9db07428-aws-sign",
+                    "http-signature": "504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature",
+                    "node-uuid": "b360de4cfbd0215d27510c4fd03393d88d8c8ae8-node-uuid",
+                    "mime": "3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime",
+                    "tunnel-agent": "108b28d120f242b00befd693696b25134ac10bef-tunnel-agent",
+                    "json-stringify-safe": "b3eb0c4e174b4fd3de6278f94c1c93bfce68bd6c-json-stringify-safe",
+                    "forever-agent": "ac485b684341e74d2d223646d5b98969d287efa9-forever-agent",
+                    "form-data": "b31d9d8844fd9f42ca88afa16a6316e74e8a6409-form-data",
+                    "cookie-jar": "e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs": {
+                "main": "a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "0a2767d204df2a563b9513a5b12e7f2ef737e245-oauth-sign": {
+                "main": "0a2767d204df2a563b9513a5b12e7f2ef737e245-oauth-sign/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk": {
+                "main": "ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/index.js",
+                "mappings": {
+                    "boom": "bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom",
+                    "sntp": "87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp",
+                    "hoek": "5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek",
+                    "cryptiles": "8f6b20ea73af0e78673599afe177926b017fe185-cryptiles"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom": {
+                "main": "bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/index.js",
+                "mappings": {
+                    "hoek": "9579db8ec37f1c7107434638cd83ebcdde128669-hoek"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "9579db8ec37f1c7107434638cd83ebcdde128669-hoek": {
+                "main": "9579db8ec37f1c7107434638cd83ebcdde128669-hoek/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp": {
+                "main": "87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/index.js",
+                "mappings": {
+                    "hoek": "733132ef85628339b6e1a78283093c2a9208ca8a-hoek"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "733132ef85628339b6e1a78283093c2a9208ca8a-hoek": {
+                "main": "733132ef85628339b6e1a78283093c2a9208ca8a-hoek/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek": {
+                "main": "5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "8f6b20ea73af0e78673599afe177926b017fe185-cryptiles": {
+                "main": "8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/index.js",
+                "mappings": {
+                    "boom": "bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "8d0d8b76fc7fb074fae1f24236fc2c5c9db07428-aws-sign": {
+                "main": "8d0d8b76fc7fb074fae1f24236fc2c5c9db07428-aws-sign/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature": {
+                "main": "504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/index.js",
+                "mappings": {
+                    "assert-plus": "4577e8ae6126946aeedc02c249aefacb641b25de-assert-plus",
+                    "asn1": "58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1",
+                    "ctype": "59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "4577e8ae6126946aeedc02c249aefacb641b25de-assert-plus": {
+                "main": "4577e8ae6126946aeedc02c249aefacb641b25de-assert-plus/assert.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1": {
+                "main": "58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype": {
+                "main": "59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctype.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "b360de4cfbd0215d27510c4fd03393d88d8c8ae8-node-uuid": {
+                "main": "b360de4cfbd0215d27510c4fd03393d88d8c8ae8-node-uuid/uuid.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime": {
+                "main": "3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime/mime.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "108b28d120f242b00befd693696b25134ac10bef-tunnel-agent": {
+                "main": "108b28d120f242b00befd693696b25134ac10bef-tunnel-agent/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "b3eb0c4e174b4fd3de6278f94c1c93bfce68bd6c-json-stringify-safe": {
+                "main": "b3eb0c4e174b4fd3de6278f94c1c93bfce68bd6c-json-stringify-safe/stringify.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "ac485b684341e74d2d223646d5b98969d287efa9-forever-agent": {
+                "main": "ac485b684341e74d2d223646d5b98969d287efa9-forever-agent/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "b31d9d8844fd9f42ca88afa16a6316e74e8a6409-form-data": {
+                "main": "b31d9d8844fd9f42ca88afa16a6316e74e8a6409-form-data/lib/form_data.js",
+                "mappings": {
+                    "combined-stream": "060655d1be854e806dc31729ef59e2992f3626c0-combined-stream",
+                    "mime": "3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime",
+                    "async": "2e7a010e5b40e11bb94eb021d6eca99d00679e86-async"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "060655d1be854e806dc31729ef59e2992f3626c0-combined-stream": {
+                "main": "060655d1be854e806dc31729ef59e2992f3626c0-combined-stream/lib/combined_stream.js",
+                "mappings": {
+                    "delayed-stream": "1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream": {
+                "main": "1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream/lib/delayed_stream.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "2e7a010e5b40e11bb94eb021d6eca99d00679e86-async": {
+                "main": "2e7a010e5b40e11bb94eb021d6eca99d00679e86-async/lib/async.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar": {
+                "main": "e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js": {
+                "main": "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/loader.js",
+                "mappings": {},
+                "directories": {
+                    "lib": "."
+                },
+                "libPath": "./"
+            }
+        },
+        "modules": {
+            "/app.js": {
+                "exports": 1
+            },
+            "/package.json": {},
+            "/extra.js": {
+                "exports": 1
+            },
+            "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/main.js": {
+                "exports": 1
+            },
+            "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/require.async.js": {
+                "exports": 0
+            },
+            "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/package.json": {},
+            "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/package.json": {},
+            "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/context.js": {
+                "exports": 5
+            },
+            "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/index.js": {
+                "exports": 114
+            },
+            "95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile/lib/jsonfile.js": {
+                "exports": 5
+            },
+            "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/json.js": {
+                "exports": 2
+            },
+            "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/mkdir.js": {
+                "exports": 2
+            },
+            "5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp/index.js": {
+                "exports": 3
+            },
+            "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/copy.js": {
+                "exports": 3
+            },
+            "2b0048c6a305ad176d4e3489f01d68c879da772f-ncp/lib/ncp.js": {
+                "exports": 1
+            },
+            "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/remove.js": {
+                "exports": 2
+            },
+            "67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf/rimraf.js": {
+                "exports": 1
+            },
+            "b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/graceful-fs.js": {
+                "exports": 78
+            },
+            "b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/polyfills.js": {
+                "exports": 14
+            },
+            "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/create.js": {
+                "exports": 2
+            },
+            "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/output.js": {
+                "exports": 2
+            },
+            "57afe811a234d961a291b977f64e22b42a1b4735-waitfor/waitfor.js": {
+                "exports": 4
+            },
+            "5fab7dc417e5225664a9e48c30bbaa96a9da45fa-setimmediate/setImmediate.js": {},
+            "98c6b74665bd9abac5c33394e3edfcf04ef251a1-deepmerge/index.js": {
+                "exports": 0
+            },
+            "36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/index.js": {
+                "exports": 0
+            },
+            "36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/lib/deepcopy.js": {
+                "exports": 0
+            },
+            "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/json-file-store.js": {
+                "exports": 2
+            },
+            "76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js/primitives.js": {
+                "exports": 1
+            },
+            "e3b83304b558e386f1e075262340169bec08eeba-deepcopy/index.js": {
+                "exports": 0
+            },
+            "e3b83304b558e386f1e075262340169bec08eeba-deepcopy/lib/deepcopy.js": {
+                "exports": 0
+            },
+            "a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insight/lib/package-insight.js": {
+                "exports": 5
+            },
+            "daa6fd2c901ebe1dd2fffd374aadc94a18acf03f-waitfor/waitfor.js": {
+                "exports": 4
+            },
+            "0d84eddf2b38974fcbed1ef0232a4cdc7794d07a-setimmediate/setImmediate.js": {},
+            "314839f5c7c2de31691d70d145a810b24f13d359-deepmerge/index.js": {
+                "exports": 0
+            },
+            "a168e2ff3e007b8ae4b4dce8bb03fc10343d6411-pinf-primitives-js/primitives.js": {
+                "exports": 1
+            },
+            "eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/index.js": {
+                "exports": 0
+            },
+            "eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/lib/deepcopy.js": {
+                "exports": 0
+            },
+            "c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight/lib/program-insight.js": {
+                "exports": 3
+            },
+            "b782938965d4eecd6d293846c7ca82181935c0ab-waitfor/waitfor.js": {
+                "exports": 4
+            },
+            "98f59820510eba78223c81ad6d109534d335f224-setimmediate/setImmediate.js": {},
+            "bae60f4c72f89c0542d04faab5f4e6c6f0678907-deepmerge/index.js": {
+                "exports": 0
+            },
+            "c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/index.js": {
+                "exports": 0
+            },
+            "c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/lib/deepcopy.js": {
+                "exports": 0
+            },
+            "f38e4f605d8ca2a7773428c53b62e3d07f59a736-pinf-it-package-insight/lib/package-insight.js": {
+                "exports": 5
+            },
+            "49f226cee0c79376b1d67307ff98169b5e3f7ac5-waitfor/waitfor.js": {
+                "exports": 4
+            },
+            "34d03f6968e3f4fc04264f08c1450f78f5848fe4-setimmediate/setImmediate.js": {},
+            "ce11c10dca64b2b60e0fb1528b0b56c3811aa662-deepmerge/index.js": {
+                "exports": 0
+            },
+            "aabe78d7de2b47ab14e2726122f43c2e2c6f8113-pinf-primitives-js/primitives.js": {
+                "exports": 1
+            },
+            "edc8d965636e19f737f2ececa6386b2162350540-deepcopy/index.js": {
+                "exports": 0
+            },
+            "edc8d965636e19f737f2ececa6386b2162350540-deepcopy/lib/deepcopy.js": {
+                "exports": 0
+            },
+            "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/vm.js": {
+                "exports": 1
+            },
+            "5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/rt-bundler.js": {
+                "exports": 1
+            },
+            "617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/index.js": {
+                "exports": 114
+            },
+            "c080a61be940c5b59af0cef485503c204af31aa3-jsonfile/lib/jsonfile.js": {
+                "exports": 5
+            },
+            "617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/json.js": {
+                "exports": 2
+            },
+            "617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/mkdir.js": {
+                "exports": 2
+            },
+            "cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp/index.js": {
+                "exports": 3
+            },
+            "617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/copy.js": {
+                "exports": 3
+            },
+            "b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp/lib/ncp.js": {
+                "exports": 1
+            },
+            "617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/remove.js": {
+                "exports": 2
+            },
+            "88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf/rimraf.js": {
+                "exports": 1
+            },
+            "8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/graceful-fs.js": {
+                "exports": 78
+            },
+            "8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/polyfills.js": {
+                "exports": 14
+            },
+            "617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/create.js": {
+                "exports": 2
+            },
+            "617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/output.js": {
+                "exports": 2
+            },
+            "86a7c7b5fe60704afbe464069563b35be9b7cbae-q/q.js": {
+                "exports": 62
+            },
+            "5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/bundler.js": {
+                "exports": 4
+            },
+            "a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/index.js": {
+                "exports": 0
+            },
+            "a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/lib/deepcopy.js": {
+                "exports": 0
+            },
+            "1c49116f920b3e4988a79b910e317654081e75c6-waitfor/waitfor.js": {
+                "exports": 4
+            },
+            "d739e44b4b3e49d3ecb628f8a908b40e63afa8e5-setimmediate/setImmediate.js": {},
+            "bf0ef0832fabbb13ac3cdcc25595e542732048f4-pinf-it-module-insight/lib/module-insight.js": {
+                "exports": 1
+            },
+            "bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/index.js": {
+                "exports": 114
+            },
+            "d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile/lib/jsonfile.js": {
+                "exports": 5
+            },
+            "bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/json.js": {
+                "exports": 2
+            },
+            "bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/mkdir.js": {
+                "exports": 2
+            },
+            "549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp/index.js": {
+                "exports": 3
+            },
+            "bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/copy.js": {
+                "exports": 3
+            },
+            "b4c553f584b025a7c9b2375916830b245a00a167-ncp/lib/ncp.js": {
+                "exports": 1
+            },
+            "bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/remove.js": {
+                "exports": 2
+            },
+            "921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf/rimraf.js": {
+                "exports": 1
+            },
+            "a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/graceful-fs.js": {
+                "exports": 78
+            },
+            "a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/polyfills.js": {
+                "exports": 14
+            },
+            "bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/create.js": {
+                "exports": 2
+            },
+            "bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/output.js": {
+                "exports": 2
+            },
+            "d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/lib/linter.js": {
+                "exports": 1
+            },
+            "d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/lib/nodelint.js": {
+                "exports": 4
+            },
+            "5771ada65ad37907635d21e4c3b6e1bb0c9af9fc-esprima/esprima.js": {
+                "exports": 3
+            },
+            "998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insight/lib/package-insight.js": {
+                "exports": 5
+            },
+            "812d2540fcd8954a6f536f20ff75621af8578d89-waitfor/waitfor.js": {
+                "exports": 4
+            },
+            "aad20786edb4bc037cc86c828e2729f5839d8ac6-setimmediate/setImmediate.js": {},
+            "29f28531211b227d017dcf0cf57d7c26b36ab9ff-deepmerge/index.js": {
+                "exports": 0
+            },
+            "e72eacc9b0985a811179adfcfd7452b2cc6e904f-pinf-primitives-js/primitives.js": {
+                "exports": 1
+            },
+            "91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/index.js": {
+                "exports": 0
+            },
+            "91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/lib/deepcopy.js": {
+                "exports": 0
+            },
+            "5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/bundle.js": {
+                "exports": 1
+            },
+            "c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js/./loader.js": {
+                "exports": 5
+            },
+            "5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/wrapper.js": {
+                "exports": 2
+            },
+            "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/bin/r.js": {
+                "exports": 20
+            },
+            "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/pinf.js": {
+                "exports": 6
+            },
+            "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/loader.js": {
+                "exports": 3
+            },
+            "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request/index.js": {
+                "exports": 12
+            },
+            "a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs/index.js": {
+                "exports": 2
+            },
+            "0a2767d204df2a563b9513a5b12e7f2ef737e245-oauth-sign/index.js": {
+                "exports": 2
+            },
+            "ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/index.js": {
+                "exports": 8
+            },
+            "ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/index.js": {
+                "exports": 8
+            },
+            "bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/index.js": {
+                "exports": 9
+            },
+            "bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/lib/index.js": {
+                "exports": 9
+            },
+            "9579db8ec37f1c7107434638cd83ebcdde128669-hoek/index.js": {
+                "exports": 32
+            },
+            "9579db8ec37f1c7107434638cd83ebcdde128669-hoek/lib/index.js": {
+                "exports": 32
+            },
+            "9579db8ec37f1c7107434638cd83ebcdde128669-hoek/lib/escape.js": {
+                "exports": 2
+            },
+            "87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/index.js": {
+                "exports": 6
+            },
+            "87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/lib/index.js": {
+                "exports": 6
+            },
+            "733132ef85628339b6e1a78283093c2a9208ca8a-hoek/index.js": {
+                "exports": 32
+            },
+            "733132ef85628339b6e1a78283093c2a9208ca8a-hoek/lib/index.js": {
+                "exports": 32
+            },
+            "733132ef85628339b6e1a78283093c2a9208ca8a-hoek/lib/escape.js": {
+                "exports": 2
+            },
+            "ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/server.js": {
+                "exports": 4
+            },
+            "5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/index.js": {
+                "exports": 32
+            },
+            "5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/lib/index.js": {
+                "exports": 32
+            },
+            "5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/lib/escape.js": {
+                "exports": 2
+            },
+            "8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/index.js": {
+                "exports": 3
+            },
+            "8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/lib/index.js": {
+                "exports": 3
+            },
+            "ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/crypto.js": {
+                "exports": 8
+            },
+            "ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/utils.js": {
+                "exports": 39
+            },
+            "ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/client.js": {
+                "exports": 3
+            },
+            "8d0d8b76fc7fb074fae1f24236fc2c5c9db07428-aws-sign/index.js": {
+                "exports": 7
+            },
+            "504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/index.js": {
+                "exports": 8
+            },
+            "504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/parser.js": {
+                "exports": 1
+            },
+            "4577e8ae6126946aeedc02c249aefacb641b25de-assert-plus/assert.js": {
+                "exports": 38
+            },
+            "504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/signer.js": {
+                "exports": 1
+            },
+            "504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/verify.js": {
+                "exports": 1
+            },
+            "504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/util.js": {
+                "exports": 2
+            },
+            "58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/index.js": {
+                "exports": 3
+            },
+            "58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/index.js": {
+                "exports": 34
+            },
+            "58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/errors.js": {
+                "exports": 1
+            },
+            "58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/types.js": {
+                "exports": 31
+            },
+            "58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/reader.js": {
+                "exports": 0
+            },
+            "58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/writer.js": {
+                "exports": 0
+            },
+            "59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctype.js": {
+                "exports": 24
+            },
+            "59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctf.js": {
+                "exports": 1
+            },
+            "59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctio.js": {
+                "exports": 20
+            },
+            "b360de4cfbd0215d27510c4fd03393d88d8c8ae8-node-uuid/uuid.js": {
+                "exports": 0
+            },
+            "3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime/mime.js": {
+                "exports": 10
+            },
+            "108b28d120f242b00befd693696b25134ac10bef-tunnel-agent/index.js": {
+                "exports": 5
+            },
+            "b3eb0c4e174b4fd3de6278f94c1c93bfce68bd6c-json-stringify-safe/stringify.js": {
+                "exports": 1
+            },
+            "ac485b684341e74d2d223646d5b98969d287efa9-forever-agent/index.js": {
+                "exports": 3
+            },
+            "b31d9d8844fd9f42ca88afa16a6316e74e8a6409-form-data/lib/form_data.js": {
+                "exports": 2
+            },
+            "060655d1be854e806dc31729ef59e2992f3626c0-combined-stream/lib/combined_stream.js": {
+                "exports": 3
+            },
+            "1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream/lib/delayed_stream.js": {
+                "exports": 2
+            },
+            "2e7a010e5b40e11bb94eb021d6eca99d00679e86-async/lib/async.js": {
+                "exports": 55
+            },
+            "e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/index.js": {
+                "exports": 1
+            },
+            "e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/jar.js": {
+                "exports": 0
+            },
+            "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/./loader.js": {
+                "exports": 5
+            },
+            "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/package.json": {},
+            "95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile/package.json": {},
+            "5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp/package.json": {},
+            "2b0048c6a305ad176d4e3489f01d68c879da772f-ncp/package.json": {},
+            "67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf/package.json": {},
+            "b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/package.json": {},
+            "57afe811a234d961a291b977f64e22b42a1b4735-waitfor/package.json": {},
+            "5fab7dc417e5225664a9e48c30bbaa96a9da45fa-setimmediate/package.json": {},
+            "98c6b74665bd9abac5c33394e3edfcf04ef251a1-deepmerge/package.json": {},
+            "36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/package.json": {},
+            "76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js/package.json": {},
+            "e3b83304b558e386f1e075262340169bec08eeba-deepcopy/package.json": {},
+            "a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insight/package.json": {},
+            "daa6fd2c901ebe1dd2fffd374aadc94a18acf03f-waitfor/package.json": {},
+            "0d84eddf2b38974fcbed1ef0232a4cdc7794d07a-setimmediate/package.json": {},
+            "314839f5c7c2de31691d70d145a810b24f13d359-deepmerge/package.json": {},
+            "a168e2ff3e007b8ae4b4dce8bb03fc10343d6411-pinf-primitives-js/package.json": {},
+            "eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/package.json": {},
+            "c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight/package.json": {},
+            "b782938965d4eecd6d293846c7ca82181935c0ab-waitfor/package.json": {},
+            "98f59820510eba78223c81ad6d109534d335f224-setimmediate/package.json": {},
+            "bae60f4c72f89c0542d04faab5f4e6c6f0678907-deepmerge/package.json": {},
+            "c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/package.json": {},
+            "f38e4f605d8ca2a7773428c53b62e3d07f59a736-pinf-it-package-insight/package.json": {},
+            "49f226cee0c79376b1d67307ff98169b5e3f7ac5-waitfor/package.json": {},
+            "34d03f6968e3f4fc04264f08c1450f78f5848fe4-setimmediate/package.json": {},
+            "ce11c10dca64b2b60e0fb1528b0b56c3811aa662-deepmerge/package.json": {},
+            "aabe78d7de2b47ab14e2726122f43c2e2c6f8113-pinf-primitives-js/package.json": {},
+            "edc8d965636e19f737f2ececa6386b2162350540-deepcopy/package.json": {},
+            "5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/package.json": {},
+            "617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/package.json": {},
+            "c080a61be940c5b59af0cef485503c204af31aa3-jsonfile/package.json": {},
+            "cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp/package.json": {},
+            "b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp/package.json": {},
+            "88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf/package.json": {},
+            "8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/package.json": {},
+            "86a7c7b5fe60704afbe464069563b35be9b7cbae-q/package.json": {},
+            "a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/package.json": {},
+            "1c49116f920b3e4988a79b910e317654081e75c6-waitfor/package.json": {},
+            "d739e44b4b3e49d3ecb628f8a908b40e63afa8e5-setimmediate/package.json": {},
+            "bf0ef0832fabbb13ac3cdcc25595e542732048f4-pinf-it-module-insight/package.json": {},
+            "bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/package.json": {},
+            "d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile/package.json": {},
+            "549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp/package.json": {},
+            "b4c553f584b025a7c9b2375916830b245a00a167-ncp/package.json": {},
+            "921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf/package.json": {},
+            "a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/package.json": {},
+            "d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/package.json": {},
+            "5771ada65ad37907635d21e4c3b6e1bb0c9af9fc-esprima/package.json": {},
+            "998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insight/package.json": {},
+            "812d2540fcd8954a6f536f20ff75621af8578d89-waitfor/package.json": {},
+            "aad20786edb4bc037cc86c828e2729f5839d8ac6-setimmediate/package.json": {},
+            "29f28531211b227d017dcf0cf57d7c26b36ab9ff-deepmerge/package.json": {},
+            "e72eacc9b0985a811179adfcfd7452b2cc6e904f-pinf-primitives-js/package.json": {},
+            "91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/package.json": {},
+            "c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js/package.json": {},
+            "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/package.json": {},
+            "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request/package.json": {},
+            "a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs/package.json": {},
+            "0a2767d204df2a563b9513a5b12e7f2ef737e245-oauth-sign/package.json": {},
+            "ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/package.json": {},
+            "bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/package.json": {},
+            "9579db8ec37f1c7107434638cd83ebcdde128669-hoek/package.json": {},
+            "87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/package.json": {},
+            "733132ef85628339b6e1a78283093c2a9208ca8a-hoek/package.json": {},
+            "5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/package.json": {},
+            "8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/package.json": {},
+            "8d0d8b76fc7fb074fae1f24236fc2c5c9db07428-aws-sign/package.json": {},
+            "504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/package.json": {},
+            "4577e8ae6126946aeedc02c249aefacb641b25de-assert-plus/package.json": {},
+            "58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/package.json": {},
+            "59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/package.json": {},
+            "b360de4cfbd0215d27510c4fd03393d88d8c8ae8-node-uuid/package.json": {},
+            "3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime/package.json": {},
+            "108b28d120f242b00befd693696b25134ac10bef-tunnel-agent/package.json": {},
+            "b3eb0c4e174b4fd3de6278f94c1c93bfce68bd6c-json-stringify-safe/package.json": {},
+            "ac485b684341e74d2d223646d5b98969d287efa9-forever-agent/package.json": {},
+            "b31d9d8844fd9f42ca88afa16a6316e74e8a6409-form-data/package.json": {},
+            "060655d1be854e806dc31729ef59e2992f3626c0-combined-stream/package.json": {},
+            "1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream/package.json": {},
+            "2e7a010e5b40e11bb94eb021d6eca99d00679e86-async/package.json": {},
+            "e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/package.json": {},
+            "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/package.json": {}
+        }
+    }
+}
