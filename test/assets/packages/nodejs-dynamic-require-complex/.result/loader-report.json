@@ -20,7 +20,7 @@
                 "libPath": ""
             },
             "698b594771c54e63058ef9073aaf59f1e529c21f-letters": {
-                "main": "698b594771c54e63058ef9073aaf59f1e529c21f-letters/e.js",
+                "main": "/main.js",
                 "mappings": {
                     "letter-l": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l",
                     "letter-o": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o"
@@ -35,7 +35,7 @@
                 "libPath": ""
             },
             "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o": {
-                "main": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o/o.js",
+                "main": "/main.js",
                 "mappings": {},
                 "directories": {},
                 "libPath": ""
@@ -62,6 +62,7 @@
             "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l/l.js": {
                 "exports": 1
             },
+            "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l/package.json": {},
             "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o/o.js": {
                 "exports": 1
             },

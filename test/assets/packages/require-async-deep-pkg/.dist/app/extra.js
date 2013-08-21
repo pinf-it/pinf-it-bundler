@@ -62,6 +62,7 @@ exports.main = function(main, module, options, callback) {
 		return;
 	}
 
+	// TODO: module.pinf should be set and memoized in bundle based on on the program context and available at `module.pinf`.
 	if (typeof module.pinf === "object") {
 		return callback(null, module.pinf);
 	}
@@ -70,7 +71,6 @@ exports.main = function(main, module, options, callback) {
 	//       Only load cache module and determine cache path by looking at PINF_RUNTIME and own package uid (use pinf-primitives-js to do this).
 	//		 Cache module is in primitives package as well.
 	return require.async("./context", function(CONTEXT) {
-
 		return CONTEXT.contextForModule(module, options, function(err, context) {
 			if (err) return done(err);
 		    try {
@@ -127,7 +127,8 @@ require.memoize("/package.json",
     "main": "/app.js",
     "mappings": {
         "pinf-for-nodejs": "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/package.json"}
@@ -136,13 +137,15 @@ require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/packag
     "main": "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/pinf.js",
     "mappings": {
         "require.async": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/package.json"}
 require.memoize("f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/package.json", 
 {
-    "main": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/require.async.js"
+    "main": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/require.async.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/require.async"
 }
 );
 // @pinf-bundle-ignore: 

@@ -24,7 +24,8 @@ if (require.main === module) {
 require.memoize("/package.json", 
 {
     "main": "/lib/app.js",
-    "mappings": {}
+    "mappings": {},
+    "dirpath": "test/assets/packages/self-require-deep"
 }
 );
 // @pinf-bundle-ignore: 

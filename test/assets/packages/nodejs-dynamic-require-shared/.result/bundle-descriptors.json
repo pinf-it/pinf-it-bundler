@@ -85,7 +85,8 @@
                             "warnings": [],
                             "errors": [],
                             "memoized": {
-                                "main": "/app.js"
+                                "main": "/app.js",
+                                "dirpath": "test/assets/packages/nodejs-dynamic-require-shared"
                             },
                             "mtime": "0"
                         },
@@ -244,7 +245,8 @@
                     "warnings": [],
                     "errors": [],
                     "memoized": {
-                        "main": "/app.js"
+                        "main": "/app.js",
+                        "dirpath": "test/assets/packages/nodejs-dynamic-require-shared"
                     },
                     "mtime": "0"
                 },

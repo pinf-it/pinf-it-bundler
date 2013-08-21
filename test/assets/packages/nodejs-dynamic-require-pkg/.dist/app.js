@@ -27,6 +27,7 @@ return {
 require.memoize("/package.json", 
 {
     "main": "/app.js",
+    "dirpath": "test/assets/packages/nodejs-dynamic-require-pkg",
     "mappings": {
         "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting"
     }

@@ -13,7 +13,8 @@ exports.getGreeting = function() {
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"5a760ab35d3f7b067635df668f0a516e020147a6-greeting/package.json"}
 require.memoize("5a760ab35d3f7b067635df668f0a516e020147a6-greeting/package.json", 
 {
-    "main": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting/index.js"
+    "main": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting/index.js",
+    "dirpath": "test/assets/packages/nodejs-dynamic-require-pkg/node_modules/greeting"
 }
 );
 // @pinf-bundle-ignore: 

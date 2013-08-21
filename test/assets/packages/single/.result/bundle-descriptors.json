@@ -79,7 +79,8 @@
                             "warnings": [],
                             "errors": [],
                             "memoized": {
-                                "main": "/app.js"
+                                "main": "/app.js",
+                                "dirpath": "test/assets/packages/single"
                             },
                             "mtime": "0"
                         },

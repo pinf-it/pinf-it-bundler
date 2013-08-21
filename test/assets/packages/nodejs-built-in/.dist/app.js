@@ -13577,7 +13577,8 @@ require.memoize("/package.json",
     "mappings": {
         "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
         "request": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request"
-    }
+    },
+    "dirpath": "test/assets/packages/nodejs-built-in"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/package.json"}
@@ -13589,25 +13590,29 @@ require.memoize("b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/package.json"
         "mkdirp": "693ec9cb1f2f61428c63e9cd17e57775f4df0f74-mkdirp",
         "ncp": "c99227b03d285ab9292c0748af53c56ffc9ac859-ncp",
         "rimraf": "16117a71d212e842209fc0336b7b2cf0572a5023-rimraf"
-    }
+    },
+    "dirpath": "node_modules/fs-extra"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"d5ba5d20168aa9175f55feda3f60aab1a6ace818-jsonfile/package.json"}
 require.memoize("d5ba5d20168aa9175f55feda3f60aab1a6ace818-jsonfile/package.json", 
 {
-    "main": "d5ba5d20168aa9175f55feda3f60aab1a6ace818-jsonfile/lib/jsonfile.js"
+    "main": "d5ba5d20168aa9175f55feda3f60aab1a6ace818-jsonfile/lib/jsonfile.js",
+    "dirpath": "node_modules/fs-extra/node_modules/jsonfile"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"693ec9cb1f2f61428c63e9cd17e57775f4df0f74-mkdirp/package.json"}
 require.memoize("693ec9cb1f2f61428c63e9cd17e57775f4df0f74-mkdirp/package.json", 
 {
-    "main": "693ec9cb1f2f61428c63e9cd17e57775f4df0f74-mkdirp/index.js"
+    "main": "693ec9cb1f2f61428c63e9cd17e57775f4df0f74-mkdirp/index.js",
+    "dirpath": "node_modules/fs-extra/node_modules/mkdirp"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"c99227b03d285ab9292c0748af53c56ffc9ac859-ncp/package.json"}
 require.memoize("c99227b03d285ab9292c0748af53c56ffc9ac859-ncp/package.json", 
 {
-    "main": "c99227b03d285ab9292c0748af53c56ffc9ac859-ncp/lib/ncp.js"
+    "main": "c99227b03d285ab9292c0748af53c56ffc9ac859-ncp/lib/ncp.js",
+    "dirpath": "node_modules/fs-extra/node_modules/ncp"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"16117a71d212e842209fc0336b7b2cf0572a5023-rimraf/package.json"}
@@ -13616,13 +13621,15 @@ require.memoize("16117a71d212e842209fc0336b7b2cf0572a5023-rimraf/package.json",
     "main": "16117a71d212e842209fc0336b7b2cf0572a5023-rimraf/rimraf.js",
     "mappings": {
         "graceful-fs": "8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs"
-    }
+    },
+    "dirpath": "node_modules/fs-extra/node_modules/rimraf"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/package.json"}
 require.memoize("8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/package.json", 
 {
-    "main": "8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/graceful-fs.js"
+    "main": "8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/graceful-fs.js",
+    "dirpath": "node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"ed4bb06796db1905581e7b400da006dd7b8b1b55-request/package.json"}
@@ -13642,25 +13649,29 @@ require.memoize("ed4bb06796db1905581e7b400da006dd7b8b1b55-request/package.json",
         "json-stringify-safe": "cd513417702c216d7e831b5e07732580c4cd46ff-json-stringify-safe",
         "forever-agent": "0aece9af14f253ebe7db431e7f82a4db65578bac-forever-agent",
         "form-data": "30e023fb56d12219edd0fa0dc5fec5bc671e23d7-form-data"
-    }
+    },
+    "dirpath": "node_modules/request"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"96d6c97b8f07f8f227fbeb5b214187b162ad8c7c-cookie-jar/package.json"}
 require.memoize("96d6c97b8f07f8f227fbeb5b214187b162ad8c7c-cookie-jar/package.json", 
 {
-    "main": "96d6c97b8f07f8f227fbeb5b214187b162ad8c7c-cookie-jar/index.js"
+    "main": "96d6c97b8f07f8f227fbeb5b214187b162ad8c7c-cookie-jar/index.js",
+    "dirpath": "node_modules/request/node_modules/cookie-jar"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"bad905498fb7a8a034fa664d6ed1a9c67f1b189c-qs/package.json"}
 require.memoize("bad905498fb7a8a034fa664d6ed1a9c67f1b189c-qs/package.json", 
 {
-    "main": "bad905498fb7a8a034fa664d6ed1a9c67f1b189c-qs/index.js"
+    "main": "bad905498fb7a8a034fa664d6ed1a9c67f1b189c-qs/index.js",
+    "dirpath": "node_modules/request/node_modules/qs"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"4c8c493e0464365389fe0601e4bb6254d3b41a3c-oauth-sign/package.json"}
 require.memoize("4c8c493e0464365389fe0601e4bb6254d3b41a3c-oauth-sign/package.json", 
 {
-    "main": "4c8c493e0464365389fe0601e4bb6254d3b41a3c-oauth-sign/index.js"
+    "main": "4c8c493e0464365389fe0601e4bb6254d3b41a3c-oauth-sign/index.js",
+    "dirpath": "node_modules/request/node_modules/oauth-sign"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"29eb5a18eb620cc598527d89a0c5c611db63e91b-hawk/package.json"}
@@ -13672,7 +13683,8 @@ require.memoize("29eb5a18eb620cc598527d89a0c5c611db63e91b-hawk/package.json",
         "sntp": "99cc0c112bc5e48183c985f6e4c69af129c98ba7-sntp",
         "hoek": "f7d6999ac201573ce8335e058ee0439994171772-hoek",
         "cryptiles": "0d16239d3ef60fdd17d17b1d50d2c59ee8e63166-cryptiles"
-    }
+    },
+    "dirpath": "node_modules/request/node_modules/hawk"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"799caeb4798b9c4de483910de2aa52868f1f47d9-boom/package.json"}
@@ -13681,13 +13693,15 @@ require.memoize("799caeb4798b9c4de483910de2aa52868f1f47d9-boom/package.json",
     "main": "799caeb4798b9c4de483910de2aa52868f1f47d9-boom/index.js",
     "mappings": {
         "hoek": "f7d6999ac201573ce8335e058ee0439994171772-hoek"
-    }
+    },
+    "dirpath": "node_modules/request/node_modules/hawk/node_modules/boom"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"f7d6999ac201573ce8335e058ee0439994171772-hoek/package.json"}
 require.memoize("f7d6999ac201573ce8335e058ee0439994171772-hoek/package.json", 
 {
-    "main": "f7d6999ac201573ce8335e058ee0439994171772-hoek/index.js"
+    "main": "f7d6999ac201573ce8335e058ee0439994171772-hoek/index.js",
+    "dirpath": "node_modules/request/node_modules/hawk/node_modules/hoek"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"99cc0c112bc5e48183c985f6e4c69af129c98ba7-sntp/package.json"}
@@ -13696,7 +13710,8 @@ require.memoize("99cc0c112bc5e48183c985f6e4c69af129c98ba7-sntp/package.json",
     "main": "99cc0c112bc5e48183c985f6e4c69af129c98ba7-sntp/index.js",
     "mappings": {
         "hoek": "f7d6999ac201573ce8335e058ee0439994171772-hoek"
-    }
+    },
+    "dirpath": "node_modules/request/node_modules/hawk/node_modules/sntp"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"0d16239d3ef60fdd17d17b1d50d2c59ee8e63166-cryptiles/package.json"}
@@ -13705,13 +13720,15 @@ require.memoize("0d16239d3ef60fdd17d17b1d50d2c59ee8e63166-cryptiles/package.json
     "main": "0d16239d3ef60fdd17d17b1d50d2c59ee8e63166-cryptiles/index.js",
     "mappings": {
         "boom": "799caeb4798b9c4de483910de2aa52868f1f47d9-boom"
-    }
+    },
+    "dirpath": "node_modules/request/node_modules/hawk/node_modules/cryptiles"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"effa10bda53b956d3e4fe3fada19d444ee3ea1ac-aws-sign/package.json"}
 require.memoize("effa10bda53b956d3e4fe3fada19d444ee3ea1ac-aws-sign/package.json", 
 {
-    "main": "effa10bda53b956d3e4fe3fada19d444ee3ea1ac-aws-sign/index.js"
+    "main": "effa10bda53b956d3e4fe3fada19d444ee3ea1ac-aws-sign/index.js",
+    "dirpath": "node_modules/request/node_modules/aws-sign"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature/package.json"}
@@ -13722,55 +13739,64 @@ require.memoize("6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature/package
         "assert-plus": "fbda01465fe6db497c8c3e6b1a4a2bfae5a62cfc-assert-plus",
         "asn1": "e612e189cff4640079c1b54bfddcf962015c2f30-asn1",
         "ctype": "772d995e44ccaf42f98f64a0097b4a58863c38af-ctype"
-    }
+    },
+    "dirpath": "node_modules/request/node_modules/http-signature"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"fbda01465fe6db497c8c3e6b1a4a2bfae5a62cfc-assert-plus/package.json"}
 require.memoize("fbda01465fe6db497c8c3e6b1a4a2bfae5a62cfc-assert-plus/package.json", 
 {
-    "main": "fbda01465fe6db497c8c3e6b1a4a2bfae5a62cfc-assert-plus/assert.js"
+    "main": "fbda01465fe6db497c8c3e6b1a4a2bfae5a62cfc-assert-plus/assert.js",
+    "dirpath": "node_modules/request/node_modules/http-signature/node_modules/assert-plus"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"e612e189cff4640079c1b54bfddcf962015c2f30-asn1/package.json"}
 require.memoize("e612e189cff4640079c1b54bfddcf962015c2f30-asn1/package.json", 
 {
-    "main": "e612e189cff4640079c1b54bfddcf962015c2f30-asn1/lib/index.js"
+    "main": "e612e189cff4640079c1b54bfddcf962015c2f30-asn1/lib/index.js",
+    "dirpath": "node_modules/request/node_modules/http-signature/node_modules/asn1"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"772d995e44ccaf42f98f64a0097b4a58863c38af-ctype/package.json"}
 require.memoize("772d995e44ccaf42f98f64a0097b4a58863c38af-ctype/package.json", 
 {
-    "main": "772d995e44ccaf42f98f64a0097b4a58863c38af-ctype/ctype.js"
+    "main": "772d995e44ccaf42f98f64a0097b4a58863c38af-ctype/ctype.js",
+    "dirpath": "node_modules/request/node_modules/http-signature/node_modules/ctype"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"e999f0bd6e194076d315ffd2a431c4c6e32def1e-node-uuid/package.json"}
 require.memoize("e999f0bd6e194076d315ffd2a431c4c6e32def1e-node-uuid/package.json", 
 {
-    "main": "e999f0bd6e194076d315ffd2a431c4c6e32def1e-node-uuid/uuid.js"
+    "main": "e999f0bd6e194076d315ffd2a431c4c6e32def1e-node-uuid/uuid.js",
+    "dirpath": "node_modules/request/node_modules/node-uuid"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"acbfdcf6c33b2a153969671d593b45e4d0cd5768-mime/package.json"}
 require.memoize("acbfdcf6c33b2a153969671d593b45e4d0cd5768-mime/package.json", 
 {
-    "main": "acbfdcf6c33b2a153969671d593b45e4d0cd5768-mime/mime.js"
+    "main": "acbfdcf6c33b2a153969671d593b45e4d0cd5768-mime/mime.js",
+    "dirpath": "node_modules/request/node_modules/mime"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"11cb05bc0940ffae1a1e1f73ca7c89e4731519fe-tunnel-agent/package.json"}
 require.memoize("11cb05bc0940ffae1a1e1f73ca7c89e4731519fe-tunnel-agent/package.json", 
 {
-    "main": "11cb05bc0940ffae1a1e1f73ca7c89e4731519fe-tunnel-agent/index.js"
+    "main": "11cb05bc0940ffae1a1e1f73ca7c89e4731519fe-tunnel-agent/index.js",
+    "dirpath": "node_modules/request/node_modules/tunnel-agent"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"cd513417702c216d7e831b5e07732580c4cd46ff-json-stringify-safe/package.json"}
 require.memoize("cd513417702c216d7e831b5e07732580c4cd46ff-json-stringify-safe/package.json", 
 {
-    "main": "cd513417702c216d7e831b5e07732580c4cd46ff-json-stringify-safe/stringify.js"
+    "main": "cd513417702c216d7e831b5e07732580c4cd46ff-json-stringify-safe/stringify.js",
+    "dirpath": "node_modules/request/node_modules/json-stringify-safe"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"0aece9af14f253ebe7db431e7f82a4db65578bac-forever-agent/package.json"}
 require.memoize("0aece9af14f253ebe7db431e7f82a4db65578bac-forever-agent/package.json", 
 {
-    "main": "0aece9af14f253ebe7db431e7f82a4db65578bac-forever-agent/index.js"
+    "main": "0aece9af14f253ebe7db431e7f82a4db65578bac-forever-agent/index.js",
+    "dirpath": "node_modules/request/node_modules/forever-agent"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"30e023fb56d12219edd0fa0dc5fec5bc671e23d7-form-data/package.json"}
@@ -13781,7 +13807,8 @@ require.memoize("30e023fb56d12219edd0fa0dc5fec5bc671e23d7-form-data/package.json
         "combined-stream": "06cbcc54faef9f40e30e431889706609e5cfcee5-combined-stream",
         "mime": "acbfdcf6c33b2a153969671d593b45e4d0cd5768-mime",
         "async": "257a70b6290719603e5079400727f3d2d2d1b03a-async"
-    }
+    },
+    "dirpath": "node_modules/request/node_modules/form-data"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"06cbcc54faef9f40e30e431889706609e5cfcee5-combined-stream/package.json"}
@@ -13790,19 +13817,22 @@ require.memoize("06cbcc54faef9f40e30e431889706609e5cfcee5-combined-stream/packag
     "main": "06cbcc54faef9f40e30e431889706609e5cfcee5-combined-stream/lib/combined_stream.js",
     "mappings": {
         "delayed-stream": "199a58ca20a8d32f3b68d292b20fd112db88b5ec-delayed-stream"
-    }
+    },
+    "dirpath": "node_modules/request/node_modules/form-data/node_modules/combined-stream"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"199a58ca20a8d32f3b68d292b20fd112db88b5ec-delayed-stream/package.json"}
 require.memoize("199a58ca20a8d32f3b68d292b20fd112db88b5ec-delayed-stream/package.json", 
 {
-    "main": "199a58ca20a8d32f3b68d292b20fd112db88b5ec-delayed-stream/lib/delayed_stream.js"
+    "main": "199a58ca20a8d32f3b68d292b20fd112db88b5ec-delayed-stream/lib/delayed_stream.js",
+    "dirpath": "node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"257a70b6290719603e5079400727f3d2d2d1b03a-async/package.json"}
 require.memoize("257a70b6290719603e5079400727f3d2d2d1b03a-async/package.json", 
 {
-    "main": "257a70b6290719603e5079400727f3d2d2d1b03a-async/lib/async.js"
+    "main": "257a70b6290719603e5079400727f3d2d2d1b03a-async/lib/async.js",
+    "dirpath": "node_modules/request/node_modules/form-data/node_modules/async"
 }
 );
 // @pinf-bundle-ignore: 

@@ -27,6 +27,7 @@ return {
 require.memoize("/package.json", 
 {
     "main": "/app.js",
+    "dirpath": "test/assets/packages/nodejs-dynamic-require-complex",
     "mappings": {
         "letters": "698b594771c54e63058ef9073aaf59f1e529c21f-letters",
         "letter-l": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l",

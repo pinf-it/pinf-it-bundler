@@ -19,7 +19,8 @@ exports.main = function (callback) {
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
-    "main": "/app.js"
+    "main": "/app.js",
+    "dirpath": "test/assets/packages/require-async"
 }
 );
 // @pinf-bundle-ignore: 

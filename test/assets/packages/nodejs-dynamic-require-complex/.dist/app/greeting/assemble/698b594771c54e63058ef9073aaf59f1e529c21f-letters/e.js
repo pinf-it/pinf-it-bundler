@@ -18,10 +18,10 @@ exports.getLetterO = MORE.getLetterO;
 
 }
 );
-// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"698b594771c54e63058ef9073aaf59f1e529c21f-letters/package.json"}
+// @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"698b594771c54e63058ef9073aaf59f1e529c21f-letters/package.json"}
 require.memoize("698b594771c54e63058ef9073aaf59f1e529c21f-letters/package.json", 
 {
-    "main": "698b594771c54e63058ef9073aaf59f1e529c21f-letters/e.js",
+    "dirpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters",
     "mappings": {}
 }
 );

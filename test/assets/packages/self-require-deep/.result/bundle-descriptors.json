@@ -97,7 +97,8 @@
                             "errors": [],
                             "memoized": {
                                 "main": "/lib/app.js",
-                                "mappings": {}
+                                "mappings": {},
+                                "dirpath": "test/assets/packages/self-require-deep"
                             },
                             "mtime": "0"
                         },

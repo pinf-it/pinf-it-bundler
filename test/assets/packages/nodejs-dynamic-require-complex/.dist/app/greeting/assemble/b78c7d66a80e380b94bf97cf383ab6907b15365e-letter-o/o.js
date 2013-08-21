@@ -10,10 +10,10 @@ exports.getLetter = function() {
 
 }
 );
-// @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o/package.json"}
+// @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o/package.json"}
 require.memoize("b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o/package.json", 
 {
-    "main": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o/o.js"
+    "dirpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o"
 }
 );
 // @pinf-bundle-ignore: 

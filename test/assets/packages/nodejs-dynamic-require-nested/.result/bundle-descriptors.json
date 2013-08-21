@@ -85,7 +85,8 @@
                             "warnings": [],
                             "errors": [],
                             "memoized": {
-                                "main": "/app.js"
+                                "main": "/app.js",
+                                "dirpath": "test/assets/packages/nodejs-dynamic-require-nested"
                             },
                             "mtime": "0"
                         },
@@ -244,7 +245,8 @@
                     "warnings": [],
                     "errors": [],
                     "memoized": {
-                        "main": "/app.js"
+                        "main": "/app.js",
+                        "dirpath": "test/assets/packages/nodejs-dynamic-require-nested"
                     },
                     "mtime": "0"
                 },
@@ -394,7 +396,8 @@
                     "warnings": [],
                     "errors": [],
                     "memoized": {
-                        "main": "/app.js"
+                        "main": "/app.js",
+                        "dirpath": "test/assets/packages/nodejs-dynamic-require-nested"
                     },
                     "mtime": "0"
                 },
@@ -482,7 +485,8 @@
                     "warnings": [],
                     "errors": [],
                     "memoized": {
-                        "main": "/app.js"
+                        "main": "/app.js",
+                        "dirpath": "test/assets/packages/nodejs-dynamic-require-nested"
                     },
                     "mtime": "0"
                 },

@@ -20,7 +20,8 @@ return {
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
-    "main": "/lib/app.js"
+    "main": "/lib/app.js",
+    "dirpath": "test/assets/packages/deep-main"
 }
 );
 // @pinf-bundle-ignore: 

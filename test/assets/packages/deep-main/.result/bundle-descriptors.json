@@ -79,7 +79,8 @@
                             "warnings": [],
                             "errors": [],
                             "memoized": {
-                                "main": "/lib/app.js"
+                                "main": "/lib/app.js",
+                                "dirpath": "test/assets/packages/deep-main"
                             },
                             "mtime": "0"
                         },

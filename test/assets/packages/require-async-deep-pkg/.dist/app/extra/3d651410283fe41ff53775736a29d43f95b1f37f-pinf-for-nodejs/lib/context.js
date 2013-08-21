@@ -112,7 +112,6 @@ exports.contextForModule = function(module, options, callback) {
 	if (!module.filename) {
 		return callback(new Error("`module.filename` must be set!"));
 	}
-
 	return PACKAGE_INSIGHT.findPackagePath(module.filename, function(err, path) {
 		if (err) return callback(err);
 		return exports.context(options.PINF_PROGRAM, path, {
@@ -11208,28 +11207,34 @@ exports.bundlePackage = function(bundlePackagePath, options, callback) {
 
 			opts.finalizeBundle = function(bundleDescriptor, bundle, callback) {
 				for (var packagePath in packages) {
-					if (Object.keys(packages[packagePath][0].memoized).length > 0) {
-						var pkgId = packages[packagePath][0].id || options.rootPackage || "";
-						if (options.test) {
-							packages[packagePath][0].mtime = "0";
-						}
-						bundleDescriptor.modules[pkgId + "/package.json"] = {
-							requireId: pkgId + "/package.json",
-							memoizeId: pkgId + "/package.json",
-							descriptor: packages[packagePath][0],
-							wrapper: "json"
-						};
-						bundle.setModule(
-							pkgId + "/package.json",
-							JSON.stringify(packages[packagePath][0].memoized, null, 4),
-							{
-								file: null,
-								mtime: 0,
-								wrapper: "json",
-								format: "json"
-							}
-						);
+
+					if (options.test) {
+						packages[packagePath][0].mtime = "0";
 					}
+
+					var memoized = packages[packagePath][0].memoized || {};
+					memoized.dirpath = packages[packagePath][0].dirpath;
+
+					if (Object.keys(memoized).length > 0) {
+						var pkgId = packages[packagePath][0].id || options.rootPackage || "";
+					}
+
+					bundleDescriptor.modules[pkgId + "/package.json"] = {
+						requireId: pkgId + "/package.json",
+						memoizeId: pkgId + "/package.json",
+						descriptor: packages[packagePath][0],
+						wrapper: "json"
+					};
+					bundle.setModule(
+						pkgId + "/package.json",
+						JSON.stringify(memoized, null, 4),
+						{
+							file: null,
+							mtime: 0,
+							wrapper: "json",
+							format: "json"
+						}
+					);
 				}
 				return callback(null);
 			}
@@ -20683,6 +20688,7 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 			}
 
 			pkg.require = function(moduleIdentifier) {
+
 				if (moduleIdentifier) {
 	                if (!/^\//.test(moduleIdentifier)) {
 	                    moduleIdentifier = "/" + ((moduleIdentifier.substring(0, pkg.libPath.length)===pkg.libPath)?"":pkg.libPath) + moduleIdentifier;
@@ -20691,6 +20697,7 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 				} else {
 					moduleIdentifier = pkg.main;
 				}
+
 				if (!initializedModules[moduleIdentifier]) {
 					/*DEBUG*/ if (!moduleInitializers[moduleIdentifier]) {
 					/*DEBUG*/ 	console.error("[pinf-loader-js]", "moduleInitializers", moduleInitializers);
@@ -60907,6 +60914,7 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 			}
 
 			pkg.require = function(moduleIdentifier) {
+
 				if (moduleIdentifier) {
 	                if (!/^\//.test(moduleIdentifier)) {
 	                    moduleIdentifier = "/" + ((moduleIdentifier.substring(0, pkg.libPath.length)===pkg.libPath)?"":pkg.libPath) + moduleIdentifier;
@@ -60915,6 +60923,7 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 				} else {
 					moduleIdentifier = pkg.main;
 				}
+
 				if (!initializedModules[moduleIdentifier]) {
 					/*DEBUG*/ if (!moduleInitializers[moduleIdentifier]) {
 					/*DEBUG*/ 	console.error("[pinf-loader-js]", "moduleInitializers", moduleInitializers);
@@ -61118,7 +61127,8 @@ require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/packag
         "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
         "pinf-loader-js": "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js",
         "require.async": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/package.json"}
@@ -61131,25 +61141,29 @@ require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/package.json"
         "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs": "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra",
         "ncp": "2b0048c6a305ad176d4e3489f01d68c879da772f-ncp",
         "rimraf": "67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile/package.json"}
 require.memoize("95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile/package.json", 
 {
-    "main": "95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile/lib/jsonfile.js"
+    "main": "95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile/lib/jsonfile.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/jsonfile"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp/package.json"}
 require.memoize("5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp/package.json", 
 {
-    "main": "5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp/index.js"
+    "main": "5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/mkdirp"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"2b0048c6a305ad176d4e3489f01d68c879da772f-ncp/package.json"}
 require.memoize("2b0048c6a305ad176d4e3489f01d68c879da772f-ncp/package.json", 
 {
-    "main": "2b0048c6a305ad176d4e3489f01d68c879da772f-ncp/lib/ncp.js"
+    "main": "2b0048c6a305ad176d4e3489f01d68c879da772f-ncp/lib/ncp.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/ncp"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf/package.json"}
@@ -61158,13 +61172,15 @@ require.memoize("67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf/package.json",
     "main": "67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf/rimraf.js",
     "mappings": {
         "graceful-fs": "b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/package.json"}
 require.memoize("b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/package.json", 
 {
-    "main": "b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/graceful-fs.js"
+    "main": "b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/graceful-fs.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"57afe811a234d961a291b977f64e22b42a1b4735-waitfor/package.json"}
@@ -61173,25 +61189,29 @@ require.memoize("57afe811a234d961a291b977f64e22b42a1b4735-waitfor/package.json",
     "main": "57afe811a234d961a291b977f64e22b42a1b4735-waitfor/waitfor.js",
     "mappings": {
         "setimmediate": "5fab7dc417e5225664a9e48c30bbaa96a9da45fa-setimmediate"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/waitfor"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"5fab7dc417e5225664a9e48c30bbaa96a9da45fa-setimmediate/package.json"}
 require.memoize("5fab7dc417e5225664a9e48c30bbaa96a9da45fa-setimmediate/package.json", 
 {
-    "main": "5fab7dc417e5225664a9e48c30bbaa96a9da45fa-setimmediate/setImmediate.js"
+    "main": "5fab7dc417e5225664a9e48c30bbaa96a9da45fa-setimmediate/setImmediate.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/waitfor/node_modules/setimmediate"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"98c6b74665bd9abac5c33394e3edfcf04ef251a1-deepmerge/package.json"}
 require.memoize("98c6b74665bd9abac5c33394e3edfcf04ef251a1-deepmerge/package.json", 
 {
-    "main": "98c6b74665bd9abac5c33394e3edfcf04ef251a1-deepmerge/index.js"
+    "main": "98c6b74665bd9abac5c33394e3edfcf04ef251a1-deepmerge/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepmerge"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/package.json"}
 require.memoize("36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/package.json", 
 {
-    "main": "36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/index.js"
+    "main": "36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepcopy"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js/package.json"}
@@ -61200,13 +61220,15 @@ require.memoize("76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js/pac
     "main": "76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js/primitives.js",
     "mappings": {
         "deepcopy": "e3b83304b558e386f1e075262340169bec08eeba-deepcopy"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"e3b83304b558e386f1e075262340169bec08eeba-deepcopy/package.json"}
 require.memoize("e3b83304b558e386f1e075262340169bec08eeba-deepcopy/package.json", 
 {
-    "main": "e3b83304b558e386f1e075262340169bec08eeba-deepcopy/index.js"
+    "main": "e3b83304b558e386f1e075262340169bec08eeba-deepcopy/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/node_modules/deepcopy"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insight/package.json"}
@@ -61217,7 +61239,8 @@ require.memoize("a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insigh
         "waitfor": "daa6fd2c901ebe1dd2fffd374aadc94a18acf03f-waitfor",
         "deepmerge": "314839f5c7c2de31691d70d145a810b24f13d359-deepmerge",
         "pinf-primitives-js": "a168e2ff3e007b8ae4b4dce8bb03fc10343d6411-pinf-primitives-js"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"daa6fd2c901ebe1dd2fffd374aadc94a18acf03f-waitfor/package.json"}
@@ -61226,19 +61249,22 @@ require.memoize("daa6fd2c901ebe1dd2fffd374aadc94a18acf03f-waitfor/package.json",
     "main": "daa6fd2c901ebe1dd2fffd374aadc94a18acf03f-waitfor/waitfor.js",
     "mappings": {
         "setimmediate": "0d84eddf2b38974fcbed1ef0232a4cdc7794d07a-setimmediate"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/waitfor"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"0d84eddf2b38974fcbed1ef0232a4cdc7794d07a-setimmediate/package.json"}
 require.memoize("0d84eddf2b38974fcbed1ef0232a4cdc7794d07a-setimmediate/package.json", 
 {
-    "main": "0d84eddf2b38974fcbed1ef0232a4cdc7794d07a-setimmediate/setImmediate.js"
+    "main": "0d84eddf2b38974fcbed1ef0232a4cdc7794d07a-setimmediate/setImmediate.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"314839f5c7c2de31691d70d145a810b24f13d359-deepmerge/package.json"}
 require.memoize("314839f5c7c2de31691d70d145a810b24f13d359-deepmerge/package.json", 
 {
-    "main": "314839f5c7c2de31691d70d145a810b24f13d359-deepmerge/index.js"
+    "main": "314839f5c7c2de31691d70d145a810b24f13d359-deepmerge/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/deepmerge"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"a168e2ff3e007b8ae4b4dce8bb03fc10343d6411-pinf-primitives-js/package.json"}
@@ -61247,13 +61273,15 @@ require.memoize("a168e2ff3e007b8ae4b4dce8bb03fc10343d6411-pinf-primitives-js/pac
     "main": "a168e2ff3e007b8ae4b4dce8bb03fc10343d6411-pinf-primitives-js/primitives.js",
     "mappings": {
         "deepcopy": "eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/package.json"}
 require.memoize("eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/package.json", 
 {
-    "main": "eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/index.js"
+    "main": "eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight/package.json"}
@@ -61265,7 +61293,8 @@ require.memoize("c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insigh
         "deepmerge": "bae60f4c72f89c0542d04faab5f4e6c6f0678907-deepmerge",
         "deepcopy": "c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy",
         "pinf-it-package-insight": "f38e4f605d8ca2a7773428c53b62e3d07f59a736-pinf-it-package-insight"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"b782938965d4eecd6d293846c7ca82181935c0ab-waitfor/package.json"}
@@ -61274,25 +61303,29 @@ require.memoize("b782938965d4eecd6d293846c7ca82181935c0ab-waitfor/package.json",
     "main": "b782938965d4eecd6d293846c7ca82181935c0ab-waitfor/waitfor.js",
     "mappings": {
         "setimmediate": "98f59820510eba78223c81ad6d109534d335f224-setimmediate"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/waitfor"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"98f59820510eba78223c81ad6d109534d335f224-setimmediate/package.json"}
 require.memoize("98f59820510eba78223c81ad6d109534d335f224-setimmediate/package.json", 
 {
-    "main": "98f59820510eba78223c81ad6d109534d335f224-setimmediate/setImmediate.js"
+    "main": "98f59820510eba78223c81ad6d109534d335f224-setimmediate/setImmediate.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/waitfor/node_modules/setimmediate"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"bae60f4c72f89c0542d04faab5f4e6c6f0678907-deepmerge/package.json"}
 require.memoize("bae60f4c72f89c0542d04faab5f4e6c6f0678907-deepmerge/package.json", 
 {
-    "main": "bae60f4c72f89c0542d04faab5f4e6c6f0678907-deepmerge/index.js"
+    "main": "bae60f4c72f89c0542d04faab5f4e6c6f0678907-deepmerge/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepmerge"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/package.json"}
 require.memoize("c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/package.json", 
 {
-    "main": "c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/index.js"
+    "main": "c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepcopy"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"f38e4f605d8ca2a7773428c53b62e3d07f59a736-pinf-it-package-insight/package.json"}
@@ -61303,7 +61336,8 @@ require.memoize("f38e4f605d8ca2a7773428c53b62e3d07f59a736-pinf-it-package-insigh
         "waitfor": "49f226cee0c79376b1d67307ff98169b5e3f7ac5-waitfor",
         "deepmerge": "ce11c10dca64b2b60e0fb1528b0b56c3811aa662-deepmerge",
         "pinf-primitives-js": "aabe78d7de2b47ab14e2726122f43c2e2c6f8113-pinf-primitives-js"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"49f226cee0c79376b1d67307ff98169b5e3f7ac5-waitfor/package.json"}
@@ -61312,19 +61346,22 @@ require.memoize("49f226cee0c79376b1d67307ff98169b5e3f7ac5-waitfor/package.json",
     "main": "49f226cee0c79376b1d67307ff98169b5e3f7ac5-waitfor/waitfor.js",
     "mappings": {
         "setimmediate": "34d03f6968e3f4fc04264f08c1450f78f5848fe4-setimmediate"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/waitfor"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"34d03f6968e3f4fc04264f08c1450f78f5848fe4-setimmediate/package.json"}
 require.memoize("34d03f6968e3f4fc04264f08c1450f78f5848fe4-setimmediate/package.json", 
 {
-    "main": "34d03f6968e3f4fc04264f08c1450f78f5848fe4-setimmediate/setImmediate.js"
+    "main": "34d03f6968e3f4fc04264f08c1450f78f5848fe4-setimmediate/setImmediate.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"ce11c10dca64b2b60e0fb1528b0b56c3811aa662-deepmerge/package.json"}
 require.memoize("ce11c10dca64b2b60e0fb1528b0b56c3811aa662-deepmerge/package.json", 
 {
-    "main": "ce11c10dca64b2b60e0fb1528b0b56c3811aa662-deepmerge/index.js"
+    "main": "ce11c10dca64b2b60e0fb1528b0b56c3811aa662-deepmerge/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/deepmerge"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"aabe78d7de2b47ab14e2726122f43c2e2c6f8113-pinf-primitives-js/package.json"}
@@ -61333,13 +61370,15 @@ require.memoize("aabe78d7de2b47ab14e2726122f43c2e2c6f8113-pinf-primitives-js/pac
     "main": "aabe78d7de2b47ab14e2726122f43c2e2c6f8113-pinf-primitives-js/primitives.js",
     "mappings": {
         "deepcopy": "edc8d965636e19f737f2ececa6386b2162350540-deepcopy"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"edc8d965636e19f737f2ececa6386b2162350540-deepcopy/package.json"}
 require.memoize("edc8d965636e19f737f2ececa6386b2162350540-deepcopy/package.json", 
 {
-    "main": "edc8d965636e19f737f2ececa6386b2162350540-deepcopy/index.js"
+    "main": "edc8d965636e19f737f2ececa6386b2162350540-deepcopy/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/package.json"}
@@ -61355,7 +61394,8 @@ require.memoize("5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/packag
         "pinf-it-package-insight": "998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insight",
         "pinf-loader-js": "c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js",
         "requirejs": "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/package.json"}
@@ -61368,25 +61408,29 @@ require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/package.json"
         "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs": "617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra",
         "ncp": "b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp",
         "rimraf": "88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"c080a61be940c5b59af0cef485503c204af31aa3-jsonfile/package.json"}
 require.memoize("c080a61be940c5b59af0cef485503c204af31aa3-jsonfile/package.json", 
 {
-    "main": "c080a61be940c5b59af0cef485503c204af31aa3-jsonfile/lib/jsonfile.js"
+    "main": "c080a61be940c5b59af0cef485503c204af31aa3-jsonfile/lib/jsonfile.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/jsonfile"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp/package.json"}
 require.memoize("cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp/package.json", 
 {
-    "main": "cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp/index.js"
+    "main": "cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/mkdirp"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp/package.json"}
 require.memoize("b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp/package.json", 
 {
-    "main": "b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp/lib/ncp.js"
+    "main": "b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp/lib/ncp.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/ncp"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf/package.json"}
@@ -61395,25 +61439,29 @@ require.memoize("88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf/package.json",
     "main": "88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf/rimraf.js",
     "mappings": {
         "graceful-fs": "8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/package.json"}
 require.memoize("8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/package.json", 
 {
-    "main": "8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/graceful-fs.js"
+    "main": "8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/graceful-fs.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"86a7c7b5fe60704afbe464069563b35be9b7cbae-q/package.json"}
 require.memoize("86a7c7b5fe60704afbe464069563b35be9b7cbae-q/package.json", 
 {
-    "main": "86a7c7b5fe60704afbe464069563b35be9b7cbae-q/q.js"
+    "main": "86a7c7b5fe60704afbe464069563b35be9b7cbae-q/q.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/q"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/package.json"}
 require.memoize("a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/package.json", 
 {
-    "main": "a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/index.js"
+    "main": "a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/deepcopy"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"1c49116f920b3e4988a79b910e317654081e75c6-waitfor/package.json"}
@@ -61422,13 +61470,15 @@ require.memoize("1c49116f920b3e4988a79b910e317654081e75c6-waitfor/package.json",
     "main": "1c49116f920b3e4988a79b910e317654081e75c6-waitfor/waitfor.js",
     "mappings": {
         "setimmediate": "d739e44b4b3e49d3ecb628f8a908b40e63afa8e5-setimmediate"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/waitfor"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"d739e44b4b3e49d3ecb628f8a908b40e63afa8e5-setimmediate/package.json"}
 require.memoize("d739e44b4b3e49d3ecb628f8a908b40e63afa8e5-setimmediate/package.json", 
 {
-    "main": "d739e44b4b3e49d3ecb628f8a908b40e63afa8e5-setimmediate/setImmediate.js"
+    "main": "d739e44b4b3e49d3ecb628f8a908b40e63afa8e5-setimmediate/setImmediate.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/waitfor/node_modules/setimmediate"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"bf0ef0832fabbb13ac3cdcc25595e542732048f4-pinf-it-module-insight/package.json"}
@@ -61439,7 +61489,8 @@ require.memoize("bf0ef0832fabbb13ac3cdcc25595e542732048f4-pinf-it-module-insight
         "fs-extra": "bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra",
         "jslint": "d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint",
         "esprima": "5771ada65ad37907635d21e4c3b6e1bb0c9af9fc-esprima"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/package.json"}
@@ -61452,25 +61503,29 @@ require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/package.json"
         "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs": "bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra",
         "ncp": "b4c553f584b025a7c9b2375916830b245a00a167-ncp",
         "rimraf": "921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile/package.json"}
 require.memoize("d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile/package.json", 
 {
-    "main": "d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile/lib/jsonfile.js"
+    "main": "d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile/lib/jsonfile.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/jsonfile"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp/package.json"}
 require.memoize("549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp/package.json", 
 {
-    "main": "549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp/index.js"
+    "main": "549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/mkdirp"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"b4c553f584b025a7c9b2375916830b245a00a167-ncp/package.json"}
 require.memoize("b4c553f584b025a7c9b2375916830b245a00a167-ncp/package.json", 
 {
-    "main": "b4c553f584b025a7c9b2375916830b245a00a167-ncp/lib/ncp.js"
+    "main": "b4c553f584b025a7c9b2375916830b245a00a167-ncp/lib/ncp.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/ncp"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf/package.json"}
@@ -61479,13 +61534,15 @@ require.memoize("921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf/package.json",
     "main": "921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf/rimraf.js",
     "mappings": {
         "graceful-fs": "a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/package.json"}
 require.memoize("a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/package.json", 
 {
-    "main": "a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/graceful-fs.js"
+    "main": "a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/graceful-fs.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/package.json"}
@@ -61494,13 +61551,15 @@ require.memoize("d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/package.json",
     "main": "d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/lib/nodelint.js",
     "directories": {
         "lib": "lib"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/jslint"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"5771ada65ad37907635d21e4c3b6e1bb0c9af9fc-esprima/package.json"}
 require.memoize("5771ada65ad37907635d21e4c3b6e1bb0c9af9fc-esprima/package.json", 
 {
-    "main": "5771ada65ad37907635d21e4c3b6e1bb0c9af9fc-esprima/esprima.js"
+    "main": "5771ada65ad37907635d21e4c3b6e1bb0c9af9fc-esprima/esprima.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/esprima"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insight/package.json"}
@@ -61511,7 +61570,8 @@ require.memoize("998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insigh
         "waitfor": "812d2540fcd8954a6f536f20ff75621af8578d89-waitfor",
         "deepmerge": "29f28531211b227d017dcf0cf57d7c26b36ab9ff-deepmerge",
         "pinf-primitives-js": "e72eacc9b0985a811179adfcfd7452b2cc6e904f-pinf-primitives-js"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"812d2540fcd8954a6f536f20ff75621af8578d89-waitfor/package.json"}
@@ -61520,19 +61580,22 @@ require.memoize("812d2540fcd8954a6f536f20ff75621af8578d89-waitfor/package.json",
     "main": "812d2540fcd8954a6f536f20ff75621af8578d89-waitfor/waitfor.js",
     "mappings": {
         "setimmediate": "aad20786edb4bc037cc86c828e2729f5839d8ac6-setimmediate"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/waitfor"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"aad20786edb4bc037cc86c828e2729f5839d8ac6-setimmediate/package.json"}
 require.memoize("aad20786edb4bc037cc86c828e2729f5839d8ac6-setimmediate/package.json", 
 {
-    "main": "aad20786edb4bc037cc86c828e2729f5839d8ac6-setimmediate/setImmediate.js"
+    "main": "aad20786edb4bc037cc86c828e2729f5839d8ac6-setimmediate/setImmediate.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"29f28531211b227d017dcf0cf57d7c26b36ab9ff-deepmerge/package.json"}
 require.memoize("29f28531211b227d017dcf0cf57d7c26b36ab9ff-deepmerge/package.json", 
 {
-    "main": "29f28531211b227d017dcf0cf57d7c26b36ab9ff-deepmerge/index.js"
+    "main": "29f28531211b227d017dcf0cf57d7c26b36ab9ff-deepmerge/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/deepmerge"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"e72eacc9b0985a811179adfcfd7452b2cc6e904f-pinf-primitives-js/package.json"}
@@ -61541,13 +61604,15 @@ require.memoize("e72eacc9b0985a811179adfcfd7452b2cc6e904f-pinf-primitives-js/pac
     "main": "e72eacc9b0985a811179adfcfd7452b2cc6e904f-pinf-primitives-js/primitives.js",
     "mappings": {
         "deepcopy": "91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/package.json"}
 require.memoize("91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/package.json", 
 {
-    "main": "91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/index.js"
+    "main": "91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js/package.json"}
@@ -61556,13 +61621,15 @@ require.memoize("c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js/package
     "main": "c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js/loader.js",
     "directories": {
         "lib": "."
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-loader-js"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/package.json"}
 require.memoize("f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/package.json", 
 {
-    "main": "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/bin/r.js"
+    "main": "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/bin/r.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/requirejs"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request/package.json"}
@@ -61582,19 +61649,22 @@ require.memoize("e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request/package.json",
         "forever-agent": "ac485b684341e74d2d223646d5b98969d287efa9-forever-agent",
         "form-data": "b31d9d8844fd9f42ca88afa16a6316e74e8a6409-form-data",
         "cookie-jar": "e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs/package.json"}
 require.memoize("a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs/package.json", 
 {
-    "main": "a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs/index.js"
+    "main": "a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/qs"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"0a2767d204df2a563b9513a5b12e7f2ef737e245-oauth-sign/package.json"}
 require.memoize("0a2767d204df2a563b9513a5b12e7f2ef737e245-oauth-sign/package.json", 
 {
-    "main": "0a2767d204df2a563b9513a5b12e7f2ef737e245-oauth-sign/index.js"
+    "main": "0a2767d204df2a563b9513a5b12e7f2ef737e245-oauth-sign/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/oauth-sign"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/package.json"}
@@ -61606,7 +61676,8 @@ require.memoize("ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/package.json",
         "sntp": "87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp",
         "hoek": "5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek",
         "cryptiles": "8f6b20ea73af0e78673599afe177926b017fe185-cryptiles"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/package.json"}
@@ -61615,13 +61686,15 @@ require.memoize("bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/package.json",
     "main": "bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/index.js",
     "mappings": {
         "hoek": "9579db8ec37f1c7107434638cd83ebcdde128669-hoek"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"9579db8ec37f1c7107434638cd83ebcdde128669-hoek/package.json"}
 require.memoize("9579db8ec37f1c7107434638cd83ebcdde128669-hoek/package.json", 
 {
-    "main": "9579db8ec37f1c7107434638cd83ebcdde128669-hoek/index.js"
+    "main": "9579db8ec37f1c7107434638cd83ebcdde128669-hoek/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/package.json"}
@@ -61630,19 +61703,22 @@ require.memoize("87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/package.json",
     "main": "87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/index.js",
     "mappings": {
         "hoek": "733132ef85628339b6e1a78283093c2a9208ca8a-hoek"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"733132ef85628339b6e1a78283093c2a9208ca8a-hoek/package.json"}
 require.memoize("733132ef85628339b6e1a78283093c2a9208ca8a-hoek/package.json", 
 {
-    "main": "733132ef85628339b6e1a78283093c2a9208ca8a-hoek/index.js"
+    "main": "733132ef85628339b6e1a78283093c2a9208ca8a-hoek/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/package.json"}
 require.memoize("5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/package.json", 
 {
-    "main": "5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/index.js"
+    "main": "5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/package.json"}
@@ -61651,13 +61727,15 @@ require.memoize("8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/package.json
     "main": "8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/index.js",
     "mappings": {
         "boom": "bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/cryptiles"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"8d0d8b76fc7fb074fae1f24236fc2c5c9db07428-aws-sign/package.json"}
 require.memoize("8d0d8b76fc7fb074fae1f24236fc2c5c9db07428-aws-sign/package.json", 
 {
-    "main": "8d0d8b76fc7fb074fae1f24236fc2c5c9db07428-aws-sign/index.js"
+    "main": "8d0d8b76fc7fb074fae1f24236fc2c5c9db07428-aws-sign/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/aws-sign"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/package.json"}
@@ -61668,55 +61746,64 @@ require.memoize("504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/package
         "assert-plus": "4577e8ae6126946aeedc02c249aefacb641b25de-assert-plus",
         "asn1": "58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1",
         "ctype": "59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"4577e8ae6126946aeedc02c249aefacb641b25de-assert-plus/package.json"}
 require.memoize("4577e8ae6126946aeedc02c249aefacb641b25de-assert-plus/package.json", 
 {
-    "main": "4577e8ae6126946aeedc02c249aefacb641b25de-assert-plus/assert.js"
+    "main": "4577e8ae6126946aeedc02c249aefacb641b25de-assert-plus/assert.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/assert-plus"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/package.json"}
 require.memoize("58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/package.json", 
 {
-    "main": "58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/index.js"
+    "main": "58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/package.json"}
 require.memoize("59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/package.json", 
 {
-    "main": "59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctype.js"
+    "main": "59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctype.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"b360de4cfbd0215d27510c4fd03393d88d8c8ae8-node-uuid/package.json"}
 require.memoize("b360de4cfbd0215d27510c4fd03393d88d8c8ae8-node-uuid/package.json", 
 {
-    "main": "b360de4cfbd0215d27510c4fd03393d88d8c8ae8-node-uuid/uuid.js"
+    "main": "b360de4cfbd0215d27510c4fd03393d88d8c8ae8-node-uuid/uuid.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/node-uuid"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime/package.json"}
 require.memoize("3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime/package.json", 
 {
-    "main": "3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime/mime.js"
+    "main": "3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime/mime.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/mime"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"108b28d120f242b00befd693696b25134ac10bef-tunnel-agent/package.json"}
 require.memoize("108b28d120f242b00befd693696b25134ac10bef-tunnel-agent/package.json", 
 {
-    "main": "108b28d120f242b00befd693696b25134ac10bef-tunnel-agent/index.js"
+    "main": "108b28d120f242b00befd693696b25134ac10bef-tunnel-agent/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/tunnel-agent"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"b3eb0c4e174b4fd3de6278f94c1c93bfce68bd6c-json-stringify-safe/package.json"}
 require.memoize("b3eb0c4e174b4fd3de6278f94c1c93bfce68bd6c-json-stringify-safe/package.json", 
 {
-    "main": "b3eb0c4e174b4fd3de6278f94c1c93bfce68bd6c-json-stringify-safe/stringify.js"
+    "main": "b3eb0c4e174b4fd3de6278f94c1c93bfce68bd6c-json-stringify-safe/stringify.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/json-stringify-safe"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"ac485b684341e74d2d223646d5b98969d287efa9-forever-agent/package.json"}
 require.memoize("ac485b684341e74d2d223646d5b98969d287efa9-forever-agent/package.json", 
 {
-    "main": "ac485b684341e74d2d223646d5b98969d287efa9-forever-agent/index.js"
+    "main": "ac485b684341e74d2d223646d5b98969d287efa9-forever-agent/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/forever-agent"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"b31d9d8844fd9f42ca88afa16a6316e74e8a6409-form-data/package.json"}
@@ -61727,7 +61814,8 @@ require.memoize("b31d9d8844fd9f42ca88afa16a6316e74e8a6409-form-data/package.json
         "combined-stream": "060655d1be854e806dc31729ef59e2992f3626c0-combined-stream",
         "mime": "3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime",
         "async": "2e7a010e5b40e11bb94eb021d6eca99d00679e86-async"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"060655d1be854e806dc31729ef59e2992f3626c0-combined-stream/package.json"}
@@ -61736,25 +61824,29 @@ require.memoize("060655d1be854e806dc31729ef59e2992f3626c0-combined-stream/packag
     "main": "060655d1be854e806dc31729ef59e2992f3626c0-combined-stream/lib/combined_stream.js",
     "mappings": {
         "delayed-stream": "1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream"
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream/package.json"}
 require.memoize("1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream/package.json", 
 {
-    "main": "1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream/lib/delayed_stream.js"
+    "main": "1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream/lib/delayed_stream.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"2e7a010e5b40e11bb94eb021d6eca99d00679e86-async/package.json"}
 require.memoize("2e7a010e5b40e11bb94eb021d6eca99d00679e86-async/package.json", 
 {
-    "main": "2e7a010e5b40e11bb94eb021d6eca99d00679e86-async/lib/async.js"
+    "main": "2e7a010e5b40e11bb94eb021d6eca99d00679e86-async/lib/async.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/async"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/package.json"}
 require.memoize("e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/package.json", 
 {
-    "main": "e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/index.js"
+    "main": "e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/index.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/cookie-jar"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/package.json"}
@@ -61763,13 +61855,15 @@ require.memoize("bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/package
     "main": "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/loader.js",
     "directories": {
         "lib": "."
-    }
+    },
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-loader-js"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/package.json"}
 require.memoize("f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/package.json", 
 {
-    "main": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/require.async.js"
+    "main": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/require.async.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/require.async"
 }
 );
 // @pinf-bundle-ignore: 

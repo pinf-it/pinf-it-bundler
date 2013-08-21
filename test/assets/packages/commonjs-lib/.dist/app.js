@@ -37,7 +37,8 @@ require.memoize("/package.json",
     "main": "/app.js",
     "mappings": {
         "greeting": "aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting"
-    }
+    },
+    "dirpath": "test/assets/packages/commonjs-lib"
 }
 );
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/package.json"}
@@ -45,7 +46,8 @@ require.memoize("aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/package.json"
 {
     "directories": {
         "lib": "lib-dir"
-    }
+    },
+    "dirpath": "test/assets/packages/commonjs-lib/node_modules/greeting"
 }
 );
 // @pinf-bundle-ignore: 
