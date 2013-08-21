@@ -22,7 +22,7 @@ return {
     console: (typeof console !== "undefined") ? console : null
 };
 }
-);
+, {"filename":"test/assets/packages/nodejs-dynamic-require-pkg/app.js"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
@@ -32,7 +32,7 @@ require.memoize("/package.json",
         "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting"
     }
 }
-);
+, {"filename":"test/assets/packages/nodejs-dynamic-require-pkg/package.json"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

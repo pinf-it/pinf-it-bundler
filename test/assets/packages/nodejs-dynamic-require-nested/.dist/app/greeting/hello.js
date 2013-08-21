@@ -16,7 +16,7 @@ exports.getWord = function() {
 }
 
 }
-);
+, {"filename":"test/assets/packages/nodejs-dynamic-require-nested/hello.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

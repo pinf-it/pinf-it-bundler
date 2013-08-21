@@ -16,7 +16,7 @@ exports.assemble = function() {
 }
 
 }
-);
+, {"filename":"test/assets/packages/nodejs-dynamic-require-complex/assemble.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

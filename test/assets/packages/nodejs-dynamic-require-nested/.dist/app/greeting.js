@@ -20,7 +20,7 @@ exports.getLetterL = function() {
 }
 
 }
-);
+, {"filename":"test/assets/packages/nodejs-dynamic-require-nested/greeting.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

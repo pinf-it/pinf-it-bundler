@@ -9,7 +9,7 @@ exports.getLetter = function() {
 }
 
 }
-);
+, {"filename":"test/assets/packages/nodejs-dynamic-require-nested/o.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

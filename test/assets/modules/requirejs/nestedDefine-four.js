@@ -70,14 +70,14 @@ define(['two', 'three'], function (two, three) {
         threeName: three.name
     };
 })
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/nestedDefine-four.js"});
 // @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/nestedDefine-four.js/two.js","mtime":0,"wrapper":"amd","format":"amd","id":"/two.js"}
 require.memoize("/two.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/nestedDefine/two.js
 define({
     name: 'two'
 })
-);
+, {"filename":"test/assets/modules/requirejs/mocks/nestedDefine-four.js/two.js"});
 // @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/nestedDefine-four.js/three.js","mtime":0,"wrapper":"amd","format":"amd","id":"/three.js"}
 require.memoize("/three.js", 
 define("three",[], function () {
@@ -85,13 +85,13 @@ define("three",[], function () {
         name: "three"
     };
 })
-);
+, {"filename":"test/assets/modules/requirejs/mocks/nestedDefine-four.js/three.js"});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/nestedDefine-four.js"
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/nestedDefine-four.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

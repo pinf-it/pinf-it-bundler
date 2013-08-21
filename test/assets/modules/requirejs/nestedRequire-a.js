@@ -166,7 +166,7 @@ define(['q', 'base'], function (Q, base) {
     return deferred.promise;
 })
 })
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/nestedRequire-a.js"});
 // @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/nestedRequire-a.js/q.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/q.js"}
 require.memoize("/q.js", 
 wrapAMD(function(require, define) {
@@ -2096,20 +2096,20 @@ return Q;
 
 });
 })
-);
+, {"filename":"test/assets/modules/requirejs/mocks/nestedRequire-a.js/q.js"});
 // @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/nestedRequire-a.js/base.js","mtime":0,"wrapper":"amd","format":"amd","id":"/base.js"}
 require.memoize("/base.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/nestedRequire/base.js
 define({
     name: 'base'
 })
-);
+, {"filename":"test/assets/modules/requirejs/mocks/nestedRequire-a.js/base.js"});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/nestedRequire-a.js"
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/nestedRequire-a.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

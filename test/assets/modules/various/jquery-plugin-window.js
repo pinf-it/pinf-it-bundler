@@ -95,7 +95,7 @@ wrapAMD(function(require, define) {
 })(window);
 
 })
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/jquery-plugin-window.js"});
 // @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/jquery.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/jquery.js"}
 require.memoize("/jquery.js", 
 wrapAMD(function(require, define) {
@@ -152,13 +152,13 @@ if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
 
 })( window );
 })
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/jquery.js"});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/jquery-plugin-window.js"
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/jquery-plugin-window.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

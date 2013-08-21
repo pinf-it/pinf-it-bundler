@@ -13,7 +13,7 @@ exports.run = function(callback) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/extra.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/main.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/main.js"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/main.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
@@ -83,7 +83,7 @@ exports.main = function(main, module, options, callback) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/main.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/require.async/require.async.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/require.async.js"}
 require.memoize("f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/require.async.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/require.async';
@@ -120,7 +120,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/require.async/require.async.js"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
@@ -130,7 +130,7 @@ require.memoize("/package.json",
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/package.json"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/package.json", 
 {
@@ -140,14 +140,14 @@ require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/packag
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/package.json"}
 require.memoize("f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/package.json", 
 {
     "main": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/require.async.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/require.async"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/require.async/package.json"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

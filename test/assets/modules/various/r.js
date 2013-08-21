@@ -25762,13 +25762,13 @@ function (args, quit, logger, build) {
     (typeof readFile !== 'undefined' ? readFile : undefined)));
 
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/r.js"});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/r.js"
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/r.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

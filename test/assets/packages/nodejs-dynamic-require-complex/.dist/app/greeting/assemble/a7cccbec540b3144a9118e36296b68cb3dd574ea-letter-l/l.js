@@ -9,13 +9,13 @@ exports.getLetter = function() {
 }
 
 }
-);
+, {"filename":"test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l/l.js"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l/package.json"}
 require.memoize("a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l/package.json", 
 {
     "dirpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l"
 }
-);
+, {"filename":"test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l/package.json"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

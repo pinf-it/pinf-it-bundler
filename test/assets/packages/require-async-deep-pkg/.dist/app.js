@@ -12,14 +12,14 @@ exports.main = function (callback) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/app.js"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/app.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/package.json"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

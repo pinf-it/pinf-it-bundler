@@ -9,7 +9,7 @@ exports.getGreeting = function() {
 }
 
 }
-);
+, {"filename":"test/assets/packages/nodejs-dynamic-require-simple/greeting.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

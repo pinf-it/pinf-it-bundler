@@ -16,14 +16,14 @@ return {
     console: (typeof console !== "undefined") ? console : null
 };
 }
-);
+, {"filename":"test/assets/packages/deep-main/lib/app.js"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/lib/app.js",
     "dirpath": "test/assets/packages/deep-main"
 }
-);
+, {"filename":"test/assets/packages/deep-main/package.json"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

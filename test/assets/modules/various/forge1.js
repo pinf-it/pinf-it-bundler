@@ -153,7 +153,7 @@ if (cjsDefine || typeof define === 'function') {
 })();
 
 })
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/forge1.js"});
 // @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/forge1.js/util.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/util.js"}
 require.memoize("/util.js", 
 wrapAMD(function(require, define) {
@@ -237,13 +237,13 @@ if (cjsDefine || typeof define === 'function') {
 })();
 
 })
-);
+, {"filename":"test/assets/modules/various/mocks/forge1.js/util.js"});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/forge1.js"
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/forge1.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

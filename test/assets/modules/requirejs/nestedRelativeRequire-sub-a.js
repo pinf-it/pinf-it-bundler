@@ -67,13 +67,13 @@ define(['require'],function(require) {
     require(['./b']);
     return "ok";
 })
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/nestedRelativeRequire-sub-a.js"});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/nestedRelativeRequire-sub-a.js"
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/nestedRelativeRequire-sub-a.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

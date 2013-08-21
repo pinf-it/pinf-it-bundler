@@ -107,25 +107,25 @@ return {
     parseInt: (typeof parseInt !== "undefined") ? parseInt : null
 };
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/mkdirp.js"});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/mkdirp.js"
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/mkdirp.js"});
 // @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/mkdirp.js/path.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/path.js"}
 require.memoize("/path.js", 
 function(require, exports, module) {
 
 }
-);
+, {"filename":"test/assets/modules/various/mocks/mkdirp.js/path.js"});
 // @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/mkdirp.js/fs.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/fs.js"}
 require.memoize("/fs.js", 
 function(require, exports, module) {
 
 }
-);
+, {"filename":"test/assets/modules/various/mocks/mkdirp.js/fs.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

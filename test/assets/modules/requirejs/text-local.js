@@ -68,17 +68,17 @@ define(['text!./resources/local.html'], function (localHtml) {
         localHtml: localHtml
     }
 })
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/text-local.js"});
 // @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/text-local.js/resources+local.html","mtime":0,"wrapper":"url-encoded","format":"utf8","id":"/resources/local.html"}
 require.memoize("/resources/local.html", 
 '%3Ch1%3ELocal%3C%2Fh1%3E'
-);
+, {"filename":"test/assets/modules/requirejs/mocks/text-local.js/resources+local.html"});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/text-local.js"
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/text-local.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

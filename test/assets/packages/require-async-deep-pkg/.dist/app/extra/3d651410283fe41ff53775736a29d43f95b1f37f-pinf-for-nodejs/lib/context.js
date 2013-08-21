@@ -754,7 +754,7 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/context.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/index.js"}
 require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
@@ -884,7 +884,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/jsonfile/lib/jsonfile.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile/lib/jsonfile.js"}
 require.memoize("95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile/lib/jsonfile.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/jsonfile/lib';
@@ -933,7 +933,7 @@ return {
     JSON: (typeof JSON !== "undefined") ? JSON : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/jsonfile/lib/jsonfile.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/json.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/json.js"}
 require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/json.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
@@ -977,7 +977,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/json.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/mkdir.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/mkdir.js"}
 require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/mkdir.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
@@ -996,7 +996,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/mkdir.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/mkdirp/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp/index.js"}
 require.memoize("5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/mkdirp';
@@ -1093,7 +1093,7 @@ return {
     parseInt: (typeof parseInt !== "undefined") ? parseInt : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/mkdirp/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/copy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/copy.js"}
 require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/copy.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
@@ -1153,7 +1153,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/copy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/ncp/lib/ncp.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"2b0048c6a305ad176d4e3489f01d68c879da772f-ncp/lib/ncp.js"}
 require.memoize("2b0048c6a305ad176d4e3489f01d68c879da772f-ncp/lib/ncp.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/ncp/lib';
@@ -1390,7 +1390,7 @@ return {
     setImmediate: (typeof setImmediate !== "undefined") ? setImmediate : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/ncp/lib/ncp.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/remove.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/remove.js"}
 require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/remove.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
@@ -1423,7 +1423,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/remove.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/rimraf.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf/rimraf.js"}
 require.memoize("67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf/rimraf.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf';
@@ -1613,7 +1613,7 @@ function rmkidsSync (p) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/rimraf.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/graceful-fs.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/graceful-fs.js"}
 require.memoize("b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/graceful-fs.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
@@ -1797,7 +1797,7 @@ return {
     enqueue: (typeof enqueue !== "undefined") ? enqueue : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/graceful-fs.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/polyfills.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/polyfills.js"}
 require.memoize("b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/polyfills.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
@@ -2047,7 +2047,7 @@ return {
     readSync: (typeof readSync !== "undefined") ? readSync : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/polyfills.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/create.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/create.js"}
 require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/create.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
@@ -2118,7 +2118,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/create.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/output.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/output.js"}
 require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/output.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
@@ -2171,7 +2171,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/output.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/waitfor/waitfor.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"57afe811a234d961a291b977f64e22b42a1b4735-waitfor/waitfor.js"}
 require.memoize("57afe811a234d961a291b977f64e22b42a1b4735-waitfor/waitfor.js", 
 wrapAMD(function(require, define) {
@@ -2332,7 +2332,7 @@ wrapAMD(function(require, define) {
 })());
 
 })
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/waitfor/waitfor.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/waitfor/node_modules/setimmediate/setImmediate.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"5fab7dc417e5225664a9e48c30bbaa96a9da45fa-setimmediate/setImmediate.js"}
 require.memoize("5fab7dc417e5225664a9e48c30bbaa96a9da45fa-setimmediate/setImmediate.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/waitfor/node_modules/setimmediate';
@@ -2564,7 +2564,7 @@ return {
     Math: (typeof Math !== "undefined") ? Math : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/waitfor/node_modules/setimmediate/setImmediate.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepmerge/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"98c6b74665bd9abac5c33394e3edfcf04ef251a1-deepmerge/index.js"}
 require.memoize("98c6b74665bd9abac5c33394e3edfcf04ef251a1-deepmerge/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepmerge';
@@ -2615,7 +2615,7 @@ return {
     Object: (typeof Object !== "undefined") ? Object : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepmerge/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepcopy/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/index.js"}
 require.memoize("36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepcopy';
@@ -2634,7 +2634,7 @@ return {
     require: (typeof require !== "undefined") ? require : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepcopy/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepcopy/lib/deepcopy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/lib/deepcopy.js"}
 require.memoize("36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/lib/deepcopy.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepcopy/lib';
@@ -2808,7 +2808,7 @@ return {
     Array: (typeof Array !== "undefined") ? Array : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepcopy/lib/deepcopy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/json-file-store.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/json-file-store.js"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/json-file-store.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
@@ -2962,7 +2962,7 @@ JsonFileStore.prototype.save = function(force) {
 };
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/json-file-store.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/primitives.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js/primitives.js"}
 require.memoize("76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js/primitives.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js';
@@ -3008,7 +3008,7 @@ exports.normalizeEnvironmentVariables = function(env, overrides) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/primitives.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/node_modules/deepcopy/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"e3b83304b558e386f1e075262340169bec08eeba-deepcopy/index.js"}
 require.memoize("e3b83304b558e386f1e075262340169bec08eeba-deepcopy/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/node_modules/deepcopy';
@@ -3027,7 +3027,7 @@ return {
     require: (typeof require !== "undefined") ? require : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/node_modules/deepcopy/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/node_modules/deepcopy/lib/deepcopy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"e3b83304b558e386f1e075262340169bec08eeba-deepcopy/lib/deepcopy.js"}
 require.memoize("e3b83304b558e386f1e075262340169bec08eeba-deepcopy/lib/deepcopy.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/node_modules/deepcopy/lib';
@@ -3201,7 +3201,7 @@ return {
     Array: (typeof Array !== "undefined") ? Array : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/node_modules/deepcopy/lib/deepcopy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/lib/package-insight.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insight/lib/package-insight.js"}
 require.memoize("a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insight/lib/package-insight.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/lib';
@@ -4231,7 +4231,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 };
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/lib/package-insight.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/waitfor/waitfor.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"daa6fd2c901ebe1dd2fffd374aadc94a18acf03f-waitfor/waitfor.js"}
 require.memoize("daa6fd2c901ebe1dd2fffd374aadc94a18acf03f-waitfor/waitfor.js", 
 wrapAMD(function(require, define) {
@@ -4392,7 +4392,7 @@ wrapAMD(function(require, define) {
 })());
 
 })
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/waitfor/waitfor.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate/setImmediate.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"0d84eddf2b38974fcbed1ef0232a4cdc7794d07a-setimmediate/setImmediate.js"}
 require.memoize("0d84eddf2b38974fcbed1ef0232a4cdc7794d07a-setimmediate/setImmediate.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate';
@@ -4624,7 +4624,7 @@ return {
     Math: (typeof Math !== "undefined") ? Math : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate/setImmediate.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/deepmerge/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"314839f5c7c2de31691d70d145a810b24f13d359-deepmerge/index.js"}
 require.memoize("314839f5c7c2de31691d70d145a810b24f13d359-deepmerge/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/deepmerge';
@@ -4675,7 +4675,7 @@ return {
     Object: (typeof Object !== "undefined") ? Object : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/deepmerge/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/primitives.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"a168e2ff3e007b8ae4b4dce8bb03fc10343d6411-pinf-primitives-js/primitives.js"}
 require.memoize("a168e2ff3e007b8ae4b4dce8bb03fc10343d6411-pinf-primitives-js/primitives.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js';
@@ -4721,7 +4721,7 @@ exports.normalizeEnvironmentVariables = function(env, overrides) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/primitives.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/index.js"}
 require.memoize("eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy';
@@ -4740,7 +4740,7 @@ return {
     require: (typeof require !== "undefined") ? require : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib/deepcopy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/lib/deepcopy.js"}
 require.memoize("eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/lib/deepcopy.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib';
@@ -4914,7 +4914,7 @@ return {
     Array: (typeof Array !== "undefined") ? Array : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib/deepcopy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/lib/program-insight.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight/lib/program-insight.js"}
 require.memoize("c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight/lib/program-insight.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/lib';
@@ -5060,7 +5060,7 @@ exports.parse = function(programPath, options, callback) {
 exports.parseDescriptor = PACKAGE_INSIGHT.parseDescriptor;
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/lib/program-insight.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/waitfor/waitfor.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"b782938965d4eecd6d293846c7ca82181935c0ab-waitfor/waitfor.js"}
 require.memoize("b782938965d4eecd6d293846c7ca82181935c0ab-waitfor/waitfor.js", 
 wrapAMD(function(require, define) {
@@ -5221,7 +5221,7 @@ wrapAMD(function(require, define) {
 })());
 
 })
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/waitfor/waitfor.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/waitfor/node_modules/setimmediate/setImmediate.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"98f59820510eba78223c81ad6d109534d335f224-setimmediate/setImmediate.js"}
 require.memoize("98f59820510eba78223c81ad6d109534d335f224-setimmediate/setImmediate.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/waitfor/node_modules/setimmediate';
@@ -5453,7 +5453,7 @@ return {
     Math: (typeof Math !== "undefined") ? Math : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/waitfor/node_modules/setimmediate/setImmediate.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepmerge/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bae60f4c72f89c0542d04faab5f4e6c6f0678907-deepmerge/index.js"}
 require.memoize("bae60f4c72f89c0542d04faab5f4e6c6f0678907-deepmerge/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepmerge';
@@ -5504,7 +5504,7 @@ return {
     Object: (typeof Object !== "undefined") ? Object : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepmerge/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepcopy/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/index.js"}
 require.memoize("c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepcopy';
@@ -5519,7 +5519,7 @@ return {
     require: (typeof require !== "undefined") ? require : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepcopy/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepcopy/lib/deepcopy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/lib/deepcopy.js"}
 require.memoize("c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/lib/deepcopy.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepcopy/lib';
@@ -5577,7 +5577,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepcopy/lib/deepcopy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/lib/package-insight.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"f38e4f605d8ca2a7773428c53b62e3d07f59a736-pinf-it-package-insight/lib/package-insight.js"}
 require.memoize("f38e4f605d8ca2a7773428c53b62e3d07f59a736-pinf-it-package-insight/lib/package-insight.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/lib';
@@ -6607,7 +6607,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 };
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/lib/package-insight.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/waitfor/waitfor.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"49f226cee0c79376b1d67307ff98169b5e3f7ac5-waitfor/waitfor.js"}
 require.memoize("49f226cee0c79376b1d67307ff98169b5e3f7ac5-waitfor/waitfor.js", 
 wrapAMD(function(require, define) {
@@ -6768,7 +6768,7 @@ wrapAMD(function(require, define) {
 })());
 
 })
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/waitfor/waitfor.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate/setImmediate.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"34d03f6968e3f4fc04264f08c1450f78f5848fe4-setimmediate/setImmediate.js"}
 require.memoize("34d03f6968e3f4fc04264f08c1450f78f5848fe4-setimmediate/setImmediate.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate';
@@ -7000,7 +7000,7 @@ return {
     Math: (typeof Math !== "undefined") ? Math : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate/setImmediate.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/deepmerge/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"ce11c10dca64b2b60e0fb1528b0b56c3811aa662-deepmerge/index.js"}
 require.memoize("ce11c10dca64b2b60e0fb1528b0b56c3811aa662-deepmerge/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/deepmerge';
@@ -7051,7 +7051,7 @@ return {
     Object: (typeof Object !== "undefined") ? Object : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/deepmerge/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/primitives.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"aabe78d7de2b47ab14e2726122f43c2e2c6f8113-pinf-primitives-js/primitives.js"}
 require.memoize("aabe78d7de2b47ab14e2726122f43c2e2c6f8113-pinf-primitives-js/primitives.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js';
@@ -7097,7 +7097,7 @@ exports.normalizeEnvironmentVariables = function(env, overrides) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/primitives.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"edc8d965636e19f737f2ececa6386b2162350540-deepcopy/index.js"}
 require.memoize("edc8d965636e19f737f2ececa6386b2162350540-deepcopy/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy';
@@ -7116,7 +7116,7 @@ return {
     require: (typeof require !== "undefined") ? require : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib/deepcopy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"edc8d965636e19f737f2ececa6386b2162350540-deepcopy/lib/deepcopy.js"}
 require.memoize("edc8d965636e19f737f2ececa6386b2162350540-deepcopy/lib/deepcopy.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib';
@@ -7290,7 +7290,7 @@ return {
     Array: (typeof Array !== "undefined") ? Array : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib/deepcopy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/vm.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/vm.js"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/vm.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
@@ -7353,7 +7353,7 @@ VM.prototype.loadPackage = function(uri, options, callback) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/vm.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib/rt-bundler.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/rt-bundler.js"}
 require.memoize("5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/rt-bundler.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib';
@@ -7770,7 +7770,7 @@ exports.bundlePackage = function(bundlePackagePath, bundleOptions, callback) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib/rt-bundler.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/index.js"}
 require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
@@ -7900,7 +7900,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/jsonfile/lib/jsonfile.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"c080a61be940c5b59af0cef485503c204af31aa3-jsonfile/lib/jsonfile.js"}
 require.memoize("c080a61be940c5b59af0cef485503c204af31aa3-jsonfile/lib/jsonfile.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/jsonfile/lib';
@@ -7949,7 +7949,7 @@ return {
     JSON: (typeof JSON !== "undefined") ? JSON : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/jsonfile/lib/jsonfile.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/json.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/json.js"}
 require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/json.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
@@ -7993,7 +7993,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/json.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/mkdir.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/mkdir.js"}
 require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/mkdir.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
@@ -8012,7 +8012,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/mkdir.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/mkdirp/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp/index.js"}
 require.memoize("cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/mkdirp';
@@ -8109,7 +8109,7 @@ return {
     parseInt: (typeof parseInt !== "undefined") ? parseInt : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/mkdirp/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/copy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/copy.js"}
 require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/copy.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
@@ -8169,7 +8169,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/copy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/ncp/lib/ncp.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp/lib/ncp.js"}
 require.memoize("b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp/lib/ncp.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/ncp/lib';
@@ -8406,7 +8406,7 @@ return {
     setImmediate: (typeof setImmediate !== "undefined") ? setImmediate : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/ncp/lib/ncp.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/remove.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/remove.js"}
 require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/remove.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
@@ -8439,7 +8439,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/remove.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/rimraf.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf/rimraf.js"}
 require.memoize("88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf/rimraf.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf';
@@ -8629,7 +8629,7 @@ function rmkidsSync (p) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/rimraf.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/graceful-fs.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/graceful-fs.js"}
 require.memoize("8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/graceful-fs.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
@@ -8813,7 +8813,7 @@ return {
     enqueue: (typeof enqueue !== "undefined") ? enqueue : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/graceful-fs.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/polyfills.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/polyfills.js"}
 require.memoize("8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/polyfills.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
@@ -9063,7 +9063,7 @@ return {
     readSync: (typeof readSync !== "undefined") ? readSync : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/polyfills.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/create.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/create.js"}
 require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/create.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
@@ -9134,7 +9134,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/create.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/output.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/output.js"}
 require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/output.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
@@ -9187,7 +9187,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/output.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/q/q.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"86a7c7b5fe60704afbe464069563b35be9b7cbae-q/q.js"}
 require.memoize("86a7c7b5fe60704afbe464069563b35be9b7cbae-q/q.js", 
 wrapAMD(function(require, define) {
@@ -10944,7 +10944,7 @@ return Q;
 });
 
 })
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/q/q.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib/bundler.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/bundler.js"}
 require.memoize("5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/bundler.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib';
@@ -11227,8 +11227,9 @@ exports.bundlePackage = function(bundlePackagePath, options, callback) {
 					};
 					bundle.setModule(
 						pkgId + "/package.json",
-						JSON.stringify(memoized, null, 4),
-						{
+						JSON.stringify(memoized, null, 4), {
+							filename: packages[packagePath][0].dirpath + "/package.json"
+						}, {
 							file: null,
 							mtime: 0,
 							wrapper: "json",
@@ -11419,8 +11420,9 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 							descriptor.wrapper.top,
 							descriptor.descriptor.code,
 							descriptor.wrapper.bottom
-						].join("\n")),
-						{
+						].join("\n")), {
+							filename: descriptor.descriptor.filepath
+						}, {
 							file: filePath,
 							mtime: ((options.test) ? 0 : moduleDescriptor.mtime),
 							wrapper: descriptor.wrapper.type,
@@ -11620,6 +11622,8 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 										exports.normalizeExtension(rootPackage + "/package.json"), JSON.stringify({
 											main: moduleDescriptor.memoizeId
 										}, null, 4), {
+											filename: moduleDescriptor.descriptor.filepath
+										}, {
 											file: "",
 											mtime: 0,
 											wrapper: "json",
@@ -11655,7 +11659,7 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib/bundler.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/deepcopy/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/index.js"}
 require.memoize("a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/deepcopy';
@@ -11670,7 +11674,7 @@ return {
     require: (typeof require !== "undefined") ? require : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/deepcopy/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/deepcopy/lib/deepcopy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/lib/deepcopy.js"}
 require.memoize("a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/lib/deepcopy.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/deepcopy/lib';
@@ -11728,7 +11732,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/deepcopy/lib/deepcopy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/waitfor/waitfor.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"1c49116f920b3e4988a79b910e317654081e75c6-waitfor/waitfor.js"}
 require.memoize("1c49116f920b3e4988a79b910e317654081e75c6-waitfor/waitfor.js", 
 wrapAMD(function(require, define) {
@@ -11889,7 +11893,7 @@ wrapAMD(function(require, define) {
 })());
 
 })
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/waitfor/waitfor.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/waitfor/node_modules/setimmediate/setImmediate.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"d739e44b4b3e49d3ecb628f8a908b40e63afa8e5-setimmediate/setImmediate.js"}
 require.memoize("d739e44b4b3e49d3ecb628f8a908b40e63afa8e5-setimmediate/setImmediate.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/waitfor/node_modules/setimmediate';
@@ -12121,7 +12125,7 @@ return {
     Math: (typeof Math !== "undefined") ? Math : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/waitfor/node_modules/setimmediate/setImmediate.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/lib/module-insight.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"bf0ef0832fabbb13ac3cdcc25595e542732048f4-pinf-it-module-insight/lib/module-insight.js"}
 require.memoize("bf0ef0832fabbb13ac3cdcc25595e542732048f4-pinf-it-module-insight/lib/module-insight.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/lib';
@@ -12807,7 +12811,7 @@ function parseSyntax(descriptor, node) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/lib/module-insight.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/index.js"}
 require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
@@ -12937,7 +12941,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/jsonfile/lib/jsonfile.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile/lib/jsonfile.js"}
 require.memoize("d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile/lib/jsonfile.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/jsonfile/lib';
@@ -12986,7 +12990,7 @@ return {
     JSON: (typeof JSON !== "undefined") ? JSON : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/jsonfile/lib/jsonfile.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/json.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/json.js"}
 require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/json.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
@@ -13030,7 +13034,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/json.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/mkdir.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/mkdir.js"}
 require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/mkdir.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
@@ -13049,7 +13053,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/mkdir.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/mkdirp/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp/index.js"}
 require.memoize("549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/mkdirp';
@@ -13146,7 +13150,7 @@ return {
     parseInt: (typeof parseInt !== "undefined") ? parseInt : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/mkdirp/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/copy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/copy.js"}
 require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/copy.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
@@ -13206,7 +13210,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/copy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/ncp/lib/ncp.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b4c553f584b025a7c9b2375916830b245a00a167-ncp/lib/ncp.js"}
 require.memoize("b4c553f584b025a7c9b2375916830b245a00a167-ncp/lib/ncp.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/ncp/lib';
@@ -13443,7 +13447,7 @@ return {
     setImmediate: (typeof setImmediate !== "undefined") ? setImmediate : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/ncp/lib/ncp.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/remove.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/remove.js"}
 require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/remove.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
@@ -13476,7 +13480,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/remove.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/rimraf.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf/rimraf.js"}
 require.memoize("921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf/rimraf.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf';
@@ -13666,7 +13670,7 @@ function rmkidsSync (p) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/rimraf.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/graceful-fs.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/graceful-fs.js"}
 require.memoize("a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/graceful-fs.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
@@ -13850,7 +13854,7 @@ return {
     enqueue: (typeof enqueue !== "undefined") ? enqueue : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/graceful-fs.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/polyfills.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/polyfills.js"}
 require.memoize("a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/polyfills.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
@@ -14100,7 +14104,7 @@ return {
     readSync: (typeof readSync !== "undefined") ? readSync : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/polyfills.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/create.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/create.js"}
 require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/create.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
@@ -14171,7 +14175,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/create.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/output.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/output.js"}
 require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/output.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
@@ -14224,7 +14228,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/output.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/jslint/lib/linter.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/lib/linter.js"}
 require.memoize("d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/lib/linter.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/jslint/lib';
@@ -14267,7 +14271,7 @@ exports.lint = function (script, options) {
 };
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/jslint/lib/linter.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/jslint/lib/nodelint.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/lib/nodelint.js"}
 require.memoize("d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/lib/nodelint.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/jslint/lib';
@@ -14291,7 +14295,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/jslint/lib/nodelint.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/esprima/esprima.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"5771ada65ad37907635d21e4c3b6e1bb0c9af9fc-esprima/esprima.js"}
 require.memoize("5771ada65ad37907635d21e4c3b6e1bb0c9af9fc-esprima/esprima.js", 
 wrapAMD(function(require, define) {
@@ -18205,7 +18209,7 @@ parseStatement: true, parseSourceElement: true */
 /* vim: set sw=4 ts=4 et tw=80 : */
 
 })
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/esprima/esprima.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/lib/package-insight.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insight/lib/package-insight.js"}
 require.memoize("998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insight/lib/package-insight.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/lib';
@@ -19235,7 +19239,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 };
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/lib/package-insight.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/waitfor/waitfor.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"812d2540fcd8954a6f536f20ff75621af8578d89-waitfor/waitfor.js"}
 require.memoize("812d2540fcd8954a6f536f20ff75621af8578d89-waitfor/waitfor.js", 
 wrapAMD(function(require, define) {
@@ -19396,7 +19400,7 @@ wrapAMD(function(require, define) {
 })());
 
 })
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/waitfor/waitfor.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate/setImmediate.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"aad20786edb4bc037cc86c828e2729f5839d8ac6-setimmediate/setImmediate.js"}
 require.memoize("aad20786edb4bc037cc86c828e2729f5839d8ac6-setimmediate/setImmediate.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate';
@@ -19628,7 +19632,7 @@ return {
     Math: (typeof Math !== "undefined") ? Math : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate/setImmediate.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/deepmerge/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"29f28531211b227d017dcf0cf57d7c26b36ab9ff-deepmerge/index.js"}
 require.memoize("29f28531211b227d017dcf0cf57d7c26b36ab9ff-deepmerge/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/deepmerge';
@@ -19679,7 +19683,7 @@ return {
     Object: (typeof Object !== "undefined") ? Object : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/deepmerge/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/primitives.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"e72eacc9b0985a811179adfcfd7452b2cc6e904f-pinf-primitives-js/primitives.js"}
 require.memoize("e72eacc9b0985a811179adfcfd7452b2cc6e904f-pinf-primitives-js/primitives.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js';
@@ -19725,7 +19729,7 @@ exports.normalizeEnvironmentVariables = function(env, overrides) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/primitives.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/index.js"}
 require.memoize("91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy';
@@ -19744,7 +19748,7 @@ return {
     require: (typeof require !== "undefined") ? require : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib/deepcopy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/lib/deepcopy.js"}
 require.memoize("91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/lib/deepcopy.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib';
@@ -19918,7 +19922,7 @@ return {
     Array: (typeof Array !== "undefined") ? Array : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib/deepcopy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib/bundle.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/bundle.js"}
 require.memoize("5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/bundle.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib';
@@ -20067,10 +20071,12 @@ Bundle.prototype.parseCode = function(code, callback) {
                 self.setLoader(bundleLoaderTop[0], [bundleLoaderTop[1], codeParts[i+1].replace(/^\s*\n/, "")]);
             } else
             if (codeParts[i] === "pinf-bundle-module") {
-                self.setModule(null, sectionParts[3].match(/^.*\n([\s\S]+)\n.*$/)[1], JSON.parse(sectionParts[1]));
+                var parts = sectionParts[3].match(/^.*\n([\s\S]+)\n(?:,\s*(.*))?\);$/);
+                self.setModule(null, parts[1], JSON.parse(parts[2] || "{}"), JSON.parse(sectionParts[1]));
             } else
             if (codeParts[i] === "pinf-bundle-descriptor") {
-                self.setDescriptor(null, sectionParts[3].match(/^.*\n([\s\S]+)\n.*$/)[1], JSON.parse(sectionParts[1]));
+                var parts = sectionParts[3].match(/^.*\n([\s\S]+)\n(?:,\s*(.*))?\);$/);
+                self.setDescriptor(null, parts[1], JSON.parse(parts[2] || "{}"), JSON.parse(sectionParts[1]));
             } else
             if (codeParts[i] === "pinf-bundle-report") {
                 self.setReport(JSON.parse(sectionParts[1]));
@@ -20092,16 +20098,16 @@ Bundle.prototype.setHeader = function(info, code) {
     this.headers[JSON.stringify(info)] = code;
 }
 
-Bundle.prototype.setDescriptor = function(id, code, info) {
+Bundle.prototype.setDescriptor = function(id, code, meta, info) {
     id = id || info.id;
     info.id = id;
-    this.descriptors[id] = [code, info];
+    this.descriptors[id] = [code, meta || {}, info];
 }
 
-Bundle.prototype.setModule = function(id, code, info) {
+Bundle.prototype.setModule = function(id, code, meta, info) {
     id = id || info.id;
     info.id = id;
-    this.modules[id] = [code, info];
+    this.modules[id] = [code, meta || {}, info];
 }
 
 Bundle.prototype.setReport = function(obj) {
@@ -20235,17 +20241,17 @@ Bundle.prototype.save = function(callback) {
             }
 
             for (var key in self.modules) {
-                code.push('// @pinf-bundle-module: ' + JSON.stringify(self.modules[key][1]));
+                code.push('// @pinf-bundle-module: ' + JSON.stringify(self.modules[key][2]));
                 code.push('require.memoize("' + key + '", ');
                 code.push(self.modules[key][0]);
-                code.push(');');
+                code.push(', ' + JSON.stringify(self.modules[key][1]) + ');');
             }
 
             for (var key in self.descriptors) {
-                code.push('// @pinf-bundle-descriptor: ' + JSON.stringify(self.descriptors[key][1]));
+                code.push('// @pinf-bundle-descriptor: ' + JSON.stringify(self.descriptors[key][2]));
                 code.push('require.memoize("' + key + '", ');
                 code.push(self.descriptors[key][0]);
-                code.push(');');
+                code.push(', ' + JSON.stringify(self.descriptors[key][1]) + ');');
             }
 
             code.push('// @pinf-bundle-ignore: \n});');
@@ -20284,7 +20290,7 @@ Bundle.prototype.save = function(callback) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib/bundle.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-loader-js/loader.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js/./loader.js"}
 require.memoize("c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js/./loader.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-loader-js';
@@ -20461,20 +20467,20 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 						moduleInitializers[key][0] = bundleIdentifier;
 						// Only augment (instead of replace existing values).
 						if (typeof moduleInitializers[key][1].main === "undefined") {
-							moduleInitializers[key][1].main = loadedBundles[0][1][key].main;
+							moduleInitializers[key][1].main = loadedBundles[0][1][key][0].main;
 						}
-						if (loadedBundles[0][1][key].mappings) {
+						if (loadedBundles[0][1][key][0].mappings) {
 							if (!moduleInitializers[key][1].mappings) {
 								moduleInitializers[key][1].mappings = {};
 							}
-							for (var alias in loadedBundles[0][1][key].mappings) {
+							for (var alias in loadedBundles[0][1][key][0].mappings) {
 								if (typeof moduleInitializers[key][1].mappings[alias] === "undefined") {
-									moduleInitializers[key][1].mappings[alias] = loadedBundles[0][1][key].mappings[alias];
+									moduleInitializers[key][1].mappings[alias] = loadedBundles[0][1][key][0].mappings[alias];
 								}
 							}
 						}
 					} else {
-						moduleInitializers[key] = [bundleIdentifier, loadedBundles[0][1][key]];
+						moduleInitializers[key] = [bundleIdentifier, loadedBundles[0][1][key][0], loadedBundles[0][1][key][1]];
 					}
 					// Now that we have a [updated] package descriptor, re-initialize it if we have it already in cache.
 					var packageIdentifier = key.split("/").shift();
@@ -20485,7 +20491,7 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 				// Only add modules that don't already exist!
 				// TODO: Log warning in debug mode if module already exists.
 				if (typeof moduleInitializers[key] === "undefined") {
-					moduleInitializers[key] = [bundleIdentifier, loadedBundles[0][1][key]];
+					moduleInitializers[key] = [bundleIdentifier, loadedBundles[0][1][key][0], loadedBundles[0][1][key][1]];
 				}
 			}
 			loadedBundles.shift();
@@ -20498,7 +20504,7 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 
 			var pkg = {
 				id: packageIdentifier,
-				descriptor: null,
+				descriptor: {},
 				main: "/main.js",
 				mappings: {},
 				directories: {},
@@ -20508,8 +20514,9 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 			var parentModule = lastModule;
 
 			pkg.init = function() {
-				var descriptor = (moduleInitializers[packageIdentifier + "/package.json"] && moduleInitializers[packageIdentifier + "/package.json"][1]) || null;
+				var descriptor = (moduleInitializers[packageIdentifier + "/package.json"] && moduleInitializers[packageIdentifier + "/package.json"][1]) || {};
 				if (descriptor) {
+					pkg.descriptor = descriptor;
 					if (typeof descriptor.main === "string") {
 						pkg.main = descriptor.main;
 					}
@@ -20538,7 +20545,6 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 			}
 
 			var Module = function(moduleIdentifier, parentModule) {
-
 				var moduleIdentifierSegment = moduleIdentifier.replace(/\/[^\/]*$/, "").split("/"),
 					module = {
 						id: moduleIdentifier,
@@ -20615,8 +20621,9 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 
 						var moduleInterface = {
 							id: module.id,
-							// TODO: Should this filename model the original directory structure or the bundle directory structure?
-							filename: module.bundle.replace(/\.js$/, "") + "/" + module.id,
+							filename: 
+								moduleInitializers[moduleIdentifier][2].filename ||
+								(module.bundle.replace(/\.js$/, "") + "/" + module.id).replace(/\/+/g, "/"),
 							exports: {}
 						}
 
@@ -20822,8 +20829,8 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 						req = new Require(uid);
 					delete req.bundle;
 					// Store raw module in loading bundle
-					req.memoize = function(moduleIdentifier, moduleInitializer) {
-						moduleInitializers[moduleIdentifier] = moduleInitializer;
+					req.memoize = function(moduleIdentifier, moduleInitializer, moduleMeta) {
+						moduleInitializers[moduleIdentifier] = [moduleInitializer, moduleMeta || {}];
 					}
 					callback(req);
 					loadedBundles.push([uid, moduleInitializers]);
@@ -20883,7 +20890,7 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 }(this));
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-loader-js/loader.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib/wrapper.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/wrapper.js"}
 require.memoize("5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/wrapper.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib';
@@ -21212,7 +21219,7 @@ function wrapAMD(descriptor, callback) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib/wrapper.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/requirejs/bin/r.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/bin/r.js"}
 require.memoize("f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/bin/r.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/requirejs/bin';
@@ -46975,7 +46982,7 @@ function (args, quit, logger, build) {
     (typeof readFile !== 'undefined' ? readFile : undefined)));
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/requirejs/bin/r.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/pinf.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/pinf.js"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/pinf.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
@@ -46999,7 +47006,7 @@ exports.contextForModule = CONTEXT.contextForModule;
 exports.main = MAIN.main;
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/pinf.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/loader.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/loader.js"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/loader.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
@@ -47276,13 +47283,21 @@ exports.sandbox = function(sandboxIdentifier, sandboxOptions, loadedCallback, er
 		var origRequire = pkg.require;
 		
 		pkg.require = function(moduleIdentifier) {
-
 			var origModuleIdentifier = PATH.normalize(moduleIdentifier).replace(/^\.$/, "").replace(/^\/$/, "");
-			moduleIdentifier = origModuleIdentifier || (pkg.descriptor && pkg.descriptor.main) || "";
-            if (moduleIdentifier && !/^\//.test(moduleIdentifier)) {
-                moduleIdentifier = "/" + ((moduleIdentifier.substring(0, pkg.libPath.length)===pkg.libPath)?"":pkg.libPath) + moduleIdentifier;
-            }
-			var canonicalId = pkg.id + moduleIdentifier;
+			var canonicalId = null;
+			if (origModuleIdentifier) {
+				moduleIdentifier = origModuleIdentifier;
+            	if (!/^\//.test(moduleIdentifier)) {
+	                moduleIdentifier = "/" + ((moduleIdentifier.substring(0, pkg.libPath.length)===pkg.libPath)?"":pkg.libPath) + moduleIdentifier;
+	            }
+				canonicalId = pkg.id + moduleIdentifier;
+			} else
+			if (pkg.descriptor && pkg.descriptor.main) {
+				canonicalId = moduleIdentifier = pkg.descriptor.main;
+			} else {
+				moduleIdentifier = "";
+				canonicalId = pkg.id;
+			}
 
 			if (options.initializedModules[canonicalId] || options.moduleInitializers[canonicalId]) {
 				return origRequire(origModuleIdentifier);
@@ -47353,7 +47368,7 @@ exports.getReport = LOADER.getReport;
 exports.reset = LOADER.reset;
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/loader.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request/index.js"}
 require.memoize("e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request';
@@ -48773,7 +48788,7 @@ return {
     toJSON: (typeof toJSON !== "undefined") ? toJSON : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/qs/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs/index.js"}
 require.memoize("a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/qs';
@@ -49166,7 +49181,7 @@ function decode(str) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/qs/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/oauth-sign/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"0a2767d204df2a563b9513a5b12e7f2ef737e245-oauth-sign/index.js"}
 require.memoize("0a2767d204df2a563b9513a5b12e7f2ef737e245-oauth-sign/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/oauth-sign';
@@ -49215,7 +49230,7 @@ exports.hmacsign = hmacsign
 exports.rfc3986 = rfc3986
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/oauth-sign/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/index.js"}
 require.memoize("ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk';
@@ -49225,7 +49240,7 @@ return {
     require: (typeof require !== "undefined") ? require : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/index.js"}
 require.memoize("ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib';
@@ -49246,7 +49261,7 @@ exports.uri = {
 
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/index.js"}
 require.memoize("bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom';
@@ -49256,7 +49271,7 @@ return {
     require: (typeof require !== "undefined") ? require : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/lib/index.js"}
 require.memoize("bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/lib/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/lib';
@@ -49469,7 +49484,7 @@ internals.Boom.passThrough = function (code, payload, contentType, headers) {
 
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"9579db8ec37f1c7107434638cd83ebcdde128669-hoek/index.js"}
 require.memoize("9579db8ec37f1c7107434638cd83ebcdde128669-hoek/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek';
@@ -49479,7 +49494,7 @@ return {
     require: (typeof require !== "undefined") ? require : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"9579db8ec37f1c7107434638cd83ebcdde128669-hoek/lib/index.js"}
 require.memoize("9579db8ec37f1c7107434638cd83ebcdde128669-hoek/lib/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/lib';
@@ -50070,7 +50085,7 @@ exports.nextTick = function (callback) {
 };
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/lib/escape.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"9579db8ec37f1c7107434638cd83ebcdde128669-hoek/lib/escape.js"}
 require.memoize("9579db8ec37f1c7107434638cd83ebcdde128669-hoek/lib/escape.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/lib';
@@ -50207,7 +50222,7 @@ internals.safeCharCodes = (function () {
     return safe;
 }());
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/lib/escape.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/index.js"}
 require.memoize("87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp';
@@ -50217,7 +50232,7 @@ return {
     require: (typeof require !== "undefined") ? require : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/lib/index.js"}
 require.memoize("87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/lib/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/lib';
@@ -50632,7 +50647,7 @@ exports.now = function () {
 
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"733132ef85628339b6e1a78283093c2a9208ca8a-hoek/index.js"}
 require.memoize("733132ef85628339b6e1a78283093c2a9208ca8a-hoek/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek';
@@ -50642,7 +50657,7 @@ return {
     require: (typeof require !== "undefined") ? require : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"733132ef85628339b6e1a78283093c2a9208ca8a-hoek/lib/index.js"}
 require.memoize("733132ef85628339b6e1a78283093c2a9208ca8a-hoek/lib/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/lib';
@@ -51233,7 +51248,7 @@ exports.nextTick = function (callback) {
 };
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/lib/escape.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"733132ef85628339b6e1a78283093c2a9208ca8a-hoek/lib/escape.js"}
 require.memoize("733132ef85628339b6e1a78283093c2a9208ca8a-hoek/lib/escape.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/lib';
@@ -51370,7 +51385,7 @@ internals.safeCharCodes = (function () {
     return safe;
 }());
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/lib/escape.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/server.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/server.js"}
 require.memoize("ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/server.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib';
@@ -51800,7 +51815,7 @@ exports.authenticateBewit = function (req, credentialsFunc, options, callback) {
 };
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/server.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/index.js"}
 require.memoize("5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek';
@@ -51810,7 +51825,7 @@ return {
     require: (typeof require !== "undefined") ? require : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/lib/index.js"}
 require.memoize("5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/lib/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/lib';
@@ -52396,7 +52411,7 @@ exports.nextTick = function (callback) {
 };
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/lib/escape.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/lib/escape.js"}
 require.memoize("5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/lib/escape.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/lib';
@@ -52533,7 +52548,7 @@ internals.safeCharCodes = (function () {
     return safe;
 }());
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/lib/escape.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/cryptiles/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/index.js"}
 require.memoize("8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/cryptiles';
@@ -52543,7 +52558,7 @@ return {
     require: (typeof require !== "undefined") ? require : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/cryptiles/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/cryptiles/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/lib/index.js"}
 require.memoize("8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/lib/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/cryptiles/lib';
@@ -52617,7 +52632,7 @@ exports.fixedTimeComparison = function (a, b) {
 
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/cryptiles/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/crypto.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/crypto.js"}
 require.memoize("ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/crypto.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib';
@@ -52734,7 +52749,7 @@ exports.calculateTsMac = function (ts, credentials) {
 
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/crypto.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/utils.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/utils.js"}
 require.memoize("ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/utils.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib';
@@ -52914,7 +52929,7 @@ exports.unauthorized = function (message) {
 
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/utils.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/client.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/client.js"}
 require.memoize("ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/client.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib';
@@ -53205,7 +53220,7 @@ exports.getBewit = function (uri, options) {
 
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/client.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/aws-sign/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"8d0d8b76fc7fb074fae1f24236fc2c5c9db07428-aws-sign/index.js"}
 require.memoize("8d0d8b76fc7fb074fae1f24236fc2c5c9db07428-aws-sign/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/aws-sign';
@@ -53430,7 +53445,7 @@ return {
     encodeURIComponent: (typeof encodeURIComponent !== "undefined") ? encodeURIComponent : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/aws-sign/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/index.js"}
 require.memoize("504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib';
@@ -53469,7 +53484,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/parser.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/parser.js"}
 require.memoize("504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/parser.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib';
@@ -53782,7 +53797,7 @@ return {
     Math: (typeof Math !== "undefined") ? Math : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/parser.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/assert-plus/assert.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"4577e8ae6126946aeedc02c249aefacb641b25de-assert-plus/assert.js"}
 require.memoize("4577e8ae6126946aeedc02c249aefacb641b25de-assert-plus/assert.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/assert-plus';
@@ -54010,7 +54025,7 @@ return {
     Object: (typeof Object !== "undefined") ? Object : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/assert-plus/assert.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/signer.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/signer.js"}
 require.memoize("504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/signer.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib';
@@ -54204,7 +54219,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/signer.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/verify.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/verify.js"}
 require.memoize("504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/verify.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib';
@@ -54258,7 +54273,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/verify.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/util.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/util.js"}
 require.memoize("504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/util.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib';
@@ -54527,7 +54542,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/util.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/index.js"}
 require.memoize("58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib';
@@ -54558,7 +54573,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/index.js"}
 require.memoize("58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
@@ -54601,7 +54616,7 @@ return {
     e: (typeof e !== "undefined") ? e : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/errors.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/errors.js"}
 require.memoize("58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/errors.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
@@ -54623,7 +54638,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/errors.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/types.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/types.js"}
 require.memoize("58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/types.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
@@ -54668,7 +54683,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/types.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/reader.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/reader.js"}
 require.memoize("58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/reader.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
@@ -54951,7 +54966,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/reader.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/writer.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/writer.js"}
 require.memoize("58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/writer.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
@@ -55289,7 +55304,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/writer.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype/ctype.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctype.js"}
 require.memoize("59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctype.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype';
@@ -56239,7 +56254,7 @@ exports.wfloat = mod_ctio.wfloat;
 exports.wdouble = mod_ctio.wdouble;
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype/ctype.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype/ctf.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctf.js"}
 require.memoize("59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctf.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype';
@@ -56490,7 +56505,7 @@ function ctfParseJson(json, ctype)
 exports.ctfParseJson = ctfParseJson;
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype/ctf.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype/ctio.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctio.js"}
 require.memoize("59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctio.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype';
@@ -57981,7 +57996,7 @@ exports.wfloat = wfloat;
 exports.wdouble = wdouble;
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype/ctio.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/node-uuid/uuid.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"b360de4cfbd0215d27510c4fd03393d88d8c8ae8-node-uuid/uuid.js"}
 require.memoize("b360de4cfbd0215d27510c4fd03393d88d8c8ae8-node-uuid/uuid.js", 
 wrapAMD(function(require, define) {
@@ -58232,7 +58247,7 @@ wrapAMD(function(require, define) {
 }());
 
 })
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/node-uuid/uuid.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/mime/mime.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime/mime.js"}
 require.memoize("3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime/mime.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/mime';
@@ -58364,7 +58379,7 @@ return {
     module: (typeof module !== "undefined") ? module : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/mime/mime.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/tunnel-agent/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"108b28d120f242b00befd693696b25134ac10bef-tunnel-agent/index.js"}
 require.memoize("108b28d120f242b00befd693696b25134ac10bef-tunnel-agent/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/tunnel-agent';
@@ -58597,7 +58612,7 @@ if (process.env.NODE_DEBUG && /\btunnel\b/.test(process.env.NODE_DEBUG)) {
 exports.debug = debug // for test
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/tunnel-agent/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/json-stringify-safe/stringify.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b3eb0c4e174b4fd3de6278f94c1c93bfce68bd6c-json-stringify-safe/stringify.js"}
 require.memoize("b3eb0c4e174b4fd3de6278f94c1c93bfce68bd6c-json-stringify-safe/stringify.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/json-stringify-safe';
@@ -58634,7 +58649,7 @@ return {
     JSON: (typeof JSON !== "undefined") ? JSON : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/json-stringify-safe/stringify.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/forever-agent/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"ac485b684341e74d2d223646d5b98969d287efa9-forever-agent/index.js"}
 require.memoize("ac485b684341e74d2d223646d5b98969d287efa9-forever-agent/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/forever-agent';
@@ -58771,7 +58786,7 @@ return {
     createConnectionSSL: (typeof createConnectionSSL !== "undefined") ? createConnectionSSL : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/forever-agent/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/lib/form_data.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b31d9d8844fd9f42ca88afa16a6316e74e8a6409-form-data/lib/form_data.js"}
 require.memoize("b31d9d8844fd9f42ca88afa16a6316e74e8a6409-form-data/lib/form_data.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/lib';
@@ -59087,7 +59102,7 @@ return {
     populate: (typeof populate !== "undefined") ? populate : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/lib/form_data.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream/lib/combined_stream.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"060655d1be854e806dc31729ef59e2992f3626c0-combined-stream/lib/combined_stream.js"}
 require.memoize("060655d1be854e806dc31729ef59e2992f3626c0-combined-stream/lib/combined_stream.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream/lib';
@@ -59287,7 +59302,7 @@ return {
     Buffer: (typeof Buffer !== "undefined") ? Buffer : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream/lib/combined_stream.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/lib/delayed_stream.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream/lib/delayed_stream.js"}
 require.memoize("1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream/lib/delayed_stream.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/lib';
@@ -59399,7 +59414,7 @@ return {
     DelayedStream: (typeof DelayedStream !== "undefined") ? DelayedStream : null
 };
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/lib/delayed_stream.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/async/lib/async.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"2e7a010e5b40e11bb94eb021d6eca99d00679e86-async/lib/async.js"}
 require.memoize("2e7a010e5b40e11bb94eb021d6eca99d00679e86-async/lib/async.js", 
 wrapAMD(function(require, define) {
@@ -60360,7 +60375,7 @@ wrapAMD(function(require, define) {
 }());
 
 })
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/async/lib/async.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/cookie-jar/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/index.js"}
 require.memoize("e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/cookie-jar';
@@ -60432,7 +60447,7 @@ Cookie.prototype.toString = function(){
 
 module.exports.Jar = require('./jar')
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/cookie-jar/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/cookie-jar/jar.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/jar.js"}
 require.memoize("e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/jar.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/cookie-jar';
@@ -60510,7 +60525,7 @@ CookieJar.prototype.cookieString = function(req){
 };
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/cookie-jar/jar.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-loader-js/loader.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/./loader.js"}
 require.memoize("bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/./loader.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-loader-js';
@@ -60687,20 +60702,20 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 						moduleInitializers[key][0] = bundleIdentifier;
 						// Only augment (instead of replace existing values).
 						if (typeof moduleInitializers[key][1].main === "undefined") {
-							moduleInitializers[key][1].main = loadedBundles[0][1][key].main;
+							moduleInitializers[key][1].main = loadedBundles[0][1][key][0].main;
 						}
-						if (loadedBundles[0][1][key].mappings) {
+						if (loadedBundles[0][1][key][0].mappings) {
 							if (!moduleInitializers[key][1].mappings) {
 								moduleInitializers[key][1].mappings = {};
 							}
-							for (var alias in loadedBundles[0][1][key].mappings) {
+							for (var alias in loadedBundles[0][1][key][0].mappings) {
 								if (typeof moduleInitializers[key][1].mappings[alias] === "undefined") {
-									moduleInitializers[key][1].mappings[alias] = loadedBundles[0][1][key].mappings[alias];
+									moduleInitializers[key][1].mappings[alias] = loadedBundles[0][1][key][0].mappings[alias];
 								}
 							}
 						}
 					} else {
-						moduleInitializers[key] = [bundleIdentifier, loadedBundles[0][1][key]];
+						moduleInitializers[key] = [bundleIdentifier, loadedBundles[0][1][key][0], loadedBundles[0][1][key][1]];
 					}
 					// Now that we have a [updated] package descriptor, re-initialize it if we have it already in cache.
 					var packageIdentifier = key.split("/").shift();
@@ -60711,7 +60726,7 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 				// Only add modules that don't already exist!
 				// TODO: Log warning in debug mode if module already exists.
 				if (typeof moduleInitializers[key] === "undefined") {
-					moduleInitializers[key] = [bundleIdentifier, loadedBundles[0][1][key]];
+					moduleInitializers[key] = [bundleIdentifier, loadedBundles[0][1][key][0], loadedBundles[0][1][key][1]];
 				}
 			}
 			loadedBundles.shift();
@@ -60724,7 +60739,7 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 
 			var pkg = {
 				id: packageIdentifier,
-				descriptor: null,
+				descriptor: {},
 				main: "/main.js",
 				mappings: {},
 				directories: {},
@@ -60734,8 +60749,9 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 			var parentModule = lastModule;
 
 			pkg.init = function() {
-				var descriptor = (moduleInitializers[packageIdentifier + "/package.json"] && moduleInitializers[packageIdentifier + "/package.json"][1]) || null;
+				var descriptor = (moduleInitializers[packageIdentifier + "/package.json"] && moduleInitializers[packageIdentifier + "/package.json"][1]) || {};
 				if (descriptor) {
+					pkg.descriptor = descriptor;
 					if (typeof descriptor.main === "string") {
 						pkg.main = descriptor.main;
 					}
@@ -60764,7 +60780,6 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 			}
 
 			var Module = function(moduleIdentifier, parentModule) {
-
 				var moduleIdentifierSegment = moduleIdentifier.replace(/\/[^\/]*$/, "").split("/"),
 					module = {
 						id: moduleIdentifier,
@@ -60841,8 +60856,9 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 
 						var moduleInterface = {
 							id: module.id,
-							// TODO: Should this filename model the original directory structure or the bundle directory structure?
-							filename: module.bundle.replace(/\.js$/, "") + "/" + module.id,
+							filename: 
+								moduleInitializers[moduleIdentifier][2].filename ||
+								(module.bundle.replace(/\.js$/, "") + "/" + module.id).replace(/\/+/g, "/"),
 							exports: {}
 						}
 
@@ -61048,8 +61064,8 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 						req = new Require(uid);
 					delete req.bundle;
 					// Store raw module in loading bundle
-					req.memoize = function(moduleIdentifier, moduleInitializer) {
-						moduleInitializers[moduleIdentifier] = moduleInitializer;
+					req.memoize = function(moduleIdentifier, moduleInitializer, moduleMeta) {
+						moduleInitializers[moduleIdentifier] = [moduleInitializer, moduleMeta || {}];
 					}
 					callback(req);
 					loadedBundles.push([uid, moduleInitializers]);
@@ -61109,7 +61125,7 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 }(this));
 
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-loader-js/loader.js"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/package.json"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/package.json", 
 {
@@ -61130,7 +61146,7 @@ require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/packag
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/package.json"}
 require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/package.json", 
 {
@@ -61144,28 +61160,28 @@ require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/package.json"
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile/package.json"}
 require.memoize("95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile/package.json", 
 {
     "main": "95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile/lib/jsonfile.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/jsonfile"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/jsonfile/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp/package.json"}
 require.memoize("5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp/package.json", 
 {
     "main": "5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/mkdirp"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/mkdirp/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"2b0048c6a305ad176d4e3489f01d68c879da772f-ncp/package.json"}
 require.memoize("2b0048c6a305ad176d4e3489f01d68c879da772f-ncp/package.json", 
 {
     "main": "2b0048c6a305ad176d4e3489f01d68c879da772f-ncp/lib/ncp.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/ncp"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/ncp/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf/package.json"}
 require.memoize("67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf/package.json", 
 {
@@ -61175,14 +61191,14 @@ require.memoize("67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf/package.json",
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/package.json"}
 require.memoize("b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/package.json", 
 {
     "main": "b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/graceful-fs.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"57afe811a234d961a291b977f64e22b42a1b4735-waitfor/package.json"}
 require.memoize("57afe811a234d961a291b977f64e22b42a1b4735-waitfor/package.json", 
 {
@@ -61192,28 +61208,28 @@ require.memoize("57afe811a234d961a291b977f64e22b42a1b4735-waitfor/package.json",
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/waitfor"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/waitfor/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"5fab7dc417e5225664a9e48c30bbaa96a9da45fa-setimmediate/package.json"}
 require.memoize("5fab7dc417e5225664a9e48c30bbaa96a9da45fa-setimmediate/package.json", 
 {
     "main": "5fab7dc417e5225664a9e48c30bbaa96a9da45fa-setimmediate/setImmediate.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/waitfor/node_modules/setimmediate"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/waitfor/node_modules/setimmediate/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"98c6b74665bd9abac5c33394e3edfcf04ef251a1-deepmerge/package.json"}
 require.memoize("98c6b74665bd9abac5c33394e3edfcf04ef251a1-deepmerge/package.json", 
 {
     "main": "98c6b74665bd9abac5c33394e3edfcf04ef251a1-deepmerge/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepmerge"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepmerge/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/package.json"}
 require.memoize("36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/package.json", 
 {
     "main": "36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepcopy"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepcopy/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js/package.json"}
 require.memoize("76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js/package.json", 
 {
@@ -61223,14 +61239,14 @@ require.memoize("76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js/pac
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"e3b83304b558e386f1e075262340169bec08eeba-deepcopy/package.json"}
 require.memoize("e3b83304b558e386f1e075262340169bec08eeba-deepcopy/package.json", 
 {
     "main": "e3b83304b558e386f1e075262340169bec08eeba-deepcopy/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/node_modules/deepcopy"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/node_modules/deepcopy/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insight/package.json"}
 require.memoize("a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insight/package.json", 
 {
@@ -61242,7 +61258,7 @@ require.memoize("a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insigh
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"daa6fd2c901ebe1dd2fffd374aadc94a18acf03f-waitfor/package.json"}
 require.memoize("daa6fd2c901ebe1dd2fffd374aadc94a18acf03f-waitfor/package.json", 
 {
@@ -61252,21 +61268,21 @@ require.memoize("daa6fd2c901ebe1dd2fffd374aadc94a18acf03f-waitfor/package.json",
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/waitfor"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/waitfor/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"0d84eddf2b38974fcbed1ef0232a4cdc7794d07a-setimmediate/package.json"}
 require.memoize("0d84eddf2b38974fcbed1ef0232a4cdc7794d07a-setimmediate/package.json", 
 {
     "main": "0d84eddf2b38974fcbed1ef0232a4cdc7794d07a-setimmediate/setImmediate.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"314839f5c7c2de31691d70d145a810b24f13d359-deepmerge/package.json"}
 require.memoize("314839f5c7c2de31691d70d145a810b24f13d359-deepmerge/package.json", 
 {
     "main": "314839f5c7c2de31691d70d145a810b24f13d359-deepmerge/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/deepmerge"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/deepmerge/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"a168e2ff3e007b8ae4b4dce8bb03fc10343d6411-pinf-primitives-js/package.json"}
 require.memoize("a168e2ff3e007b8ae4b4dce8bb03fc10343d6411-pinf-primitives-js/package.json", 
 {
@@ -61276,14 +61292,14 @@ require.memoize("a168e2ff3e007b8ae4b4dce8bb03fc10343d6411-pinf-primitives-js/pac
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/package.json"}
 require.memoize("eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/package.json", 
 {
     "main": "eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight/package.json"}
 require.memoize("c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight/package.json", 
 {
@@ -61296,7 +61312,7 @@ require.memoize("c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insigh
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"b782938965d4eecd6d293846c7ca82181935c0ab-waitfor/package.json"}
 require.memoize("b782938965d4eecd6d293846c7ca82181935c0ab-waitfor/package.json", 
 {
@@ -61306,28 +61322,28 @@ require.memoize("b782938965d4eecd6d293846c7ca82181935c0ab-waitfor/package.json",
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/waitfor"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/waitfor/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"98f59820510eba78223c81ad6d109534d335f224-setimmediate/package.json"}
 require.memoize("98f59820510eba78223c81ad6d109534d335f224-setimmediate/package.json", 
 {
     "main": "98f59820510eba78223c81ad6d109534d335f224-setimmediate/setImmediate.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/waitfor/node_modules/setimmediate"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/waitfor/node_modules/setimmediate/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"bae60f4c72f89c0542d04faab5f4e6c6f0678907-deepmerge/package.json"}
 require.memoize("bae60f4c72f89c0542d04faab5f4e6c6f0678907-deepmerge/package.json", 
 {
     "main": "bae60f4c72f89c0542d04faab5f4e6c6f0678907-deepmerge/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepmerge"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepmerge/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/package.json"}
 require.memoize("c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/package.json", 
 {
     "main": "c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepcopy"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepcopy/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"f38e4f605d8ca2a7773428c53b62e3d07f59a736-pinf-it-package-insight/package.json"}
 require.memoize("f38e4f605d8ca2a7773428c53b62e3d07f59a736-pinf-it-package-insight/package.json", 
 {
@@ -61339,7 +61355,7 @@ require.memoize("f38e4f605d8ca2a7773428c53b62e3d07f59a736-pinf-it-package-insigh
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"49f226cee0c79376b1d67307ff98169b5e3f7ac5-waitfor/package.json"}
 require.memoize("49f226cee0c79376b1d67307ff98169b5e3f7ac5-waitfor/package.json", 
 {
@@ -61349,21 +61365,21 @@ require.memoize("49f226cee0c79376b1d67307ff98169b5e3f7ac5-waitfor/package.json",
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/waitfor"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/waitfor/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"34d03f6968e3f4fc04264f08c1450f78f5848fe4-setimmediate/package.json"}
 require.memoize("34d03f6968e3f4fc04264f08c1450f78f5848fe4-setimmediate/package.json", 
 {
     "main": "34d03f6968e3f4fc04264f08c1450f78f5848fe4-setimmediate/setImmediate.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"ce11c10dca64b2b60e0fb1528b0b56c3811aa662-deepmerge/package.json"}
 require.memoize("ce11c10dca64b2b60e0fb1528b0b56c3811aa662-deepmerge/package.json", 
 {
     "main": "ce11c10dca64b2b60e0fb1528b0b56c3811aa662-deepmerge/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/deepmerge"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/deepmerge/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"aabe78d7de2b47ab14e2726122f43c2e2c6f8113-pinf-primitives-js/package.json"}
 require.memoize("aabe78d7de2b47ab14e2726122f43c2e2c6f8113-pinf-primitives-js/package.json", 
 {
@@ -61373,14 +61389,14 @@ require.memoize("aabe78d7de2b47ab14e2726122f43c2e2c6f8113-pinf-primitives-js/pac
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"edc8d965636e19f737f2ececa6386b2162350540-deepcopy/package.json"}
 require.memoize("edc8d965636e19f737f2ececa6386b2162350540-deepcopy/package.json", 
 {
     "main": "edc8d965636e19f737f2ececa6386b2162350540-deepcopy/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/package.json"}
 require.memoize("5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/package.json", 
 {
@@ -61397,7 +61413,7 @@ require.memoize("5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/packag
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/package.json"}
 require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/package.json", 
 {
@@ -61411,28 +61427,28 @@ require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/package.json"
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"c080a61be940c5b59af0cef485503c204af31aa3-jsonfile/package.json"}
 require.memoize("c080a61be940c5b59af0cef485503c204af31aa3-jsonfile/package.json", 
 {
     "main": "c080a61be940c5b59af0cef485503c204af31aa3-jsonfile/lib/jsonfile.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/jsonfile"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/jsonfile/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp/package.json"}
 require.memoize("cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp/package.json", 
 {
     "main": "cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/mkdirp"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/mkdirp/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp/package.json"}
 require.memoize("b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp/package.json", 
 {
     "main": "b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp/lib/ncp.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/ncp"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/ncp/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf/package.json"}
 require.memoize("88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf/package.json", 
 {
@@ -61442,28 +61458,28 @@ require.memoize("88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf/package.json",
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/package.json"}
 require.memoize("8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/package.json", 
 {
     "main": "8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/graceful-fs.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"86a7c7b5fe60704afbe464069563b35be9b7cbae-q/package.json"}
 require.memoize("86a7c7b5fe60704afbe464069563b35be9b7cbae-q/package.json", 
 {
     "main": "86a7c7b5fe60704afbe464069563b35be9b7cbae-q/q.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/q"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/q/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/package.json"}
 require.memoize("a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/package.json", 
 {
     "main": "a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/deepcopy"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/deepcopy/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"1c49116f920b3e4988a79b910e317654081e75c6-waitfor/package.json"}
 require.memoize("1c49116f920b3e4988a79b910e317654081e75c6-waitfor/package.json", 
 {
@@ -61473,14 +61489,14 @@ require.memoize("1c49116f920b3e4988a79b910e317654081e75c6-waitfor/package.json",
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/waitfor"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/waitfor/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"d739e44b4b3e49d3ecb628f8a908b40e63afa8e5-setimmediate/package.json"}
 require.memoize("d739e44b4b3e49d3ecb628f8a908b40e63afa8e5-setimmediate/package.json", 
 {
     "main": "d739e44b4b3e49d3ecb628f8a908b40e63afa8e5-setimmediate/setImmediate.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/waitfor/node_modules/setimmediate"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/waitfor/node_modules/setimmediate/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"bf0ef0832fabbb13ac3cdcc25595e542732048f4-pinf-it-module-insight/package.json"}
 require.memoize("bf0ef0832fabbb13ac3cdcc25595e542732048f4-pinf-it-module-insight/package.json", 
 {
@@ -61492,7 +61508,7 @@ require.memoize("bf0ef0832fabbb13ac3cdcc25595e542732048f4-pinf-it-module-insight
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/package.json"}
 require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/package.json", 
 {
@@ -61506,28 +61522,28 @@ require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/package.json"
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile/package.json"}
 require.memoize("d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile/package.json", 
 {
     "main": "d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile/lib/jsonfile.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/jsonfile"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/jsonfile/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp/package.json"}
 require.memoize("549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp/package.json", 
 {
     "main": "549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/mkdirp"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/mkdirp/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"b4c553f584b025a7c9b2375916830b245a00a167-ncp/package.json"}
 require.memoize("b4c553f584b025a7c9b2375916830b245a00a167-ncp/package.json", 
 {
     "main": "b4c553f584b025a7c9b2375916830b245a00a167-ncp/lib/ncp.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/ncp"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/ncp/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf/package.json"}
 require.memoize("921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf/package.json", 
 {
@@ -61537,14 +61553,14 @@ require.memoize("921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf/package.json",
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/package.json"}
 require.memoize("a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/package.json", 
 {
     "main": "a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/graceful-fs.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/package.json"}
 require.memoize("d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/package.json", 
 {
@@ -61554,14 +61570,14 @@ require.memoize("d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/package.json",
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/jslint"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/jslint/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"5771ada65ad37907635d21e4c3b6e1bb0c9af9fc-esprima/package.json"}
 require.memoize("5771ada65ad37907635d21e4c3b6e1bb0c9af9fc-esprima/package.json", 
 {
     "main": "5771ada65ad37907635d21e4c3b6e1bb0c9af9fc-esprima/esprima.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/esprima"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/esprima/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insight/package.json"}
 require.memoize("998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insight/package.json", 
 {
@@ -61573,7 +61589,7 @@ require.memoize("998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insigh
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"812d2540fcd8954a6f536f20ff75621af8578d89-waitfor/package.json"}
 require.memoize("812d2540fcd8954a6f536f20ff75621af8578d89-waitfor/package.json", 
 {
@@ -61583,21 +61599,21 @@ require.memoize("812d2540fcd8954a6f536f20ff75621af8578d89-waitfor/package.json",
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/waitfor"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/waitfor/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"aad20786edb4bc037cc86c828e2729f5839d8ac6-setimmediate/package.json"}
 require.memoize("aad20786edb4bc037cc86c828e2729f5839d8ac6-setimmediate/package.json", 
 {
     "main": "aad20786edb4bc037cc86c828e2729f5839d8ac6-setimmediate/setImmediate.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"29f28531211b227d017dcf0cf57d7c26b36ab9ff-deepmerge/package.json"}
 require.memoize("29f28531211b227d017dcf0cf57d7c26b36ab9ff-deepmerge/package.json", 
 {
     "main": "29f28531211b227d017dcf0cf57d7c26b36ab9ff-deepmerge/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/deepmerge"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/deepmerge/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"e72eacc9b0985a811179adfcfd7452b2cc6e904f-pinf-primitives-js/package.json"}
 require.memoize("e72eacc9b0985a811179adfcfd7452b2cc6e904f-pinf-primitives-js/package.json", 
 {
@@ -61607,14 +61623,14 @@ require.memoize("e72eacc9b0985a811179adfcfd7452b2cc6e904f-pinf-primitives-js/pac
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/package.json"}
 require.memoize("91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/package.json", 
 {
     "main": "91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js/package.json"}
 require.memoize("c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js/package.json", 
 {
@@ -61624,14 +61640,14 @@ require.memoize("c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js/package
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-loader-js"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-loader-js/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/package.json"}
 require.memoize("f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/package.json", 
 {
     "main": "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/bin/r.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/requirejs"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/requirejs/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request/package.json"}
 require.memoize("e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request/package.json", 
 {
@@ -61652,21 +61668,21 @@ require.memoize("e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request/package.json",
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs/package.json"}
 require.memoize("a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs/package.json", 
 {
     "main": "a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/qs"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/qs/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"0a2767d204df2a563b9513a5b12e7f2ef737e245-oauth-sign/package.json"}
 require.memoize("0a2767d204df2a563b9513a5b12e7f2ef737e245-oauth-sign/package.json", 
 {
     "main": "0a2767d204df2a563b9513a5b12e7f2ef737e245-oauth-sign/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/oauth-sign"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/oauth-sign/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/package.json"}
 require.memoize("ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/package.json", 
 {
@@ -61679,7 +61695,7 @@ require.memoize("ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/package.json",
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/package.json"}
 require.memoize("bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/package.json", 
 {
@@ -61689,14 +61705,14 @@ require.memoize("bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/package.json",
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"9579db8ec37f1c7107434638cd83ebcdde128669-hoek/package.json"}
 require.memoize("9579db8ec37f1c7107434638cd83ebcdde128669-hoek/package.json", 
 {
     "main": "9579db8ec37f1c7107434638cd83ebcdde128669-hoek/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/package.json"}
 require.memoize("87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/package.json", 
 {
@@ -61706,21 +61722,21 @@ require.memoize("87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/package.json",
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"733132ef85628339b6e1a78283093c2a9208ca8a-hoek/package.json"}
 require.memoize("733132ef85628339b6e1a78283093c2a9208ca8a-hoek/package.json", 
 {
     "main": "733132ef85628339b6e1a78283093c2a9208ca8a-hoek/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/package.json"}
 require.memoize("5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/package.json", 
 {
     "main": "5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/package.json"}
 require.memoize("8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/package.json", 
 {
@@ -61730,14 +61746,14 @@ require.memoize("8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/package.json
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/cryptiles"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/cryptiles/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"8d0d8b76fc7fb074fae1f24236fc2c5c9db07428-aws-sign/package.json"}
 require.memoize("8d0d8b76fc7fb074fae1f24236fc2c5c9db07428-aws-sign/package.json", 
 {
     "main": "8d0d8b76fc7fb074fae1f24236fc2c5c9db07428-aws-sign/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/aws-sign"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/aws-sign/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/package.json"}
 require.memoize("504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/package.json", 
 {
@@ -61749,63 +61765,63 @@ require.memoize("504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/package
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"4577e8ae6126946aeedc02c249aefacb641b25de-assert-plus/package.json"}
 require.memoize("4577e8ae6126946aeedc02c249aefacb641b25de-assert-plus/package.json", 
 {
     "main": "4577e8ae6126946aeedc02c249aefacb641b25de-assert-plus/assert.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/assert-plus"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/assert-plus/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/package.json"}
 require.memoize("58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/package.json", 
 {
     "main": "58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/package.json"}
 require.memoize("59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/package.json", 
 {
     "main": "59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctype.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"b360de4cfbd0215d27510c4fd03393d88d8c8ae8-node-uuid/package.json"}
 require.memoize("b360de4cfbd0215d27510c4fd03393d88d8c8ae8-node-uuid/package.json", 
 {
     "main": "b360de4cfbd0215d27510c4fd03393d88d8c8ae8-node-uuid/uuid.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/node-uuid"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/node-uuid/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime/package.json"}
 require.memoize("3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime/package.json", 
 {
     "main": "3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime/mime.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/mime"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/mime/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"108b28d120f242b00befd693696b25134ac10bef-tunnel-agent/package.json"}
 require.memoize("108b28d120f242b00befd693696b25134ac10bef-tunnel-agent/package.json", 
 {
     "main": "108b28d120f242b00befd693696b25134ac10bef-tunnel-agent/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/tunnel-agent"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/tunnel-agent/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"b3eb0c4e174b4fd3de6278f94c1c93bfce68bd6c-json-stringify-safe/package.json"}
 require.memoize("b3eb0c4e174b4fd3de6278f94c1c93bfce68bd6c-json-stringify-safe/package.json", 
 {
     "main": "b3eb0c4e174b4fd3de6278f94c1c93bfce68bd6c-json-stringify-safe/stringify.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/json-stringify-safe"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/json-stringify-safe/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"ac485b684341e74d2d223646d5b98969d287efa9-forever-agent/package.json"}
 require.memoize("ac485b684341e74d2d223646d5b98969d287efa9-forever-agent/package.json", 
 {
     "main": "ac485b684341e74d2d223646d5b98969d287efa9-forever-agent/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/forever-agent"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/forever-agent/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"b31d9d8844fd9f42ca88afa16a6316e74e8a6409-form-data/package.json"}
 require.memoize("b31d9d8844fd9f42ca88afa16a6316e74e8a6409-form-data/package.json", 
 {
@@ -61817,7 +61833,7 @@ require.memoize("b31d9d8844fd9f42ca88afa16a6316e74e8a6409-form-data/package.json
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"060655d1be854e806dc31729ef59e2992f3626c0-combined-stream/package.json"}
 require.memoize("060655d1be854e806dc31729ef59e2992f3626c0-combined-stream/package.json", 
 {
@@ -61827,28 +61843,28 @@ require.memoize("060655d1be854e806dc31729ef59e2992f3626c0-combined-stream/packag
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream/package.json"}
 require.memoize("1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream/package.json", 
 {
     "main": "1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream/lib/delayed_stream.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"2e7a010e5b40e11bb94eb021d6eca99d00679e86-async/package.json"}
 require.memoize("2e7a010e5b40e11bb94eb021d6eca99d00679e86-async/package.json", 
 {
     "main": "2e7a010e5b40e11bb94eb021d6eca99d00679e86-async/lib/async.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/async"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/async/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/package.json"}
 require.memoize("e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/package.json", 
 {
     "main": "e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/index.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/cookie-jar"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/cookie-jar/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/package.json"}
 require.memoize("bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/package.json", 
 {
@@ -61858,14 +61874,14 @@ require.memoize("bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/package
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-loader-js"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-loader-js/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/package.json"}
 require.memoize("f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/package.json", 
 {
     "main": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/require.async.js",
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/require.async"
 }
-);
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/require.async/package.json"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

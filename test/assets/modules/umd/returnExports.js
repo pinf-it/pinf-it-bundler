@@ -181,18 +181,18 @@ wrapAMD(function(require, define) {
 }));
 
 })
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/umd/returnExports.js"});
 // @pinf-bundle-module: {"file":"test/assets/modules/umd/mocks/returnExports.js/b.js","mtime":0,"wrapper":"amd","format":"amd","id":"/b.js"}
 require.memoize("/b.js", 
 define([],function() {
 })
-);
+, {"filename":"test/assets/modules/umd/mocks/returnExports.js/b.js"});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/returnExports.js"
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/umd/returnExports.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

@@ -11,7 +11,7 @@ exports.getGreeting = function() {
 }
 
 }
-);
+, {"filename":"test/assets/packages/nodejs-dynamic-require-shared/greeting.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

@@ -17,14 +17,14 @@ exports.getLetterL = MORE.getLetterL;
 exports.getLetterO = MORE.getLetterO;
 
 }
-);
+, {"filename":"test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters/e.js"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"698b594771c54e63058ef9073aaf59f1e529c21f-letters/package.json"}
 require.memoize("698b594771c54e63058ef9073aaf59f1e529c21f-letters/package.json", 
 {
     "dirpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters",
     "mappings": {}
 }
-);
+, {"filename":"test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters/package.json"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

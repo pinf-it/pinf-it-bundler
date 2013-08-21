@@ -16,13 +16,13 @@ return {
     console: (typeof console !== "undefined") ? console : null
 };
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/require-main.js"});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/require-main.js"
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/require-main.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

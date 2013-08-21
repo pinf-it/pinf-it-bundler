@@ -20,7 +20,7 @@ return {
     console: (typeof console !== "undefined") ? console : null
 };
 }
-);
+, {"filename":"test/assets/packages/commonjs-lib/app.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/commonjs-lib/node_modules/greeting/lib-dir/greeting.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/lib-dir/greeting.js"}
 require.memoize("aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/lib-dir/greeting.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/commonjs-lib/node_modules/greeting/lib-dir';
@@ -30,7 +30,7 @@ exports.getGreeting = function() {
 }
 
 }
-);
+, {"filename":"test/assets/packages/commonjs-lib/node_modules/greeting/lib-dir/greeting.js"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
@@ -40,7 +40,7 @@ require.memoize("/package.json",
     },
     "dirpath": "test/assets/packages/commonjs-lib"
 }
-);
+, {"filename":"test/assets/packages/commonjs-lib/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/package.json"}
 require.memoize("aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/package.json", 
 {
@@ -49,7 +49,7 @@ require.memoize("aba74007c1f9fd6ec9506effc13a53b236bc9e52-greeting/package.json"
     },
     "dirpath": "test/assets/packages/commonjs-lib/node_modules/greeting"
 }
-);
+, {"filename":"test/assets/packages/commonjs-lib/node_modules/greeting/package.json"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

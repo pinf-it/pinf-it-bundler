@@ -67,13 +67,13 @@ define([],function() {
 		loaded: true
 	};
 })
-);
+, {"filename":"test/assets/modules/requirejs/mocks/nestedRelativeRequire-sub-a.js/b.js"});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/b.js"
 }
-);
+, {"filename":"test/assets/modules/requirejs/mocks/nestedRelativeRequire-sub-a.js/b.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

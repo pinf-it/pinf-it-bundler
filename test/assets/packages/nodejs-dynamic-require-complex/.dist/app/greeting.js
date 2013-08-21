@@ -12,7 +12,7 @@ exports.getGreeting = function() {
 }
 
 }
-);
+, {"filename":"test/assets/packages/nodejs-dynamic-require-complex/greeting.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

@@ -161,7 +161,7 @@ wrapAMD(function(require, define) {
     return $;
 }));
 })
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/umd/jqueryPluginCommonjs.js"});
 // @pinf-bundle-module: {"file":"test/assets/modules/umd/mocks/jqueryPluginCommonjs.js/jquery.js","mtime":0,"wrapper":"amd","format":"amd","id":"/jquery.js"}
 require.memoize("/jquery.js", 
 define([],function() {
@@ -173,13 +173,13 @@ define([],function() {
         }
 	};
 })
-);
+, {"filename":"test/assets/modules/umd/mocks/jqueryPluginCommonjs.js/jquery.js"});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/jqueryPluginCommonjs.js"
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/umd/jqueryPluginCommonjs.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

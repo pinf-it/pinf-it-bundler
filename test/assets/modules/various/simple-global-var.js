@@ -15,13 +15,13 @@ return {
     OBJECT: (typeof OBJECT !== "undefined") ? OBJECT : null
 };
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/simple-global-var.js"});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/simple-global-var.js"
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/simple-global-var.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

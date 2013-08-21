@@ -68,13 +68,13 @@ define("assign",
             function (require, exports, module) {
     module.exports = "assign";
 })
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/exports-assign.js"});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/exports-assign.js"
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/exports-assign.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

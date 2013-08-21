@@ -329,25 +329,25 @@ return {
     Math: (typeof Math !== "undefined") ? Math : null
 };
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/node-http-signature-parser.js"});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/node-http-signature-parser.js"
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/node-http-signature-parser.js"});
 // @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/node-http-signature-parser.js/assert-plus.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/assert-plus.js"}
 require.memoize("/assert-plus.js", 
 function(require, exports, module) {
 
 }
-);
+, {"filename":"test/assets/modules/various/mocks/node-http-signature-parser.js/assert-plus.js"});
 // @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/node-http-signature-parser.js/util.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/util.js"}
 require.memoize("/util.js", 
 function(require, exports, module) {
 
 }
-);
+, {"filename":"test/assets/modules/various/mocks/node-http-signature-parser.js/util.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

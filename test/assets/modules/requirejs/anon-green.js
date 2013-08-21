@@ -66,13 +66,13 @@ require.memoize("/anon-green.js",
 define({
     name: "green"
 })
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/anon-green.js"});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/anon-green.js"
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/anon-green.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

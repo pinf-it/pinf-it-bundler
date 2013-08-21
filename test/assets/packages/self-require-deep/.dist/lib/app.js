@@ -19,7 +19,7 @@ if (require.main === module) {
 }
 
 }
-);
+, {"filename":"test/assets/packages/self-require-deep/lib/app.js"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
@@ -27,7 +27,7 @@ require.memoize("/package.json",
     "mappings": {},
     "dirpath": "test/assets/packages/self-require-deep"
 }
-);
+, {"filename":"test/assets/packages/self-require-deep/package.json"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

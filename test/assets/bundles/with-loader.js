@@ -43,11 +43,11 @@ function(require, exports, module)
         }
     }
 }
-);
+, {});
 // @pinf-bundle-descriptor: {"file":"/example/package.json","id":"/package.json"}
 require.memoize("/package.json", 
 {"main":"/main.js","mappings":{},"directories":{"lib":""}}
-);
+, {});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-loader-bottom: 

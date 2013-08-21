@@ -167,7 +167,7 @@ define(['q-lib'], function (Q) {
     return deferred.promise;
 })
 })
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/amd-dynamic-link.js"});
 // @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/amd-dynamic-link.js/q-lib.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/q-lib.js"}
 require.memoize("/q-lib.js", 
 wrapAMD(function(require, define) {
@@ -1698,19 +1698,19 @@ return Q;
 });
 
 })
-);
+, {"filename":"test/assets/modules/various/mocks/amd-dynamic-link.js/q-lib.js"});
 // @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/amd-dynamic-link.js/base.js","mtime":0,"wrapper":"amd","format":"amd","id":"/base.js"}
 require.memoize("/base.js", 
 define({
     name: 'base'
 })
-);
+, {"filename":"test/assets/modules/various/mocks/amd-dynamic-link.js/base.js"});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/amd-dynamic-link.js"
 }
-);
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/amd-dynamic-link.js"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}
