@@ -119,5 +119,11 @@
         "exports": {
             "main": "/app.js"
         }
+    },
+    "#pinf": {
+        "status": 200,
+        "data": {
+            "rootBundlePath": "test/assets/packages/self-require/.dist/app.js"
+        }
     }
 }

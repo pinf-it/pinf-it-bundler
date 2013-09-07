@@ -242,5 +242,11 @@
         "exports": {
             "main": "/extra.js"
         }
+    },
+    "#pinf": {
+        "status": 200,
+        "data": {
+            "rootBundlePath": "test/assets/packages/require-async/.dist/app.js"
+        }
     }
 }

@@ -101,5 +101,11 @@
         "exports": {
             "main": "/lib/app.js"
         }
+    },
+    "#pinf": {
+        "status": 200,
+        "data": {
+            "rootBundlePath": "test/assets/packages/deep-main/.dist/lib/app.js"
+        }
     }
 }

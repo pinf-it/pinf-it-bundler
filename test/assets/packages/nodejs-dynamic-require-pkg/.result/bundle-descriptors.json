@@ -456,5 +456,11 @@
         "exports": {
             "main": "/index.js"
         }
+    },
+    "#pinf": {
+        "status": 200,
+        "data": {
+            "rootBundlePath": "test/assets/packages/nodejs-dynamic-require-pkg/.dist/app.js"
+        }
     }
 }

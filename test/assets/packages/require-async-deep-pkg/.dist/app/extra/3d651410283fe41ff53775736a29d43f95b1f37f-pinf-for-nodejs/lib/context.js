@@ -90,6 +90,9 @@ const PINF_PRIMITIVES = require("pinf-primitives-js");
 const PACKAGE_INSIGHT = require("pinf-it-package-insight");
 const PROGRAM_INSIGHT = require("pinf-it-program-insight");
 const VM = require("./vm").VM;
+const VFS = require("./vfs");
+const LOADER = require("./loader");
+const CRYPTO = require("__SYSTEM__/crypto");
 
 
 exports.contextForModule = function(module, options, callback) {
@@ -99,14 +102,19 @@ exports.contextForModule = function(module, options, callback) {
 	}
 	options = options || {};
 
-	if (typeof options.PINF_PROGRAM === "undefined") {
-		options.PINF_PROGRAM = process.env.PINF_PROGRAM;
-	}
-	if (typeof options.PINF_RUNTIME === "undefined") {
-		options.PINF_RUNTIME = process.env.PINF_RUNTIME;
+	var opts = {};
+	for (var name in options) {
+		opts[name] = options[name];
 	}
 
-	if (!options.PINF_PROGRAM) {
+	if (typeof opts.PINF_PROGRAM === "undefined") {
+		opts.PINF_PROGRAM = process.env.PINF_PROGRAM;
+	}
+	if (typeof opts.PINF_RUNTIME === "undefined") {
+		opts.PINF_RUNTIME = process.env.PINF_RUNTIME;
+	}
+
+	if (!opts.PINF_PROGRAM) {
 		return callback(new Error("The PINF_PROGRAM environment variable must be set!"));
 	}
 	if (!module.filename) {
@@ -114,12 +122,13 @@ exports.contextForModule = function(module, options, callback) {
 	}
 	return PACKAGE_INSIGHT.findPackagePath(module.filename, function(err, path) {
 		if (err) return callback(err);
-		return exports.context(options.PINF_PROGRAM, path, {
+		return exports.context(opts.PINF_PROGRAM, path, {
 			env: {
-				PINF_RUNTIME: options.PINF_RUNTIME
+				PINF_RUNTIME: opts.PINF_RUNTIME
 			},
-			debug: options.debug,
-			verbose: options.verbose
+			debug: opts.debug || false,
+			verbose: opts.verbose || false,
+			test: opts.test || false
 		}, callback);
 	});
 }
@@ -189,18 +198,344 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 	var Context = function() {
 		this.uid = null;
 		this.ns = null;
+		this.debug = false;
+		this.verbose = false;
+		this.test = false;
+		this.now = Date.now();
+		this.ttl = 0;
 		this.env = {};
 		this.paths = {};
 		this.binPaths = [];
 		this.config = [];
 		this.descriptorPaths = [];
 		this.lookupPaths = [];
-		this.__proto__._descriptors = {
+		this._api = {};
+		this._descriptors = {
 			package: {},
 			program: {}
 		};
 	}
 	UTIL.inherits(Context, EVENTS.EventEmitter);
+
+	Context.prototype.clone = function() {
+		var ctx = new Context();
+		for (var name in this) {
+			if (this.hasOwnProperty(name)) {
+				ctx[name] = this[name];
+			}
+		}
+		return ctx;
+	}
+
+	Context.prototype.stringify = function() {
+		var obj = {};
+		for (var name in this) {
+			if (!this.hasOwnProperty(name)) continue;
+			if (/^_/.test(name)) continue;
+			obj[name] = this[name];
+		}
+		return JSON.stringify.apply(null, [obj].concat(Array.prototype.slice.call(arguments, 0)));
+	}
+
+	Context.prototype.makeOptions = function(options) {
+		if (typeof options !== "object") {
+			return options;
+		}
+		var opts = {};
+		for (var name in options) {
+			opts[name] = options[name];
+		}
+		var ctx = this.clone();
+		function inheritProperties(parent) {
+			[
+				"debug",
+				"verbose",
+				"test",
+				"ttl"
+			].forEach(function(name) {
+				ctx[name] = parent[name];
+			});
+		}
+		if (!opts.$pinf || typeof opts.$pinf !== "object") {
+			opts.$pinf = ctx;
+			return opts;
+		} else
+		if (!(opts.$pinf instanceof Context)) {
+			inheritProperties(opts.$pinf);
+			opts.$pinf = ctx;
+			return opts;
+		}
+		ctx.__proto__ = opts.$pinf;
+		opts.$pinf = ctx;
+		opts.$pinf.parentContext = opts.$pinf.__proto__;
+		inheritProperties(opts.$pinf.parentContext);
+		return opts;
+	}
+
+	Context.prototype.getAPI = function(alias) {
+		var obj = this;
+		while(obj) {
+			if (obj._api && obj._api[alias]) {
+				return obj._api[alias];
+			}
+			obj = obj.__proto__;
+		}
+		if (alias === "console") {
+			return console;
+		}
+		return null;
+	}
+
+	Context.prototype.sandbox = function(sandboxIdentifier, sandboxOptions, loadedCallback, errorCallback) {
+		var self = this;
+		if (typeof sandboxOptions === "function" && typeof loadedCallback === "function" && typeof errorCallback === "undefined") {
+			errorCallback = loadedCallback;
+			loadedCallback = sandboxOptions;
+			sandboxOptions = {};
+		} else
+		if (typeof sandboxOptions === "function" && typeof loadedCallback === "undefined") {
+			loadedCallback = sandboxOptions;
+			sandboxOptions = {};
+		} else {
+			sandboxOptions = sandboxOptions || {};
+		}
+		var callback = function(err, sandbox) {
+			if (err) {
+				if (errorCallback) {
+					return errorCallback(err);
+				}
+				throw err;
+			}
+			return loadedCallback(sandbox);
+		}
+		return FS.stat(sandboxIdentifier, function(err, stat) {
+			if (err) return callback(err);
+			if (stat.isDirectory()) {
+	            var vm = new VM(self);
+	            return vm.loadPackage(sandboxIdentifier, sandboxOptions, callback);
+			} else {
+				return LOADER.sandbox(sandboxIdentifier, self.makeOptions(sandboxOptions), loadedCallback, errorCallback);
+			}
+		});
+	}
+
+	Context.prototype.gateway = function(type) {
+		var self = this;
+		// TODO: Move these into plugins.
+		// If `FS` is an instance of `./vfs.js` we can bypass gateway if all written files are older than read files.
+		if (type === "vfs-write-from-read-mtime-bypass") {
+			// TODO: Refactor some of this into a cache module with tree-based contexts for managing expiry.
+			var VFS = null;
+			var key = null;
+			var paths = {
+				write: {},
+				read: {}
+			};
+			var listener = function(path, method) {
+				if (VFS.WRITE_METHODS[method]) {
+					paths.write[path] = {};
+				} else
+				if (VFS.READ_METHODS[method]) {
+					paths.read[path] = {};
+				}
+			};
+			function getCachePath() {
+				if (!key) {
+					throw new Error("`gateway.setKey()` must be called!");
+				}
+				return self.makePath("cache", "gateway/" + type + "/" + key);
+			}
+			function finalize(cacheData, callback) {
+				var waitfor = WAITFOR.parallel(function(err) {
+					if (err) return callback(err);
+					return FS.outputJson(getCachePath(), {
+						paths: paths,
+						data: cacheData
+					}, function(err) {
+						if (err) return callback(err);
+						return callback();
+					});
+				});
+				for (var type in paths) {
+					for (var path in paths[type]) {
+						if (typeof paths[type][path].mtime === "undefined") {
+							waitfor(type, path, function(type, path, done) {
+								return FS.exists(path, function(exists) {
+									if (!exists) {
+										paths[type][path].mtime = -1;
+										return done();
+									}
+									return FS.stat(path, function(err, stat) {
+										if (err) return done(err);
+										paths[type][path].mtime = stat.mtime.getTime();
+										return done();
+									});
+								});
+							});
+						}
+					}
+				}
+				return waitfor();
+			}
+			var api = {
+				setKey: function(_key) {
+					if (VFS) {
+						throw new Error("`gateway.getAPI()` should not be called before `gateway.onDone()`");
+					}
+					if (typeof _key !== "string") {
+						_key = JSON.stringify(_key);
+					}
+					var shasum = CRYPTO.createHash("sha1");
+					shasum.update(_key);
+					key = shasum.digest("hex");
+				},
+				onDone: function(callback, proceedCallback, notModifiedCallback) {
+					if (VFS) {
+						throw new Error("`gateway.getAPI()` should not be called before `gateway.onDone()`");
+					}
+					function proceed() {
+						return proceedCallback(null, function proxiedCallback(err) {
+							if (typeof VFS.removeListener === "function") {
+								VFS.removeListener("used-path", listener);
+							}
+							if (err) return callback(err);
+							var args = Array.prototype.slice.call(arguments, 0);
+							// NOTE: We take the last argument and write it to cache in `finalize`.
+							//       It is returned when bypassing.
+							return finalize(args.pop(), function(err) {
+								if (err) return callback(err);
+								return callback.apply(null, args);
+							});
+						});
+					}
+					var path = getCachePath();
+					return FS.exists(path, function(exists) {
+						if (!exists) return proceed();
+						return FS.readJson(path, function(err, data) {
+							if (err) return callback(err);
+							if (!data || !data.paths) return proceed();
+							// Find earliest mtime in write paths.
+							var now = Date.now();
+							var earliestMtime = now;
+							for (var path in data.paths.write) {
+								if (data.paths.write[path].mtime === -1) continue;
+								earliestMtime = Math.min(earliestMtime, data.paths.write[path].mtime);
+							}
+							// Check if no write paths with mtime found.
+							if (earliestMtime === now) return proceed();
+							var canBypass = true;
+							// Go through all read paths to see if:
+							//    * we can find one with an mtime that now does not exist (missing).
+							//    * we can find one with mtime -1 that now exists (new).
+							//    * we can find one with a newer mtime than `earliestMtime` (changed).
+							var waitfor = WAITFOR.parallel(function(err) {
+								if (err) return callback(err);
+								if (canBypass === true) {
+									// self.getAPI("console").cache("Using cached data based on path mtimes in '" + path + "'");
+									return notModifiedCallback(data.data);
+								}
+								// self.getAPI("console").info("Regenerating cached data based on path mtimes in '" + path + "' (" + canBypass + ")");
+								return proceed();
+							});
+							function checkPath(path, done) {
+								if (!canBypass) return done();
+								return FS.exists(path, function(exists) {
+									if (!canBypass) return done();
+									if (exists) {
+										if (data.paths.read[path].mtime === -1) {
+											// mtime -1 that now exists.
+											canBypass = "new";
+											return done();
+										}
+										return FS.stat(path, function(err, stat) {
+											if (err) return done(err);
+											if (stat.mtime.getTime() > earliestMtime) {
+												// a newer mtime than `earliestMtime`.
+												canBypass = "changed";
+												return done();
+											}
+											return done();
+										});
+									} else {
+										if (data.paths.read[path].mtime !== -1) {
+											// an mtime that now does not exist.
+											canBypass = "missing";
+											return done();
+										}
+										return done();
+									}
+								});
+							}
+							for (var path in data.paths.read) {
+								waitfor(path, checkPath);
+							}
+							for (var path in data.paths.write) {
+								waitfor(path, checkPath);
+							}
+							return waitfor();
+						});
+					});
+				},
+				getAPI: function(alias) {
+					if (alias !== "FS") {
+						throw new Error("API for alias '" + alias + "' not supported!");
+					}
+					VFS = self.getAPI(alias);
+					if (typeof VFS.on === "function") {
+						VFS.on("used-path", listener);
+					} else {
+						// self.getAPI("console").optimization("If `FS` is an instance of `./vfs.js` we can bypass gateway if all written files are older than read files");
+					}
+					return VFS;
+				}
+			};
+			return api;
+		}
+		throw new Error("Proxy of type '" + type + "' not supported!");
+	}
+
+/*
+
+	
+
+FileFS.prototype.getCacheManifest = function(callback) {
+	var self = this;
+	function _relpath(path) {
+		if (!path || !self._options.rootPath || !/^\//.test(path)) return path;
+		return PATH.relative(self._options.rootPath, path);
+	}
+	var waitfor = WAITFOR.parallel(function(err) {
+		if (err) return callback(err);
+		var manifest = {
+			paths: {}
+		};
+		for (var path in self._usedPaths) {
+			manifest.paths[_relpath(path)] = {
+				mtime: self._usedPaths[path].mtime
+			};
+		}
+		return callback(null, manifest);
+	});
+	for (var path in self._usedPaths) {
+		if (typeof self._usedPaths[path].mtime === "undefined") {
+			waitfor(path, function(path, done) {
+				return FS.exists(path, function(exists) {
+					if (!exists) {
+						self._usedPaths[path].mtime = -1;
+						return done();
+					}
+					return FS.stat(path, function(err, stat) {
+						if (err) return done(err);
+						self._usedPaths[path].mtime = stat.mtime.getTime();
+						return done();
+					});
+				});
+			});
+		}
+	}
+	return waitfor();
+}
+*/
 
 	Context.prototype.makePath = function(type, path) {
 		return ensureParentPath(this.paths[type], path);
@@ -311,7 +646,7 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 	            PINF_PACKAGE: PATH.join(path, "package.json")
 	        }
         };
-        var packages = self.__proto__._descriptors.program.combined.packages;
+        var packages = self._descriptors.program.combined.packages;
 
         for (var uri in packages) {
 	    	if (packages[uri].dirpath === path) {
@@ -319,11 +654,11 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 	    		var config = packages[uri].combined.config || {};
 	    		if (
 	    			packages[uri].combined.uid &&
-	    			self.__proto__._descriptors.program.combined &&
-	    			self.__proto__._descriptors.program.combined.config &&
-	    			self.__proto__._descriptors.program.combined.config[packages[uri].combined.uid]
+	    			self._descriptors.program.combined &&
+	    			self._descriptors.program.combined.config &&
+	    			self._descriptors.program.combined.config[packages[uri].combined.uid]
 	    		) {
-	    			config = DEEPMERGE(config, self.__proto__._descriptors.program.combined.config[packages[uri].combined.uid]);
+	    			config = DEEPMERGE(config, self._descriptors.program.combined.config[packages[uri].combined.uid]);
 	    		}
 		        info.package = {
 		            path: packages[uri].dirpath,
@@ -346,7 +681,7 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 	            path: self.paths.program,
 	            runtime: self.env.PINF_RUNTIME,
 	            events: {},
-	            descriptor: DEEPCOPY(self.__proto__._descriptors.program.combined)
+	            descriptor: DEEPCOPY(self._descriptors.program.combined)
 	        },
 	        packages: {}
         };
@@ -402,6 +737,7 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 			info.program.events.listen[eventId].forEach(function(handler) {
 				var packageInfo = info.packages[handler.package];
 		    	if (!context.vm) {
+console.log("Don't attach VM here. Create new object and inherit context");
 					context.__proto__.vm = new VM(context);
 				}
 				return waitfor(function(done) {
@@ -431,12 +767,33 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 		});
 	}
 
-	Context.prototype.startProgram = function(callback) {
+	Context.prototype.runProgram = function(callback) {
 		var self = this;
-		return self.updateRuntimeConfig(["pinf/0/runtime/control/0", "program"], {
+		return self.startProgram({
+			run: true
+		}, function(err) {
+			if (err) return callback(err);
+			return self.stopProgram(callback);
+		});
+	}
+
+	Context.prototype.startProgram = function(options, callback) {
+		var self = this;
+		if (typeof options === "function" && typeof callback === "undefined") {
+			callback = options;
+			options = null;
+		}
+		options = options || {};
+		// TODO: Don't start again if already started.
+		var config = {
 			status: "starting",
+			daemonize: true,
 			daemons: {}
-		}, function(err, config) {
+		};
+		if (options.run === true) {
+			config.daemonize = false;
+		}
+		return self.updateRuntimeConfig(["pinf/0/runtime/control/0", "program"], config, function(err, config) {
 			if (err) return callback(err);
 			return notifyPackages(self, "pinf/0/runtime/control/0#events/start", config, function(err, config) {
 				if (err) return callback(err);
@@ -448,6 +805,7 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 
 	Context.prototype.stopProgram = function(callback) {
 		var self = this;
+		// TODO: Don't stop if not started.
 		return self.updateRuntimeConfig(["pinf/0/runtime/control/0", "program"], {
 			status: "stopping"
 		}, function(err, config) {
@@ -470,6 +828,38 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 		} catch(err) {
 			return callback(err);
 		}
+	}
+
+	Context.prototype.testProgram = function(callback) {
+		var self = this;
+		return self.startProgram(function(err) {
+			if (err) return callback(err);
+
+console.log("TODO: Run tests program.");
+
+			return self.stopProgram(callback);
+		});
+	}
+
+	Context.prototype.openProgram = function(callback) {
+		var self = this;
+
+		return exports.context(programDescriptorPath, PATH.join(__dirname, ".."), {
+			PINF_PROGRAM: self.env.PINF_PROGRAM,
+			PINF_RUNTIME: self.env.PINF_RUNTIME,
+			uid: "pinf/0/project/control/0"
+		}, function(err, context) {
+			if (err) return callback(err);
+			if (typeof context.config.open === "undefined") {
+				return callback(new Error('No open command specified in program config at `config["pinf/0/project/control/0"].open`'));				
+			}
+
+console.log("TODO: Call `context.config.open` to open program.");
+
+			return callback(null, {
+				active: false
+			});
+		});
 	}
 
 
@@ -521,7 +911,7 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 						delete descriptor.config;
 					}
 
-		            context.__proto__._descriptors.program = descriptor;
+		            context._descriptors.program = descriptor;
 
 					if (env.PINF_PACKAGE) {
 						packageDescriptorPath = env.PINF_PACKAGE;
@@ -549,7 +939,7 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 							context.config.push([descriptor.combined.config, "package"]);
 							delete descriptor.config;
 						}
-			            context.__proto__._descriptors.package = descriptor;
+			            context._descriptors.package = descriptor;
 
 			            // TODO: Write cache file.
 
@@ -562,7 +952,7 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 				if (err) return callback(err);
 
 				function importEnvVars(callback) {
-					var descriptor = context.__proto__._descriptors.package;
+					var descriptor = context._descriptors.package;
 					if (!descriptor.combined.requirements || !descriptor.combined.requirements.env) {
 						return callback(null);
 					}
@@ -703,9 +1093,9 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 				cache: makePath("cache"),
 				tmp: makePath("tmp")
 			};
-			if (context.__proto__._descriptors.package.combined.layout && context.__proto__._descriptors.package.combined.layout.directories) {
-				for (var name in context.__proto__._descriptors.package.combined.layout.directories) {
-					context.paths[name] = PATH.join(context.env.PINF_PACKAGE, "..", context.__proto__._descriptors.package.combined.layout.directories[name]);
+			if (context._descriptors.package.combined.layout && context._descriptors.package.combined.layout.directories) {
+				for (var name in context._descriptors.package.combined.layout.directories) {
+					context.paths[name] = PATH.join(context.env.PINF_PACKAGE, "..", context._descriptors.package.combined.layout.directories[name]);
 				}
 			}
 			return callback(null);
@@ -714,8 +1104,11 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 		return loadConfigs(function(err) {
 			if (err) return callback(err);
 
-			if (context.__proto__._descriptors.package.combined.uid) {
-				context.uid = exports.formatUid(context.__proto__._descriptors.package.combined.uid);
+			if (options.uid) {
+				context.uid = options.uid;
+			} else
+			if (context._descriptors.package.combined.uid) {
+				context.uid = exports.formatUid(context._descriptors.package.combined.uid);
 			}
 
 			return injectPinfVars(function(err) {
@@ -3248,6 +3641,10 @@ exports.parse = function(packagePath, options, callback) {
 
 		options = options || {};
 
+		options.API = {
+			FS: (options.$pinf && options.$pinf.getAPI("FS")) || FS
+		};
+
 		options._realpath = function(path) {
 			if (!options.rootPath) return path;
 			if (/^\//.test(path)) return path;
@@ -3259,10 +3656,10 @@ exports.parse = function(packagePath, options, callback) {
 			return PATH.relative(options.rootPath, path);
 		}
 
-		ASSERT(FS.existsSync(options._realpath(packagePath)), "path '" + options._realpath(packagePath) + "' does not exist");
+		ASSERT(options.API.FS.existsSync(options._realpath(packagePath)), "path '" + options._realpath(packagePath) + "' does not exist");
 
 		// TODO: Use async equivalent.
-		if (!FS.statSync(options._realpath(packagePath)).isDirectory()) {
+		if (!options.API.FS.statSync(options._realpath(packagePath)).isDirectory()) {
 			packagePath = PATH.dirname(packagePath);
 		}
 
@@ -3353,6 +3750,10 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 
 		options = options || {};
 
+		options.API = {
+			FS: (options.$pinf && options.$pinf.getAPI("FS")) || FS
+		};
+
 		options.packagePath = options.packagePath || PATH.dirname(descriptorPath);
 
 		options._realpath = function(path) {
@@ -3407,13 +3808,18 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 							packagesPaths = packagesPaths.concat(env.PINF_PACKAGES.split(":").map(options._relpath));
 						}
 						if (packagesPaths.length === 0) {
-							return callback(new Error("`PINF_PACKAGES` env variable or `layout.directories.packages` in descriptor must be set to resolve extends uri '" + uri + "'"));
+							// TODO: Call normalize on descriptor and get directory from `descriptor.layout.directories.packages` instead of calling `FS.existsSync` and assuming `node_modules`.
+							if (options.API.FS.existsSync(PATH.join(options._realpath(options.packagePath), "node_modules"))) {
+								packagesPaths.push("./node_modules");
+							} else {
+								return callback(new Error("`PINF_PACKAGES` env variable or `layout.directories.packages` in descriptor must be set to resolve extends uri '" + uri + "'"));
+							}
 						}
 						packagesPaths.forEach(function(packagesPath) {
 							waitfor(function(done) {
 								if (foundPath) return done();
 								var lookupPath = PATH.join(packagesPath, uri);
-								return FS.exists(options._realpath(lookupPath), function(exists) {
+								return options.API.FS.exists(options._realpath(lookupPath), function(exists) {
 									if (exists) {
 										foundPath = lookupPath;
 									}
@@ -3428,7 +3834,7 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 				}
 
 				function loadAugmentAndParseJSON(callback) {
-					return FS.readFile(path, function(err, data) {
+					return options.API.FS.readFile(path, function(err, data) {
 						if (err) return callback(err);
 						var raw = null;
 						var obj = null;
@@ -3466,7 +3872,7 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 										if (options.debug) console.log("[pinf] WARN: Injection uri '" + uri + "' could not be resolved to path!");
 										return done();
 									}
-									return FS.readFile(injectionPath, function(err, raw) {
+									return options.API.FS.readFile(injectionPath, function(err, raw) {
 										if (err) return done(err);
 										raw = raw.toString();
 										// Replace environment variables.
@@ -3520,7 +3926,7 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 
 				descriptor.lookupPaths.push(options._relpath(path));
 
-				return FS.exists(path, function(exists) {
+				return options.API.FS.exists(path, function(exists) {
 					if (!exists) {
 						return callback(null, null);
 					}
@@ -3977,7 +4383,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 				return callback(null);
 			}
 			// TODO: Look for other indicators as well.
-			return FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), "node_modules"), function(exists) {
+			return options.API.FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), "node_modules"), function(exists) {
 				if (exists || PATH.basename(PATH.dirname(PATH.dirname(options._realpath(descriptorPath)))) === "node_modules") {
 					if (!descriptor.normalized.pm) {
 						descriptor.normalized.pm = {};
@@ -4013,7 +4419,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 			if (!descriptorPath) {
 				return callback(null);
 			}
-			return FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), "node_modules"), function(exists) {
+			return options.API.FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), "node_modules"), function(exists) {
 				if (
 					exists ||
 					PATH.basename(PATH.dirname(PATH.dirname(options._realpath(descriptorPath)))) === "node_modules" ||
@@ -4040,7 +4446,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 				descriptor.normalized.layout.directories &&
 				typeof descriptor.normalized.layout.directories.dependency !== "undefined"
 			) {
-				return FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.layout.directories.dependency), function(exists) {
+				return options.API.FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.layout.directories.dependency), function(exists) {
 					if (!exists) return callback(null);
 					if (!descriptor.normalized.dependencies) {
 						descriptor.normalized.dependencies = {};
@@ -4051,7 +4457,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 					if (!descriptor.normalized.mappings) {
 						descriptor.normalized.mappings = {};
 					}
-					return FS.readdir(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.layout.directories.dependency), function(err, filenames) {
+					return options.API.FS.readdir(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.layout.directories.dependency), function(err, filenames) {
 						if (err) return callback(err);
 						filenames.forEach(function(filename) {
 							descriptor.normalized.dependencies.bundled[filename] = "./" + descriptor.normalized.layout.directories.dependency + "/" + filename;
@@ -4086,7 +4492,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 						!/\.js$/.test(descriptor.normalized.exports.main)
 					) {
 						var path = PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.exports.main);
-						return FS.exists(path, function(exists) {
+						return options.API.FS.exists(path, function(exists) {
 							if (exists) return callback(null);
 							var ext = false;
 							if (descriptor.normalized.pm) {
@@ -4098,7 +4504,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 								}
 							}
 							path += ext || ".js";
-							return FS.exists(path, function(exists) {
+							return options.API.FS.exists(path, function(exists) {
 								if (exists) {
 									descriptor.normalized.exports.main += ".js";
 								} else {
@@ -4113,7 +4519,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 						!descriptor.normalized.exports.main
 					) {
 						var path = PATH.join(PATH.dirname(options._realpath(descriptorPath)), "index.js");
-						return FS.exists(path, function(exists) {
+						return options.API.FS.exists(path, function(exists) {
 							if (exists) {
 								if (!descriptor.normalized.exports) {
 									descriptor.normalized.exports = {};
@@ -4141,12 +4547,12 @@ function normalize(descriptorPath, descriptor, options, callback) {
 							if (options.rootPath && options._realpath(packagePath).substring(0, options.rootPath.length) !== options.rootPath) {
 								return callback(null);
 							}
-							return FS.exists(PATH.join(options._realpath(packagePath), "node_modules"), function(exists) {
+							return options.API.FS.exists(PATH.join(options._realpath(packagePath), "node_modules"), function(exists) {
 								if (!exists) {
 									if (options._realpath(packagePath) === "/") return callback(null);
 									return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
 								}
-								return FS.readdir(PATH.join(options._realpath(packagePath), "node_modules"), function(err, filenames) {
+								return options.API.FS.readdir(PATH.join(options._realpath(packagePath), "node_modules"), function(err, filenames) {
 									if (err) return callback(err);
 									filenames.forEach(function(filename) {
 										if (!descriptor.normalized.dependencies) {
@@ -5624,6 +6030,10 @@ exports.parse = function(packagePath, options, callback) {
 
 		options = options || {};
 
+		options.API = {
+			FS: (options.$pinf && options.$pinf.getAPI("FS")) || FS
+		};
+
 		options._realpath = function(path) {
 			if (!options.rootPath) return path;
 			if (/^\//.test(path)) return path;
@@ -5635,10 +6045,10 @@ exports.parse = function(packagePath, options, callback) {
 			return PATH.relative(options.rootPath, path);
 		}
 
-		ASSERT(FS.existsSync(options._realpath(packagePath)), "path '" + options._realpath(packagePath) + "' does not exist");
+		ASSERT(options.API.FS.existsSync(options._realpath(packagePath)), "path '" + options._realpath(packagePath) + "' does not exist");
 
 		// TODO: Use async equivalent.
-		if (!FS.statSync(options._realpath(packagePath)).isDirectory()) {
+		if (!options.API.FS.statSync(options._realpath(packagePath)).isDirectory()) {
 			packagePath = PATH.dirname(packagePath);
 		}
 
@@ -5729,6 +6139,10 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 
 		options = options || {};
 
+		options.API = {
+			FS: (options.$pinf && options.$pinf.getAPI("FS")) || FS
+		};
+
 		options.packagePath = options.packagePath || PATH.dirname(descriptorPath);
 
 		options._realpath = function(path) {
@@ -5783,13 +6197,18 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 							packagesPaths = packagesPaths.concat(env.PINF_PACKAGES.split(":").map(options._relpath));
 						}
 						if (packagesPaths.length === 0) {
-							return callback(new Error("`PINF_PACKAGES` env variable or `layout.directories.packages` in descriptor must be set to resolve extends uri '" + uri + "'"));
+							// TODO: Call normalize on descriptor and get directory from `descriptor.layout.directories.packages` instead of calling `FS.existsSync` and assuming `node_modules`.
+							if (options.API.FS.existsSync(PATH.join(options._realpath(options.packagePath), "node_modules"))) {
+								packagesPaths.push("./node_modules");
+							} else {
+								return callback(new Error("`PINF_PACKAGES` env variable or `layout.directories.packages` in descriptor must be set to resolve extends uri '" + uri + "'"));
+							}
 						}
 						packagesPaths.forEach(function(packagesPath) {
 							waitfor(function(done) {
 								if (foundPath) return done();
 								var lookupPath = PATH.join(packagesPath, uri);
-								return FS.exists(options._realpath(lookupPath), function(exists) {
+								return options.API.FS.exists(options._realpath(lookupPath), function(exists) {
 									if (exists) {
 										foundPath = lookupPath;
 									}
@@ -5804,7 +6223,7 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 				}
 
 				function loadAugmentAndParseJSON(callback) {
-					return FS.readFile(path, function(err, data) {
+					return options.API.FS.readFile(path, function(err, data) {
 						if (err) return callback(err);
 						var raw = null;
 						var obj = null;
@@ -5842,7 +6261,7 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 										if (options.debug) console.log("[pinf] WARN: Injection uri '" + uri + "' could not be resolved to path!");
 										return done();
 									}
-									return FS.readFile(injectionPath, function(err, raw) {
+									return options.API.FS.readFile(injectionPath, function(err, raw) {
 										if (err) return done(err);
 										raw = raw.toString();
 										// Replace environment variables.
@@ -5896,7 +6315,7 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 
 				descriptor.lookupPaths.push(options._relpath(path));
 
-				return FS.exists(path, function(exists) {
+				return options.API.FS.exists(path, function(exists) {
 					if (!exists) {
 						return callback(null, null);
 					}
@@ -6353,7 +6772,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 				return callback(null);
 			}
 			// TODO: Look for other indicators as well.
-			return FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), "node_modules"), function(exists) {
+			return options.API.FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), "node_modules"), function(exists) {
 				if (exists || PATH.basename(PATH.dirname(PATH.dirname(options._realpath(descriptorPath)))) === "node_modules") {
 					if (!descriptor.normalized.pm) {
 						descriptor.normalized.pm = {};
@@ -6389,7 +6808,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 			if (!descriptorPath) {
 				return callback(null);
 			}
-			return FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), "node_modules"), function(exists) {
+			return options.API.FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), "node_modules"), function(exists) {
 				if (
 					exists ||
 					PATH.basename(PATH.dirname(PATH.dirname(options._realpath(descriptorPath)))) === "node_modules" ||
@@ -6416,7 +6835,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 				descriptor.normalized.layout.directories &&
 				typeof descriptor.normalized.layout.directories.dependency !== "undefined"
 			) {
-				return FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.layout.directories.dependency), function(exists) {
+				return options.API.FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.layout.directories.dependency), function(exists) {
 					if (!exists) return callback(null);
 					if (!descriptor.normalized.dependencies) {
 						descriptor.normalized.dependencies = {};
@@ -6427,7 +6846,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 					if (!descriptor.normalized.mappings) {
 						descriptor.normalized.mappings = {};
 					}
-					return FS.readdir(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.layout.directories.dependency), function(err, filenames) {
+					return options.API.FS.readdir(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.layout.directories.dependency), function(err, filenames) {
 						if (err) return callback(err);
 						filenames.forEach(function(filename) {
 							descriptor.normalized.dependencies.bundled[filename] = "./" + descriptor.normalized.layout.directories.dependency + "/" + filename;
@@ -6462,7 +6881,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 						!/\.js$/.test(descriptor.normalized.exports.main)
 					) {
 						var path = PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.exports.main);
-						return FS.exists(path, function(exists) {
+						return options.API.FS.exists(path, function(exists) {
 							if (exists) return callback(null);
 							var ext = false;
 							if (descriptor.normalized.pm) {
@@ -6474,7 +6893,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 								}
 							}
 							path += ext || ".js";
-							return FS.exists(path, function(exists) {
+							return options.API.FS.exists(path, function(exists) {
 								if (exists) {
 									descriptor.normalized.exports.main += ".js";
 								} else {
@@ -6489,7 +6908,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 						!descriptor.normalized.exports.main
 					) {
 						var path = PATH.join(PATH.dirname(options._realpath(descriptorPath)), "index.js");
-						return FS.exists(path, function(exists) {
+						return options.API.FS.exists(path, function(exists) {
 							if (exists) {
 								if (!descriptor.normalized.exports) {
 									descriptor.normalized.exports = {};
@@ -6517,12 +6936,12 @@ function normalize(descriptorPath, descriptor, options, callback) {
 							if (options.rootPath && options._realpath(packagePath).substring(0, options.rootPath.length) !== options.rootPath) {
 								return callback(null);
 							}
-							return FS.exists(PATH.join(options._realpath(packagePath), "node_modules"), function(exists) {
+							return options.API.FS.exists(PATH.join(options._realpath(packagePath), "node_modules"), function(exists) {
 								if (!exists) {
 									if (options._realpath(packagePath) === "/") return callback(null);
 									return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
 								}
-								return FS.readdir(PATH.join(options._realpath(packagePath), "node_modules"), function(err, filenames) {
+								return options.API.FS.readdir(PATH.join(options._realpath(packagePath), "node_modules"), function(err, filenames) {
 									if (err) return callback(err);
 									filenames.forEach(function(filename) {
 										if (!descriptor.normalized.dependencies) {
@@ -7299,12 +7718,13 @@ const ASSERT = require("__SYSTEM__/assert");
 const PATH = require("__SYSTEM__/path");
 const FS = require("fs-extra");
 const RT_BUNDLER = require("pinf-it-bundler/lib/rt-bundler");
-const PINF = require("..");
+const LOADER = require("./loader");
 const CONTEXT = require("./context");
+const VFS = require("./vfs");
 
 
-var VM = exports.VM = function(PINF_CONTEXT) {
-	this.PINF_CONTEXT = PINF_CONTEXT;
+var VM = exports.VM = function($pinf) {
+	this.$pinf = $pinf;
 	this.sandboxes = {};
 }
 
@@ -7319,36 +7739,53 @@ VM.prototype.loadPackage = function(uri, options, callback) {
 	if (self.sandboxes[key]) {
 		return callback(null, self.sandboxes[uri]);
 	}
-	var distPath = self.PINF_CONTEXT.makePath("cache", PATH.join("vm", CONTEXT.uriToFilename(uri), "dist"));
-	var lastBundlePath = null;
-	var opts = {
+
+	var distPath = self.$pinf.makePath("cache", PATH.join("vm", CONTEXT.uriToFilename(uri), "dist"));
+	var opts = self.$pinf.makeOptions({
+		$pinf: options.$pinf || null,
 		verbose: options.verbose || false,
 		debug: options.debug || false,
 		test: options.test || false,
+		rootPath: options.rootPath,
 		rootModule: options.rootModule,
 		distPath: distPath,
 		onRun: function(bundlePath, sandboxOptions, callback) {
-			lastBundlePath = bundlePath;
-			return PINF.sandbox(bundlePath, sandboxOptions, function(sandbox) {
+			return LOADER.sandbox(bundlePath, sandboxOptions, function(sandbox) {
 				return callback();
 			}, callback);
 		},
 		getLoaderReport: function() {
-			return PINF.getReport();
+			return LOADER.getReport();
 		}
-	};
-	FS.removeSync(opts.distPath);
-	return RT_BUNDLER.bundlePackage(uri, opts, function(err, bundleDescriptors, helpers) {
+	});
+
+	if (options.$pinf && options.$pinf.ttl === -1) {
+		// Remove the dist path to force re-generate the bundle.
+		FS.removeSync(opts.distPath);
+	} else {
+		// TODO: We don't remove the dist path by default now that the bundler cache is working.
+		//       We may still need to get the bundler to delete the dist file or clean it up
+		//		 rather than just agument it if it retains stale data.
+	}
+
+	return VFS.open("file://", opts, function(err, vfs) {
 		if (err) return callback(err);
-		return PINF.sandbox(lastBundlePath, {
-			verbose: options.verbose || false,
-			debug: options.debug || false,
-            resolveDynamicSync: helpers.resolveDynamicSync,
-            ensureAsync: helpers.ensureAsync
-		}, function(sandbox) {
-			self.sandboxes[key] = sandbox;
-			return callback(null, sandbox);
-		}, callback);
+
+		opts.$pinf._api.FS = vfs;
+
+		return RT_BUNDLER.bundlePackage(uri, opts, function(err, bundleDescriptors, helpers) {
+			if (err) return callback(err);
+
+			return LOADER.sandbox(bundleDescriptors["#pinf"].data.rootBundlePath, {
+				verbose: options.verbose || false,
+				debug: options.debug || false,
+	            resolveDynamicSync: helpers.resolveDynamicSync,
+	            ensureAsync: helpers.ensureAsync
+			}, function(sandbox) {
+				self.sandboxes[key] = sandbox;
+				return callback(null, sandbox);
+			}, callback);
+		});
 	});
 }
 
@@ -7371,401 +7808,463 @@ exports.bundlePackage = function(bundlePackagePath, bundleOptions, callback) {
 	ASSERT.equal(typeof bundleOptions.distPath, "string");
 	ASSERT.equal(typeof bundleOptions.onRun, "function");
 
-	var bundleDescriptors = {};
+	bundleOptions.API = {
+		FS: FS
+	};
 
-	function bundleDescriptorForId(bundleId) {
-		for (var id in bundleDescriptors) {
-			if (id === bundleId) {
-				if (bundleDescriptors[id].bundles) {
-					return bundleDescriptors[id].bundles[bundleDescriptors[id].exports.main];
-				} else {
-					return bundleDescriptors[id];
-				}
-			}
-			for (var subid in bundleDescriptors[id].bundles) {
-				if (bundleDescriptors[id].bundles[subid].bundle.path === bundleId) {
-					return bundleDescriptors[id].bundles[subid];
-				} else
-				if ((bundleOptions.distPath + subid) === bundleId) {
-					return bundleDescriptors[id].bundles[subid];
-				}
-			}
+	var rootBundlePath = null;
+
+	function bypassIfWeCan(proceedCallback) {
+		if (!bundleOptions.$pinf) {
+			return proceedCallback(callback);
 		}
-		return null;
+		var gateway = bundleOptions.$pinf.gateway("vfs-write-from-read-mtime-bypass");
+		// All criteria that makes this call (argument combination) unique.
+		gateway.setKey({
+			bundlePackagePath: bundlePackagePath,
+			distPath: bundleOptions.distPath
+		});
+		// NOTE: `callback` will be called by gateway right away if we can bypass.
+		return gateway.onDone(callback, function(err, proxiedCallback) {
+			if (err) return 
+			// If callback was triggered above we will get an empty callback back so we can just stop here.
+			if (!proxiedCallback) return;
+			bundleOptions.API.FS = gateway.getAPI("FS");
+			return proceedCallback(proxiedCallback);
+		}, function(cachedData) {
+			// NOTE: Keep in sync with return values used at bottom of this code file.
+			return callback(null, {
+				"#pinf": {
+					status: 403,
+					data: cachedData
+				}
+			}, {
+				ensureAsync: function() {
+console.log("OPPS we need more modules! ensureAsync");					
+				},
+				resolveDynamicSync: function () {
+console.log("OPPS we need more modules! resolveDynamicSync");					
+				}
+			});
+		});
 	}
 
-	function getExistingModules(moduleObj) {
+	return bypassIfWeCan(function(callback) {
 
-		var loaderReport = bundleOptions.getLoaderReport();
+		var bundleDescriptors = {};
 
-		ASSERT.equal(typeof loaderReport.sandboxes, "object");
+		function bundleDescriptorForId(bundleId) {
+			for (var id in bundleDescriptors) {
+				if (id === bundleId) {
+					if (bundleDescriptors[id].bundles) {
+						return bundleDescriptors[id].bundles[bundleDescriptors[id].exports.main];
+					} else {
+						return bundleDescriptors[id];
+					}
+				}
+				for (var subid in bundleDescriptors[id].bundles) {
+					if (bundleDescriptors[id].bundles[subid].bundle.path === bundleId) {
+						return bundleDescriptors[id].bundles[subid];
+					} else
+					if ((bundleOptions.distPath + subid) === bundleId) {
+						return bundleDescriptors[id].bundles[subid];
+					}
+				}
+			}
+			return null;
+		}
 
-		function getSandbox() {
+		function getExistingModules(moduleObj) {
+
+			var loaderReport = bundleOptions.getLoaderReport();
+
+			ASSERT.equal(typeof loaderReport.sandboxes, "object");
+
+			function getSandbox() {
+				ASSERT.equal(typeof moduleObj.bundle, "string");
+
+				for (var sandboxId in loaderReport.sandboxes) {
+
+					ASSERT.equal(typeof loaderReport.sandboxes[sandboxId].bundles, "object");
+
+					if (typeof loaderReport.sandboxes[sandboxId].bundles[moduleObj.bundle] === "undefined") continue;
+
+					return loaderReport.sandboxes[sandboxId];
+				}
+
+				return false;
+			}
+
+			var sandbox = getSandbox();
+
+			var modules = {};
+
+			function forModule(moduleObj) {
+
+				var bundleDescriptor = bundleDescriptorForId(moduleObj.bundle);
+
+				if (bundleDescriptor) {
+					for (var memoizeId in sandbox.modules) {
+						if (!modules[memoizeId] && bundleDescriptor.modules[memoizeId]) {
+							modules[memoizeId] = bundleDescriptor.modules[memoizeId];
+							modules[memoizeId]._getBundleDescriptor = function() {
+								return bundleDescriptor;
+							}
+						}
+					}
+				}
+
+				if (moduleObj.parentModule) return forModule(moduleObj.parentModule);
+			}
+
+			forModule(moduleObj);
+
+			return modules;
+		}
+
+		function getBundleBasePath(moduleObj) {
+
 			ASSERT.equal(typeof moduleObj.bundle, "string");
 
-			for (var sandboxId in loaderReport.sandboxes) {
-
-				ASSERT.equal(typeof loaderReport.sandboxes[sandboxId].bundles, "object");
-
-				if (typeof loaderReport.sandboxes[sandboxId].bundles[moduleObj.bundle] === "undefined") continue;
-
-				return loaderReport.sandboxes[sandboxId];
-			}
-
-			return false;
+			return moduleObj.bundle.replace(/\.js$/, "");
 		}
 
-		var sandbox = getSandbox();
+		// `aliasid` id a mappings alias (if mappings info not memoized) or a
+		// resolved package ID (if mappings info already memoized).
+		function getMappingInfo(moduleObj, aliasid) {
 
-		var modules = {};
+			var loaderReport = bundleOptions.getLoaderReport();
 
-		function forModule(moduleObj) {
+			ASSERT.equal(typeof loaderReport.sandboxes, "object");
 
-			var bundleDescriptor = bundleDescriptorForId(moduleObj.bundle);
+			var info = null;
+			var packageDescriptorPaths = [];
 
-			if (bundleDescriptor) {
-				for (var memoizeId in sandbox.modules) {
-					if (!modules[memoizeId] && bundleDescriptor.modules[memoizeId]) {
-						modules[memoizeId] = bundleDescriptor.modules[memoizeId];
-						modules[memoizeId]._getBundleDescriptor = function() {
-							return bundleDescriptor;
-						}
-					}
-				}
-			}
+			function forModule(moduleObj) {
 
-			if (moduleObj.parentModule) return forModule(moduleObj.parentModule);
-		}
+				ASSERT.equal(typeof moduleObj.bundle, "string");
 
-		forModule(moduleObj);
+				for (var sandboxId in loaderReport.sandboxes) {
 
-		return modules;
-	}
+					ASSERT.equal(typeof loaderReport.sandboxes[sandboxId].bundles, "object");
 
-	function getBundleBasePath(moduleObj) {
+					if (typeof loaderReport.sandboxes[sandboxId].bundles[moduleObj.bundle] === "undefined") continue;
 
-		ASSERT.equal(typeof moduleObj.bundle, "string");
+					var sandbox = loaderReport.sandboxes[sandboxId];
 
-		return moduleObj.bundle.replace(/\.js$/, "");
-	}
-
-	// `aliasid` id a mappings alias (if mappings info not memoized) or a
-	// resolved package ID (if mappings info already memoized).
-	function getMappingInfo(moduleObj, aliasid) {
-
-		var loaderReport = bundleOptions.getLoaderReport();
-
-		ASSERT.equal(typeof loaderReport.sandboxes, "object");
-
-		var info = null;
-		var packageDescriptorPaths = [];
-
-		function forModule(moduleObj) {
-
-			ASSERT.equal(typeof moduleObj.bundle, "string");
-
-			for (var sandboxId in loaderReport.sandboxes) {
-
-				ASSERT.equal(typeof loaderReport.sandboxes[sandboxId].bundles, "object");
-
-				if (typeof loaderReport.sandboxes[sandboxId].bundles[moduleObj.bundle] === "undefined") continue;
-
-				var sandbox = loaderReport.sandboxes[sandboxId];
-
-				// See if `aliasid` is an alias for a package or resolved packge ID already.
-				if (sandbox.modules[moduleObj.pkg + "/package.json"] && sandbox.modules[moduleObj.pkg + "/package.json"].mappings) {
-					for (var alias in sandbox.modules["/package.json"].mappings) {
-						if (sandbox.modules[moduleObj.pkg + "/package.json"].mappings[alias] === aliasid) {
-							info = {
-								alias: alias,
-								pkg: aliasid,
-								memoized: true
-							};
-							break;
-						} else
-						if (alias === aliasid) {
-							info = {
-								alias: aliasid,
-								pkg: sandbox.modules[moduleObj.pkg + "/package.json"].mappings[alias],
-								memoized: true
-							};
-							break;
-						}
-					}					
-				}
-
-				var packageDescriptor = null;
-				var bundleDescriptor = null;
-				var existingModules = getExistingModules(moduleObj);
-
-				if (existingModules[moduleObj.pkg + "/package.json"]) {
-					packageDescriptor = existingModules[moduleObj.pkg + "/package.json"].descriptor;
-					bundleDescriptor = existingModules[moduleObj.pkg + "/package.json"]._getBundleDescriptor();
-				} else {
-					bundleDescriptor = bundleDescriptorForId(moduleObj.bundle);
-					packageDescriptor = bundleDescriptor.modules[moduleObj.pkg + "/package.json"].descriptor
-				}
-
-				packageDescriptorPaths.push(PATH.join(bundleOptions.rootPath || "", packageDescriptor.dirpath));
-
-				// If mapping was not found we look for it in the bundle info.
-				if (!info) {
-					for (var alias in packageDescriptor.combined.mappings) {
-						if (packageDescriptor.combined.mappings[alias] === aliasid) {
-							info = {
-								alias: alias,
-								pkg: aliasid,
-								memoized: false
-							};
-							break;
-						} else
-						if (alias === aliasid) {
-							info = {
-								alias: aliasid,
-								pkg: packageDescriptor.combined.mappings[alias],
-								memoized: false
-							};
-							break;
-						}
-					}
-				}
-
-				if (info) {
-					info.bundleDescriptor = bundleDescriptor;
-					info.path = packageDescriptor.combined.dependencies.bundled[info.alias];
-					var parentPath = packageDescriptor.dirpath.substring(bundlePackagePath.length + 1);
-					if (parentPath) {
-						info.path = "./" + PATH.join(parentPath, info.path);
-					}
-				}
-
-				// We stop as we checked the sandbox 
-				return;
-			}
-		}
-
-		forModule(moduleObj);
-
-		if (!info) throw new Error("Alias '" + aliasid + "' not found in mappings for package " + JSON.stringify(packageDescriptorPaths));
-
-		return info;
-	}
-
-	return BUNDLER.bundlePackage(bundlePackagePath, bundleOptions, function(err, descriptor) {
-		if (err) return callback(err);
-
-		bundleDescriptors[bundlePackagePath] = descriptor;
-
-		try {
-
-			ASSERT(typeof descriptor === "object");
-
-			if (descriptor.errors.length > 0) {
-				descriptor.errors.forEach(function(error) {
-					var err = new Error("Got '" + error[0] + "' error '" + error[1] + "' for '" + bundlePackagePath + "'");
-					err.stack = error[2];
-					throw err;
-				});
-			}
-
-		} catch(err) {
-			return callback(err);
-		}
-
-		var bundling = [];
-
-		function resolveDynamicSync (moduleObj, pkg, sandbox, canonicalId, options) {
-
-			if (bundleOptions.debug) console.log("[pinf-it-bundler] resolveDynamicSync", "moduleObj", moduleObj, "pkg", pkg, "sandbox", sandbox, "canonicalId", canonicalId);
-
-			var path = null;
-
-			moduleObj = moduleObj || options.lastModuleRequireContext.moduleObj;
-
-			var bundleBasePath = getBundleBasePath(moduleObj);
-
-			if (/^\//.test(canonicalId)) {
-				path = PATH.join(bundleBasePath, canonicalId);
-
-				if (!FS.existsSync(PATH.join(bundleOptions.rootPath, path))) {
-					var filePath = PATH.join(bundlePackagePath, canonicalId);
-					var options = {
-						debug: bundleOptions.debug || false,
-						test: bundleOptions.test || false,
-						rootPath: bundleOptions.rootPath,
-						distPath: bundleBasePath,
-						existingModules: getExistingModules(moduleObj)
-					};
-
-					var deferred = Q.defer();
-					BUNDLER.bundleFile(filePath, options, function(err, descriptor) {
-						if (err) return deferred.reject(err);
-
-						bundleDescriptors[path] = descriptor;
-
-						return deferred.resolve();
-					});
-					bundling.push(deferred.promise);
-					// We throw to stop sandbox execution and catch it below
-					// so we can re-run sandbox when bundle is generated.
-					var error = new Error("Bundling dynamic require.");
-					error.code = "BUNDLING_DYNAMIC_REQUIRE";
-					throw error;
-				}
-			} else {
-
-				if (/^\./.test(canonicalId)) {
-					var parentId = PATH.dirname(moduleObj.id);
-					canonicalId = (parentId==="/"?".":"") + PATH.normalize(PATH.join(parentId, canonicalId));
-				}
-
-				var canonicalIdParts = canonicalId.split("/");
-				var alias = canonicalIdParts.shift();
-				var id = canonicalIdParts.join("/");
-
-				var mappingInfo = null;
-				if (/^\./.test(alias)) {
-					mappingInfo = {
-						alias: "",
-						path: "",
-						pkg: "",
-						memoized: true
-					}
-				} else {
-					mappingInfo = getMappingInfo(moduleObj, alias);		
-				}
-				// Update alias and canonicalId if alias was a resolved package ID.
-				if (mappingInfo.alias !== alias) {
-					alias = mappingInfo.alias;
-					canonicalId = alias + "/" + id;
-				}
-
-				var distId = null;
-				if (mappingInfo.pkg) {
-					distId = PATH.normalize(mappingInfo.pkg + ((id) ? "/" + id : ""));//.replace(/\//g, "+")
-				} else {
-					distId = PATH.normalize(id);//.replace(/\//g, "+")
-				}
-				var distFilename = options.normalizeIdentifier(distId);
-
-				path = PATH.join(bundleBasePath, distFilename);
-
-				if (!FS.existsSync(PATH.join(bundleOptions.rootPath || "", path))) {
-
-					var filePath = PATH.join(bundlePackagePath, mappingInfo.path);
-
-					var opts = {
-						debug: bundleOptions.debug || false,
-						test: bundleOptions.test || false,
-						rootPath: bundleOptions.rootPath,
-						distPath: bundleBasePath,
-						distFilename: distFilename,
-						// TODO: Compensate for `directories.lib`
-						rootModule: ((id) ? "./" + PATH.normalize(options.normalizeIdentifier(id)) : "").replace(/^\.$/, ""),
-						rootPackage: mappingInfo.pkg,
-						existingModules: getExistingModules(moduleObj)
-					};
-
-					var deferred = Q.defer();
-					BUNDLER.bundlePackage(filePath, opts, function(err, subDescriptor) {									
-						if (err) return deferred.reject(err);
-
-						bundleDescriptors[path] = subDescriptor;
-
-						if (mappingInfo.memoized) return deferred.resolve();
-
-						// We need to add the package mapping to the calling bundle.
-
-						return BUNDLER.augmentBundle(mappingInfo.bundleDescriptor.bundle.path, opts, function(err, bundle, done) {
-							if (err) return deferred.reject(err);
-
-							var moduleInfo = bundle.modules[moduleObj.pkg + "/package.json"];
-							var descriptor = JSON.parse(moduleInfo[0]);
-							if (!descriptor.mappings) {
-								descriptor.mappings = {};
+					// See if `aliasid` is an alias for a package or resolved packge ID already.
+					if (sandbox.modules[moduleObj.pkg + "/package.json"] && sandbox.modules[moduleObj.pkg + "/package.json"].mappings) {
+						for (var alias in sandbox.modules["/package.json"].mappings) {
+							if (sandbox.modules[moduleObj.pkg + "/package.json"].mappings[alias] === aliasid) {
+								info = {
+									alias: alias,
+									pkg: aliasid,
+									memoized: true
+								};
+								break;
+							} else
+							if (alias === aliasid) {
+								info = {
+									alias: aliasid,
+									pkg: sandbox.modules[moduleObj.pkg + "/package.json"].mappings[alias],
+									memoized: true
+								};
+								break;
 							}
-							if (pkg.id !== mappingInfo.pkg) {
-								descriptor.mappings[mappingInfo.alias] = mappingInfo.pkg;
-							}
-							moduleInfo[0] = JSON.stringify(descriptor, null, 4);
-							mappingInfo.bundleDescriptor.modules[moduleObj.pkg + "/package.json"].descriptor.memoized = descriptor;
+						}					
+					}
 
-							return done(function(err) {
-								if (err) return deferred.reject(err);
-								return deferred.resolve();
-							});
-						});
-					});
-					bundling.push(deferred.promise);
-					// We throw to stop sandbox execution and catch it below
-					// so we can re-run sandbox when bundle is generated.
-					var error = new Error("Bundling dynamic require '" + canonicalId + "' for '" + ((moduleObj.parentModule && moduleObj.parentModule.id) || "<main>") + "'.");
-					error.code = "BUNDLING_DYNAMIC_REQUIRE";
-					throw error;
+					var packageDescriptor = null;
+					var bundleDescriptor = null;
+					var existingModules = getExistingModules(moduleObj);
+
+					if (existingModules[moduleObj.pkg + "/package.json"]) {
+						packageDescriptor = existingModules[moduleObj.pkg + "/package.json"].descriptor;
+						bundleDescriptor = existingModules[moduleObj.pkg + "/package.json"]._getBundleDescriptor();
+					} else {
+						bundleDescriptor = bundleDescriptorForId(moduleObj.bundle);
+						packageDescriptor = bundleDescriptor.modules[moduleObj.pkg + "/package.json"].descriptor
+					}
+
+					packageDescriptorPaths.push(PATH.join(bundleOptions.rootPath || "", packageDescriptor.dirpath));
+
+					// If mapping was not found we look for it in the bundle info.
+					if (!info) {
+						for (var alias in packageDescriptor.combined.mappings) {
+							if (packageDescriptor.combined.mappings[alias] === aliasid) {
+								info = {
+									alias: alias,
+									pkg: aliasid,
+									memoized: false
+								};
+								break;
+							} else
+							if (alias === aliasid) {
+								info = {
+									alias: aliasid,
+									pkg: packageDescriptor.combined.mappings[alias],
+									memoized: false
+								};
+								break;
+							}
+						}
+					}
+
+					if (info) {
+						info.bundleDescriptor = bundleDescriptor;
+						info.path = packageDescriptor.combined.dependencies.bundled[info.alias];
+						var parentPath = packageDescriptor.dirpath.substring(bundlePackagePath.length + 1);
+						if (parentPath) {
+							info.path = "./" + PATH.join(parentPath, info.path);
+						}
+					}
+
+					// We stop as we checked the sandbox 
+					return;
 				}
 			}
-			return path;
+
+			forModule(moduleObj);
+
+			if (!info) throw new Error("Alias '" + aliasid + "' not found in mappings for package " + JSON.stringify(packageDescriptorPaths));
+
+			return info;
 		}
 
-		function ensureAsync(moduleObj, pkg, sandbox, canonicalId, options, callback) {
+		return BUNDLER.bundlePackage(bundlePackagePath, bundleOptions, function(err, descriptor) {
+			if (err) return callback(err);
 
-			if (bundleOptions.debug) console.log("[pinf-it-bundler] ensureAsync", "moduleObj", moduleObj, "pkg", pkg, "sandbox", sandbox, "canonicalId", canonicalId);
+			bundleDescriptors[bundlePackagePath] = descriptor;
 
-		 	// If bundle is already cached we have nothing to do.
-		 	if (bundleDescriptors[BUNDLER.normalizeExtension(canonicalId)]) {
-		 		return callback(null);
-		 	}
 			try {
-				resolveDynamicSync(moduleObj, pkg, sandbox, canonicalId, options);
-				return callback(null);
-			} catch(err) {
-				if (err.code === "BUNDLING_DYNAMIC_REQUIRE") {
-					// We wait until everything is bundled and then return.
-					return Q.all(bundling).then(function() {
-						return callback(null);
-					}).fail(callback);
+
+				ASSERT(typeof descriptor === "object");
+
+				if (descriptor.errors.length > 0) {
+					descriptor.errors.forEach(function(error) {
+						var err = new Error("Got '" + error[0] + "' error '" + error[1] + "' for '" + bundlePackagePath + "'");
+						err.stack = error[2];
+						throw err;
+					});
 				}
+
+			} catch(err) {
 				return callback(err);
 			}
-		}
 
-		function runBundle() {
+			var bundling = [];
 
-			return Q.fcall(function() {
+			function resolveDynamicSync (moduleObj, pkg, sandbox, canonicalId, options) {
 
-				var deferred = Q.defer();
-				var bundlePath = PATH.join(bundleOptions.distPath, descriptor.exports.main);
+				if (bundleOptions.debug) console.log("[pinf-it-bundler] resolveDynamicSync", "moduleObj", moduleObj, "pkg", pkg, "sandbox", sandbox, "canonicalId", canonicalId);
 
-				bundleOptions.onRun(bundlePath, {
-					debug: bundleOptions.debug || false,
-					rootPath: bundleOptions.rootPath,
-					resolveDynamicSync: resolveDynamicSync,
-					ensureAsync: ensureAsync
-				}, function(err) {
-					if (err) return deferred.reject(err);
-					return deferred.resolve();
-				});
+				var path = null;
 
-				return deferred.promise;
+				moduleObj = moduleObj || options.lastModuleRequireContext.moduleObj;
 
-			}).fail(function(err) {
-				// If we are generating a missing bundle, we wait for it
-				// and then re-run sandbox.
-				if (err.code === "BUNDLING_DYNAMIC_REQUIRE") {
-					return Q.all(bundling).then(function() {
-						return runBundle();
-					});
+				var bundleBasePath = getBundleBasePath(moduleObj);
+
+				if (/^\//.test(canonicalId)) {
+					path = PATH.join(bundleBasePath, canonicalId);
+
+					if (!bundleOptions.API.FS.existsSync(PATH.join(bundleOptions.rootPath, path))) {
+						var filePath = PATH.join(bundlePackagePath, canonicalId);
+						var options = {
+							$pinf: bundleOptions.$pinf || null,
+							debug: bundleOptions.debug || false,
+							test: bundleOptions.test || false,
+							rootPath: bundleOptions.rootPath,
+							distPath: bundleBasePath,
+							existingModules: getExistingModules(moduleObj)
+						};
+
+						var deferred = Q.defer();
+						BUNDLER.bundleFile(filePath, options, function(err, descriptor) {
+							if (err) return deferred.reject(err);
+
+							bundleDescriptors[path] = descriptor;
+
+							return deferred.resolve();
+						});
+						bundling.push(deferred.promise);
+						// We throw to stop sandbox execution and catch it below
+						// so we can re-run sandbox when bundle is generated.
+						var error = new Error("Bundling dynamic require.");
+						error.code = "BUNDLING_DYNAMIC_REQUIRE";
+						throw error;
+					}
+				} else {
+
+					if (/^\./.test(canonicalId)) {
+						var parentId = PATH.dirname(moduleObj.id);
+						canonicalId = (parentId==="/"?".":"") + PATH.normalize(PATH.join(parentId, canonicalId));
+					}
+
+					var canonicalIdParts = canonicalId.split("/");
+					var alias = canonicalIdParts.shift();
+					var id = canonicalIdParts.join("/");
+
+					var mappingInfo = null;
+					if (/^\./.test(alias)) {
+						mappingInfo = {
+							alias: "",
+							path: "",
+							pkg: "",
+							memoized: true
+						}
+					} else {
+						mappingInfo = getMappingInfo(moduleObj, alias);		
+					}
+					// Update alias and canonicalId if alias was a resolved package ID.
+					if (mappingInfo.alias !== alias) {
+						alias = mappingInfo.alias;
+						canonicalId = alias + "/" + id;
+					}
+
+					var distId = null;
+					if (mappingInfo.pkg) {
+						distId = PATH.normalize(mappingInfo.pkg + ((id) ? "/" + id : ""));//.replace(/\//g, "+")
+					} else {
+						distId = PATH.normalize(id);//.replace(/\//g, "+")
+					}
+					var distFilename = options.normalizeIdentifier(distId);
+
+					path = PATH.join(bundleBasePath, distFilename);
+
+					if (!bundleOptions.API.FS.existsSync(PATH.join(bundleOptions.rootPath || "", path))) {
+
+						var filePath = PATH.join(bundlePackagePath, mappingInfo.path);
+
+						var opts = {
+							$pinf: bundleOptions.$pinf || null,
+							debug: bundleOptions.debug || false,
+							test: bundleOptions.test || false,
+							rootPath: bundleOptions.rootPath,
+							distPath: bundleBasePath,
+							distFilename: distFilename,
+							// TODO: Compensate for `directories.lib`
+							rootModule: ((id) ? "./" + PATH.normalize(options.normalizeIdentifier(id)) : "").replace(/^\.$/, ""),
+							rootPackage: mappingInfo.pkg,
+							existingModules: getExistingModules(moduleObj)
+						};
+
+						var deferred = Q.defer();
+						BUNDLER.bundlePackage(filePath, opts, function(err, subDescriptor) {									
+							if (err) return deferred.reject(err);
+
+							bundleDescriptors[path] = subDescriptor;
+
+							if (mappingInfo.memoized) return deferred.resolve();
+
+							// We need to add the package mapping to the calling bundle.
+
+							return BUNDLER.augmentBundle(mappingInfo.bundleDescriptor.bundle.path, opts, function(err, bundle, done) {
+								if (err) return deferred.reject(err);
+
+								var moduleInfo = bundle.modules[moduleObj.pkg + "/package.json"];
+								var descriptor = JSON.parse(moduleInfo[0]);
+								if (!descriptor.mappings) {
+									descriptor.mappings = {};
+								}
+								if (pkg.id !== mappingInfo.pkg) {
+									descriptor.mappings[mappingInfo.alias] = mappingInfo.pkg;
+								}
+								moduleInfo[0] = JSON.stringify(descriptor, null, 4);
+								mappingInfo.bundleDescriptor.modules[moduleObj.pkg + "/package.json"].descriptor.memoized = descriptor;
+
+								return done(function(err) {
+									if (err) return deferred.reject(err);
+									return deferred.resolve();
+								});
+							});
+						});
+						bundling.push(deferred.promise);
+						// We throw to stop sandbox execution and catch it below
+						// so we can re-run sandbox when bundle is generated.
+						var error = new Error("Bundling dynamic require '" + canonicalId + "' for '" + ((moduleObj.parentModule && moduleObj.parentModule.id) || "<main>") + "'.");
+						error.code = "BUNDLING_DYNAMIC_REQUIRE";
+						throw error;
+					}
 				}
-				return Q.reject(err);
-			});
-		}
+				return path;
+			}
 
-		return runBundle().then(function() {
-			return callback(null, bundleDescriptors, {
-				ensureAsync: ensureAsync,
-				resolveDynamicSync: resolveDynamicSync
-			});
-		}, callback);
+			function ensureAsync(moduleObj, pkg, sandbox, canonicalId, options, callback) {
+
+				if (bundleOptions.debug) console.log("[pinf-it-bundler] ensureAsync", "moduleObj", moduleObj, "pkg", pkg, "sandbox", sandbox, "canonicalId", canonicalId);
+
+			 	// If bundle is already cached we have nothing to do.
+			 	if (bundleDescriptors[BUNDLER.normalizeExtension(canonicalId)]) {
+			 		return callback(null);
+			 	}
+				try {
+					resolveDynamicSync(moduleObj, pkg, sandbox, canonicalId, options);
+					return callback(null);
+				} catch(err) {
+					if (err.code === "BUNDLING_DYNAMIC_REQUIRE") {
+						// We wait until everything is bundled and then return.
+						return Q.all(bundling).then(function() {
+							return callback(null);
+						}).fail(callback);
+					}
+					return callback(err);
+				}
+			}
+
+			function runBundle() {
+
+				return Q.fcall(function() {
+
+					var deferred = Q.defer();
+					var bundlePath = PATH.join(bundleOptions.distPath, descriptor.exports.main);
+
+					if (!rootBundlePath) {
+						rootBundlePath = bundlePath;
+					}
+
+					bundleOptions.onRun(bundlePath, {
+						$pinf: bundleOptions.$pinf || null,
+						debug: bundleOptions.debug || false,
+						rootPath: bundleOptions.rootPath,
+						resolveDynamicSync: resolveDynamicSync,
+						ensureAsync: ensureAsync
+					}, function(err) {
+						if (err) return deferred.reject(err);
+						return deferred.resolve();
+					});
+
+					return deferred.promise;
+
+				}).fail(function(err) {
+					// If we are generating a missing bundle, we wait for it
+					// and then re-run sandbox.
+					if (err.code === "BUNDLING_DYNAMIC_REQUIRE") {
+						return Q.all(bundling).then(function() {
+							return runBundle();
+						});
+					}
+					return Q.reject(err);
+				});
+			}
+
+			return runBundle().then(function() {
+				// NOTE: Keep in sync with return values used at top of this code file.
+				bundleDescriptors["#pinf"] = {
+					status: 200,
+					data: {
+						rootBundlePath: rootBundlePath
+					}
+				};
+				return callback(null, bundleDescriptors, {
+					ensureAsync: ensureAsync,
+					resolveDynamicSync: resolveDynamicSync
+				},
+				// NOTE: This last argument gets taken by the gateway above to cache and return when bypassing.
+				{
+					rootBundlePath: rootBundlePath
+				});
+			}, callback);
+		});
 	});
 }
 
@@ -10987,6 +11486,10 @@ exports.bundlePackage = function(bundlePackagePath, options, callback) {
 	ASSERT.equal(typeof options, "object");
 	ASSERT.equal(typeof options.distPath, "string");
 
+	options.API = {
+		FS: (options.$pinf && options.$pinf.getAPI("FS")) || FS
+	};
+
 	options._realpath = function(path) {
 		if (!options.rootPath) return path;
 		if (/^\//.test(path)) return path;
@@ -11073,7 +11576,7 @@ exports.bundlePackage = function(bundlePackagePath, options, callback) {
 						// This is the default behavior.
 						function resolve(path) {
 							if (PATH.basename(path) !== "node_modules") return callback(null);
-							return FS.exists(PATH.join(options._realpath(path), id), function(exists) {
+							return options.API.FS.exists(PATH.join(options._realpath(path), id), function(exists) {
 								if (exists) {
 									return getPackageDescriptorForPath(
 										PATH.join(path, id),
@@ -11287,6 +11790,10 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 		ASSERT.equal(typeof options, "object");
 		ASSERT.equal(typeof options.distPath, "string");
 
+		options.API = {
+			FS: (options.$pinf && options.$pinf.getAPI("FS")) || FS
+		};
+
 		options._realpath = function(path) {
 			if (!options.rootPath) return path;
 			if (/^\//.test(path)) return path;
@@ -11327,7 +11834,7 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 
 
 		function realpath(path, callback) {
-			return FS.exists(options._realpath(path), function(exists) {
+			return options.API.FS.exists(options._realpath(path), function(exists) {
 				if (exists) return callback(null, path);
 				if (typeof options.locateMissingFile === "function") {
 					return options.locateMissingFile(null, path, callback);
@@ -11446,9 +11953,9 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 
 			// Check for id relative to module.
 			if (/^\./.test(id)) {
-				return FS.exists(PATH.join(descriptor.descriptor.filepath, "..", memoizeId.replace(/\.js$/, "")), function(exists) {
+				return options.API.FS.exists(PATH.join(descriptor.descriptor.filepath, "..", memoizeId.replace(/\.js$/, "")), function(exists) {
 					if (exists) {
-						return FS.exists(PATH.join(descriptor.descriptor.filepath, "..", memoizeId.replace(/\.js$/, ""), "package.json"), function(exists) {
+						return options.API.FS.exists(PATH.join(descriptor.descriptor.filepath, "..", memoizeId.replace(/\.js$/, ""), "package.json"), function(exists) {
 							if (exists) {
 								// Resolve to package dependency.
 								if (options.packageExtras && typeof options.packageExtras.locateFileInPackage === "function") {
@@ -11456,6 +11963,7 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 										if (err) return callback(err);
 										if (path === true && !memoizeId) {
 											// We have a system module.
+											// TODO: Optionally use https://github.com/substack/node-browserify to bundle shim.
 											return callback(null, true);
 										}
 										if (!path || !memoizeId) return finalize(callback);
@@ -12142,6 +12650,10 @@ exports.parseFile = function(filePath, options, callback) {
 
 		options = options || {};
 
+		options.API = {
+			FS: (options.$pinf && options.$pinf.getAPI("FS")) || FS
+		};
+
 		options._realpath = function(path) {
 			if (!options.rootPath) return path;
 			if (/^\//.test(path)) return path;
@@ -12151,8 +12663,8 @@ exports.parseFile = function(filePath, options, callback) {
 		var descriptor = {
 			filename: PATH.basename(filePath),
 			filepath: filePath,
-			mtime: Math.floor(FS.statSync(options._realpath(filePath)).mtime.getTime()/1000),
-			code: FS.readFileSync(options._realpath(filePath)).toString(),
+			mtime: Math.floor(options.API.FS.statSync(options._realpath(filePath)).mtime.getTime()/1000),
+			code: options.API.FS.readFileSync(options._realpath(filePath)).toString(),
 			globals: {},
 			syntax: null,
 			format: null,
@@ -12225,7 +12737,7 @@ function parseResource(descriptor, options, callback) {
 		    return encoding;
 		}
 
-		descriptor.format = getEncoding(FS.readFileSync(options._realpath(descriptor.filepath)));
+		descriptor.format = getEncoding(options.API.FS.readFileSync(options._realpath(descriptor.filepath)));
 
 		// We don't keep the code for binary files.
 		if (descriptor.format === "binary") {
@@ -18256,6 +18768,10 @@ exports.parse = function(packagePath, options, callback) {
 
 		options = options || {};
 
+		options.API = {
+			FS: (options.$pinf && options.$pinf.getAPI("FS")) || FS
+		};
+
 		options._realpath = function(path) {
 			if (!options.rootPath) return path;
 			if (/^\//.test(path)) return path;
@@ -18267,10 +18783,10 @@ exports.parse = function(packagePath, options, callback) {
 			return PATH.relative(options.rootPath, path);
 		}
 
-		ASSERT(FS.existsSync(options._realpath(packagePath)), "path '" + options._realpath(packagePath) + "' does not exist");
+		ASSERT(options.API.FS.existsSync(options._realpath(packagePath)), "path '" + options._realpath(packagePath) + "' does not exist");
 
 		// TODO: Use async equivalent.
-		if (!FS.statSync(options._realpath(packagePath)).isDirectory()) {
+		if (!options.API.FS.statSync(options._realpath(packagePath)).isDirectory()) {
 			packagePath = PATH.dirname(packagePath);
 		}
 
@@ -18361,6 +18877,10 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 
 		options = options || {};
 
+		options.API = {
+			FS: (options.$pinf && options.$pinf.getAPI("FS")) || FS
+		};
+
 		options.packagePath = options.packagePath || PATH.dirname(descriptorPath);
 
 		options._realpath = function(path) {
@@ -18415,13 +18935,18 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 							packagesPaths = packagesPaths.concat(env.PINF_PACKAGES.split(":").map(options._relpath));
 						}
 						if (packagesPaths.length === 0) {
-							return callback(new Error("`PINF_PACKAGES` env variable or `layout.directories.packages` in descriptor must be set to resolve extends uri '" + uri + "'"));
+							// TODO: Call normalize on descriptor and get directory from `descriptor.layout.directories.packages` instead of calling `FS.existsSync` and assuming `node_modules`.
+							if (options.API.FS.existsSync(PATH.join(options._realpath(options.packagePath), "node_modules"))) {
+								packagesPaths.push("./node_modules");
+							} else {
+								return callback(new Error("`PINF_PACKAGES` env variable or `layout.directories.packages` in descriptor must be set to resolve extends uri '" + uri + "'"));
+							}
 						}
 						packagesPaths.forEach(function(packagesPath) {
 							waitfor(function(done) {
 								if (foundPath) return done();
 								var lookupPath = PATH.join(packagesPath, uri);
-								return FS.exists(options._realpath(lookupPath), function(exists) {
+								return options.API.FS.exists(options._realpath(lookupPath), function(exists) {
 									if (exists) {
 										foundPath = lookupPath;
 									}
@@ -18436,7 +18961,7 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 				}
 
 				function loadAugmentAndParseJSON(callback) {
-					return FS.readFile(path, function(err, data) {
+					return options.API.FS.readFile(path, function(err, data) {
 						if (err) return callback(err);
 						var raw = null;
 						var obj = null;
@@ -18474,7 +18999,7 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 										if (options.debug) console.log("[pinf] WARN: Injection uri '" + uri + "' could not be resolved to path!");
 										return done();
 									}
-									return FS.readFile(injectionPath, function(err, raw) {
+									return options.API.FS.readFile(injectionPath, function(err, raw) {
 										if (err) return done(err);
 										raw = raw.toString();
 										// Replace environment variables.
@@ -18528,7 +19053,7 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 
 				descriptor.lookupPaths.push(options._relpath(path));
 
-				return FS.exists(path, function(exists) {
+				return options.API.FS.exists(path, function(exists) {
 					if (!exists) {
 						return callback(null, null);
 					}
@@ -18985,7 +19510,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 				return callback(null);
 			}
 			// TODO: Look for other indicators as well.
-			return FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), "node_modules"), function(exists) {
+			return options.API.FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), "node_modules"), function(exists) {
 				if (exists || PATH.basename(PATH.dirname(PATH.dirname(options._realpath(descriptorPath)))) === "node_modules") {
 					if (!descriptor.normalized.pm) {
 						descriptor.normalized.pm = {};
@@ -19021,7 +19546,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 			if (!descriptorPath) {
 				return callback(null);
 			}
-			return FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), "node_modules"), function(exists) {
+			return options.API.FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), "node_modules"), function(exists) {
 				if (
 					exists ||
 					PATH.basename(PATH.dirname(PATH.dirname(options._realpath(descriptorPath)))) === "node_modules" ||
@@ -19048,7 +19573,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 				descriptor.normalized.layout.directories &&
 				typeof descriptor.normalized.layout.directories.dependency !== "undefined"
 			) {
-				return FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.layout.directories.dependency), function(exists) {
+				return options.API.FS.exists(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.layout.directories.dependency), function(exists) {
 					if (!exists) return callback(null);
 					if (!descriptor.normalized.dependencies) {
 						descriptor.normalized.dependencies = {};
@@ -19059,7 +19584,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 					if (!descriptor.normalized.mappings) {
 						descriptor.normalized.mappings = {};
 					}
-					return FS.readdir(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.layout.directories.dependency), function(err, filenames) {
+					return options.API.FS.readdir(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.layout.directories.dependency), function(err, filenames) {
 						if (err) return callback(err);
 						filenames.forEach(function(filename) {
 							descriptor.normalized.dependencies.bundled[filename] = "./" + descriptor.normalized.layout.directories.dependency + "/" + filename;
@@ -19094,7 +19619,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 						!/\.js$/.test(descriptor.normalized.exports.main)
 					) {
 						var path = PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.exports.main);
-						return FS.exists(path, function(exists) {
+						return options.API.FS.exists(path, function(exists) {
 							if (exists) return callback(null);
 							var ext = false;
 							if (descriptor.normalized.pm) {
@@ -19106,7 +19631,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 								}
 							}
 							path += ext || ".js";
-							return FS.exists(path, function(exists) {
+							return options.API.FS.exists(path, function(exists) {
 								if (exists) {
 									descriptor.normalized.exports.main += ".js";
 								} else {
@@ -19121,7 +19646,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 						!descriptor.normalized.exports.main
 					) {
 						var path = PATH.join(PATH.dirname(options._realpath(descriptorPath)), "index.js");
-						return FS.exists(path, function(exists) {
+						return options.API.FS.exists(path, function(exists) {
 							if (exists) {
 								if (!descriptor.normalized.exports) {
 									descriptor.normalized.exports = {};
@@ -19149,12 +19674,12 @@ function normalize(descriptorPath, descriptor, options, callback) {
 							if (options.rootPath && options._realpath(packagePath).substring(0, options.rootPath.length) !== options.rootPath) {
 								return callback(null);
 							}
-							return FS.exists(PATH.join(options._realpath(packagePath), "node_modules"), function(exists) {
+							return options.API.FS.exists(PATH.join(options._realpath(packagePath), "node_modules"), function(exists) {
 								if (!exists) {
 									if (options._realpath(packagePath) === "/") return callback(null);
 									return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
 								}
-								return FS.readdir(PATH.join(options._realpath(packagePath), "node_modules"), function(err, filenames) {
+								return options.API.FS.readdir(PATH.join(options._realpath(packagePath), "node_modules"), function(err, filenames) {
 									if (err) return callback(err);
 									filenames.forEach(function(filename) {
 										if (!descriptor.normalized.dependencies) {
@@ -19943,9 +20468,13 @@ exports.open = function(filePath, options, callback) {
 	try {
 		options = options || {};
 
+        options.API = {
+            FS: (options.$pinf && options.$pinf.getAPI("FS")) || FS
+        };
+
 		if (options.debug) console.log("Open bundle:", filePath);
 
-		var bundle = new Bundle(filePath);
+		var bundle = new Bundle(filePath, options);
 
 		return bundle.open(function(err) {
 			if (err) return callback(err);
@@ -19958,15 +20487,21 @@ exports.open = function(filePath, options, callback) {
 }
 
 
-function Bundle(path) {
+function Bundle(path, options) {
     this.path = path;
+    this._options = options || {};
+    if (!this._options.API) {
+        this._options.API = {
+            FS: FS
+        };
+    }
     this.reset();
 }
 
 Bundle.prototype.reset = function() {
 	if (this.fd) {
 		try {
-			FS.closeSync(this.fd);
+			this._options.API.FS.closeSync(this.fd);
 		} catch(err) {}
 	}
     this.fd = null;
@@ -19980,7 +20515,7 @@ Bundle.prototype.reset = function() {
 Bundle.prototype.saveTo = function(filePath, callback) {
 	var self = this;
 	var bundle = new Bundle(filePath);
-    FS.createFileSync(filePath, "");
+    self._options.API.FS.createFileSync(filePath, "");
 	return bundle.open(function(err) {
 		if (err) return callback(err);
 	    bundle.headers = self.headers;
@@ -20003,18 +20538,18 @@ Bundle.prototype.open = function(done) {
     	if (err) self.reset();
     	return done.apply(null, arguments);
     }
-    return FS.exists(self.path, function(exists) {
+    return self._options.API.FS.exists(self.path, function(exists) {
     	if (!exists) {
-            FS.createFileSync(self.path, "");
+            self._options.API.FS.createFileSync(self.path, "");
     	}
         // TODO: Write lock file to ensure synchronized access.
         openBundles[self.path] = true;
-	    return FS.open(self.path, "r+", function(err, fd) {
+	    return self._options.API.FS.open(self.path, "r+", function(err, fd) {
 	    	if (err) return callback(err);
 
 	    	self.fd = fd;
 
-			return FS.fstat(self.fd, function(err, stats) {
+			return self._options.API.FS.fstat(self.fd, function(err, stats) {
 				if (err) return callback(err);
 
 				if (stats.size === 0) {
@@ -20023,7 +20558,7 @@ Bundle.prototype.open = function(done) {
 
 		    	var buffer = new Buffer(stats.size);
 
-		    	return FS.read(self.fd, buffer, 0, stats.size, 0, function(err, bytesRead, buffer) {
+		    	return self._options.API.FS.read(self.fd, buffer, 0, stats.size, 0, function(err, bytesRead, buffer) {
 		    		if (err) return callback(err);
 		    		if (bytesRead !== buffer.length || bytesRead !== stats.size) {
 		    			return callback(new Error("Did not read entire file"));
@@ -20039,7 +20574,7 @@ Bundle.prototype.open = function(done) {
 Bundle.prototype.close = function(callback) {
 	var self = this;
     if (!self.fd) return callback(new Error("Cannot close. Bundle not open. Call `open()` first."));
-    return FS.close(self.fd, function(err) {
+    return self._options.API.FS.close(self.fd, function(err) {
     	if (err) return callback(err);
         self.fd = null;
         delete openBundles[self.path];
@@ -20159,7 +20694,7 @@ Bundle.prototype.save = function(callback) {
                 '    function initLoader(exports) {'
             ]);
 
-            return FS.readFile(LOADER_PATH, "utf8", function (err, loaderCode) {
+            return self._options.API.FS.readFile(LOADER_PATH, "utf8", function (err, loaderCode) {
             	if (err) return callback(err);
 
             	code.push(loaderCode);
@@ -20277,10 +20812,10 @@ Bundle.prototype.save = function(callback) {
 
 		var buffer = new Buffer(code, "utf8");
 
-	    return FS.ftruncate(self.fd, 0, function(err) {
+	    return self._options.API.FS.ftruncate(self.fd, 0, function(err) {
 	    	if (err) return callback(err);
 
-            return FS.write(self.fd, buffer, 0, buffer.length, 0, function(err, written, buffer) {
+            return self._options.API.FS.write(self.fd, buffer, 0, buffer.length, 0, function(err, written, buffer) {
             	if (err) return callback(err);
             	if (written !== buffer.length) return callback(new Error("Did not write entire buffer to file."));
             	return callback(null);
@@ -20545,6 +21080,7 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 			}
 
 			var Module = function(moduleIdentifier, parentModule) {
+
 				var moduleIdentifierSegment = moduleIdentifier.replace(/\/[^\/]*$/, "").split("/"),
 					module = {
 						id: moduleIdentifier,
@@ -20622,7 +21158,11 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 						var moduleInterface = {
 							id: module.id,
 							filename: 
+								// The `filename` from the meta info attached to the module.
+								// This is typically where the module was originally found on the filesystem.
 								moduleInitializers[moduleIdentifier][2].filename ||
+								// Fall back to the virtual path of the module in the bundle.
+								// TODO: Insert a delimiter between bundle and module id.
 								(module.bundle.replace(/\.js$/, "") + "/" + module.id).replace(/\/+/g, "/"),
 							exports: {}
 						}
@@ -46983,30 +47523,6 @@ function (args, quit, logger, build) {
 
 }
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/requirejs/bin/r.js"});
-// @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/pinf.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/pinf.js"}
-require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/pinf.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
-
-const PATH = require("__SYSTEM__/path");
-const FS = require("fs-extra");
-const LOADER = require("./loader");
-const CONTEXT = require("./context");
-const MAIN = require("./main");
-
-
-exports.reset = LOADER.reset;
-
-exports.sandbox = LOADER.sandbox;
-
-exports.getReport = LOADER.getReport;
-
-exports.context = CONTEXT.context;
-exports.contextForModule = CONTEXT.contextForModule;
-
-exports.main = MAIN.main;
-
-}
-, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/pinf.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/loader.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/loader.js"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/loader.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
@@ -60780,6 +61296,7 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 			}
 
 			var Module = function(moduleIdentifier, parentModule) {
+
 				var moduleIdentifierSegment = moduleIdentifier.replace(/\/[^\/]*$/, "").split("/"),
 					module = {
 						id: moduleIdentifier,
@@ -60857,7 +61374,11 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 						var moduleInterface = {
 							id: module.id,
 							filename: 
+								// The `filename` from the meta info attached to the module.
+								// This is typically where the module was originally found on the filesystem.
 								moduleInitializers[moduleIdentifier][2].filename ||
+								// Fall back to the virtual path of the module in the bundle.
+								// TODO: Insert a delimiter between bundle and module id.
 								(module.bundle.replace(/\.js$/, "") + "/" + module.id).replace(/\/+/g, "/"),
 							exports: {}
 						}
@@ -61126,6 +61647,155 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 
 }
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-loader-js/loader.js"});
+// @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/vfs.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/vfs.js"}
+require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/vfs.js", 
+function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
+
+const PATH = require("__SYSTEM__/path");
+const UTIL = require("__SYSTEM__/util");
+const URL = require("__SYSTEM__/url");
+const FS = require("fs-extra");
+const WAITFOR = require("waitfor");
+const EVENTS = require("__SYSTEM__/events");
+
+
+exports.open = function(uri, options, callback) {
+
+	if (typeof options === "function" && typeof callback === "undefined") {
+		callback = options;
+		options = null;
+	}
+	options = options || {};
+
+	try {
+
+		var parsedUri = URL.parse(uri);
+
+		if (parsedUri.protocol === "file:") {
+
+			return callback(null, new FileFS(parsedUri.path || "/", options));
+
+		} else {
+			throw new Error("VFS for 'protocol' `" + protocol.protocol + "` not supported ('uri' `" + uri + "`)");
+		}
+	} catch(err) {
+		return callback(err);
+	}
+}
+
+exports.READ_METHODS = {
+	"exists": true,
+	"existsSync": true,
+	"readFile": true,
+	"readFileSync": true,
+	"open": true,
+	"openSync": true,
+	"readdir": true,
+	"readdirSync": true,
+	"lstat": true,
+	"stat": true,
+	"lstatSync": true,
+	"statSync": true,
+	"readlink": true,
+	"readlinkSync": true,
+	"createReadStream": true,
+	"createWriteStream": true,
+	"readJsonFile": true,
+	"readJSONFile": true,
+	"readJsonFileSync": true,
+	"readJSONFileSync": true,
+	"readJson": true,
+	"readJSON": true,
+	"readJsonSync": true,
+	"readJSONSync": true
+};
+
+exports.WRITE_METHODS = {
+	"truncate": true,
+	"truncateSync": true,
+	"rmdir": true,
+	"rmdirSync": true,
+	"mkdir": true,
+	"mkdirSync": true,
+	"symlink": true,
+	"symlinkSync": true,
+	"unlink": true,
+	"unlinkSync": true,
+	"lchmod": true,
+	"lchmodSync": true,
+	"chmod": true,
+	"chmodSync": true,
+	"lchown": true,
+	"lchownSync": true,
+	"chown": true,
+	"chownSync": true,
+	"utimes": true,
+	"utimesSync": true,
+	"writeFile": true,
+	"writeFileSync": true,
+	"appendFile": true,
+	"appendFileSync": true,
+	"remove": true,
+	"removeSync": true,
+	"delete": true,
+	"deleteSync": true,
+	"createFile": true,
+	"createFileSync": true,
+	"outputFile": true,
+	"outputFileSync": true,
+	"outputJsonSync": true,
+	"outputJSONSync": true,
+	"outputJson": true,
+	"outputJSON": true,
+	"writeJsonFile": true,
+	"writeJSONFile": true,
+	"writeJsonFileSync": true,
+	"writeJSONFileSync": true,
+	"writeJson": true,
+	"writeJSON": true,
+	"writeJsonSync": true,
+	"writeJSONSync": true
+};
+
+var FileFS = function(rootPath, options) {
+	var self = this;
+	self._rootPath = rootPath;
+	self._options = options;
+	self.READ_METHODS = exports.READ_METHODS;
+	self.WRITE_METHODS = exports.WRITE_METHODS;
+}
+
+UTIL.inherits(FileFS, EVENTS.EventEmitter);
+
+// Intercept all FS methods that have a path like argument.
+Object.keys(FS).forEach(function(name) {
+	var source = null;
+	var args = null;
+	var index = -1;
+	if (
+		typeof FS[name] === "function" &&
+		/^[a-z]/.test(name) &&
+		(source = FS[name].toString()) &&
+		(args = source.match(/function[^\(]+\(([^\)]*)\)/)[1].split(", ")) &&
+		(
+			(index = args.indexOf("path")) >= 0 ||
+			(index = args.indexOf("dir")) >= 0 ||
+			(index = args.indexOf("file")) >= 0 ||
+			(index = args.indexOf("filename")) >= 0
+		)
+	) {
+		FileFS.prototype[name] = function() {
+			this.emit("used-path", arguments[index], name);
+			return FS[name].apply(null, arguments);
+		};
+	} else {
+		FileFS.prototype[name] = FS[name];
+	}
+});
+
+
+}
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/vfs.js"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/package.json"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/package.json", 
 {
@@ -61139,10 +61809,8 @@ require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/packag
         "pinf-it-package-insight": "a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insight",
         "pinf-it-program-insight": "c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight",
         "pinf-it-bundler": "5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler",
-        "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs": "",
         "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
-        "pinf-loader-js": "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js",
-        "require.async": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async"
+        "pinf-loader-js": "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js"
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs"
 }
@@ -61875,13 +62543,6 @@ require.memoize("bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/package
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-loader-js"
 }
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-loader-js/package.json"});
-// @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/package.json"}
-require.memoize("f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/package.json", 
-{
-    "main": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/require.async.js",
-    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/require.async"
-}
-, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/require.async/package.json"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

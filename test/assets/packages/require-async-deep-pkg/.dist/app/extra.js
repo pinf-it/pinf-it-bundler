@@ -52,17 +52,24 @@ exports.main = function(main, module, options, callback) {
 	}
 	if (!module) {
 	    try {
-			return main(done);
+			var ret = main(done);			
+			if (ret === true) {
+				return done(null);
+			}
+			return;
 	    } catch(err) {
 	        return done(err);
-	    }		
+	    }
 	}
+
+	module.exports.main = main;
+
 	// Don't call app unless it is the main file loaded or there is a callback registered.
 	if (require.main !== module && !callback) {
 		return;
 	}
 
-	// TODO: module.pinf should be set and memoized in bundle based on on the program context and available at `module.pinf`.
+	// TODO: module.pinf should be set and memoized in bundle based on the program context and available at `module.pinf`.
 	if (typeof module.pinf === "object") {
 		return callback(null, module.pinf);
 	}
@@ -74,7 +81,16 @@ exports.main = function(main, module, options, callback) {
 		return CONTEXT.contextForModule(module, options, function(err, context) {
 			if (err) return done(err);
 		    try {
-				return main(context, done);
+		    	var opts = {};
+		    	for (var name in options) {
+		    		opts[name] = options[name];
+		    	}
+		    	opts.$pinf = context;
+				var ret = main(opts, done);
+				if (ret === true) {
+					return done(null);
+				}
+				return;
 		    } catch(err) {
 		        return done(err);
 		    }		

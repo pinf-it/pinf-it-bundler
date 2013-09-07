@@ -2278,5 +2278,11 @@
         "exports": {
             "main": "/o.js"
         }
+    },
+    "#pinf": {
+        "status": 200,
+        "data": {
+            "rootBundlePath": "test/assets/packages/nodejs-dynamic-require-complex/.dist/app.js"
+        }
     }
 }

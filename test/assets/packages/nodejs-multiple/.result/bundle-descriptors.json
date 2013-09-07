@@ -1453,5 +1453,11 @@
         "exports": {
             "main": "/app.js"
         }
+    },
+    "#pinf": {
+        "status": 200,
+        "data": {
+            "rootBundlePath": "test/assets/packages/nodejs-multiple/.dist/app.js"
+        }
     }
 }

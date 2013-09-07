@@ -193,5 +193,11 @@
         },
         "warnings": [],
         "errors": []
+    },
+    "#pinf": {
+        "status": 200,
+        "data": {
+            "rootBundlePath": "test/assets/packages/nodejs-dynamic-require-simple/.dist/app.js"
+        }
     }
 }

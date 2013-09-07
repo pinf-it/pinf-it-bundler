@@ -284,8 +284,11 @@ describe('bundler', function() {
 											}
 										});
 									}
+									if (result && result.$pinf) result.$pinf.now = 0;
+
 
 //console.log(JSON.stringify(PINF_FOR_NODEJS.getReport().sandboxes, null, 4));
+
 									if (MODE === "test") {
 										ASSERT.deepEqual(bundleDescriptors, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/bundle-descriptors.json"))));
 										ASSERT.deepEqual(buffer, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/console.json"))));
@@ -344,6 +347,7 @@ describe('bundler', function() {
 													}
 												});
 											}
+											if (result && result.$pinf) result.$pinf.now = 0;
 
 											ASSERT.deepEqual(buffer, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/console.json"))));
 											ASSERT.deepEqual(result, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/api.json"))));
