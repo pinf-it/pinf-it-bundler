@@ -27,7 +27,8 @@
                     "pinf-it-program-insight": "c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight",
                     "pinf-it-bundler": "5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler",
                     "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
-                    "pinf-loader-js": "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js"
+                    "pinf-loader-js": "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js",
+                    "snapshot": "13b68c5c4d40f6d75c2ef94ff2478bdccab0b1ff-snapshot"
                 },
                 "directories": {},
                 "libPath": ""
@@ -613,6 +614,12 @@
                     "lib": "."
                 },
                 "libPath": "./"
+            },
+            "13b68c5c4d40f6d75c2ef94ff2478bdccab0b1ff-snapshot": {
+                "main": "13b68c5c4d40f6d75c2ef94ff2478bdccab0b1ff-snapshot/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
             }
         },
         "modules": {
@@ -1057,6 +1064,9 @@
             "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/vfs.js": {
                 "exports": 3
             },
+            "13b68c5c4d40f6d75c2ef94ff2478bdccab0b1ff-snapshot/index.js": {
+                "exports": 0
+            },
             "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/package.json": {},
             "95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile/package.json": {},
             "5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp/package.json": {},
@@ -1139,7 +1149,8 @@
             "1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream/package.json": {},
             "2e7a010e5b40e11bb94eb021d6eca99d00679e86-async/package.json": {},
             "e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/package.json": {},
-            "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/package.json": {}
+            "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/package.json": {},
+            "13b68c5c4d40f6d75c2ef94ff2478bdccab0b1ff-snapshot/package.json": {}
         }
     }
 }

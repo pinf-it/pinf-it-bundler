@@ -210,7 +210,8 @@ describe('bundler', function() {
 				"packages/self-require-deep",
 				"packages/nodejs-multiple",
 				"packages/require-async",
-				"packages/require-async-deep-pkg"
+				"packages/require-async-deep-pkg",
+				"packages/nodejs-dynamic-require-declared"
 			], function(err, files) {
 				if (err) return done(err);
 
@@ -274,6 +275,9 @@ describe('bundler', function() {
 									if (typeof result === "object") {
 										keys = Object.keys(result);
 									}
+									if (result && result.$pinf) {
+										result.$pinf = JSON.parse(result.$pinf.stringify());
+									}
 									result = JSON.stringify(result);
 									result = result.replace(new RegExp(rootPath.replace(/(\/|\+|\.)/g, "\\$1"), "g"), "");
 									result = JSON.parse(result);
@@ -336,6 +340,9 @@ describe('bundler', function() {
 											var keys = null;
 											if (typeof result === "object") {
 												keys = Object.keys(result);
+											}
+											if (result && result.$pinf) {
+												result.$pinf = JSON.parse(result.$pinf.stringify());
 											}
 											result = JSON.stringify(result);
 											result = result.replace(new RegExp(rootPath.replace(/(\/|\+|\.)/g, "\\$1"), "g"), "");

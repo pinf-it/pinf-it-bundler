@@ -79,7 +79,6 @@
                                     "dependencies": {
                                         "bundled": {
                                             "greeting": "./node_modules/greeting",
-                                            ".bin": "../../../../node_modules/.bin",
                                             "deepcopy": "../../../../node_modules/deepcopy",
                                             "fs-extra": "../../../../node_modules/fs-extra",
                                             "glob": "../../../../node_modules/glob",
@@ -96,7 +95,6 @@
                                     },
                                     "mappings": {
                                         "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting",
-                                        ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
                                         "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
                                         "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
                                         "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
@@ -126,7 +124,6 @@
                                     "dependencies": {
                                         "bundled": {
                                             "greeting": "./node_modules/greeting",
-                                            ".bin": "../../../../node_modules/.bin",
                                             "deepcopy": "../../../../node_modules/deepcopy",
                                             "fs-extra": "../../../../node_modules/fs-extra",
                                             "glob": "../../../../node_modules/glob",
@@ -143,7 +140,6 @@
                                     },
                                     "mappings": {
                                         "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting",
-                                        ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
                                         "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
                                         "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
                                         "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
@@ -174,7 +170,6 @@
                                 "dependencies": {
                                     "bundled": {
                                         "greeting": "./node_modules/greeting",
-                                        ".bin": "../../../../node_modules/.bin",
                                         "deepcopy": "../../../../node_modules/deepcopy",
                                         "fs-extra": "../../../../node_modules/fs-extra",
                                         "glob": "../../../../node_modules/glob",
@@ -191,7 +186,6 @@
                                 },
                                 "mappings": {
                                     "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting",
-                                    ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
                                     "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
                                     "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
                                     "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
@@ -304,7 +298,6 @@
                                     "dependencies": {
                                         "bundled": {
                                             "greeting": ".",
-                                            ".bin": "../../../../../../node_modules/.bin",
                                             "deepcopy": "../../../../../../node_modules/deepcopy",
                                             "fs-extra": "../../../../../../node_modules/fs-extra",
                                             "glob": "../../../../../../node_modules/glob",
@@ -321,7 +314,6 @@
                                     },
                                     "mappings": {
                                         "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting",
-                                        ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
                                         "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
                                         "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
                                         "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
@@ -351,7 +343,6 @@
                                     "dependencies": {
                                         "bundled": {
                                             "greeting": ".",
-                                            ".bin": "../../../../../../node_modules/.bin",
                                             "deepcopy": "../../../../../../node_modules/deepcopy",
                                             "fs-extra": "../../../../../../node_modules/fs-extra",
                                             "glob": "../../../../../../node_modules/glob",
@@ -368,7 +359,6 @@
                                     },
                                     "mappings": {
                                         "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting",
-                                        ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
                                         "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
                                         "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
                                         "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
@@ -399,7 +389,6 @@
                                 "dependencies": {
                                     "bundled": {
                                         "greeting": ".",
-                                        ".bin": "../../../../../../node_modules/.bin",
                                         "deepcopy": "../../../../../../node_modules/deepcopy",
                                         "fs-extra": "../../../../../../node_modules/fs-extra",
                                         "glob": "../../../../../../node_modules/glob",
@@ -416,7 +405,6 @@
                                 },
                                 "mappings": {
                                     "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting",
-                                    ".bin": "2ff3dd234eb25191da421162f8efcfb215189cf1-.bin",
                                     "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
                                     "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
                                     "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
