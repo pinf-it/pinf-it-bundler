@@ -613,12 +613,7 @@
                                             "q": "./node_modules/q",
                                             "request": "./node_modules/request",
                                             "require.async": "./node_modules/require.async",
-                                            "snapshot": "./node_modules/snapshot",
-                                            "waitfor": "./node_modules/waitfor",
-                                            "pinf-for-nodejs": ".",
-                                            "glob": "../../../../../../node_modules/glob",
-                                            "pinf-it-module-insight": "../../../../../../node_modules/pinf-it-module-insight",
-                                            "requirejs": "../../../../../../node_modules/requirejs"
+                                            "waitfor": "./node_modules/waitfor"
                                         }
                                     },
                                     "mappings": {
@@ -639,12 +634,7 @@
                                         "q": "5a0ccec13f2baa749563c93e0d37f93136dc5579-q",
                                         "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
                                         "require.async": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async",
-                                        "snapshot": "13b68c5c4d40f6d75c2ef94ff2478bdccab0b1ff-snapshot",
-                                        "waitfor": "57afe811a234d961a291b977f64e22b42a1b4735-waitfor",
-                                        "pinf-for-nodejs": "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs",
-                                        "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
-                                        "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
-                                        "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs"
+                                        "waitfor": "57afe811a234d961a291b977f64e22b42a1b4735-waitfor"
                                     }
                                 },
                                 "package.json": {
@@ -694,12 +684,8 @@
                                             "q": "./node_modules/q",
                                             "request": "./node_modules/request",
                                             "require.async": "./node_modules/require.async",
-                                            "snapshot": "./node_modules/snapshot",
                                             "waitfor": "./node_modules/waitfor",
-                                            "pinf-for-nodejs": ".",
-                                            "glob": "../../../../../../node_modules/glob",
-                                            "pinf-it-module-insight": "../../../../../../node_modules/pinf-it-module-insight",
-                                            "requirejs": "../../../../../../node_modules/requirejs"
+                                            "pinf-for-nodejs": "."
                                         }
                                     },
                                     "exports": {
@@ -740,12 +726,8 @@
                                         "q": "5a0ccec13f2baa749563c93e0d37f93136dc5579-q",
                                         "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
                                         "require.async": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async",
-                                        "snapshot": "13b68c5c4d40f6d75c2ef94ff2478bdccab0b1ff-snapshot",
                                         "waitfor": "57afe811a234d961a291b977f64e22b42a1b4735-waitfor",
-                                        "pinf-for-nodejs": "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs",
-                                        "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
-                                        "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
-                                        "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs"
+                                        "pinf-for-nodejs": "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs"
                                     }
                                 }
                             },
@@ -796,12 +778,8 @@
                                         "q": "./node_modules/q",
                                         "request": "./node_modules/request",
                                         "require.async": "./node_modules/require.async",
-                                        "snapshot": "./node_modules/snapshot",
                                         "waitfor": "./node_modules/waitfor",
-                                        "pinf-for-nodejs": ".",
-                                        "glob": "../../../../../../node_modules/glob",
-                                        "pinf-it-module-insight": "../../../../../../node_modules/pinf-it-module-insight",
-                                        "requirejs": "../../../../../../node_modules/requirejs"
+                                        "pinf-for-nodejs": "."
                                     }
                                 },
                                 "exports": {
@@ -842,12 +820,8 @@
                                     "q": "5a0ccec13f2baa749563c93e0d37f93136dc5579-q",
                                     "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
                                     "require.async": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async",
-                                    "snapshot": "13b68c5c4d40f6d75c2ef94ff2478bdccab0b1ff-snapshot",
                                     "waitfor": "57afe811a234d961a291b977f64e22b42a1b4735-waitfor",
-                                    "pinf-for-nodejs": "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs",
-                                    "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
-                                    "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
-                                    "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs"
+                                    "pinf-for-nodejs": "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs"
                                 }
                             },
                             "warnings": [],
@@ -900,56 +874,6 @@
                                         "directories": {
                                             "dependency": "./node_modules"
                                         }
-                                    },
-                                    "dependencies": {
-                                        "bundled": {
-                                            "colors": "../colors",
-                                            "commander": "../commander",
-                                            "deepcopy": "../deepcopy",
-                                            "deepmerge": "../deepmerge",
-                                            "fs-extra": "../fs-extra",
-                                            "grunt": "../grunt",
-                                            "grunt-mocha": "../grunt-mocha",
-                                            "mocha": "../mocha",
-                                            "pinf-it-bundler": "../pinf-it-bundler",
-                                            "pinf-it-package-insight": "../pinf-it-package-insight",
-                                            "pinf-it-program-insight": "../pinf-it-program-insight",
-                                            "pinf-loader-js": "../pinf-loader-js",
-                                            "pinf-primitives-js": "../pinf-primitives-js",
-                                            "q": "../q",
-                                            "request": "../request",
-                                            "require.async": ".",
-                                            "snapshot": "../snapshot",
-                                            "waitfor": "../waitfor",
-                                            "pinf-for-nodejs": "../..",
-                                            "glob": "../../../../../../../../node_modules/glob",
-                                            "pinf-it-module-insight": "../../../../../../../../node_modules/pinf-it-module-insight",
-                                            "requirejs": "../../../../../../../../node_modules/requirejs"
-                                        }
-                                    },
-                                    "mappings": {
-                                        "colors": "59df2d15c49d2a22ca08408d9c4bbe067c6f14ba-colors",
-                                        "commander": "7afa262b0e5f98151f4269f76f3a0765975bd544-commander",
-                                        "deepcopy": "36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy",
-                                        "deepmerge": "98c6b74665bd9abac5c33394e3edfcf04ef251a1-deepmerge",
-                                        "fs-extra": "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra",
-                                        "grunt": "55f01c620b3d1cc371c82a0e0c9cc18f417ad695-grunt",
-                                        "grunt-mocha": "9ad2352e0c6c710deead157e42c91c5c7e6df9b5-grunt-mocha",
-                                        "mocha": "c19842501527f9b5e9735e50b7adfdf0a03cd592-mocha",
-                                        "pinf-it-bundler": "5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler",
-                                        "pinf-it-package-insight": "a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insight",
-                                        "pinf-it-program-insight": "c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight",
-                                        "pinf-loader-js": "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js",
-                                        "pinf-primitives-js": "76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js",
-                                        "q": "5a0ccec13f2baa749563c93e0d37f93136dc5579-q",
-                                        "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
-                                        "require.async": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async",
-                                        "snapshot": "13b68c5c4d40f6d75c2ef94ff2478bdccab0b1ff-snapshot",
-                                        "waitfor": "57afe811a234d961a291b977f64e22b42a1b4735-waitfor",
-                                        "pinf-for-nodejs": "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs",
-                                        "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
-                                        "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
-                                        "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs"
                                     }
                                 },
                                 "package.json": {
@@ -995,12 +919,7 @@
                                             "q": "../q",
                                             "request": "../request",
                                             "require.async": ".",
-                                            "snapshot": "../snapshot",
-                                            "waitfor": "../waitfor",
-                                            "pinf-for-nodejs": "../..",
-                                            "glob": "../../../../../../../../node_modules/glob",
-                                            "pinf-it-module-insight": "../../../../../../../../node_modules/pinf-it-module-insight",
-                                            "requirejs": "../../../../../../../../node_modules/requirejs"
+                                            "waitfor": "../waitfor"
                                         }
                                     },
                                     "mappings": {
@@ -1020,12 +939,7 @@
                                         "q": "5a0ccec13f2baa749563c93e0d37f93136dc5579-q",
                                         "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
                                         "require.async": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async",
-                                        "snapshot": "13b68c5c4d40f6d75c2ef94ff2478bdccab0b1ff-snapshot",
-                                        "waitfor": "57afe811a234d961a291b977f64e22b42a1b4735-waitfor",
-                                        "pinf-for-nodejs": "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs",
-                                        "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
-                                        "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
-                                        "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs"
+                                        "waitfor": "57afe811a234d961a291b977f64e22b42a1b4735-waitfor"
                                     }
                                 }
                             },
@@ -1072,12 +986,7 @@
                                         "q": "../q",
                                         "request": "../request",
                                         "require.async": ".",
-                                        "snapshot": "../snapshot",
-                                        "waitfor": "../waitfor",
-                                        "pinf-for-nodejs": "../..",
-                                        "glob": "../../../../../../../../node_modules/glob",
-                                        "pinf-it-module-insight": "../../../../../../../../node_modules/pinf-it-module-insight",
-                                        "requirejs": "../../../../../../../../node_modules/requirejs"
+                                        "waitfor": "../waitfor"
                                     }
                                 },
                                 "mappings": {
@@ -1097,12 +1006,7 @@
                                     "q": "5a0ccec13f2baa749563c93e0d37f93136dc5579-q",
                                     "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
                                     "require.async": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async",
-                                    "snapshot": "13b68c5c4d40f6d75c2ef94ff2478bdccab0b1ff-snapshot",
-                                    "waitfor": "57afe811a234d961a291b977f64e22b42a1b4735-waitfor",
-                                    "pinf-for-nodejs": "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs",
-                                    "glob": "4a5f4f7341c73c9f93ac9e4d5f5f9671a581a905-glob",
-                                    "pinf-it-module-insight": "8a3e7d8839b3c934bc8946a6d207a57614f9f3c0-pinf-it-module-insight",
-                                    "requirejs": "4c86dd3273ad8498b1aa96079856f2fec1827327-requirejs"
+                                    "waitfor": "57afe811a234d961a291b977f64e22b42a1b4735-waitfor"
                                 }
                             },
                             "warnings": [],

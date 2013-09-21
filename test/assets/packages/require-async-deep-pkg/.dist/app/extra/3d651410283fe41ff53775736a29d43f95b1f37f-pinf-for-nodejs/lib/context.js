@@ -77,6 +77,8 @@ function wrapAMD(callback) {
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/context.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
 
+require("./helpers/cycle");
+
 const PATH = require("__SYSTEM__/path");
 const FS = require("fs-extra");
 const URL = require("__SYSTEM__/url");
@@ -93,7 +95,6 @@ const VM = require("./vm").VM;
 const VFS = require("./vfs");
 const LOADER = require("./loader");
 const CRYPTO = require("__SYSTEM__/crypto");
-const SNAPSHOT = require("snapshot");
 
 
 exports.contextForModule = function(module, options, callback) {
@@ -121,6 +122,7 @@ exports.contextForModule = function(module, options, callback) {
 	if (!module.filename) {
 		return callback(new Error("`module.filename` must be set!"));
 	}
+
 	return PACKAGE_INSIGHT.findPackagePath(module.filename, function(err, path) {
 		if (err) return callback(err);
 		return exports.context(opts.PINF_PROGRAM, path, {
@@ -165,7 +167,15 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 		FS: (options.$pinf && options.$pinf.getAPI("FS")) || FS
 	};
 
-	if (options.debug) console.log("[pinf-for-nodejs][context] new context for", programDescriptorPath, packageDescriptorPath);
+	var contextStartTime = Date.now();
+
+	var originalCallback = callback;
+	callback = function() {
+		if (options.verbose) console.log(("[pinf-for-nodejs][context][END] (" + (Date.now() - contextStartTime) + " ms) new context for package: " + packageDescriptorPath + " (program: " + programDescriptorPath + ")").inverse);
+		return originalCallback.apply(this, arguments);
+	}
+
+	if (options.verbose) console.log(("[pinf-for-nodejs][context][START] new context for package: " + packageDescriptorPath + " (program: " + programDescriptorPath + ")").inverse);
 
 	options._relpath = function(path) {
 		if (!path || !options.rootPath || !/^\//.test(path)) return path;
@@ -185,7 +195,7 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 		PINF_PACKAGE: packageDescriptorPath || (env && env.PINF_PACKAGE) || undefined
 	});
 
-	if (options.verbose) console.log("[pinf-for-nodejs][context] env:", env);
+	if (options.debug) console.log("[pinf-for-nodejs][context] env:", env);
 
 
 	function ensureParentPath() {
@@ -206,11 +216,11 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 		for (var name in options) {
 			opts[name] = options[name];
 		}
-		return exports.context(programDescriptorPath, packageDescriptorPath, opts, function(err, reloadedConfig) {
+		return exports.context(programDescriptorPath, packageDescriptorPath, opts, function(err, reloadedContext) {
 			if (err) return callback(err);
-			for (var name in reloadedConfig) {
-				if (typeof reloadedConfig[name] !== "function") {
-					context[name] = reloadedConfig[name];
+			for (var name in reloadedContext) {
+				if (typeof reloadedContext[name] !== "function") {
+					context[name] = reloadedContext[name];
 				}
 			}
 			// TODO: Only emit this if config has in fact changed.
@@ -349,37 +359,28 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 		});
 	}
 
-	Context.prototype.gateway = function(type, options) {
+	Context.prototype.gateway = function(type, gatewayOptions) {
 		var self = this;
-		options = options || {};
+		var gatewayStartTime = Date.now();
+		gatewayOptions = gatewayOptions || {};
 		// TODO: Move these into plugins.
 		// If `FS` is an instance of `./vfs.js` we can bypass gateway if all written files are older than read files.
 		if (type === "vfs-write-from-read-mtime-bypass") {
 			// TODO: Refactor some of this into a cache module with tree-based contexts for managing expiry.
 			var VFS = null;
 			var key = null;
-			var paths = {
-				write: {},
-				read: {}
-			};
+			var paths = {};
 			var listener = function(path, method) {
-				if (VFS.WRITE_METHODS[method]) {
-					paths.write[path] = {
-						atime: Date.now()
-					};
-				} else
-				if (VFS.READ_METHODS[method]) {
-					paths.read[path] = {
-						atime: Date.now()
-					};
+				if (!paths[path]) {
+					paths[path] = {};
 				}
 			};
 			function getCachePath() {
 				if (!key) {
 					throw new Error("`gateway.setKey()` must be called!");
 				}
-				if (options.cacheNamespace) {
-					return PATH.join(env.PINF_PROGRAM, "../.rt/cache", options.cacheNamespace, "gateway/" + type + "/" + key);
+				if (gatewayOptions.cacheNamespace) {
+					return PATH.join(env.PINF_PROGRAM, "../.rt/cache", gatewayOptions.cacheNamespace, "gateway/" + type + "/" + key);
 				} else {
 					return self.makePath("cache", "gateway/" + type + "/" + key);
 				}
@@ -387,35 +388,31 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 			function finalize(cacheData, callback) {
 				var waitfor = WAITFOR.parallel(function(err) {
 					if (err) return callback(err);
-					return FS.outputFile(getCachePath(), SNAPSHOT({
+					return (FS.outputFileAtomic || FS.outputFile)(getCachePath(), JSON.stringify(JSON.decycle({
 						wtime: Date.now(),
 						paths: paths,
 						data: cacheData
-					}), function(err) {
+					})), function(err) {
 						if (err) return callback(err);
 						return callback();
 					});
 				});
-				for (var type in paths) {
-					for (var path in paths[type]) {
-						if (typeof paths[type][path].mtime === "undefined") {
-							waitfor(type, path, function(type, path, done) {
-								return FS.exists(path, function(exists) {
-									if (!exists) {
-										paths[type][path].mtime = -1;
-										paths[type][path].size = 0;
-										return done();
-									}
-									return FS.stat(path, function(err, stat) {
-										if (err) return done(err);
-										paths[type][path].mtime = stat.mtime.getTime();
-										paths[type][path].size = stat.size;
-										return done();
-									});
-								});
+				for (var path in paths) {
+					waitfor(path, function(path, done) {
+						return FS.exists(path, function(exists) {
+							if (!exists) {
+								paths[path].mtime = -1;
+								paths[path].size = 0;
+								return done();
+							}
+							return FS.stat(path, function(err, stat) {
+								if (err) return done(err);
+								paths[path].mtime = stat.mtime.getTime();
+								paths[path].size = stat.size;
+								return done();
 							});
-						}
-					}
+						});
+					});
 				}
 				return waitfor();
 			}
@@ -435,9 +432,12 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 					if (VFS) {
 						throw new Error("`gateway.getAPI()` should not be called before `gateway.onDone()`");
 					}
+					var cachePath = getCachePath();
 					function proceed(reason) {
-//console.log("reason", reason);
+						var startTime = Date.now();
+						if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway proceed: " + reason + " (" + cachePath + ")").yellow);
 						return proceedCallback(null, function proxiedCallback(err) {
+							if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway proceed done (used " + Object.keys(paths).length + " files in " + (Date.now() - startTime) + " ms)").yellow);
 							if (typeof VFS.removeListener === "function") {
 								VFS.removeListener("used-path", listener);
 							}
@@ -451,99 +451,74 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 							});
 						});
 					}
-					var path = getCachePath();
-//console.log("load cache path", getCachePath());
-					return FS.exists(path, function(exists) {
+					return FS.exists(cachePath, function(exists) {
 						if (!exists) return proceed("cache-path-missing");
-						return FS.stat(path, function(err, stat) {
+						return FS.stat(cachePath, function(err, stat) {
 							if (err) return callback(err);
-							return FS.readFile(path, function(err, data) {
+							return FS.readFile(cachePath, function(err, data) {
 								if (err) return callback(err);
 								try {
-									data = eval(data.toString());
+									data = JSON.retrocycle(JSON.parse(data.toString()));
 								} catch(err) {
-									console.warn("Error evaling cache file: " + err.stack);
+									console.warn("Error evaling cache file '" + cachePath + "': " + err.stack);
 									return proceed("error-during-cache-eval");
 								}
 								if (!data || !data.paths) return proceed("no-paths-in-cache");
-								data.paths.write[path] = {
-									mtime: stat.mtime.getTime(),
-									atime: data.wtime,
-									size: stat.size
-								};
-								data.paths.read[path] = {
-									mtime: stat.mtime.getTime(),
-									atime: data.wtime,
-									size: stat.size
-								};
-//console.log("data.paths", data.paths);								
-								// Find earliest mtime in write paths.
-								var now = Date.now();
-								var earliestMtime = now;
-								var earliestAtime = now;
-								for (var _path in data.paths.write) {
-									earliestAtime = Math.min(earliestAtime, data.paths.write[_path].atime);
-									if (data.paths.write[_path].mtime === -1) continue;
-									earliestMtime = Math.min(earliestMtime, data.paths.write[_path].mtime);
+								if (gatewayOptions.skipFSCheck) {
+									if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway skipping cache check (" + (Date.now() - gatewayStartTime) + " ms)").green);
+									// self.getAPI("console").cache("Using cached data based on path mtimes in '" + path + "'");
+									return notModifiedCallback(data.data);
 								}
-								// Check if no write paths with mtime found.
-								if (earliestMtime === now) return proceed("no-write-paths-with-mtime-found");
+								// Find earliest mtime in write paths.
 								var canBypass = true;
 								// Go through all read paths to see if:
 								//    * we can find one with an mtime that now does not exist (missing).
 								//    * we can find one with mtime -1 that now exists (new).
-								//    * we can find one with a newer mtime than `earliestMtime` (changed).
+								//    * we can find one with a newer mtime (changed).
 								var waitfor = WAITFOR.parallel(function(err) {
 									if (err) return callback(err);
 									if (canBypass === true) {
-//console.log("bypass");										
+										if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway using cache (checked " + Object.keys(data.paths).length + " paths in " + (Date.now() - gatewayStartTime) + " ms)").green);
 										// self.getAPI("console").cache("Using cached data based on path mtimes in '" + path + "'");
 										return notModifiedCallback(data.data);
 									}
-//console.log("canBypass", canBypass);
+									if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway found change: " + canBypass).yellow);
 									// self.getAPI("console").info("Regenerating cached data based on path mtimes in '" + path + "' (" + canBypass + ")");
 									return proceed("cannot-bypass-after-check");
 								});
-								function checkPath(path, done) {
-									if (!canBypass) return done();
-									return FS.exists(path, function(exists) {
+								for (var path in data.paths) {
+									waitfor(path, function checkPath(path, done) {
 										if (!canBypass) return done();
-										if (exists) {
-											if (data.paths.read[path].mtime === -1) {
-												// mtime -1 that now exists.
-												canBypass = "new - " + path;
-												return done();
-											}
-											return FS.stat(path, function(err, stat) {
-												if (err) return done(err);
-												if (
-													(
-														stat.mtime.getTime() > earliestMtime &&
-														data.paths.read[path].atime < data.wtime
-													) ||
-													stat.size !== data.paths.read[path].size
-												) {
-													// a newer mtime than `earliestMtime`.
-													canBypass = "changed (wtime:" + data.wtime + ", atime:" + data.paths.read[path].atime + ")(" + (stat.mtime.getTime() + " - " + earliestMtime) + " - " + (stat.mtime.getTime() - earliestMtime) + ") - " + path;
+										return FS.exists(path, function(exists) {
+											if (!canBypass) return done();
+											if (exists) {
+												if (data.paths[path] && data.paths[path].mtime === -1) {
+													// mtime -1 that now exists.
+													canBypass = "new - " + path;
+													return done();
+												}
+												return FS.stat(path, function(err, stat) {
+													if (err) return done(err);
+													if (
+														stat.mtime.getTime() > data.paths[path].mtime ||
+														stat.size != data.paths[path].size
+													) {
+														// a newer mtime than `earliestMtime`.
+														canBypass = "changed (" + (stat.mtime.getTime() + " - " + data.paths[path].mtime) + " - " + (stat.mtime.getTime() - data.paths[path].mtime) + ") - " + path;
+														return done();
+													}
+													return done();
+												});
+											} else {
+												if (data.paths[path] && data.paths[path].mtime !== -1) {
+													// an mtime that now does not exist.
+													canBypass = "missing - " + path;
 													return done();
 												}
 												return done();
-											});
-										} else {
-											if (data.paths.read[path] && data.paths.read[path].mtime !== -1) {
-												// an mtime that now does not exist.
-												canBypass = "missing - " + path;
-												return done();
 											}
-											return done();
-										}
+										});
 									});
-								}
-								for (var _path in data.paths.read) {
-									waitfor(_path, checkPath);
-								}
-								for (var _path in data.paths.write) {
-									waitfor(_path, checkPath);
 								}
 								return waitfor();
 							});
@@ -567,49 +542,6 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 		}
 		throw new Error("Proxy of type '" + type + "' not supported!");
 	}
-
-/*
-
-	
-
-FileFS.prototype.getCacheManifest = function(callback) {
-	var self = this;
-	function _relpath(path) {
-		if (!path || !self._options.rootPath || !/^\//.test(path)) return path;
-		return PATH.relative(self._options.rootPath, path);
-	}
-	var waitfor = WAITFOR.parallel(function(err) {
-		if (err) return callback(err);
-		var manifest = {
-			paths: {}
-		};
-		for (var path in self._usedPaths) {
-			manifest.paths[_relpath(path)] = {
-				mtime: self._usedPaths[path].mtime
-			};
-		}
-		return callback(null, manifest);
-	});
-	for (var path in self._usedPaths) {
-		if (typeof self._usedPaths[path].mtime === "undefined") {
-			waitfor(path, function(path, done) {
-				return FS.exists(path, function(exists) {
-					if (!exists) {
-						self._usedPaths[path].mtime = -1;
-						return done();
-					}
-					return FS.stat(path, function(err, stat) {
-						if (err) return done(err);
-						self._usedPaths[path].mtime = stat.mtime.getTime();
-						return done();
-					});
-				});
-			});
-		}
-	}
-	return waitfor();
-}
-*/
 
 	Context.prototype.reloadConfig = function(callback) {
 		var self = this;
@@ -831,6 +763,7 @@ FileFS.prototype.getCacheManifest = function(callback) {
 			                if (typeof mod.main !== "function") {
 			                	return done(new Error("Main module for package '" + packageInfo.dirpath + "' does not export 'main' function."));
 			                }
+			                if (options.verbose) console.log(("[pinf-for-nodejs][context] Notify '" + packageInfo.dirpath + "' about '" + eventId + "'").blue);
 			                return mod.main({
 			                	$pinf: ctx
 			                }, {
@@ -918,10 +851,12 @@ FileFS.prototype.getCacheManifest = function(callback) {
 				if (err) return callback(err);
 				return notifyPackages(self, "pinf/0/runtime/control/0#events/stop", config, function(err, config) {
 					if (err) return callback(err);
+					config.status = "stopped";
 //					return self.clearRuntimeConfig(["pinf/0/runtime/control/0", "program"], function(err) {
-//						if (err) return callback(err);
+					return self.updateRuntimeConfig(["pinf/0/runtime/control/0", "program"], config, function(err, config) {
+						if (err) return callback(err);
 						return callback(null, config);
-//					});
+					});
 				});
 			});
 		});
@@ -977,7 +912,8 @@ console.log("TODO: Call `context.config.open` to open program.");
 				return proceedCallback(callback);
 			}
 			var gateway = options.$pinf.gateway("vfs-write-from-read-mtime-bypass", {
-				cacheNamespace: "pinf-context"
+				cacheNamespace: "pinf-context",
+				skipFSCheck: (scope === "packages" && env.PINF_MODE === "production")
 			});
 			// All criteria that makes this call (argument combination) unique.
 			gateway.setKey({
@@ -993,6 +929,7 @@ console.log("TODO: Call `context.config.open` to open program.");
 				options.API.FS = gateway.getAPI("FS");
 				return proceedCallback(proxiedCallback);
 			}, function(cachedData) {
+				if (options.verbose) console.log("[pinf-for-nodejs][context] using cached context for", programDescriptorPath, packageDescriptorPath);
 				for (var name in cachedData) {
 					context[name] = cachedData[name];
 				}
@@ -1005,6 +942,7 @@ console.log("TODO: Call `context.config.open` to open program.");
 		}
 
 		return bypassIfWeCan(function(callback) {
+
 			try {
 
 				function loadConfigs(callback) {
@@ -1335,6 +1273,188 @@ console.log("TODO: Call `context.config.open` to open program.");
 
 }
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/context.js"});
+// @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/helpers/cycle.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/helpers/cycle.js"}
+require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/helpers/cycle.js", 
+function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/helpers';
+/*
+    cycle.js
+    2013-02-19
+
+    Public Domain.
+
+    NO WARRANTY EXPRESSED OR IMPLIED. USE AT YOUR OWN RISK.
+
+    This code should be minified before deployment.
+    See http://javascript.crockford.com/jsmin.html
+
+    USE YOUR OWN COPY. IT IS EXTREMELY UNWISE TO LOAD CODE FROM SERVERS YOU DO
+    NOT CONTROL.
+*/
+
+/*jslint evil: true, regexp: true */
+
+/*members $ref, apply, call, decycle, hasOwnProperty, length, prototype, push,
+    retrocycle, stringify, test, toString
+*/
+
+if (typeof JSON.decycle !== 'function') {
+    JSON.decycle = function decycle(object) {
+        'use strict';
+
+// Make a deep copy of an object or array, assuring that there is at most
+// one instance of each object or array in the resulting structure. The
+// duplicate references (which might be forming cycles) are replaced with
+// an object of the form
+//      {$ref: PATH}
+// where the PATH is a JSONPath string that locates the first occurance.
+// So,
+//      var a = [];
+//      a[0] = a;
+//      return JSON.stringify(JSON.decycle(a));
+// produces the string '[{"$ref":"$"}]'.
+
+// JSONPath is used to locate the unique object. $ indicates the top level of
+// the object or array. [NUMBER] or [STRING] indicates a child member or
+// property.
+
+        var objects = [],   // Keep a reference to each unique object or array
+            paths = [];     // Keep the path to each unique object or array
+
+        return (function derez(value, path) {
+
+// The derez recurses through the object, producing the deep copy.
+
+            var i,          // The loop counter
+                name,       // Property name
+                nu;         // The new object or array
+
+// typeof null === 'object', so go on if this value is really an object but not
+// one of the weird builtin objects.
+
+            if (typeof value === 'object' && value !== null &&
+                    !(value instanceof Boolean) &&
+                    !(value instanceof Date)    &&
+                    !(value instanceof Number)  &&
+                    !(value instanceof RegExp)  &&
+                    !(value instanceof String)) {
+
+// If the value is an object or array, look to see if we have already
+// encountered it. If so, return a $ref/path object. This is a hard way,
+// linear search that will get slower as the number of unique objects grows.
+
+                for (i = 0; i < objects.length; i += 1) {
+                    if (objects[i] === value) {
+                        return {$ref: paths[i]};
+                    }
+                }
+
+// Otherwise, accumulate the unique value and its path.
+
+                objects.push(value);
+                paths.push(path);
+
+// If it is an array, replicate the array.
+
+                if (Object.prototype.toString.apply(value) === '[object Array]') {
+                    nu = [];
+                    for (i = 0; i < value.length; i += 1) {
+                        nu[i] = derez(value[i], path + '[' + i + ']');
+                    }
+                } else {
+
+// If it is an object, replicate the object.
+
+                    nu = {};
+                    for (name in value) {
+                        if (Object.prototype.hasOwnProperty.call(value, name)) {
+                            nu[name] = derez(value[name],
+                                path + '[' + JSON.stringify(name) + ']');
+                        }
+                    }
+                }
+                return nu;
+            }
+            return value;
+        }(object, '$'));
+    };
+}
+
+
+if (typeof JSON.retrocycle !== 'function') {
+    JSON.retrocycle = function retrocycle($) {
+        'use strict';
+
+// Restore an object that was reduced by decycle. Members whose values are
+// objects of the form
+//      {$ref: PATH}
+// are replaced with references to the value found by the PATH. This will
+// restore cycles. The object will be mutated.
+
+// The eval function is used to locate the values described by a PATH. The
+// root object is kept in a $ variable. A regular expression is used to
+// assure that the PATH is extremely well formed. The regexp contains nested
+// * quantifiers. That has been known to have extremely bad performance
+// problems on some browsers for very long strings. A PATH is expected to be
+// reasonably short. A PATH is allowed to belong to a very restricted subset of
+// Goessner's JSONPath.
+
+// So,
+//      var s = '[{"$ref":"$"}]';
+//      return JSON.retrocycle(JSON.parse(s));
+// produces an array containing a single element which is the array itself.
+
+        var px =
+            /^\$(?:\[(?:\d+|\"(?:[^\\\"\u0000-\u001f]|\\([\\\"\/bfnrt]|u[0-9a-zA-Z]{4}))*\")\])*$/;
+
+        (function rez(value) {
+
+// The rez function walks recursively through the object looking for $ref
+// properties. When it finds one that has a value that is a path, then it
+// replaces the $ref object with a reference to the value that is found by
+// the path.
+
+            var i, item, name, path;
+
+            if (value && typeof value === 'object') {
+                if (Object.prototype.toString.apply(value) === '[object Array]') {
+                    for (i = 0; i < value.length; i += 1) {
+                        item = value[i];
+                        if (item && typeof item === 'object') {
+                            path = item.$ref;
+                            if (typeof path === 'string' && px.test(path)) {
+                                value[i] = eval(path);
+                            } else {
+                                rez(item);
+                            }
+                        }
+                    }
+                } else {
+                    for (name in value) {
+                        if (typeof value[name] === 'object') {
+                            item = value[name];
+                            if (item) {
+                                path = item.$ref;
+                                if (typeof path === 'string' && px.test(path)) {
+                                    value[name] = eval(path);
+                                } else {
+                                    rez(item);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }($));
+        return $;
+    };
+}
+return {
+    JSON: (typeof JSON !== "undefined") ? JSON : null,
+    Object: (typeof Object !== "undefined") ? Object : null,
+    eval: (typeof eval !== "undefined") ? eval : null
+};
+}
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/helpers/cycle.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/index.js"}
 require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/index.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
@@ -3536,7 +3656,14 @@ JsonFileStore.prototype.save = function(force) {
     }
     if(!this.dirty && !force) return;
     if(!FS.existsSync(PATH.dirname(this.file))) FS.mkdirsSync(PATH.dirname(this.file));
-    FS.writeFileSync(this.file, JSON.stringify(this.data, null, 4));
+    var data = JSON.stringify(this.data, null, 4);
+    if (FS.existsSync(this.file)) {
+        if (FS.readFileSync(this.file).toString() === data) {
+            this.dirty = false;
+            return;
+        }
+    }
+    FS.writeFileSync(this.file, data);
     this.fileMtime = FS.statSync(this.file).mtime;
     this.dirty = false;
 };
@@ -4342,6 +4469,16 @@ function normalize(descriptorPath, descriptor, options, callback) {
 
 	try {
 
+		// If `true` will traverse up all parent directories all the way to '/'.
+		// If 'node_modules' directories found will make package available if not already
+		// for same name (this is consistent with the NodeJS module lookup logic).
+		options.mapParentSiblingPackages = (
+			descriptor.raw &&
+			descriptor.raw.config &&
+			descriptor.raw.config["pinf/0/bundler/options/0"] &&
+			descriptor.raw.config["pinf/0/bundler/options/0"].mapParentSiblingPackages
+		) || false;
+
 		helpers.anyToArray("@extends", "@extends");
 
 		helpers.string("uid");
@@ -4767,6 +4904,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 							return options.API.FS.exists(PATH.join(options._realpath(packagePath), "node_modules"), function(exists) {
 								if (!exists) {
 									if (options._realpath(packagePath) === "/") return callback(null);
+									if (!options.mapParentSiblingPackages) return callback(null);
 									return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
 								}
 								return options.API.FS.readdir(PATH.join(options._realpath(packagePath), "node_modules"), function(err, filenames) {
@@ -4799,6 +4937,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 											descriptor.normalized.mappings[filename] = addMappingsForPackage__cache[packagePath].mappings[filename];
 										}
 									});
+									if (!options.mapParentSiblingPackages) return callback(null);
 									return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
 								});
 							});
@@ -6776,6 +6915,16 @@ function normalize(descriptorPath, descriptor, options, callback) {
 
 	try {
 
+		// If `true` will traverse up all parent directories all the way to '/'.
+		// If 'node_modules' directories found will make package available if not already
+		// for same name (this is consistent with the NodeJS module lookup logic).
+		options.mapParentSiblingPackages = (
+			descriptor.raw &&
+			descriptor.raw.config &&
+			descriptor.raw.config["pinf/0/bundler/options/0"] &&
+			descriptor.raw.config["pinf/0/bundler/options/0"].mapParentSiblingPackages
+		) || false;
+
 		helpers.anyToArray("@extends", "@extends");
 
 		helpers.string("uid");
@@ -7201,6 +7350,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 							return options.API.FS.exists(PATH.join(options._realpath(packagePath), "node_modules"), function(exists) {
 								if (!exists) {
 									if (options._realpath(packagePath) === "/") return callback(null);
+									if (!options.mapParentSiblingPackages) return callback(null);
 									return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
 								}
 								return options.API.FS.readdir(PATH.join(options._realpath(packagePath), "node_modules"), function(err, filenames) {
@@ -7233,6 +7383,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 											descriptor.normalized.mappings[filename] = addMappingsForPackage__cache[packagePath].mappings[filename];
 										}
 									});
+									if (!options.mapParentSiblingPackages) return callback(null);
 									return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
 								});
 							});
@@ -8090,6 +8241,8 @@ exports.bundlePackage = function(bundlePackagePath, bundleOptions, callback) {
 
 	var rootBundlePath = null;
 
+	if (bundleOptions.verbose) console.log("[pinf-it-bundler][rt-bundler] request bundled package", bundlePackagePath);
+
 	function bypassIfWeCan(proceedCallback) {
 		if (!bundleOptions.$pinf) {
 			return proceedCallback(callback);
@@ -8108,6 +8261,7 @@ exports.bundlePackage = function(bundlePackagePath, bundleOptions, callback) {
 			bundleOptions.API.FS = gateway.getAPI("FS");
 			return proceedCallback(proxiedCallback);
 		}, function(cachedData) {
+			if (bundleOptions.verbose) console.log("[pinf-it-bundler][rt-bundler] using cached bundled package", bundlePackagePath);
 			// NOTE: Keep in sync with return values used at bottom of this code file.			
 			return callback(null, {
 				"#pinf": {
@@ -8146,6 +8300,8 @@ exports.bundlePackage = function(bundlePackagePath, bundleOptions, callback) {
 	}
 
 	return bypassIfWeCan(function(callback) {
+
+		if (bundleOptions.verbose) console.log("[pinf-it-bundler][rt-bundler] bundle package", bundlePackagePath);
 
 		var bundleDescriptors = {};
 
@@ -19635,6 +19791,16 @@ function normalize(descriptorPath, descriptor, options, callback) {
 
 	try {
 
+		// If `true` will traverse up all parent directories all the way to '/'.
+		// If 'node_modules' directories found will make package available if not already
+		// for same name (this is consistent with the NodeJS module lookup logic).
+		options.mapParentSiblingPackages = (
+			descriptor.raw &&
+			descriptor.raw.config &&
+			descriptor.raw.config["pinf/0/bundler/options/0"] &&
+			descriptor.raw.config["pinf/0/bundler/options/0"].mapParentSiblingPackages
+		) || false;
+
 		helpers.anyToArray("@extends", "@extends");
 
 		helpers.string("uid");
@@ -20060,6 +20226,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 							return options.API.FS.exists(PATH.join(options._realpath(packagePath), "node_modules"), function(exists) {
 								if (!exists) {
 									if (options._realpath(packagePath) === "/") return callback(null);
+									if (!options.mapParentSiblingPackages) return callback(null);
 									return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
 								}
 								return options.API.FS.readdir(PATH.join(options._realpath(packagePath), "node_modules"), function(err, filenames) {
@@ -20092,6 +20259,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 											descriptor.normalized.mappings[filename] = addMappingsForPackage__cache[packagePath].mappings[filename];
 										}
 									});
+									if (!options.mapParentSiblingPackages) return callback(null);
 									return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
 								});
 							});
@@ -62170,7 +62338,8 @@ exports.WRITE_METHODS = {
 	"writeJSONSync": true,
 	"open-write": true,
 	"ftruncate": true,
-	"write": true
+	"write": true,
+	"outputFileAtomic": true
 };
 
 var FileFS = function(rootPath, options) {
@@ -62185,8 +62354,31 @@ UTIL.inherits(FileFS, EVENTS.EventEmitter);
 
 
 FileFS.prototype.notifyUsedPath = function(path, method) {
-	this.emit("used-path", path, method);	
+	this.emit("used-path", path, method);
+/*
+	if (exports.READ_METHODS[method]) {
+		console.log(("[pinf-for-nodejs][vfs] use READ method '" + method + "' for: " + path).magenta);
+	} else
+	if (exports.WRITE_METHODS[method]) {
+		console.log(("[pinf-for-nodejs][vfs] use WRITE method '" + method + "' for: " + path).magenta);
+	} else {
+		console.log(("[pinf-for-nodejs][vfs] use method '" + method + "' for: " + path).magenta);
+	}
+*/
 }
+
+FS.outputFileAtomic = function(path, data, callback) {
+	var tmpPath = path + "~" + Date.now();
+    return FS.outputFile(tmpPath, data, function(err) {
+    	if (err) return callback(err);
+    	// Assume file exists.
+    	return FS.unlink(path, function() {
+    		// We ignore error.
+    		return FS.rename(tmpPath, path, callback);
+    	});
+    });
+}
+
 // Intercept all FS methods that have a path like argument.
 Object.keys(FS).forEach(function(name) {
 	var source = null;
@@ -62226,154 +62418,6 @@ Object.keys(FS).forEach(function(name) {
 
 }
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/vfs.js"});
-// @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/snapshot/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"13b68c5c4d40f6d75c2ef94ff2478bdccab0b1ff-snapshot/index.js"}
-require.memoize("13b68c5c4d40f6d75c2ef94ff2478bdccab0b1ff-snapshot/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/snapshot';
-var util = require('__SYSTEM__/util');
-
-function snapshot(scope) {
-  var seenObjs = [ ],
-      objects = [ ],
-      // three kinds of things can contain references to other objects: arrays, hashes and serializable objects
-      // other values are primitives (potentially native types)
-      arrRefs = [],
-      hashRefs = [],
-      deserializeParams = [];
-
-  function Reference(to) {
-    this.from = null;
-    this.to = to;
-  }
-
-  function implode(value, parent) {
-    var type = typeof value;
-
-    if(type === 'string') {
-      return JSON.stringify(value);
-    } else if (type === 'number' || type === 'boolean') {
-      return value;
-    } else if (type === 'undefined') {
-      return 'undefined';
-    } else {
-      // object or function
-      var stype = Object.prototype.toString.call(value);
-      // apparently Chrome <= 12 is nonconformant and returns typeof /regexp/ as 'function'
-      if(value === null) {
-        return 'null';
-      }
-      if (stype === '[object RegExp]') {
-        return value.toString();
-      } else if (stype === '[object Date]') {
-        return 'new Date('+value.valueOf()+')';
-      } else {
-        // non-native object or function
-        if(type === 'function') {
-          return value.toString();
-        } else {
-          // object (can contain circular depencency)
-          var index = seenObjs.indexOf(value);
-          if(index > -1) {
-//            console.log('Circular dependency from ' + parent + ' to ' + index);
-            return new Reference(index);
-          } else {
-            index = seenObjs.length;
-            seenObjs.push(value);
-//            console.log('Seen', index, (value.a ? value.a : ( value.b ? value.b : '')));
-          }
-
-          if(stype === '[object Array]') {
-            objects[index] = '[' + value.map(function(i, key) {
-              var val = implode(i);
-//              console.log('array!!!', i, val);
-              if(val instanceof Reference) {
-                val.from = index;
-                val.key = key;
-                arrRefs.push(val);
-                return 'null'; // placeholder
-              } else {
-                return val;
-              }
-            }) +']';
-          } else if(value.serialize && typeof value.serialize === 'function') {
-            var parts = value.serialize();
-//            console.log('parts:', parts);
-            // objects with custom serialization are always created empty
-            objects[index] = 'new ' +parts.shift()+'()';
-            // all the parameters from the serialize call need to be translated into deserialize calls later on
-            deserializeParams[index] = parts.map(function(item, key) {
-              var val = implode(item, index);
-//              console.log('val', val);
-              if(val instanceof Reference) {
-                val.from = index;
-                val.isObject = true;
-              }
-              return val;
-            });
-          } else {
-            objects[index] = '{ ' + Object.keys(value).map(function(key) {
-              var val = implode(value[key], index);
-              if(val instanceof Reference) {
-                // hash keys that are references need to be materialized later
-                val.from = index;
-                val.key = key;
-                hashRefs.push(val);
-                return val;
-              } else {
-                // hash keys that are not references can be stored directly
-                return JSON.stringify(key) +': '+val;
-              }
-            }).filter(function(v) { return !(v instanceof Reference); }).join(',') + ' }';
-          }
-
-          return new Reference(index);
-
-        }
-      }
-    }
-  }
-
-  var values = implode(scope, 0);
-
-  return '(function() { var Obj = [' + objects.join(',')+'];\n' +
-
-          // array deserialization
-
-          arrRefs.map(function(link) {
-            return 'Obj['+link.from+']['+link.key+'] = Obj['+link.to+'];';
-          }).join('\n')+
-
-          // hash deserialiazation
-
-          hashRefs.map(function(link) {
-            return 'Obj['+link.from+']['+JSON.stringify(link.key)+'] = Obj['+link.to+'];';
-          }).join('\n')+
-
-          // object deserialization
-
-          deserializeParams.map(function(init, index) {
-            return 'Obj['+index+'].deserialize('+init.map(function(val){
-                if(val instanceof Reference && val.isObject) {
-                  return 'Obj['+val.to+']';
-                } else {
-                  return val;
-                }
-              }).join(',')+');'
-          }).join('\n')+
-          '\n return Obj[0];}());';
-}
-
-module.exports = snapshot;
-
-return {
-    util: (typeof util !== "undefined") ? util : null,
-    require: (typeof require !== "undefined") ? require : null,
-    snapshot: (typeof snapshot !== "undefined") ? snapshot : null,
-    JSON: (typeof JSON !== "undefined") ? JSON : null,
-    Object: (typeof Object !== "undefined") ? Object : null,
-    module: (typeof module !== "undefined") ? module : null
-};
-}
-, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/snapshot/index.js"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/package.json"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/package.json", 
 {
@@ -62388,8 +62432,7 @@ require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/packag
         "pinf-it-program-insight": "c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight",
         "pinf-it-bundler": "5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler",
         "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
-        "pinf-loader-js": "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js",
-        "snapshot": "13b68c5c4d40f6d75c2ef94ff2478bdccab0b1ff-snapshot"
+        "pinf-loader-js": "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js"
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs"
 }
@@ -63122,13 +63165,6 @@ require.memoize("bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/package
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-loader-js"
 }
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-loader-js/package.json"});
-// @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"13b68c5c4d40f6d75c2ef94ff2478bdccab0b1ff-snapshot/package.json"}
-require.memoize("13b68c5c4d40f6d75c2ef94ff2478bdccab0b1ff-snapshot/package.json", 
-{
-    "main": "13b68c5c4d40f6d75c2ef94ff2478bdccab0b1ff-snapshot/index.js",
-    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/snapshot"
-}
-, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/snapshot/package.json"});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}
