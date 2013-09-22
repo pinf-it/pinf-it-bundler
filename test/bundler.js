@@ -224,6 +224,11 @@ describe('bundler', function() {
 						var basePath = PATH.join(rootPath, relPath);
 						var distPath = PATH.join(relPath, ".dist");
 
+						// TODO: Re-run whole test sequence below a second time using the cache.
+						//       i.e. don't delete `.rt` the second time around.
+						FS.removeSync(PATH.join(__dirname, "../.rt"));
+						FS.removeSync(PATH.join(basePath, ".rt"));
+
 						var buffer = [];
 						var result = null;
 
@@ -265,8 +270,12 @@ describe('bundler', function() {
 								return PINF_FOR_NODEJS.getReport();
 							}
 						};
-						var oldDistPath = options.distPath + "~" + Date.now();
-						FS.rename(options.distPath, oldDistPath);
+						var oldDistPath = PATH.join(rootPath, options.distPath + "~" + Date.now());
+						if (FS.existsSync(PATH.join(rootPath, options.distPath))) {
+							FS.rename(PATH.join(rootPath, options.distPath), oldDistPath);
+						} else {
+							oldDistPath = null;
+						}
 						function attachPinfContextToOptions(callback) {
 							return FS.exists(PATH.join(basePath, "program.json"), function(exists) {
 								if (!exists) return callback(null);
@@ -333,8 +342,11 @@ describe('bundler', function() {
 										if (!lastBundlePath) {
 											// Bundler did not run and got bundle fro cache.
 											lastBundlePath = bundleDescriptors["#pinf"].data.rootBundlePath;
-											FS.rename(oldDistPath, options.distPath);
-										} else {
+											if (oldDistPath) {
+												FS.rename(oldDistPath, PATH.join(rootPath, options.distPath));
+											}
+										} else
+										if (oldDistPath) {
 											FS.removeSync(oldDistPath);
 										}
 

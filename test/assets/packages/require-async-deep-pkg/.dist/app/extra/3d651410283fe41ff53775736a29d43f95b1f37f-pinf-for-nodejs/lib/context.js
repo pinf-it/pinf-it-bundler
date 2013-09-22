@@ -479,7 +479,7 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 									}
 									if (!data || !data.paths) return proceed("no-paths-in-cache");
 									if (gatewayOptions.skipFSCheck) {
-										if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway skipping cache check (" + (Date.now() - gatewayStartTime) + " ms)").green);
+										if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway skipping cache check (" + cachePath + " in " + (Date.now() - gatewayStartTime) + " ms)").green);
 										// self.getAPI("console").cache("Using cached data based on path mtimes in '" + path + "'");
 										return notModifiedCallback(data.data, {
 											cachePath: cachePath
@@ -8403,7 +8403,7 @@ exports.bundlePackage = function(bundlePackagePath, bundleOptions, callback) {
 			return callback(null, bundleDescriptors, {
 				ensureAsync: function(moduleObj, pkg, sandbox, canonicalId, options, callback) {
 
-					if (bundleOptions.verbose) console.log("[pinf-it-bundler][rt-bundler] ensureAsync (originally bypassed)", "moduleObj", moduleObj, "pkg", pkg, "sandbox", sandbox, "canonicalId", canonicalId);
+					if (bundleOptions.debug) console.log("[pinf-it-bundler][rt-bundler] ensureAsync (originally bypassed)", "moduleObj", moduleObj, "pkg", pkg, "sandbox", sandbox, "canonicalId", canonicalId);
 
 				 	var identifier = options.resolveIdentifier(canonicalId);
 				 	if (identifier && identifier[0].descriptor) {
@@ -8621,7 +8621,7 @@ exports.bundlePackage = function(bundlePackagePath, bundleOptions, callback) {
 			}
 
 			if (!info) {
-				console.log("moduleObj", moduleObj);
+//				console.log("moduleObj", moduleObj);
 				throw new Error("Alias '" + aliasid + "' not found in mappings for package " + JSON.stringify(packageDescriptorPaths));
 			}
 
