@@ -48,6 +48,7 @@
                         "memoizeId": "/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/require-async-deep-pkg",
+                            "dirrealpath": "test/assets/packages/require-async-deep-pkg",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/require-async-deep-pkg/package.json",
@@ -305,6 +306,7 @@
                         "memoizeId": "/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/require-async-deep-pkg",
+                            "dirrealpath": "test/assets/packages/require-async-deep-pkg",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/require-async-deep-pkg/package.json",
@@ -398,6 +400,7 @@
                         "memoizeId": "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs",
+                            "dirrealpath": "../github.com+pinf+pinf-for-nodejs",
                             "id": "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs",
                             "lookupPaths": [
                                 "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/package.json",
@@ -751,6 +754,7 @@
                         "memoizeId": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/require.async",
+                            "dirrealpath": "../github.com+pinf+require.async",
                             "id": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async",
                             "lookupPaths": [
                                 "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/require.async/package.json",
@@ -855,6 +859,7 @@
                         "memoizeId": "/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/require-async-deep-pkg",
+                            "dirrealpath": "test/assets/packages/require-async-deep-pkg",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/require-async-deep-pkg/package.json",

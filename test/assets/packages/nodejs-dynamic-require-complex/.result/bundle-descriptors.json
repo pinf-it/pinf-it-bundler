@@ -53,6 +53,7 @@
                         "memoizeId": "/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-complex",
+                            "dirrealpath": "test/assets/packages/nodejs-dynamic-require-complex",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/nodejs-dynamic-require-complex/package.json",
@@ -220,6 +221,7 @@
                 "memoizeId": "/package.json",
                 "descriptor": {
                     "dirpath": "test/assets/packages/nodejs-dynamic-require-complex",
+                    "dirrealpath": "test/assets/packages/nodejs-dynamic-require-complex",
                     "id": "",
                     "lookupPaths": [
                         "test/assets/packages/nodejs-dynamic-require-complex/package.json",
@@ -403,6 +405,7 @@
                 "memoizeId": "/package.json",
                 "descriptor": {
                     "dirpath": "test/assets/packages/nodejs-dynamic-require-complex",
+                    "dirrealpath": "test/assets/packages/nodejs-dynamic-require-complex",
                     "id": "",
                     "lookupPaths": [
                         "test/assets/packages/nodejs-dynamic-require-complex/package.json",
@@ -582,6 +585,7 @@
                         "memoizeId": "698b594771c54e63058ef9073aaf59f1e529c21f-letters/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters",
+                            "dirrealpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters/package.json",
@@ -784,6 +788,7 @@
                         "memoizeId": "698b594771c54e63058ef9073aaf59f1e529c21f-letters/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters",
+                            "dirrealpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters/package.json",
@@ -885,6 +890,7 @@
                         "memoizeId": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l",
+                            "dirrealpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l",
                             "id": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l",
                             "lookupPaths": [
                                 "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l/package.json",
@@ -940,6 +946,7 @@
                         "memoizeId": "698b594771c54e63058ef9073aaf59f1e529c21f-letters/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters",
+                            "dirrealpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters/package.json",
@@ -1093,6 +1100,7 @@
                         "memoizeId": "a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l",
+                            "dirrealpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l/package.json",
@@ -1203,6 +1211,7 @@
                         "memoizeId": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o",
+                            "dirrealpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o/package.json",
@@ -1313,6 +1322,7 @@
                         "memoizeId": "b78c7d66a80e380b94bf97cf383ab6907b15365e-letter-o/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o",
+                            "dirrealpath": "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o/package.json",

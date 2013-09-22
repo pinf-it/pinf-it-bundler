@@ -51,6 +51,7 @@
                         "memoizeId": "/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/require-async",
+                            "dirrealpath": "test/assets/packages/require-async",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/require-async/package.json",
@@ -149,6 +150,7 @@
                         "memoizeId": "/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/require-async",
+                            "dirrealpath": "test/assets/packages/require-async",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/require-async/package.json",
@@ -192,6 +194,7 @@
                         "memoizeId": "/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/require-async",
+                            "dirrealpath": "test/assets/packages/require-async",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/require-async/package.json",

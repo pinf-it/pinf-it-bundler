@@ -5282,6 +5282,7 @@
                         "memoizeId": "/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-built-in",
+                            "dirrealpath": "test/assets/packages/nodejs-built-in",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/nodejs-built-in/package.json",
@@ -5484,6 +5485,7 @@
                         "memoizeId": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/fs-extra",
+                            "dirrealpath": "node_modules/fs-extra",
                             "id": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
                             "lookupPaths": [
                                 "node_modules/fs-extra/package.json",
@@ -5800,6 +5802,7 @@
                         "memoizeId": "d5ba5d20168aa9175f55feda3f60aab1a6ace818-jsonfile/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/fs-extra/node_modules/jsonfile",
+                            "dirrealpath": "node_modules/fs-extra/node_modules/jsonfile",
                             "id": "d5ba5d20168aa9175f55feda3f60aab1a6ace818-jsonfile",
                             "lookupPaths": [
                                 "node_modules/fs-extra/node_modules/jsonfile/package.json",
@@ -5981,6 +5984,7 @@
                         "memoizeId": "693ec9cb1f2f61428c63e9cd17e57775f4df0f74-mkdirp/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/fs-extra/node_modules/mkdirp",
+                            "dirrealpath": "node_modules/fs-extra/node_modules/mkdirp",
                             "id": "693ec9cb1f2f61428c63e9cd17e57775f4df0f74-mkdirp",
                             "lookupPaths": [
                                 "node_modules/fs-extra/node_modules/mkdirp/package.json",
@@ -6164,6 +6168,7 @@
                         "memoizeId": "c99227b03d285ab9292c0748af53c56ffc9ac859-ncp/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/fs-extra/node_modules/ncp",
+                            "dirrealpath": "node_modules/fs-extra/node_modules/ncp",
                             "id": "c99227b03d285ab9292c0748af53c56ffc9ac859-ncp",
                             "lookupPaths": [
                                 "node_modules/fs-extra/node_modules/ncp/package.json",
@@ -6369,6 +6374,7 @@
                         "memoizeId": "16117a71d212e842209fc0336b7b2cf0572a5023-rimraf/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/fs-extra/node_modules/rimraf",
+                            "dirrealpath": "node_modules/fs-extra/node_modules/rimraf",
                             "id": "16117a71d212e842209fc0336b7b2cf0572a5023-rimraf",
                             "lookupPaths": [
                                 "node_modules/fs-extra/node_modules/rimraf/package.json",
@@ -6657,6 +6663,7 @@
                         "memoizeId": "8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs",
+                            "dirrealpath": "node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs",
                             "id": "8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs",
                             "lookupPaths": [
                                 "node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/package.json",
@@ -6878,6 +6885,7 @@
                         "memoizeId": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request",
+                            "dirrealpath": "node_modules/request",
                             "id": "ed4bb06796db1905581e7b400da006dd7b8b1b55-request",
                             "lookupPaths": [
                                 "node_modules/request/package.json",
@@ -7210,6 +7218,7 @@
                         "memoizeId": "96d6c97b8f07f8f227fbeb5b214187b162ad8c7c-cookie-jar/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/cookie-jar",
+                            "dirrealpath": "node_modules/request/node_modules/cookie-jar",
                             "id": "96d6c97b8f07f8f227fbeb5b214187b162ad8c7c-cookie-jar",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/cookie-jar/package.json",
@@ -7374,6 +7383,7 @@
                         "memoizeId": "bad905498fb7a8a034fa664d6ed1a9c67f1b189c-qs/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/qs",
+                            "dirrealpath": "node_modules/request/node_modules/qs",
                             "id": "bad905498fb7a8a034fa664d6ed1a9c67f1b189c-qs",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/qs/package.json",
@@ -7569,6 +7579,7 @@
                         "memoizeId": "4c8c493e0464365389fe0601e4bb6254d3b41a3c-oauth-sign/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/oauth-sign",
+                            "dirrealpath": "node_modules/request/node_modules/oauth-sign",
                             "id": "4c8c493e0464365389fe0601e4bb6254d3b41a3c-oauth-sign",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/oauth-sign/package.json",
@@ -7733,6 +7744,7 @@
                         "memoizeId": "29eb5a18eb620cc598527d89a0c5c611db63e91b-hawk/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/hawk",
+                            "dirrealpath": "node_modules/request/node_modules/hawk",
                             "id": "29eb5a18eb620cc598527d89a0c5c611db63e91b-hawk",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/hawk/package.json",
@@ -8021,6 +8033,7 @@
                         "memoizeId": "799caeb4798b9c4de483910de2aa52868f1f47d9-boom/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/hawk/node_modules/boom",
+                            "dirrealpath": "node_modules/request/node_modules/hawk/node_modules/boom",
                             "id": "799caeb4798b9c4de483910de2aa52868f1f47d9-boom",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/hawk/node_modules/boom/package.json",
@@ -8282,6 +8295,7 @@
                         "memoizeId": "f7d6999ac201573ce8335e058ee0439994171772-hoek/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/hawk/node_modules/hoek",
+                            "dirrealpath": "node_modules/request/node_modules/hawk/node_modules/hoek",
                             "id": "f7d6999ac201573ce8335e058ee0439994171772-hoek",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/hawk/node_modules/hoek/package.json",
@@ -8509,6 +8523,7 @@
                         "memoizeId": "99cc0c112bc5e48183c985f6e4c69af129c98ba7-sntp/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/hawk/node_modules/sntp",
+                            "dirrealpath": "node_modules/request/node_modules/hawk/node_modules/sntp",
                             "id": "99cc0c112bc5e48183c985f6e4c69af129c98ba7-sntp",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/hawk/node_modules/sntp/package.json",
@@ -8773,6 +8788,7 @@
                         "memoizeId": "0d16239d3ef60fdd17d17b1d50d2c59ee8e63166-cryptiles/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/hawk/node_modules/cryptiles",
+                            "dirrealpath": "node_modules/request/node_modules/hawk/node_modules/cryptiles",
                             "id": "0d16239d3ef60fdd17d17b1d50d2c59ee8e63166-cryptiles",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/hawk/node_modules/cryptiles/package.json",
@@ -9037,6 +9053,7 @@
                         "memoizeId": "effa10bda53b956d3e4fe3fada19d444ee3ea1ac-aws-sign/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/aws-sign",
+                            "dirrealpath": "node_modules/request/node_modules/aws-sign",
                             "id": "effa10bda53b956d3e4fe3fada19d444ee3ea1ac-aws-sign",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/aws-sign/package.json",
@@ -9192,6 +9209,7 @@
                         "memoizeId": "6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/http-signature",
+                            "dirrealpath": "node_modules/request/node_modules/http-signature",
                             "id": "6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/http-signature/package.json",
@@ -9415,6 +9433,7 @@
                         "memoizeId": "fbda01465fe6db497c8c3e6b1a4a2bfae5a62cfc-assert-plus/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/http-signature/node_modules/assert-plus",
+                            "dirrealpath": "node_modules/request/node_modules/http-signature/node_modules/assert-plus",
                             "id": "fbda01465fe6db497c8c3e6b1a4a2bfae5a62cfc-assert-plus",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/http-signature/node_modules/assert-plus/package.json",
@@ -9538,6 +9557,7 @@
                         "memoizeId": "e612e189cff4640079c1b54bfddcf962015c2f30-asn1/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/http-signature/node_modules/asn1",
+                            "dirrealpath": "node_modules/request/node_modules/http-signature/node_modules/asn1",
                             "id": "e612e189cff4640079c1b54bfddcf962015c2f30-asn1",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/http-signature/node_modules/asn1/package.json",
@@ -9743,6 +9763,7 @@
                         "memoizeId": "772d995e44ccaf42f98f64a0097b4a58863c38af-ctype/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/http-signature/node_modules/ctype",
+                            "dirrealpath": "node_modules/request/node_modules/http-signature/node_modules/ctype",
                             "id": "772d995e44ccaf42f98f64a0097b4a58863c38af-ctype",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/http-signature/node_modules/ctype/package.json",
@@ -9866,6 +9887,7 @@
                         "memoizeId": "e999f0bd6e194076d315ffd2a431c4c6e32def1e-node-uuid/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/node-uuid",
+                            "dirrealpath": "node_modules/request/node_modules/node-uuid",
                             "id": "e999f0bd6e194076d315ffd2a431c4c6e32def1e-node-uuid",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/node-uuid/package.json",
@@ -10062,6 +10084,7 @@
                         "memoizeId": "acbfdcf6c33b2a153969671d593b45e4d0cd5768-mime/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/mime",
+                            "dirrealpath": "node_modules/request/node_modules/mime",
                             "id": "acbfdcf6c33b2a153969671d593b45e4d0cd5768-mime",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/mime/package.json",
@@ -10250,6 +10273,7 @@
                         "memoizeId": "11cb05bc0940ffae1a1e1f73ca7c89e4731519fe-tunnel-agent/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/tunnel-agent",
+                            "dirrealpath": "node_modules/request/node_modules/tunnel-agent",
                             "id": "11cb05bc0940ffae1a1e1f73ca7c89e4731519fe-tunnel-agent",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/tunnel-agent/package.json",
@@ -10405,6 +10429,7 @@
                         "memoizeId": "cd513417702c216d7e831b5e07732580c4cd46ff-json-stringify-safe/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/json-stringify-safe",
+                            "dirrealpath": "node_modules/request/node_modules/json-stringify-safe",
                             "id": "cd513417702c216d7e831b5e07732580c4cd46ff-json-stringify-safe",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/json-stringify-safe/package.json",
@@ -10578,6 +10603,7 @@
                         "memoizeId": "0aece9af14f253ebe7db431e7f82a4db65578bac-forever-agent/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/forever-agent",
+                            "dirrealpath": "node_modules/request/node_modules/forever-agent",
                             "id": "0aece9af14f253ebe7db431e7f82a4db65578bac-forever-agent",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/forever-agent/package.json",
@@ -10733,6 +10759,7 @@
                         "memoizeId": "30e023fb56d12219edd0fa0dc5fec5bc671e23d7-form-data/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/form-data",
+                            "dirrealpath": "node_modules/request/node_modules/form-data",
                             "id": "30e023fb56d12219edd0fa0dc5fec5bc671e23d7-form-data",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/form-data/package.json",
@@ -11034,6 +11061,7 @@
                         "memoizeId": "06cbcc54faef9f40e30e431889706609e5cfcee5-combined-stream/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/form-data/node_modules/combined-stream",
+                            "dirrealpath": "node_modules/request/node_modules/form-data/node_modules/combined-stream",
                             "id": "06cbcc54faef9f40e30e431889706609e5cfcee5-combined-stream",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/form-data/node_modules/combined-stream/package.json",
@@ -11234,6 +11262,7 @@
                         "memoizeId": "199a58ca20a8d32f3b68d292b20fd112db88b5ec-delayed-stream/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream",
+                            "dirrealpath": "node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream",
                             "id": "199a58ca20a8d32f3b68d292b20fd112db88b5ec-delayed-stream",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/package.json",
@@ -11406,6 +11435,7 @@
                         "memoizeId": "257a70b6290719603e5079400727f3d2d2d1b03a-async/package.json",
                         "descriptor": {
                             "dirpath": "node_modules/request/node_modules/form-data/node_modules/async",
+                            "dirrealpath": "node_modules/request/node_modules/form-data/node_modules/async",
                             "id": "257a70b6290719603e5079400727f3d2d2d1b03a-async",
                             "lookupPaths": [
                                 "node_modules/request/node_modules/form-data/node_modules/async/package.json",

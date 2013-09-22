@@ -50,6 +50,7 @@
                         "memoizeId": "/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/single",
+                            "dirrealpath": "test/assets/packages/single",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/single/package.json",

@@ -43,6 +43,7 @@
                 "memoizeId": "/package.json",
                 "descriptor": {
                     "dirpath": "test/assets/packages/nodejs-dynamic-require-declared",
+                    "dirrealpath": "test/assets/packages/nodejs-dynamic-require-declared",
                     "id": "",
                     "lookupPaths": [
                         "test/assets/packages/nodejs-dynamic-require-declared/package.json",
@@ -150,6 +151,7 @@
                         "memoizeId": "/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-declared",
+                            "dirrealpath": "test/assets/packages/nodejs-dynamic-require-declared",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/nodejs-dynamic-require-declared/package.json",

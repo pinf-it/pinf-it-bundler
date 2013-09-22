@@ -67,6 +67,7 @@
                         "memoizeId": "/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/self-require",
+                            "dirrealpath": "test/assets/packages/self-require",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/self-require/package.json",

@@ -53,6 +53,7 @@
                         "memoizeId": "/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-pkg",
+                            "dirrealpath": "test/assets/packages/nodejs-dynamic-require-pkg",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/nodejs-dynamic-require-pkg/package.json",
@@ -203,6 +204,7 @@
                         "memoizeId": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-pkg/node_modules/greeting",
+                            "dirrealpath": "test/assets/packages/nodejs-dynamic-require-pkg/node_modules/greeting",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/nodejs-dynamic-require-pkg/node_modules/greeting/package.json",

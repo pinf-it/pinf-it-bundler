@@ -56,6 +56,7 @@
                         "memoizeId": "/package.json",
                         "descriptor": {
                             "dirpath": "test/assets/packages/nodejs-dynamic-require-nested",
+                            "dirrealpath": "test/assets/packages/nodejs-dynamic-require-nested",
                             "id": "",
                             "lookupPaths": [
                                 "test/assets/packages/nodejs-dynamic-require-nested/package.json",
@@ -216,6 +217,7 @@
                 "memoizeId": "/package.json",
                 "descriptor": {
                     "dirpath": "test/assets/packages/nodejs-dynamic-require-nested",
+                    "dirrealpath": "test/assets/packages/nodejs-dynamic-require-nested",
                     "id": "",
                     "lookupPaths": [
                         "test/assets/packages/nodejs-dynamic-require-nested/package.json",
@@ -367,6 +369,7 @@
                 "memoizeId": "/package.json",
                 "descriptor": {
                     "dirpath": "test/assets/packages/nodejs-dynamic-require-nested",
+                    "dirrealpath": "test/assets/packages/nodejs-dynamic-require-nested",
                     "id": "",
                     "lookupPaths": [
                         "test/assets/packages/nodejs-dynamic-require-nested/package.json",
@@ -456,6 +459,7 @@
                 "memoizeId": "/package.json",
                 "descriptor": {
                     "dirpath": "test/assets/packages/nodejs-dynamic-require-nested",
+                    "dirrealpath": "test/assets/packages/nodejs-dynamic-require-nested",
                     "id": "",
                     "lookupPaths": [
                         "test/assets/packages/nodejs-dynamic-require-nested/package.json",
