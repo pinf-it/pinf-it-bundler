@@ -1,4 +1,5 @@
-/.rt/
+.rt/
+.dist~*
 /.sm/
 /node_modules/
 /examples/*/app/

@@ -95,6 +95,7 @@ const VM = require("./vm").VM;
 const VFS = require("./vfs");
 const LOADER = require("./loader");
 const CRYPTO = require("__SYSTEM__/crypto");
+const ZLIB = require("__SYSTEM__/zlib");
 
 
 exports.contextForModule = function(module, options, callback) {
@@ -388,13 +389,23 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 			function finalize(cacheData, callback) {
 				var waitfor = WAITFOR.parallel(function(err) {
 					if (err) return callback(err);
-					return (FS.outputFileAtomic || FS.outputFile)(getCachePath(), JSON.stringify(JSON.decycle({
+					var data = JSON.stringify(JSON.decycle({
 						wtime: Date.now(),
 						paths: paths,
 						data: cacheData
-					})), function(err) {
+					}));
+					return ZLIB.gzip(new Buffer(data), function(err, buffer) {
 						if (err) return callback(err);
-						return callback();
+						return (FS.outputFileAtomic || FS.outputFile)(getCachePath(), buffer, function(err) {
+							if (err) {
+								if (err.code === "ENOENT" && /rename/.test(err.message)) {
+									// Rename failed likely due to other process writing file during our delete and rename.
+									return callback();
+								}
+								return callback(err);
+							}
+							return callback();
+						});
 					});
 				});
 				for (var path in paths) {
@@ -455,72 +466,80 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 						if (!exists) return proceed("cache-path-missing");
 						return FS.stat(cachePath, function(err, stat) {
 							if (err) return callback(err);
-							return FS.readFile(cachePath, function(err, data) {
+							return FS.readFile(cachePath, function(err, dataRaw) {
 								if (err) return callback(err);
-								try {
-									data = JSON.retrocycle(JSON.parse(data.toString()));
-								} catch(err) {
-									console.warn("Error evaling cache file '" + cachePath + "': " + err.stack);
-									return proceed("error-during-cache-eval");
-								}
-								if (!data || !data.paths) return proceed("no-paths-in-cache");
-								if (gatewayOptions.skipFSCheck) {
-									if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway skipping cache check (" + (Date.now() - gatewayStartTime) + " ms)").green);
-									// self.getAPI("console").cache("Using cached data based on path mtimes in '" + path + "'");
-									return notModifiedCallback(data.data);
-								}
-								// Find earliest mtime in write paths.
-								var canBypass = true;
-								// Go through all read paths to see if:
-								//    * we can find one with an mtime that now does not exist (missing).
-								//    * we can find one with mtime -1 that now exists (new).
-								//    * we can find one with a newer mtime (changed).
-								var waitfor = WAITFOR.parallel(function(err) {
-									if (err) return callback(err);
-									if (canBypass === true) {
-										if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway using cache (checked " + Object.keys(data.paths).length + " paths in " + (Date.now() - gatewayStartTime) + " ms)").green);
-										// self.getAPI("console").cache("Using cached data based on path mtimes in '" + path + "'");
-										return notModifiedCallback(data.data);
+								return ZLIB.gunzip(dataRaw, function(err, data) {
+									// NOTE: For some reason the data is not always compressed!
+//									if (err) return callback(err);
+									try {
+										data = JSON.retrocycle(JSON.parse(data || dataRaw));
+									} catch(err) {
+										console.warn("Error evaling cache file '" + cachePath + "': " + err.stack);
+										return proceed("error-during-cache-eval");
 									}
-									if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway found change: " + canBypass).yellow);
-									// self.getAPI("console").info("Regenerating cached data based on path mtimes in '" + path + "' (" + canBypass + ")");
-									return proceed("cannot-bypass-after-check");
-								});
-								for (var path in data.paths) {
-									waitfor(path, function checkPath(path, done) {
-										if (!canBypass) return done();
-										return FS.exists(path, function(exists) {
+									if (!data || !data.paths) return proceed("no-paths-in-cache");
+									if (gatewayOptions.skipFSCheck) {
+										if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway skipping cache check (" + (Date.now() - gatewayStartTime) + " ms)").green);
+										// self.getAPI("console").cache("Using cached data based on path mtimes in '" + path + "'");
+										return notModifiedCallback(data.data, {
+											cachePath: cachePath
+										});
+									}
+									// Find earliest mtime in write paths.
+									var canBypass = true;
+									// Go through all read paths to see if:
+									//    * we can find one with an mtime that now does not exist (missing).
+									//    * we can find one with mtime -1 that now exists (new).
+									//    * we can find one with a newer mtime (changed).
+									var waitfor = WAITFOR.parallel(function(err) {
+										if (err) return callback(err);
+										if (canBypass === true) {
+											if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway using cache (checked " + Object.keys(data.paths).length + " paths in " + (Date.now() - gatewayStartTime) + " ms)").green);
+											// self.getAPI("console").cache("Using cached data based on path mtimes in '" + path + "'");
+											return notModifiedCallback(data.data, {
+												cachePath: cachePath
+											});
+										}
+										if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway found change: " + canBypass).yellow);
+										// self.getAPI("console").info("Regenerating cached data based on path mtimes in '" + path + "' (" + canBypass + ")");
+										return proceed("cannot-bypass-after-check");
+									});
+									for (var path in data.paths) {
+										waitfor(path, function checkPath(path, done) {
 											if (!canBypass) return done();
-											if (exists) {
-												if (data.paths[path] && data.paths[path].mtime === -1) {
-													// mtime -1 that now exists.
-													canBypass = "new - " + path;
-													return done();
-												}
-												return FS.stat(path, function(err, stat) {
-													if (err) return done(err);
-													if (
-														stat.mtime.getTime() > data.paths[path].mtime ||
-														stat.size != data.paths[path].size
-													) {
-														// a newer mtime than `earliestMtime`.
-														canBypass = "changed (" + (stat.mtime.getTime() + " - " + data.paths[path].mtime) + " - " + (stat.mtime.getTime() - data.paths[path].mtime) + ") - " + path;
+											return FS.exists(path, function(exists) {
+												if (!canBypass) return done();
+												if (exists) {
+													if (data.paths[path] && data.paths[path].mtime === -1) {
+														// mtime -1 that now exists.
+														canBypass = "new - " + path;
+														return done();
+													}
+													return FS.stat(path, function(err, stat) {
+														if (err) return done(err);
+														if (
+															stat.mtime.getTime() > data.paths[path].mtime ||
+															stat.size != data.paths[path].size
+														) {
+															// a newer mtime than `earliestMtime`.
+															canBypass = "changed (" + (stat.mtime.getTime() + " - " + data.paths[path].mtime) + " - " + (stat.mtime.getTime() - data.paths[path].mtime) + ") - " + path;
+															return done();
+														}
+														return done();
+													});
+												} else {
+													if (data.paths[path] && data.paths[path].mtime !== -1) {
+														// an mtime that now does not exist.
+														canBypass = "missing - " + path;
 														return done();
 													}
 													return done();
-												});
-											} else {
-												if (data.paths[path] && data.paths[path].mtime !== -1) {
-													// an mtime that now does not exist.
-													canBypass = "missing - " + path;
-													return done();
 												}
-												return done();
-											}
+											});
 										});
-									});
-								}
-								return waitfor();
+									}
+									return waitfor();
+								});
 							});
 						});
 					});
@@ -529,7 +548,7 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 					if (alias !== "FS") {
 						throw new Error("API for alias '" + alias + "' not supported!");
 					}
-					VFS = self.getAPI(alias);
+					VFS = self.getAPI("FS") || FS;
 					if (typeof VFS.on === "function") {
 						VFS.on("used-path", listener);
 					} else {
@@ -573,8 +592,8 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 			store.set(key, data);
 			store.save();
 			return reloadContext(this, function(err) {
-				if (err) return callback(err);
 				if (callback) {
+					if (err) return callback(err);
 					return callback(null, data);
 				}
 				return;
@@ -648,6 +667,7 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 		}
 	}
 
+	// TODO: Prepare all this when loading context and make this a sync function.
 	Context.prototype.getPackageInfo = function(path, callback) {
 		var self = this;
         var info = {
@@ -656,31 +676,68 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 	            PINF_PACKAGE: PATH.join(path, "package.json")
 	        }
         };
-        var packages = self._descriptors.program.combined.packages;
-
+        var packages = (self._descriptors.program.combined && self._descriptors.program.combined.packages) || {};
+        var overrides = {};
         for (var uri in packages) {
-	    	if (packages[uri].dirpath === path) {
-
-	    		var config = packages[uri].combined.config || {};
-	    		if (
-	    			packages[uri].combined.uid &&
-	    			self._descriptors.program.combined &&
-	    			self._descriptors.program.combined.config &&
-	    			self._descriptors.program.combined.config[packages[uri].combined.uid]
-	    		) {
-	    			config = DEEPMERGE(config, self._descriptors.program.combined.config[packages[uri].combined.uid]);
-	    		}
-		        info.package = {
-		            path: packages[uri].dirpath,
-		            id: packages[uri].id,
-		            descriptor: packages[uri].combined,
-		            config: config
-		        };
-	    	}
-	    }
-	    return callback(null, info);
+        	if (packages[uri].combined.overrides) {
+        		for (var override in packages[uri].combined.overrides) {
+        			var p = FS.realpathSync(PATH.join(packages[uri].dirpath, override));
+        			if (!overrides[p]) {
+        				overrides[p] = [];
+        			}
+        			overrides[p].push(packages[uri].combined.overrides[override]);
+        		}
+        	}
+        }
+        if (FS.existsSync(path)) {
+	        var realpath = FS.realpathSync(path);
+			var config = {};
+			if (overrides[realpath]) {
+				overrides[realpath].forEach(function(override) {
+					if (override.descriptor && override.descriptor.config) {
+						var json = JSON.stringify(override.descriptor.config);
+						function replaceAll(str, find, replace) {
+							while (str.indexOf(find) > -1) {
+								str = str.replace(find, replace);
+							}
+							return str;
+						}
+						// Temporarily replace all `\\$__DIRNAME` (escaped) so we can keep them.
+			            json = replaceAll(json, "\\\\$__DIRNAME", "__TMP_tOtAlYrAnDoM__");
+			            // Replace all `$__DIRNAME`.
+			            json = json.replace(/\$__DIRNAME/g, packages[uri].dirpath);
+			            // Put back escaped `$__DIRNAME` as the string should be kept.
+			            json = json.replace(/__TMP_tOtAlYrAnDoM__/g, "$__DIRNAME");
+		    			config = DEEPMERGE(config, JSON.parse(json));
+					}
+				});
+			}
+	        for (var uri in packages) {
+		    	if (packages[uri].dirpath === path || FS.realpathSync(packages[uri].dirpath) === realpath) {
+		    		config = DEEPMERGE(packages[uri].combined.config || {}, config);
+		    		if (
+		    			packages[uri].combined.uid &&
+		    			self._descriptors.program.combined &&
+		    			self._descriptors.program.combined.config &&
+		    			self._descriptors.program.combined.config[packages[uri].combined.uid]
+		    		) {
+		    			config = DEEPMERGE(config, self._descriptors.program.combined.config[packages[uri].combined.uid]);
+		    		}
+			        info.package = {
+			            path: packages[uri].dirpath,
+			            id: packages[uri].id,
+			            descriptor: packages[uri].combined,
+			            config: config
+			        };
+			        break;
+		    	}
+		    }
+		}
+	    if (callback) callback(null, info);
+	    return info;
 	}
 
+	// TODO: Prepare all this when loading context and make this a sync function.
 	Context.prototype.getProgramInfo = function(callback) {
 		var self = this;
         var info = {
@@ -763,12 +820,14 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 			                if (typeof mod.main !== "function") {
 			                	return done(new Error("Main module for package '" + packageInfo.dirpath + "' does not export 'main' function."));
 			                }
-			                if (options.verbose) console.log(("[pinf-for-nodejs][context] Notify '" + packageInfo.dirpath + "' about '" + eventId + "'").blue);
+			                var notifyStartTime = Date.now();
+			                if (options.verbose) console.log(("[pinf-for-nodejs][context][START] Notify '" + packageInfo.dirpath + "' about '" + eventId + "'").blue);
 			                return mod.main({
 			                	$pinf: ctx
 			                }, {
 			                	event: eventId
 			                }, function(err, result) {
+				                if (options.verbose) console.log(("[pinf-for-nodejs][context][END] (" + (Date.now()-notifyStartTime) + " ms) Notify '" + packageInfo.dirpath + "' about '" + eventId + "'").blue);
 			                    if (err) return done(err);
 			                    config.daemons[handler.uid] = result;
 			                    return done();
@@ -966,6 +1025,10 @@ console.log("TODO: Call `context.config.open` to open program.");
 						return PROGRAM_INSIGHT.parse(PATH.dirname(env.PINF_PROGRAM), opts, function(err, descriptor) {
 				            if (err) return callback(err);
 
+				            if (descriptor.errors.length > 0) {
+				            	return callback(new Error("Package insight errors for '" + PATH.dirname(env.PINF_PROGRAM) + "': " + JSON.stringify(descriptor.errors)));
+				            }
+
 				            var lookupPaths = descriptor.lookupPaths.slice(0);
 				            lookupPaths.reverse();
 				            context.lookupPaths = context.lookupPaths.concat(lookupPaths);
@@ -995,6 +1058,10 @@ console.log("TODO: Call `context.config.open` to open program.");
 							delete opts.lookupPaths;
 					        return PACKAGE_INSIGHT.parse(PATH.dirname(packageDescriptorPath), opts, function(err, descriptor) {
 					            if (err) return callback(err);
+
+					            if (descriptor.errors.length > 0) {
+					            	return callback(new Error("Package insight errors for '" + PATH.dirname(packageDescriptorPath) + "': " + JSON.stringify(descriptor.errors)));
+					            }
 
 					            var lookupPaths = descriptor.lookupPaths.slice(0);
 					            lookupPaths.reverse();
@@ -4155,9 +4222,21 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 						try {
 							raw = data.toString();
 							// Replace environment variables.
-				            // NOTE: We always replace `$__DIRNAME` with the path to the directory holding the descriptor.
+				            // NOTE: We always (unless it is escaped with `\`) replace `$__DIRNAME` with the
+				            //       path to the directory holding the descriptor.
+							function replaceAll(str, find, replace) {
+								while (str.indexOf(find) > -1) {
+									str = str.replace(find, replace);
+								}
+								return str;
+							}
+							// Temporarily replace all `\\$__DIRNAME` (escaped) so we can keep them.
+				            raw = replaceAll(raw, "\\\\$__DIRNAME", "__TMP_tOtAlYrAnDoM__");
+				            // Replace all `$__DIRNAME`.
 				            raw = raw.replace(/\$__DIRNAME/g, options._relpath(PATH.dirname(path)));
-							if (options.debug) console.log("[pinf] JSON from '" + path + "': ", raw);
+				            // Put back escaped `$__DIRNAME` as the string should be kept.
+				            raw = raw.replace(/__TMP_tOtAlYrAnDoM__/g, "$__DIRNAME");
+//							if (options.debug) console.log("[pinf] JSON from '" + path + "': ", raw);
 							obj = JSON.parse(raw);
 						} catch(err) {
 							err.message += " (while parsing '" + path + "')";
@@ -4168,7 +4247,7 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 						var waitfor = WAITFOR[options.debug ? "serial" : "parallel"](function(err) {
 							if (err) return callback(err);
 							try {
-								if (options.debug) console.log("[pinf] JSON from '" + path + "' after injections: ", json);
+//								if (options.debug) console.log("[pinf] JSON from '" + path + "' after injections: ", json);
 								obj = JSON.parse(json);
 							} catch(err) {
 								err.message += " (while parsing '" + path + "' after injections)";
@@ -4192,7 +4271,7 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 										// Replace environment variables.
 							            // NOTE: We always replace `$__DIRNAME` with the path to the directory holding the descriptor.
 							            raw = raw.replace(/\$__DIRNAME/g, options._relpath(PATH.dirname(injectionPath)));
-										if (options.debug) console.log("[pinf] JSON from '" + path + "': ", raw);
+//										if (options.debug) console.log("[pinf] JSON from '" + path + "': ", raw);
 										json = json.replace(m[1], raw);
 										return done();
 									});
@@ -4478,6 +4557,18 @@ function normalize(descriptorPath, descriptor, options, callback) {
 			descriptor.raw.config["pinf/0/bundler/options/0"] &&
 			descriptor.raw.config["pinf/0/bundler/options/0"].mapParentSiblingPackages
 		) || false;
+		if (options.$pinf) {
+			var info = options.$pinf.getPackageInfo(options._realpath(PATH.dirname(descriptorPath)));
+			if (
+				info &&
+				info.package &&
+				info.package.config &&
+				info.package.config["pinf/0/bundler/options/0"] &&
+				info.package.config["pinf/0/bundler/options/0"].mapParentSiblingPackages
+			) {
+				options.mapParentSiblingPackages = info.package.config["pinf/0/bundler/options/0"].mapParentSiblingPackages;
+			}
+		}
 
 		helpers.anyToArray("@extends", "@extends");
 
@@ -4874,7 +4965,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 				} else
 				if (property === "mappings") {
 					if (descriptor.normalized.pm && descriptor.normalized.pm.install === "npm") {
-						function addMappingsForPackage(packagePath, callback) {
+						function addMappingsForPackage(packagePath, level, callback) {
 							// Only collect mappings up to the root path.
 							if (options.rootPath && options._realpath(packagePath).substring(0, options.rootPath.length) !== options.rootPath) {
 								return callback(null);
@@ -4897,15 +4988,20 @@ function normalize(descriptorPath, descriptor, options, callback) {
 										}
 									}
 								}
-								if (options._realpath(packagePath) === "/") return callback(null);
-								return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
+								if (options._realpath(packagePath) === "/") {
+									return callback(null);
+								}
+								if (level >=0 && (!options.mapParentSiblingPackages || level >= options.mapParentSiblingPackages)) return callback(null);
+								return addMappingsForPackage(PATH.join(packagePath, ".."), level + 1, callback);
 							}
 							addMappingsForPackage__cache[packagePath] = true;							
 							return options.API.FS.exists(PATH.join(options._realpath(packagePath), "node_modules"), function(exists) {
 								if (!exists) {
 									if (options._realpath(packagePath) === "/") return callback(null);
-									if (!options.mapParentSiblingPackages) return callback(null);
-									return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
+									if (level >=0 && (!options.mapParentSiblingPackages || level >= options.mapParentSiblingPackages)) {
+										return callback(null);
+									}
+									return addMappingsForPackage(PATH.join(packagePath, ".."), level + 1, callback);
 								}
 								return options.API.FS.readdir(PATH.join(options._realpath(packagePath), "node_modules"), function(err, filenames) {
 									if (err) return callback(err);
@@ -4937,12 +5033,14 @@ function normalize(descriptorPath, descriptor, options, callback) {
 											descriptor.normalized.mappings[filename] = addMappingsForPackage__cache[packagePath].mappings[filename];
 										}
 									});
-									if (!options.mapParentSiblingPackages) return callback(null);
-									return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
+									if (level >=0 && (!options.mapParentSiblingPackages || level >= options.mapParentSiblingPackages)) {
+										return callback(null);
+									}
+									return addMappingsForPackage(PATH.join(packagePath, ".."), level + 1, callback);
 								});
 							});
 						}
-						return addMappingsForPackage(PATH.join(options.packagePath, ".."), function(err) {
+						return addMappingsForPackage(PATH.join(options.packagePath, ".."), 0, function(err) {
 							if (err) return callback(err);
 							return callback(null);
 						});
@@ -6601,9 +6699,21 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 						try {
 							raw = data.toString();
 							// Replace environment variables.
-				            // NOTE: We always replace `$__DIRNAME` with the path to the directory holding the descriptor.
+				            // NOTE: We always (unless it is escaped with `\`) replace `$__DIRNAME` with the
+				            //       path to the directory holding the descriptor.
+							function replaceAll(str, find, replace) {
+								while (str.indexOf(find) > -1) {
+									str = str.replace(find, replace);
+								}
+								return str;
+							}
+							// Temporarily replace all `\\$__DIRNAME` (escaped) so we can keep them.
+				            raw = replaceAll(raw, "\\\\$__DIRNAME", "__TMP_tOtAlYrAnDoM__");
+				            // Replace all `$__DIRNAME`.
 				            raw = raw.replace(/\$__DIRNAME/g, options._relpath(PATH.dirname(path)));
-							if (options.debug) console.log("[pinf] JSON from '" + path + "': ", raw);
+				            // Put back escaped `$__DIRNAME` as the string should be kept.
+				            raw = raw.replace(/__TMP_tOtAlYrAnDoM__/g, "$__DIRNAME");
+//							if (options.debug) console.log("[pinf] JSON from '" + path + "': ", raw);
 							obj = JSON.parse(raw);
 						} catch(err) {
 							err.message += " (while parsing '" + path + "')";
@@ -6614,7 +6724,7 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 						var waitfor = WAITFOR[options.debug ? "serial" : "parallel"](function(err) {
 							if (err) return callback(err);
 							try {
-								if (options.debug) console.log("[pinf] JSON from '" + path + "' after injections: ", json);
+//								if (options.debug) console.log("[pinf] JSON from '" + path + "' after injections: ", json);
 								obj = JSON.parse(json);
 							} catch(err) {
 								err.message += " (while parsing '" + path + "' after injections)";
@@ -6638,7 +6748,7 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 										// Replace environment variables.
 							            // NOTE: We always replace `$__DIRNAME` with the path to the directory holding the descriptor.
 							            raw = raw.replace(/\$__DIRNAME/g, options._relpath(PATH.dirname(injectionPath)));
-										if (options.debug) console.log("[pinf] JSON from '" + path + "': ", raw);
+//										if (options.debug) console.log("[pinf] JSON from '" + path + "': ", raw);
 										json = json.replace(m[1], raw);
 										return done();
 									});
@@ -6924,6 +7034,18 @@ function normalize(descriptorPath, descriptor, options, callback) {
 			descriptor.raw.config["pinf/0/bundler/options/0"] &&
 			descriptor.raw.config["pinf/0/bundler/options/0"].mapParentSiblingPackages
 		) || false;
+		if (options.$pinf) {
+			var info = options.$pinf.getPackageInfo(options._realpath(PATH.dirname(descriptorPath)));
+			if (
+				info &&
+				info.package &&
+				info.package.config &&
+				info.package.config["pinf/0/bundler/options/0"] &&
+				info.package.config["pinf/0/bundler/options/0"].mapParentSiblingPackages
+			) {
+				options.mapParentSiblingPackages = info.package.config["pinf/0/bundler/options/0"].mapParentSiblingPackages;
+			}
+		}
 
 		helpers.anyToArray("@extends", "@extends");
 
@@ -7320,7 +7442,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 				} else
 				if (property === "mappings") {
 					if (descriptor.normalized.pm && descriptor.normalized.pm.install === "npm") {
-						function addMappingsForPackage(packagePath, callback) {
+						function addMappingsForPackage(packagePath, level, callback) {
 							// Only collect mappings up to the root path.
 							if (options.rootPath && options._realpath(packagePath).substring(0, options.rootPath.length) !== options.rootPath) {
 								return callback(null);
@@ -7343,15 +7465,20 @@ function normalize(descriptorPath, descriptor, options, callback) {
 										}
 									}
 								}
-								if (options._realpath(packagePath) === "/") return callback(null);
-								return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
+								if (options._realpath(packagePath) === "/") {
+									return callback(null);
+								}
+								if (level >=0 && (!options.mapParentSiblingPackages || level >= options.mapParentSiblingPackages)) return callback(null);
+								return addMappingsForPackage(PATH.join(packagePath, ".."), level + 1, callback);
 							}
 							addMappingsForPackage__cache[packagePath] = true;							
 							return options.API.FS.exists(PATH.join(options._realpath(packagePath), "node_modules"), function(exists) {
 								if (!exists) {
 									if (options._realpath(packagePath) === "/") return callback(null);
-									if (!options.mapParentSiblingPackages) return callback(null);
-									return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
+									if (level >=0 && (!options.mapParentSiblingPackages || level >= options.mapParentSiblingPackages)) {
+										return callback(null);
+									}
+									return addMappingsForPackage(PATH.join(packagePath, ".."), level + 1, callback);
 								}
 								return options.API.FS.readdir(PATH.join(options._realpath(packagePath), "node_modules"), function(err, filenames) {
 									if (err) return callback(err);
@@ -7383,12 +7510,14 @@ function normalize(descriptorPath, descriptor, options, callback) {
 											descriptor.normalized.mappings[filename] = addMappingsForPackage__cache[packagePath].mappings[filename];
 										}
 									});
-									if (!options.mapParentSiblingPackages) return callback(null);
-									return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
+									if (level >=0 && (!options.mapParentSiblingPackages || level >= options.mapParentSiblingPackages)) {
+										return callback(null);
+									}
+									return addMappingsForPackage(PATH.join(packagePath, ".."), level + 1, callback);
 								});
 							});
 						}
-						return addMappingsForPackage(PATH.join(options.packagePath, ".."), function(err) {
+						return addMappingsForPackage(PATH.join(options.packagePath, ".."), 0, function(err) {
 							if (err) return callback(err);
 							return callback(null);
 						});
@@ -8227,6 +8356,7 @@ const PATH = require("__SYSTEM__/path");
 const FS = require("fs-extra");
 const Q = require("q");
 const BUNDLER = require("./bundler");
+const COLORS = require("colors");
 
 
 exports.bundlePackage = function(bundlePackagePath, bundleOptions, callback) {
@@ -8241,7 +8371,8 @@ exports.bundlePackage = function(bundlePackagePath, bundleOptions, callback) {
 
 	var rootBundlePath = null;
 
-	if (bundleOptions.verbose) console.log("[pinf-it-bundler][rt-bundler] request bundled package", bundlePackagePath);
+	var startTime = Date.now();
+	if (bundleOptions.verbose) console.log(("[pinf-it-bundler][rt-bundler][START] request bundled package: " + bundlePackagePath).inverse);
 
 	function bypassIfWeCan(proceedCallback) {
 		if (!bundleOptions.$pinf) {
@@ -8259,19 +8390,20 @@ exports.bundlePackage = function(bundlePackagePath, bundleOptions, callback) {
 			// If callback was triggered above we will get an empty callback back so we can just stop here.
 			if (!proxiedCallback) return;
 			bundleOptions.API.FS = gateway.getAPI("FS");
-			return proceedCallback(proxiedCallback);
-		}, function(cachedData) {
-			if (bundleOptions.verbose) console.log("[pinf-it-bundler][rt-bundler] using cached bundled package", bundlePackagePath);
+			return proceedCallback(function() {
+				if (bundleOptions.verbose) console.log(("[pinf-it-bundler][rt-bundler][END] (" + (Date.now() - startTime) + " ms) request bundled package: " + bundlePackagePath + " (distPath: " + bundleOptions.distPath + ")").inverse);
+				return proxiedCallback.apply(this, arguments);
+			});
+		}, function(cachedData, cacheMeta) {
+			if (bundleOptions.verbose) console.log(("[pinf-it-bundler][rt-bundler] using cached bundle (based on: " + cacheMeta.cachePath + ")").green);
+			var bundleDescriptors = cachedData.bundleDescriptors;
+			bundleDescriptors["#pinf"].status = 304;
+			if (bundleOptions.verbose) console.log(("[pinf-it-bundler][rt-bundler][END] (" + (Date.now() - startTime) + " ms) request bundled package: " + bundlePackagePath).inverse);
 			// NOTE: Keep in sync with return values used at bottom of this code file.			
-			return callback(null, {
-				"#pinf": {
-					status: 403,
-					data: cachedData
-				}
-			}, {
+			return callback(null, bundleDescriptors, {
 				ensureAsync: function(moduleObj, pkg, sandbox, canonicalId, options, callback) {
 
-					if (bundleOptions.debug) console.log("[pinf-it-bundler] ensureAsync (originally bypassed)", "moduleObj", moduleObj, "pkg", pkg, "sandbox", sandbox, "canonicalId", canonicalId);
+					if (bundleOptions.verbose) console.log("[pinf-it-bundler][rt-bundler] ensureAsync (originally bypassed)", "moduleObj", moduleObj, "pkg", pkg, "sandbox", sandbox, "canonicalId", canonicalId);
 
 				 	var identifier = options.resolveIdentifier(canonicalId);
 				 	if (identifier && identifier[0].descriptor) {
@@ -8301,7 +8433,7 @@ exports.bundlePackage = function(bundlePackagePath, bundleOptions, callback) {
 
 	return bypassIfWeCan(function(callback) {
 
-		if (bundleOptions.verbose) console.log("[pinf-it-bundler][rt-bundler] bundle package", bundlePackagePath);
+		if (bundleOptions.verbose) console.log(("[pinf-it-bundler][rt-bundler] bundle package: " + bundlePackagePath).yellow);
 
 		var bundleDescriptors = {};
 
@@ -8392,7 +8524,21 @@ exports.bundlePackage = function(bundlePackagePath, bundleOptions, callback) {
 			var info = null;
 			var packageDescriptorPaths = [];
 
-			function forModule(moduleObj) {
+			var packageDescriptor = null;
+			var bundleDescriptor = null;
+			var existingModules = getExistingModules(moduleObj);
+
+			if (existingModules[moduleObj.pkg + "/package.json"]) {
+				packageDescriptor = existingModules[moduleObj.pkg + "/package.json"].descriptor;
+				bundleDescriptor = existingModules[moduleObj.pkg + "/package.json"]._getBundleDescriptor();
+			} else {
+				bundleDescriptor = bundleDescriptorForId(moduleObj.bundle);
+				packageDescriptor = bundleDescriptor.modules[moduleObj.pkg + "/package.json"].descriptor
+			}
+
+			packageDescriptorPaths.push(PATH.join(bundleOptions.rootPath || "", packageDescriptor.dirpath));
+
+			function forModule() {
 
 				ASSERT.equal(typeof moduleObj.bundle, "string");
 
@@ -8425,20 +8571,6 @@ exports.bundlePackage = function(bundlePackagePath, bundleOptions, callback) {
 							}
 						}					
 					}
-
-					var packageDescriptor = null;
-					var bundleDescriptor = null;
-					var existingModules = getExistingModules(moduleObj);
-
-					if (existingModules[moduleObj.pkg + "/package.json"]) {
-						packageDescriptor = existingModules[moduleObj.pkg + "/package.json"].descriptor;
-						bundleDescriptor = existingModules[moduleObj.pkg + "/package.json"]._getBundleDescriptor();
-					} else {
-						bundleDescriptor = bundleDescriptorForId(moduleObj.bundle);
-						packageDescriptor = bundleDescriptor.modules[moduleObj.pkg + "/package.json"].descriptor
-					}
-
-					packageDescriptorPaths.push(PATH.join(bundleOptions.rootPath || "", packageDescriptor.dirpath));
 
 					// If mapping was not found we look for it in the bundle info.
 					if (!info) {
@@ -8476,9 +8608,22 @@ exports.bundlePackage = function(bundlePackagePath, bundleOptions, callback) {
 				}
 			}
 
-			forModule(moduleObj);
+			if (moduleObj.pkg === aliasid) {
+				info = {
+					alias: aliasid,
+					pkg: aliasid,
+					memoized: true,
+					bundleDescriptor: bundleDescriptor,
+					path: packageDescriptor.dirpath.substring(bundlePackagePath.length + 1)
+				};
+			} else {
+				forModule(moduleObj);
+			}
 
-			if (!info) throw new Error("Alias '" + aliasid + "' not found in mappings for package " + JSON.stringify(packageDescriptorPaths));
+			if (!info) {
+				console.log("moduleObj", moduleObj);
+				throw new Error("Alias '" + aliasid + "' not found in mappings for package " + JSON.stringify(packageDescriptorPaths));
+			}
 
 			return info;
 		}
@@ -19477,9 +19622,21 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 						try {
 							raw = data.toString();
 							// Replace environment variables.
-				            // NOTE: We always replace `$__DIRNAME` with the path to the directory holding the descriptor.
+				            // NOTE: We always (unless it is escaped with `\`) replace `$__DIRNAME` with the
+				            //       path to the directory holding the descriptor.
+							function replaceAll(str, find, replace) {
+								while (str.indexOf(find) > -1) {
+									str = str.replace(find, replace);
+								}
+								return str;
+							}
+							// Temporarily replace all `\\$__DIRNAME` (escaped) so we can keep them.
+				            raw = replaceAll(raw, "\\\\$__DIRNAME", "__TMP_tOtAlYrAnDoM__");
+				            // Replace all `$__DIRNAME`.
 				            raw = raw.replace(/\$__DIRNAME/g, options._relpath(PATH.dirname(path)));
-							if (options.debug) console.log("[pinf] JSON from '" + path + "': ", raw);
+				            // Put back escaped `$__DIRNAME` as the string should be kept.
+				            raw = raw.replace(/__TMP_tOtAlYrAnDoM__/g, "$__DIRNAME");
+//							if (options.debug) console.log("[pinf] JSON from '" + path + "': ", raw);
 							obj = JSON.parse(raw);
 						} catch(err) {
 							err.message += " (while parsing '" + path + "')";
@@ -19490,7 +19647,7 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 						var waitfor = WAITFOR[options.debug ? "serial" : "parallel"](function(err) {
 							if (err) return callback(err);
 							try {
-								if (options.debug) console.log("[pinf] JSON from '" + path + "' after injections: ", json);
+//								if (options.debug) console.log("[pinf] JSON from '" + path + "' after injections: ", json);
 								obj = JSON.parse(json);
 							} catch(err) {
 								err.message += " (while parsing '" + path + "' after injections)";
@@ -19514,7 +19671,7 @@ exports.parseDescriptor = function(descriptorPath, options, callback) {
 										// Replace environment variables.
 							            // NOTE: We always replace `$__DIRNAME` with the path to the directory holding the descriptor.
 							            raw = raw.replace(/\$__DIRNAME/g, options._relpath(PATH.dirname(injectionPath)));
-										if (options.debug) console.log("[pinf] JSON from '" + path + "': ", raw);
+//										if (options.debug) console.log("[pinf] JSON from '" + path + "': ", raw);
 										json = json.replace(m[1], raw);
 										return done();
 									});
@@ -19800,6 +19957,18 @@ function normalize(descriptorPath, descriptor, options, callback) {
 			descriptor.raw.config["pinf/0/bundler/options/0"] &&
 			descriptor.raw.config["pinf/0/bundler/options/0"].mapParentSiblingPackages
 		) || false;
+		if (options.$pinf) {
+			var info = options.$pinf.getPackageInfo(options._realpath(PATH.dirname(descriptorPath)));
+			if (
+				info &&
+				info.package &&
+				info.package.config &&
+				info.package.config["pinf/0/bundler/options/0"] &&
+				info.package.config["pinf/0/bundler/options/0"].mapParentSiblingPackages
+			) {
+				options.mapParentSiblingPackages = info.package.config["pinf/0/bundler/options/0"].mapParentSiblingPackages;
+			}
+		}
 
 		helpers.anyToArray("@extends", "@extends");
 
@@ -20196,7 +20365,7 @@ function normalize(descriptorPath, descriptor, options, callback) {
 				} else
 				if (property === "mappings") {
 					if (descriptor.normalized.pm && descriptor.normalized.pm.install === "npm") {
-						function addMappingsForPackage(packagePath, callback) {
+						function addMappingsForPackage(packagePath, level, callback) {
 							// Only collect mappings up to the root path.
 							if (options.rootPath && options._realpath(packagePath).substring(0, options.rootPath.length) !== options.rootPath) {
 								return callback(null);
@@ -20219,15 +20388,20 @@ function normalize(descriptorPath, descriptor, options, callback) {
 										}
 									}
 								}
-								if (options._realpath(packagePath) === "/") return callback(null);
-								return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
+								if (options._realpath(packagePath) === "/") {
+									return callback(null);
+								}
+								if (level >=0 && (!options.mapParentSiblingPackages || level >= options.mapParentSiblingPackages)) return callback(null);
+								return addMappingsForPackage(PATH.join(packagePath, ".."), level + 1, callback);
 							}
 							addMappingsForPackage__cache[packagePath] = true;							
 							return options.API.FS.exists(PATH.join(options._realpath(packagePath), "node_modules"), function(exists) {
 								if (!exists) {
 									if (options._realpath(packagePath) === "/") return callback(null);
-									if (!options.mapParentSiblingPackages) return callback(null);
-									return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
+									if (level >=0 && (!options.mapParentSiblingPackages || level >= options.mapParentSiblingPackages)) {
+										return callback(null);
+									}
+									return addMappingsForPackage(PATH.join(packagePath, ".."), level + 1, callback);
 								}
 								return options.API.FS.readdir(PATH.join(options._realpath(packagePath), "node_modules"), function(err, filenames) {
 									if (err) return callback(err);
@@ -20259,12 +20433,14 @@ function normalize(descriptorPath, descriptor, options, callback) {
 											descriptor.normalized.mappings[filename] = addMappingsForPackage__cache[packagePath].mappings[filename];
 										}
 									});
-									if (!options.mapParentSiblingPackages) return callback(null);
-									return addMappingsForPackage(PATH.join(packagePath, ".."), callback);
+									if (level >=0 && (!options.mapParentSiblingPackages || level >= options.mapParentSiblingPackages)) {
+										return callback(null);
+									}
+									return addMappingsForPackage(PATH.join(packagePath, ".."), level + 1, callback);
 								});
 							});
 						}
-						return addMappingsForPackage(PATH.join(options.packagePath, ".."), function(err) {
+						return addMappingsForPackage(PATH.join(options.packagePath, ".."), 0, function(err) {
 							if (err) return callback(err);
 							return callback(null);
 						});
@@ -48102,6 +48278,354 @@ function (args, quit, logger, build) {
 
 }
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/requirejs/bin/r.js"});
+// @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/colors/colors.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"92020e8e2c8b5925c17b8b3d3354f361a004a0c6-colors/colors.js"}
+require.memoize("92020e8e2c8b5925c17b8b3d3354f361a004a0c6-colors/colors.js", 
+function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/colors';
+/*
+colors.js
+
+Copyright (c) 2010
+
+Marak Squires
+Alexis Sellier (cloudhead)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+*/
+
+var isHeadless = false;
+
+if (typeof module !== 'undefined') {
+  isHeadless = true;
+}
+
+if (!isHeadless) {
+  var exports = {};
+  var module = {};
+  var colors = exports;
+  exports.mode = "browser";
+} else {
+  exports.mode = "console";
+}
+
+//
+// Prototypes the string object to have additional method calls that add terminal colors
+//
+var addProperty = function (color, func) {
+  exports[color] = function (str) {
+    return func.apply(str);
+  };
+  String.prototype.__defineGetter__(color, func);
+};
+
+function stylize(str, style) {
+
+  var styles;
+
+  if (exports.mode === 'console') {
+    styles = {
+      //styles
+      'bold'      : ['\x1B[1m',  '\x1B[22m'],
+      'italic'    : ['\x1B[3m',  '\x1B[23m'],
+      'underline' : ['\x1B[4m',  '\x1B[24m'],
+      'inverse'   : ['\x1B[7m',  '\x1B[27m'],
+      'strikethrough' : ['\x1B[9m',  '\x1B[29m'],
+      //text colors
+      //grayscale
+      'white'     : ['\x1B[37m', '\x1B[39m'],
+      'grey'      : ['\x1B[90m', '\x1B[39m'],
+      'black'     : ['\x1B[30m', '\x1B[39m'],
+      //colors
+      'blue'      : ['\x1B[34m', '\x1B[39m'],
+      'cyan'      : ['\x1B[36m', '\x1B[39m'],
+      'green'     : ['\x1B[32m', '\x1B[39m'],
+      'magenta'   : ['\x1B[35m', '\x1B[39m'],
+      'red'       : ['\x1B[31m', '\x1B[39m'],
+      'yellow'    : ['\x1B[33m', '\x1B[39m'],
+      //background colors
+      //grayscale
+      'whiteBG'     : ['\x1B[47m', '\x1B[49m'],
+      'greyBG'      : ['\x1B[49;5;8m', '\x1B[49m'],
+      'blackBG'     : ['\x1B[40m', '\x1B[49m'],
+      //colors
+      'blueBG'      : ['\x1B[44m', '\x1B[49m'],
+      'cyanBG'      : ['\x1B[46m', '\x1B[49m'],
+      'greenBG'     : ['\x1B[42m', '\x1B[49m'],
+      'magentaBG'   : ['\x1B[45m', '\x1B[49m'],
+      'redBG'       : ['\x1B[41m', '\x1B[49m'],
+      'yellowBG'    : ['\x1B[43m', '\x1B[49m']
+    };
+  } else if (exports.mode === 'browser') {
+    styles = {
+      //styles
+      'bold'      : ['<b>',  '</b>'],
+      'italic'    : ['<i>',  '</i>'],
+      'underline' : ['<u>',  '</u>'],
+      'inverse'   : ['<span style="background-color:black;color:white;">',  '</span>'],
+      'strikethrough' : ['<del>',  '</del>'],
+      //text colors
+      //grayscale
+      'white'     : ['<span style="color:white;">',   '</span>'],
+      'grey'      : ['<span style="color:gray;">',    '</span>'],
+      'black'     : ['<span style="color:black;">',   '</span>'],
+      //colors
+      'blue'      : ['<span style="color:blue;">',    '</span>'],
+      'cyan'      : ['<span style="color:cyan;">',    '</span>'],
+      'green'     : ['<span style="color:green;">',   '</span>'],
+      'magenta'   : ['<span style="color:magenta;">', '</span>'],
+      'red'       : ['<span style="color:red;">',     '</span>'],
+      'yellow'    : ['<span style="color:yellow;">',  '</span>'],
+      //background colors
+      //grayscale
+      'whiteBG'     : ['<span style="background-color:white;">',   '</span>'],
+      'greyBG'      : ['<span style="background-color:gray;">',    '</span>'],
+      'blackBG'     : ['<span style="background-color:black;">',   '</span>'],
+      //colors
+      'blueBG'      : ['<span style="background-color:blue;">',    '</span>'],
+      'cyanBG'      : ['<span style="background-color:cyan;">',    '</span>'],
+      'greenBG'     : ['<span style="background-color:green;">',   '</span>'],
+      'magentaBG'   : ['<span style="background-color:magenta;">', '</span>'],
+      'redBG'       : ['<span style="background-color:red;">',     '</span>'],
+      'yellowBG'    : ['<span style="background-color:yellow;">',  '</span>']
+    };
+  } else if (exports.mode === 'none') {
+    return str + '';
+  } else {
+    console.log('unsupported mode, try "browser", "console" or "none"');
+  }
+  return styles[style][0] + str + styles[style][1];
+}
+
+function applyTheme(theme) {
+
+  //
+  // Remark: This is a list of methods that exist
+  // on String that you should not overwrite.
+  //
+  var stringPrototypeBlacklist = [
+    '__defineGetter__', '__defineSetter__', '__lookupGetter__', '__lookupSetter__', 'charAt', 'constructor',
+    'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'valueOf', 'charCodeAt',
+    'indexOf', 'lastIndexof', 'length', 'localeCompare', 'match', 'replace', 'search', 'slice', 'split', 'substring',
+    'toLocaleLowerCase', 'toLocaleUpperCase', 'toLowerCase', 'toUpperCase', 'trim', 'trimLeft', 'trimRight'
+  ];
+
+  Object.keys(theme).forEach(function (prop) {
+    if (stringPrototypeBlacklist.indexOf(prop) !== -1) {
+      console.log('warn: '.red + ('String.prototype' + prop).magenta + ' is probably something you don\'t want to override. Ignoring style name');
+    }
+    else {
+      if (typeof(theme[prop]) === 'string') {
+        addProperty(prop, function () {
+          return exports[theme[prop]](this);
+        });
+      }
+      else {
+        addProperty(prop, function () {
+          var ret = this;
+          for (var t = 0; t < theme[prop].length; t++) {
+            ret = exports[theme[prop][t]](ret);
+          }
+          return ret;
+        });
+      }
+    }
+  });
+}
+
+
+//
+// Iterate through all default styles and colors
+//
+var x = ['bold', 'underline', 'strikethrough', 'italic', 'inverse', 'grey', 'black', 'yellow', 'red', 'green', 'blue', 'white', 'cyan', 'magenta', 'greyBG', 'blackBG', 'yellowBG', 'redBG', 'greenBG', 'blueBG', 'whiteBG', 'cyanBG', 'magentaBG'];
+x.forEach(function (style) {
+
+  // __defineGetter__ at the least works in more browsers
+  // http://robertnyman.com/javascript/javascript-getters-setters.html
+  // Object.defineProperty only works in Chrome
+  addProperty(style, function () {
+    return stylize(this, style);
+  });
+});
+
+function sequencer(map) {
+  return function () {
+    if (!isHeadless) {
+      return this.replace(/( )/, '$1');
+    }
+    var exploded = this.split(""), i = 0;
+    exploded = exploded.map(map);
+    return exploded.join("");
+  };
+}
+
+var rainbowMap = (function () {
+  var rainbowColors = ['red', 'yellow', 'green', 'blue', 'magenta']; //RoY G BiV
+  return function (letter, i, exploded) {
+    if (letter === " ") {
+      return letter;
+    } else {
+      return stylize(letter, rainbowColors[i++ % rainbowColors.length]);
+    }
+  };
+})();
+
+exports.themes = {};
+
+exports.addSequencer = function (name, map) {
+  addProperty(name, sequencer(map));
+};
+
+exports.addSequencer('rainbow', rainbowMap);
+exports.addSequencer('zebra', function (letter, i, exploded) {
+  return i % 2 === 0 ? letter : letter.inverse;
+});
+
+exports.setTheme = function (theme) {
+  if (typeof theme === 'string') {
+    try {
+      exports.themes[theme] = require(theme);
+      applyTheme(exports.themes[theme]);
+      return exports.themes[theme];
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
+  } else {
+    applyTheme(theme);
+  }
+};
+
+
+addProperty('stripColors', function () {
+  return ("" + this).replace(/\x1B\[\d+m/g, '');
+});
+
+// please no
+function zalgo(text, options) {
+  var soul = {
+    "up" : [
+      '̍', '̎', '̄', '̅',
+      '̿', '̑', '̆', '̐',
+      '͒', '͗', '͑', '̇',
+      '̈', '̊', '͂', '̓',
+      '̈', '͊', '͋', '͌',
+      '̃', '̂', '̌', '͐',
+      '̀', '́', '̋', '̏',
+      '̒', '̓', '̔', '̽',
+      '̉', 'ͣ', 'ͤ', 'ͥ',
+      'ͦ', 'ͧ', 'ͨ', 'ͩ',
+      'ͪ', 'ͫ', 'ͬ', 'ͭ',
+      'ͮ', 'ͯ', '̾', '͛',
+      '͆', '̚'
+    ],
+    "down" : [
+      '̖', '̗', '̘', '̙',
+      '̜', '̝', '̞', '̟',
+      '̠', '̤', '̥', '̦',
+      '̩', '̪', '̫', '̬',
+      '̭', '̮', '̯', '̰',
+      '̱', '̲', '̳', '̹',
+      '̺', '̻', '̼', 'ͅ',
+      '͇', '͈', '͉', '͍',
+      '͎', '͓', '͔', '͕',
+      '͖', '͙', '͚', '̣'
+    ],
+    "mid" : [
+      '̕', '̛', '̀', '́',
+      '͘', '̡', '̢', '̧',
+      '̨', '̴', '̵', '̶',
+      '͜', '͝', '͞',
+      '͟', '͠', '͢', '̸',
+      '̷', '͡', ' ҉'
+    ]
+  },
+  all = [].concat(soul.up, soul.down, soul.mid),
+  zalgo = {};
+
+  function randomNumber(range) {
+    var r = Math.floor(Math.random() * range);
+    return r;
+  }
+
+  function is_char(character) {
+    var bool = false;
+    all.filter(function (i) {
+      bool = (i === character);
+    });
+    return bool;
+  }
+
+  function heComes(text, options) {
+    var result = '', counts, l;
+    options = options || {};
+    options["up"] = options["up"] || true;
+    options["mid"] = options["mid"] || true;
+    options["down"] = options["down"] || true;
+    options["size"] = options["size"] || "maxi";
+    text = text.split('');
+    for (l in text) {
+      if (is_char(l)) {
+        continue;
+      }
+      result = result + text[l];
+      counts = {"up" : 0, "down" : 0, "mid" : 0};
+      switch (options.size) {
+      case 'mini':
+        counts.up = randomNumber(8);
+        counts.min = randomNumber(2);
+        counts.down = randomNumber(8);
+        break;
+      case 'maxi':
+        counts.up = randomNumber(16) + 3;
+        counts.min = randomNumber(4) + 1;
+        counts.down = randomNumber(64) + 3;
+        break;
+      default:
+        counts.up = randomNumber(8) + 1;
+        counts.mid = randomNumber(6) / 2;
+        counts.down = randomNumber(8) + 1;
+        break;
+      }
+
+      var arr = ["up", "mid", "down"];
+      for (var d in arr) {
+        var index = arr[d];
+        for (var i = 0 ; i <= counts[index]; i++) {
+          if (options[index]) {
+            result = result + soul[index][randomNumber(soul[index].length)];
+          }
+        }
+      }
+    }
+    return result;
+  }
+  return heComes(text);
+}
+
+
+// don't summon zalgo
+addProperty('zalgo', function () {
+  return zalgo(this);
+});
+
+}
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/colors/colors.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/loader.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/loader.js"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/loader.js", 
 function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
@@ -48117,6 +48641,11 @@ const LOADER = require("pinf-loader-js/loader");
 
 
 exports.sandbox = function(sandboxIdentifier, sandboxOptions, loadedCallback, errorCallback) {
+
+	if (!sandboxIdentifier) {
+		if (errorCallback) return errorCallback(new Error("'sandboxIdentifier' not specified"));
+		throw new Error("'sandboxIdentifier' not specified");
+	}
 
 	if (typeof sandboxOptions === "function" && typeof loadedCallback === "function" && typeof errorCallback === "undefined") {
 		errorCallback = loadedCallback;
@@ -62699,7 +63228,8 @@ require.memoize("5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/packag
         "pinf-it-module-insight": "bf0ef0832fabbb13ac3cdcc25595e542732048f4-pinf-it-module-insight",
         "pinf-it-package-insight": "998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insight",
         "pinf-loader-js": "c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js",
-        "requirejs": "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs"
+        "requirejs": "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs",
+        "colors": "92020e8e2c8b5925c17b8b3d3354f361a004a0c6-colors"
     },
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler"
 }
@@ -62938,6 +63468,13 @@ require.memoize("f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/package.json
     "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/requirejs"
 }
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/requirejs/package.json"});
+// @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"92020e8e2c8b5925c17b8b3d3354f361a004a0c6-colors/package.json"}
+require.memoize("92020e8e2c8b5925c17b8b3d3354f361a004a0c6-colors/package.json", 
+{
+    "main": "92020e8e2c8b5925c17b8b3d3354f361a004a0c6-colors/colors.js",
+    "dirpath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/colors"
+}
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/colors/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request/package.json"}
 require.memoize("e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request/package.json", 
 {

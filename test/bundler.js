@@ -173,7 +173,7 @@ describe('bundler', function() {
 
 	describe('`bundlePackage()`', function() {
 
-		this.timeout(20 * 1000);
+		this.timeout(120 * 1000);
 
 		function getFiles(rules, callback) {
 			var files = [];
@@ -204,13 +204,13 @@ describe('bundler', function() {
 				"packages/nodejs-dynamic-require-pkg",
 				"packages/commonjs-lib",
 				"packages/nodejs-dynamic-require-complex",
-				"packages/nodejs-built-in",
+				"packages/nodejs-built-in",  // This use-case needs a major speed improvement
 				"packages/self-require",
 				"packages/deep-main",
 				"packages/self-require-deep",
 				"packages/nodejs-multiple",
 				"packages/require-async",
-				"packages/require-async-deep-pkg",
+				"packages/require-async-deep-pkg",  // This use-case needs a major speed improvement
 				"packages/nodejs-dynamic-require-declared"
 			], function(err, files) {
 				if (err) return done(err);
@@ -218,6 +218,7 @@ describe('bundler', function() {
 				var waitfor = WAITFOR.serial(done);
 				files.forEach(function(file) {
 					waitfor(function(done) {
+						console.log("test", file);					
 						var rootPath = PATH.dirname(__dirname);
 						var relPath = PATH.join("test/assets", file);
 						var basePath = PATH.join(rootPath, relPath);
@@ -229,6 +230,7 @@ describe('bundler', function() {
 						var lastBundlePath = null;
 						var options = {
 							debug: DEBUG,
+							verbose: DEBUG,
 							test: !DEBUG,
 							rootPath: rootPath,
 							distPath: distPath,
@@ -263,80 +265,28 @@ describe('bundler', function() {
 								return PINF_FOR_NODEJS.getReport();
 							}
 						};
-						FS.removeSync(options.distPath);
-						RT_BUNDLER.bundlePackage(relPath, options, function(err, bundleDescriptors, helpers) {
+						var oldDistPath = options.distPath + "~" + Date.now();
+						FS.rename(options.distPath, oldDistPath);
+						function attachPinfContextToOptions(callback) {
+							return FS.exists(PATH.join(basePath, "program.json"), function(exists) {
+								if (!exists) return callback(null);
+				                return PINF_FOR_NODEJS.context(PATH.join(basePath, "program.json"), PATH.join(basePath, "package.json"), {}, function(err, $pinf) {
+				                    if (err) return callback(err);
+				                    options.$pinf = $pinf;
+				                    return callback(null);
+				                });
+							});
+						}
+						return attachPinfContextToOptions(function(err) {
 							if (err) return done(err);
-							function testResult(result) {
-								try {
-									if (typeof result === "function") {
-										result = result();
-									}
-									var keys = null;
-									if (typeof result === "object") {
-										keys = Object.keys(result);
-									}
-									if (result && result.$pinf) {
-										result.$pinf = JSON.parse(result.$pinf.stringify());
-									}
-									result = JSON.stringify(result);
-									result = result.replace(new RegExp(rootPath.replace(/(\/|\+|\.)/g, "\\$1"), "g"), "");
-									result = JSON.parse(result);
-									if (keys) {
-										keys.forEach(function(name) {
-											if (typeof result[name] === "undefined") {
-												result[name] = {};
+							return RT_BUNDLER.bundlePackage(relPath, options, function(err, bundleDescriptors, helpers) {
+								if (err) return done(err);
+								function testResult(result) {
+									try {
+										if (result !== null) {
+											if (typeof result === "function") {
+												result = result();
 											}
-										});
-									}
-									if (result && result.$pinf) result.$pinf.now = 0;
-
-
-//console.log(JSON.stringify(PINF_FOR_NODEJS.getReport().sandboxes, null, 4));
-
-									if (MODE === "test") {
-										ASSERT.deepEqual(bundleDescriptors, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/bundle-descriptors.json"))));
-										ASSERT.deepEqual(buffer, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/console.json"))));
-										ASSERT.deepEqual(result, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/api.json"))));
-										ASSERT.deepEqual(
-											PINF_FOR_NODEJS.getReport().sandboxes,
-											JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/loader-report.json")))
-										);
-									} else {
-										FS.outputFileSync(PATH.join(basePath, ".result/bundle-descriptors.json"), JSON.stringify(bundleDescriptors, null, 4));
-										FS.writeFileSync(PATH.join(basePath, ".result/console.json"), JSON.stringify(buffer, null, 4));
-										FS.writeFileSync(PATH.join(basePath, ".result/api.json"), JSON.stringify(result, null, 4));
-										FS.writeFileSync(PATH.join(basePath, ".result/loader-report.json"), JSON.stringify(PINF_FOR_NODEJS.getReport().sandboxes, null, 4));
-									}
-
-									// Now that bundling was successful, run the bundled program.
-
-									buffer = [];
-									result = null;
-									PINF_FOR_NODEJS.reset();
-
-									return PINF_FOR_NODEJS.sandbox(lastBundlePath, {
-										globals: {
-											console: {
-												log: function(message) {
-													buffer.push(message);
-//													if (DEBUG) console.log(["[log]"].concat(arguments));
-												},
-												error: console.error
-											}
-										},
-										rootPath: rootPath,
-										ensureAsync: helpers.ensureAsync,
-									}, function(sandbox) {
-										var returned = false;
-										function callback(err, result) {
-											if (returned) return;
-											returned = true;
-
-											if (err) {
-												console.error(err.stack);
-												return done(err);
-											}
-
 											var keys = null;
 											if (typeof result === "object") {
 												keys = Object.keys(result);
@@ -356,35 +306,110 @@ describe('bundler', function() {
 											}
 											if (result && result.$pinf) result.$pinf.now = 0;
 
-											ASSERT.deepEqual(buffer, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/console.json"))));
-											ASSERT.deepEqual(result, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/api.json"))));
-											ASSERT.deepEqual(
-												PINF_FOR_NODEJS.getReport().sandboxes,
-												JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/loader-report.json")))
-											);
-											return done();
+		//console.log(JSON.stringify(PINF_FOR_NODEJS.getReport().sandboxes, null, 4));
+
+											if (MODE === "test") {
+												ASSERT.deepEqual(bundleDescriptors, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/bundle-descriptors.json"))));
+												ASSERT.deepEqual(buffer, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/console.json"))));
+												ASSERT.deepEqual(result, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/api.json"))));
+												ASSERT.deepEqual(
+													PINF_FOR_NODEJS.getReport().sandboxes,
+													JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/loader-report.json")))
+												);
+											} else {
+												FS.outputFileSync(PATH.join(basePath, ".result/bundle-descriptors.json"), JSON.stringify(bundleDescriptors, null, 4));
+												FS.writeFileSync(PATH.join(basePath, ".result/console.json"), JSON.stringify(buffer, null, 4));
+												FS.writeFileSync(PATH.join(basePath, ".result/api.json"), JSON.stringify(result, null, 4));
+												FS.writeFileSync(PATH.join(basePath, ".result/loader-report.json"), JSON.stringify(PINF_FOR_NODEJS.getReport().sandboxes, null, 4));
+											}
 										}
-										try {
-											result = sandbox.main(callback);
-										} catch(err) {
-											return done(err);
+
+										// Now that bundling was successful, run the bundled program.
+
+										buffer = [];
+										result = null;
+										PINF_FOR_NODEJS.reset();
+
+										if (!lastBundlePath) {
+											// Bundler did not run and got bundle fro cache.
+											lastBundlePath = bundleDescriptors["#pinf"].data.rootBundlePath;
+											FS.rename(oldDistPath, options.distPath);
+										} else {
+											FS.removeSync(oldDistPath);
 										}
-										if (typeof result === "function") {
-											result = result();
-										}
-										if (result !== null) {
-											return callback(null, result);
-										}
-									}, done);
-								} catch(err) {
-									return done(err);
+
+										return PINF_FOR_NODEJS.sandbox(lastBundlePath, {
+											globals: {
+												console: {
+													log: function(message) {
+														buffer.push(message);
+	//													if (DEBUG) console.log(["[log]"].concat(arguments));
+													},
+													error: console.error
+												}
+											},
+											rootPath: rootPath,
+											ensureAsync: helpers.ensureAsync,
+										}, function(sandbox) {
+											var returned = false;
+											function callback(err, result) {
+												if (returned) return;
+												returned = true;
+
+												if (err) {
+													console.error(err.stack);
+													return done(err);
+												}
+
+												var keys = null;
+												if (typeof result === "object") {
+													keys = Object.keys(result);
+												}
+												if (result && result.$pinf) {
+													result.$pinf = JSON.parse(result.$pinf.stringify());
+												}
+												result = JSON.stringify(result);
+												result = result.replace(new RegExp(rootPath.replace(/(\/|\+|\.)/g, "\\$1"), "g"), "");
+												result = JSON.parse(result);
+												if (keys) {
+													keys.forEach(function(name) {
+														if (typeof result[name] === "undefined") {
+															result[name] = {};
+														}
+													});
+												}
+												if (result && result.$pinf) result.$pinf.now = 0;
+
+												ASSERT.deepEqual(buffer, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/console.json"))));
+												ASSERT.deepEqual(result, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/api.json"))));
+												ASSERT.deepEqual(
+													PINF_FOR_NODEJS.getReport().sandboxes,
+													JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/loader-report.json")))
+												);
+												return done();
+											}
+											try {
+												result = sandbox.main(callback);
+											} catch(err) {
+												return done(err);
+											}
+											if (typeof result === "function") {
+												result = result();
+											}
+											if (result !== null) {
+												return callback(null, result);
+											}
+										}, done);
+									} catch(err) {
+										return done(err);
+									}
 								}
-							}
-							if (Q.isPromise(result)) {
-								return result.then(testResult, done);
-							} else {
-								return testResult(result);
-							}
+								if (Q.isPromise(result)) {
+									return result.then(testResult, done);
+								} else {
+									return testResult(result);
+								}
+							});
 						});
 					});
 				});

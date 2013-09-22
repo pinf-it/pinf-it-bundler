@@ -233,7 +233,8 @@
                     "pinf-it-module-insight": "bf0ef0832fabbb13ac3cdcc25595e542732048f4-pinf-it-module-insight",
                     "pinf-it-package-insight": "998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insight",
                     "pinf-loader-js": "c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js",
-                    "requirejs": "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs"
+                    "requirejs": "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs",
+                    "colors": "92020e8e2c8b5925c17b8b3d3354f361a004a0c6-colors"
                 },
                 "directories": {},
                 "libPath": ""
@@ -418,6 +419,12 @@
             },
             "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs": {
                 "main": "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/bin/r.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "92020e8e2c8b5925c17b8b3d3354f361a004a0c6-colors": {
+                "main": "92020e8e2c8b5925c17b8b3d3354f361a004a0c6-colors/colors.js",
                 "mappings": {},
                 "directories": {},
                 "libPath": ""
@@ -898,6 +905,9 @@
             "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/bin/r.js": {
                 "exports": 20
             },
+            "92020e8e2c8b5925c17b8b3d3354f361a004a0c6-colors/colors.js": {
+                "exports": 31
+            },
             "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/loader.js": {
                 "exports": 3
             },
@@ -1117,6 +1127,7 @@
             "91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/package.json": {},
             "c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js/package.json": {},
             "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/package.json": {},
+            "92020e8e2c8b5925c17b8b3d3354f361a004a0c6-colors/package.json": {},
             "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request/package.json": {},
             "a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs/package.json": {},
             "0a2767d204df2a563b9513a5b12e7f2ef737e245-oauth-sign/package.json": {},

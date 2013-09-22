@@ -235,14 +235,6 @@
                                     },
                                     "exports": {
                                         "main": "./index.js"
-                                    },
-                                    "dependencies": {
-                                        "bundled": {
-                                            "greeting": "."
-                                        }
-                                    },
-                                    "mappings": {
-                                        "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting"
                                     }
                                 }
                             },
@@ -257,14 +249,6 @@
                                 },
                                 "exports": {
                                     "main": "./index.js"
-                                },
-                                "dependencies": {
-                                    "bundled": {
-                                        "greeting": "."
-                                    }
-                                },
-                                "mappings": {
-                                    "greeting": "5a760ab35d3f7b067635df668f0a516e020147a6-greeting"
                                 }
                             },
                             "warnings": [],
