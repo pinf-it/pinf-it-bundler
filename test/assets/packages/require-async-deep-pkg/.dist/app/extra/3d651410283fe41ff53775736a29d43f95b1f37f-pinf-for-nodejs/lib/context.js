@@ -369,6 +369,7 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 		if (type === "vfs-write-from-read-mtime-bypass") {
 			// TODO: Refactor some of this into a cache module with tree-based contexts for managing expiry.
 			var VFS = null;
+			var rawKey = null;
 			var key = null;
 			var paths = {};
 			var listener = function(path, method) {
@@ -435,6 +436,7 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 					if (typeof _key !== "string") {
 						_key = JSON.stringify(_key);
 					}
+					rawKey = _key;
 					var shasum = CRYPTO.createHash("sha1");
 					shasum.update(_key);
 					key = shasum.digest("hex");
@@ -448,7 +450,7 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 						var startTime = Date.now();
 						if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway proceed: " + reason + " (" + cachePath + ")").yellow);
 						return proceedCallback(null, function proxiedCallback(err) {
-							if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway proceed done (used " + Object.keys(paths).length + " files in " + (Date.now() - startTime) + " ms)").yellow);
+							if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway proceed done (used " + Object.keys(paths).length + " files in " + (Date.now() - startTime) + " ms) (key: " + rawKey + ")").yellow);
 							if (typeof VFS.removeListener === "function") {
 								VFS.removeListener("used-path", listener);
 							}
@@ -494,7 +496,7 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 									var waitfor = WAITFOR.parallel(function(err) {
 										if (err) return callback(err);
 										if (canBypass === true) {
-											if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway using cache (checked " + Object.keys(data.paths).length + " paths in " + (Date.now() - gatewayStartTime) + " ms)").green);
+											if (options.verbose) console.log(("[pinf-for-nodejs][context] gateway using cache (checked " + Object.keys(data.paths).length + " (key: " + rawKey + ") paths in " + (Date.now() - gatewayStartTime) + " ms)").green);
 											// self.getAPI("console").cache("Using cached data based on path mtimes in '" + path + "'");
 											return notModifiedCallback(data.data, {
 												cachePath: cachePath
@@ -4026,6 +4028,8 @@ exports.parse = function(packagePath, options, callback) {
 			FS: (options.$pinf && options.$pinf.getAPI("FS")) || FS
 		};
 
+		options.lookupPaths = options.lookupPaths || exports.LOOKUP_PATHS;
+
 		options._realpath = function(path) {
 			if (!options.rootPath) return path;
 			if (/^\//.test(path)) return path;
@@ -4039,87 +4043,137 @@ exports.parse = function(packagePath, options, callback) {
 
 		ASSERT(options.API.FS.existsSync(options._realpath(packagePath)), "path '" + options._realpath(packagePath) + "' does not exist");
 
-		// TODO: Use async equivalent.
-		if (!options.API.FS.statSync(options._realpath(packagePath)).isDirectory()) {
-			packagePath = PATH.dirname(packagePath);
-		}
-
-		var shasum = CRYPTO.createHash("sha1");
-		shasum.update(packagePath);
-
-		var packageDescriptor = {
-			dirpath: packagePath,
-			id: shasum.digest("hex") + "-" + PATH.basename(packagePath),
-			lookupPaths: [],
-			descriptorPaths: [],
-			raw: {},
-			normalized: {},
-			combined: {},
-			warnings: [],
-			errors: []
-		};
-
-		var waitfor = WAITFOR.serial(function(err) {
-			if (err) return callback(err);
-			return callback(null, packageDescriptor);
-		});
-
-		var opts = {};
-		for (var key in options) {
-			opts[key] = options[key];
-		}
-		opts.packagePath = packagePath;
-
-		var env = PINF_PRIMITIVES.normalizeEnvironmentVariables(null, {
-			PINF_PROGRAM: (options.env && options.env.PINF_PROGRAM) || PATH.join(options._realpath(packagePath), "program.json"),
-			PINF_PACKAGE: (options.env && options.env.PINF_PACKAGE) || PATH.join(options._realpath(packagePath), "package.json"),
-			PINF_MODE: (options.env && options.env.PINF_MODE) || "",
-			PINF_RUNTIME: (options.env && options.env.PINF_RUNTIME) || "",
-			PINF_PACKAGES: (options.env && options.env.PINF_PACKAGES) || "",
-			PINF_PROGRAM_PARENT: (options.env && options.env.PINF_PROGRAM_PARENT) || ""
-		});
-
-		// TODO: Get list of files to search from `pinf-for-nodejs/lib/context.LOOKUP_PATHS`. Exclude the 'program' paths.
-		(options.lookupPaths || exports.LOOKUP_PATHS).forEach(function(resolve) {
-
-			var filename = options._relpath(resolve(env));
-			if (!filename) return;
-
-			waitfor(function(done) {
-				return exports.parseDescriptor(filename, opts, function(err, descriptor) {
-					if (err) return done(err);
-
-					descriptor.lookupPaths.forEach(function(path) {
-						packageDescriptor.lookupPaths.unshift(path);
-					});
-
-					if (Object.keys(descriptor.raw).length > 0) {
-						descriptor.descriptorPaths.forEach(function(path) {
-							packageDescriptor.descriptorPaths.unshift(path);
-						});
-					}
-
-					filename = PATH.relative(options._realpath(packagePath), options._realpath(filename));
-
-					if (Object.keys(descriptor.raw).length > 0) {
-						packageDescriptor.raw[filename] = descriptor.raw;
-					}
-					packageDescriptor.normalized[filename] = descriptor.normalized;
-
-					packageDescriptor.combined = DEEPMERGE(descriptor.normalized, packageDescriptor.combined);
-
-					descriptor.warnings.forEach(function(warning) {
-						packageDescriptor.warnings.push([].concat(warning, "descriptor", filename));
-					});
-					descriptor.errors.forEach(function(error) {
-						packageDescriptor.errors.push([].concat(error, "descriptor", filename));
-					});
-
-					return done(null);
-				});
+		function bypassIfWeCan(proceedCallback) {
+			if (!options.$pinf) {
+				return proceedCallback(callback);
+			}
+			var gateway = options.$pinf.gateway("vfs-write-from-read-mtime-bypass", {
+				cacheNamespace: "pinf-it-package-insight"
 			});
+			// All criteria that makes this call (argument combination) unique.
+			var opts = {};
+			for (var name in options) {
+				if (name === "$pinf") continue;
+				if (name === "API") continue;
+				if (/^_/.test(name)) continue;
+				if (typeof options[name] === "function") continue;
+				opts[name] = options[name];
+			}
+			var shasum = CRYPTO.createHash("sha1");
+			shasum.update(options.lookupPaths.map(function(func) {
+				return func.toString();
+			}).join(""));
+			opts.lookupPaths = shasum.digest("hex");
+			shasum = CRYPTO.createHash("sha1");
+			shasum.update(JSON.stringify(opts));
+			gateway.setKey({
+				packagePath: options._realpath(packagePath),
+				optionsHash: shasum.digest("hex")
+			});
+			// NOTE: `callback` will be called by gateway right away if we can bypass.
+			return gateway.onDone(callback, function(err, proxiedCallback) {
+				if (err) return 
+				// If callback was triggered above we will get an empty callback back so we can just stop here.
+				if (!proxiedCallback) return;
+				options.API.FS = gateway.getAPI("FS");
+				return proceedCallback(proxiedCallback);
+			}, function(cachedData) {
+				return callback(null, cachedData);
+			});
+		}
+
+		return bypassIfWeCan(function(callback) {
+
+			try {
+
+				// TODO: Use async equivalent.
+				if (!options.API.FS.statSync(options._realpath(packagePath)).isDirectory()) {
+					packagePath = PATH.dirname(packagePath);
+				}
+
+				if (options.verbose) console.log("[pinf-it-package-insight] parse package: " + packagePath);
+
+				var shasum = CRYPTO.createHash("sha1");
+				shasum.update(packagePath);
+
+				var packageDescriptor = {
+					dirpath: packagePath,
+					id: shasum.digest("hex") + "-" + PATH.basename(packagePath),
+					lookupPaths: [],
+					descriptorPaths: [],
+					raw: {},
+					normalized: {},
+					combined: {},
+					warnings: [],
+					errors: []
+				};
+
+				var waitfor = WAITFOR.serial(function(err) {
+					if (err) return callback(err);
+					return callback(null, packageDescriptor, packageDescriptor);
+				});
+
+				var opts = {};
+				for (var key in options) {
+					opts[key] = options[key];
+				}
+				opts.packagePath = packagePath;
+
+				var env = PINF_PRIMITIVES.normalizeEnvironmentVariables(null, {
+					PINF_PROGRAM: (options.env && options.env.PINF_PROGRAM) || PATH.join(options._realpath(packagePath), "program.json"),
+					PINF_PACKAGE: (options.env && options.env.PINF_PACKAGE) || PATH.join(options._realpath(packagePath), "package.json"),
+					PINF_MODE: (options.env && options.env.PINF_MODE) || "",
+					PINF_RUNTIME: (options.env && options.env.PINF_RUNTIME) || "",
+					PINF_PACKAGES: (options.env && options.env.PINF_PACKAGES) || "",
+					PINF_PROGRAM_PARENT: (options.env && options.env.PINF_PROGRAM_PARENT) || ""
+				});
+
+				// TODO: Get list of files to search from `pinf-for-nodejs/lib/context.LOOKUP_PATHS`. Exclude the 'program' paths.
+				(options.lookupPaths).forEach(function(resolve) {
+
+					var filename = options._relpath(resolve(env));
+					if (!filename) return;
+
+					waitfor(function(done) {
+						return exports.parseDescriptor(filename, opts, function(err, descriptor) {
+							if (err) return done(err);
+
+							descriptor.lookupPaths.forEach(function(path) {
+								packageDescriptor.lookupPaths.unshift(path);
+							});
+
+							if (Object.keys(descriptor.raw).length > 0) {
+								descriptor.descriptorPaths.forEach(function(path) {
+									packageDescriptor.descriptorPaths.unshift(path);
+								});
+							}
+
+							filename = PATH.relative(options._realpath(packagePath), options._realpath(filename));
+
+							if (Object.keys(descriptor.raw).length > 0) {
+								packageDescriptor.raw[filename] = descriptor.raw;
+							}
+							packageDescriptor.normalized[filename] = descriptor.normalized;
+
+							packageDescriptor.combined = DEEPMERGE(descriptor.normalized, packageDescriptor.combined);
+
+							descriptor.warnings.forEach(function(warning) {
+								packageDescriptor.warnings.push([].concat(warning, "descriptor", filename));
+							});
+							descriptor.errors.forEach(function(error) {
+								packageDescriptor.errors.push([].concat(error, "descriptor", filename));
+							});
+
+							return done(null);
+						});
+					});
+				});
+				return waitfor();
+
+			} catch(err) {
+				return callback(err);
+			}
 		});
-		return waitfor();
 
 	} catch(err) {
 		return callback(err);
@@ -6503,6 +6557,8 @@ exports.parse = function(packagePath, options, callback) {
 			FS: (options.$pinf && options.$pinf.getAPI("FS")) || FS
 		};
 
+		options.lookupPaths = options.lookupPaths || exports.LOOKUP_PATHS;
+
 		options._realpath = function(path) {
 			if (!options.rootPath) return path;
 			if (/^\//.test(path)) return path;
@@ -6516,87 +6572,137 @@ exports.parse = function(packagePath, options, callback) {
 
 		ASSERT(options.API.FS.existsSync(options._realpath(packagePath)), "path '" + options._realpath(packagePath) + "' does not exist");
 
-		// TODO: Use async equivalent.
-		if (!options.API.FS.statSync(options._realpath(packagePath)).isDirectory()) {
-			packagePath = PATH.dirname(packagePath);
-		}
-
-		var shasum = CRYPTO.createHash("sha1");
-		shasum.update(packagePath);
-
-		var packageDescriptor = {
-			dirpath: packagePath,
-			id: shasum.digest("hex") + "-" + PATH.basename(packagePath),
-			lookupPaths: [],
-			descriptorPaths: [],
-			raw: {},
-			normalized: {},
-			combined: {},
-			warnings: [],
-			errors: []
-		};
-
-		var waitfor = WAITFOR.serial(function(err) {
-			if (err) return callback(err);
-			return callback(null, packageDescriptor);
-		});
-
-		var opts = {};
-		for (var key in options) {
-			opts[key] = options[key];
-		}
-		opts.packagePath = packagePath;
-
-		var env = PINF_PRIMITIVES.normalizeEnvironmentVariables(null, {
-			PINF_PROGRAM: (options.env && options.env.PINF_PROGRAM) || PATH.join(options._realpath(packagePath), "program.json"),
-			PINF_PACKAGE: (options.env && options.env.PINF_PACKAGE) || PATH.join(options._realpath(packagePath), "package.json"),
-			PINF_MODE: (options.env && options.env.PINF_MODE) || "",
-			PINF_RUNTIME: (options.env && options.env.PINF_RUNTIME) || "",
-			PINF_PACKAGES: (options.env && options.env.PINF_PACKAGES) || "",
-			PINF_PROGRAM_PARENT: (options.env && options.env.PINF_PROGRAM_PARENT) || ""
-		});
-
-		// TODO: Get list of files to search from `pinf-for-nodejs/lib/context.LOOKUP_PATHS`. Exclude the 'program' paths.
-		(options.lookupPaths || exports.LOOKUP_PATHS).forEach(function(resolve) {
-
-			var filename = options._relpath(resolve(env));
-			if (!filename) return;
-
-			waitfor(function(done) {
-				return exports.parseDescriptor(filename, opts, function(err, descriptor) {
-					if (err) return done(err);
-
-					descriptor.lookupPaths.forEach(function(path) {
-						packageDescriptor.lookupPaths.unshift(path);
-					});
-
-					if (Object.keys(descriptor.raw).length > 0) {
-						descriptor.descriptorPaths.forEach(function(path) {
-							packageDescriptor.descriptorPaths.unshift(path);
-						});
-					}
-
-					filename = PATH.relative(options._realpath(packagePath), options._realpath(filename));
-
-					if (Object.keys(descriptor.raw).length > 0) {
-						packageDescriptor.raw[filename] = descriptor.raw;
-					}
-					packageDescriptor.normalized[filename] = descriptor.normalized;
-
-					packageDescriptor.combined = DEEPMERGE(descriptor.normalized, packageDescriptor.combined);
-
-					descriptor.warnings.forEach(function(warning) {
-						packageDescriptor.warnings.push([].concat(warning, "descriptor", filename));
-					});
-					descriptor.errors.forEach(function(error) {
-						packageDescriptor.errors.push([].concat(error, "descriptor", filename));
-					});
-
-					return done(null);
-				});
+		function bypassIfWeCan(proceedCallback) {
+			if (!options.$pinf) {
+				return proceedCallback(callback);
+			}
+			var gateway = options.$pinf.gateway("vfs-write-from-read-mtime-bypass", {
+				cacheNamespace: "pinf-it-package-insight"
 			});
+			// All criteria that makes this call (argument combination) unique.
+			var opts = {};
+			for (var name in options) {
+				if (name === "$pinf") continue;
+				if (name === "API") continue;
+				if (/^_/.test(name)) continue;
+				if (typeof options[name] === "function") continue;
+				opts[name] = options[name];
+			}
+			var shasum = CRYPTO.createHash("sha1");
+			shasum.update(options.lookupPaths.map(function(func) {
+				return func.toString();
+			}).join(""));
+			opts.lookupPaths = shasum.digest("hex");
+			shasum = CRYPTO.createHash("sha1");
+			shasum.update(JSON.stringify(opts));
+			gateway.setKey({
+				packagePath: options._realpath(packagePath),
+				optionsHash: shasum.digest("hex")
+			});
+			// NOTE: `callback` will be called by gateway right away if we can bypass.
+			return gateway.onDone(callback, function(err, proxiedCallback) {
+				if (err) return 
+				// If callback was triggered above we will get an empty callback back so we can just stop here.
+				if (!proxiedCallback) return;
+				options.API.FS = gateway.getAPI("FS");
+				return proceedCallback(proxiedCallback);
+			}, function(cachedData) {
+				return callback(null, cachedData);
+			});
+		}
+
+		return bypassIfWeCan(function(callback) {
+
+			try {
+
+				// TODO: Use async equivalent.
+				if (!options.API.FS.statSync(options._realpath(packagePath)).isDirectory()) {
+					packagePath = PATH.dirname(packagePath);
+				}
+
+				if (options.verbose) console.log("[pinf-it-package-insight] parse package: " + packagePath);
+
+				var shasum = CRYPTO.createHash("sha1");
+				shasum.update(packagePath);
+
+				var packageDescriptor = {
+					dirpath: packagePath,
+					id: shasum.digest("hex") + "-" + PATH.basename(packagePath),
+					lookupPaths: [],
+					descriptorPaths: [],
+					raw: {},
+					normalized: {},
+					combined: {},
+					warnings: [],
+					errors: []
+				};
+
+				var waitfor = WAITFOR.serial(function(err) {
+					if (err) return callback(err);
+					return callback(null, packageDescriptor, packageDescriptor);
+				});
+
+				var opts = {};
+				for (var key in options) {
+					opts[key] = options[key];
+				}
+				opts.packagePath = packagePath;
+
+				var env = PINF_PRIMITIVES.normalizeEnvironmentVariables(null, {
+					PINF_PROGRAM: (options.env && options.env.PINF_PROGRAM) || PATH.join(options._realpath(packagePath), "program.json"),
+					PINF_PACKAGE: (options.env && options.env.PINF_PACKAGE) || PATH.join(options._realpath(packagePath), "package.json"),
+					PINF_MODE: (options.env && options.env.PINF_MODE) || "",
+					PINF_RUNTIME: (options.env && options.env.PINF_RUNTIME) || "",
+					PINF_PACKAGES: (options.env && options.env.PINF_PACKAGES) || "",
+					PINF_PROGRAM_PARENT: (options.env && options.env.PINF_PROGRAM_PARENT) || ""
+				});
+
+				// TODO: Get list of files to search from `pinf-for-nodejs/lib/context.LOOKUP_PATHS`. Exclude the 'program' paths.
+				(options.lookupPaths).forEach(function(resolve) {
+
+					var filename = options._relpath(resolve(env));
+					if (!filename) return;
+
+					waitfor(function(done) {
+						return exports.parseDescriptor(filename, opts, function(err, descriptor) {
+							if (err) return done(err);
+
+							descriptor.lookupPaths.forEach(function(path) {
+								packageDescriptor.lookupPaths.unshift(path);
+							});
+
+							if (Object.keys(descriptor.raw).length > 0) {
+								descriptor.descriptorPaths.forEach(function(path) {
+									packageDescriptor.descriptorPaths.unshift(path);
+								});
+							}
+
+							filename = PATH.relative(options._realpath(packagePath), options._realpath(filename));
+
+							if (Object.keys(descriptor.raw).length > 0) {
+								packageDescriptor.raw[filename] = descriptor.raw;
+							}
+							packageDescriptor.normalized[filename] = descriptor.normalized;
+
+							packageDescriptor.combined = DEEPMERGE(descriptor.normalized, packageDescriptor.combined);
+
+							descriptor.warnings.forEach(function(warning) {
+								packageDescriptor.warnings.push([].concat(warning, "descriptor", filename));
+							});
+							descriptor.errors.forEach(function(error) {
+								packageDescriptor.errors.push([].concat(error, "descriptor", filename));
+							});
+
+							return done(null);
+						});
+					});
+				});
+				return waitfor();
+
+			} catch(err) {
+				return callback(err);
+			}
 		});
-		return waitfor();
 
 	} catch(err) {
 		return callback(err);
@@ -13300,74 +13406,100 @@ const VM = require("__SYSTEM__/vm");
 
 
 exports.parseFile = function(filePath, options, callback) {
-	try {
 
-		options = options || {};
+	options = options || {};
 
-		options.API = {
-			FS: (options.$pinf && options.$pinf.getAPI("FS")) || FS
-		};
+	options.API = {
+		FS: (options.$pinf && options.$pinf.getAPI("FS")) || FS
+	};
 
-		options._realpath = function(path) {
-			if (!options.rootPath) return path;
-			if (/^\//.test(path)) return path;
-			return PATH.join(options.rootPath, path);
-		}
-
-		var descriptor = {
-			filename: PATH.basename(filePath),
-			filepath: filePath,
-			mtime: Math.floor(options.API.FS.statSync(options._realpath(filePath)).mtime.getTime()/1000),
-			code: options.API.FS.readFileSync(options._realpath(filePath)).toString(),
-			globals: {},
-			syntax: null,
-			format: null,
-			undefine: [],
-			uses: {},
-			dependencies: {
-				"static": {},
-				"dynamic": {},
-				computed: false
-			},
-			warnings: [],
-			errors: []
-		};
-
-		if (options.debug) console.log("Parse file:", filePath);
-
-		var extension = filePath.match(/\.([^\.]*)$/)[1];
-
-		function finalize(err) {
-			if (err) {
-				descriptor.errors.push([
-					"parse", err.message, err.stack
-				]);
-			}
-			return callback(null, descriptor);
-		}
-
-		if (extension === "js") {
-			descriptor.syntax = "javascript";
-			return parseJavaScript(descriptor, options, finalize);
-		} else
-		if (extension === "php") {
-			descriptor.syntax = "php";
-			throw new Error("Parsing of PHP files is planned but not yet implemented");
-		} else
-		if (extension === "json") {
-			descriptor.syntax = "json";
-			// TODO: Validate JSON.
-			descriptor.format = "json";
-			return finalize(null);
-		} else {
-			// Fall back to just detecting if file is UTF8 or binary encoded.
-			return parseResource(descriptor, options, finalize);
-		}
-
-
-	} catch(err) {
-		return callback(err);
+	options._realpath = function(path) {
+		if (!options.rootPath) return path;
+		if (/^\//.test(path)) return path;
+		return PATH.join(options.rootPath, path);
 	}
+
+	function bypassIfWeCan(proceedCallback) {
+		if (!options.$pinf) {
+			return proceedCallback(callback);
+		}
+		var gateway = options.$pinf.gateway("vfs-write-from-read-mtime-bypass");
+		// All criteria that makes this call (argument combination) unique.
+		gateway.setKey({
+			filePath: filePath
+		});
+		// NOTE: `callback` will be called by gateway right away if we can bypass.
+		return gateway.onDone(callback, function(err, proxiedCallback) {
+			if (err) return 
+			// If callback was triggered above we will get an empty callback back so we can just stop here.
+			if (!proxiedCallback) return;
+			options.API.FS = gateway.getAPI("FS");
+			return proceedCallback(function() {
+				return proxiedCallback.apply(this, arguments);
+			});
+		}, function(cachedData) {
+			return callback(null, cachedData);
+		});
+	}
+
+	return bypassIfWeCan(function(callback) {
+
+		try {
+
+			var descriptor = {
+				filename: PATH.basename(filePath),
+				filepath: filePath,
+				mtime: Math.floor(options.API.FS.statSync(options._realpath(filePath)).mtime.getTime()/1000),
+				code: options.API.FS.readFileSync(options._realpath(filePath)).toString(),
+				globals: {},
+				syntax: null,
+				format: null,
+				undefine: [],
+				uses: {},
+				dependencies: {
+					"static": {},
+					"dynamic": {},
+					computed: false
+				},
+				warnings: [],
+				errors: []
+			};
+
+			if (options.debug) console.log("Parse file:", filePath);
+
+			var extension = filePath.match(/\.([^\.]*)$/)[1];
+
+			function finalize(err) {
+				if (err) {
+					descriptor.errors.push([
+						"parse", err.message, err.stack
+					]);
+				}
+				return callback(null, descriptor, descriptor);
+			}
+
+			if (extension === "js") {
+				descriptor.syntax = "javascript";
+				return parseJavaScript(descriptor, options, finalize);
+			} else
+			if (extension === "php") {
+				descriptor.syntax = "php";
+				throw new Error("Parsing of PHP files is planned but not yet implemented");
+			} else
+			if (extension === "json") {
+				descriptor.syntax = "json";
+				// TODO: Validate JSON.
+				descriptor.format = "json";
+				return finalize(null);
+			} else {
+				// Fall back to just detecting if file is UTF8 or binary encoded.
+				return parseResource(descriptor, options, finalize);
+			}
+
+		} catch(err) {
+			return callback(err);
+		}
+	});
 }
 
 function parseResource(descriptor, options, callback) {
@@ -19426,6 +19558,8 @@ exports.parse = function(packagePath, options, callback) {
 			FS: (options.$pinf && options.$pinf.getAPI("FS")) || FS
 		};
 
+		options.lookupPaths = options.lookupPaths || exports.LOOKUP_PATHS;
+
 		options._realpath = function(path) {
 			if (!options.rootPath) return path;
 			if (/^\//.test(path)) return path;
@@ -19439,87 +19573,137 @@ exports.parse = function(packagePath, options, callback) {
 
 		ASSERT(options.API.FS.existsSync(options._realpath(packagePath)), "path '" + options._realpath(packagePath) + "' does not exist");
 
-		// TODO: Use async equivalent.
-		if (!options.API.FS.statSync(options._realpath(packagePath)).isDirectory()) {
-			packagePath = PATH.dirname(packagePath);
-		}
-
-		var shasum = CRYPTO.createHash("sha1");
-		shasum.update(packagePath);
-
-		var packageDescriptor = {
-			dirpath: packagePath,
-			id: shasum.digest("hex") + "-" + PATH.basename(packagePath),
-			lookupPaths: [],
-			descriptorPaths: [],
-			raw: {},
-			normalized: {},
-			combined: {},
-			warnings: [],
-			errors: []
-		};
-
-		var waitfor = WAITFOR.serial(function(err) {
-			if (err) return callback(err);
-			return callback(null, packageDescriptor);
-		});
-
-		var opts = {};
-		for (var key in options) {
-			opts[key] = options[key];
-		}
-		opts.packagePath = packagePath;
-
-		var env = PINF_PRIMITIVES.normalizeEnvironmentVariables(null, {
-			PINF_PROGRAM: (options.env && options.env.PINF_PROGRAM) || PATH.join(options._realpath(packagePath), "program.json"),
-			PINF_PACKAGE: (options.env && options.env.PINF_PACKAGE) || PATH.join(options._realpath(packagePath), "package.json"),
-			PINF_MODE: (options.env && options.env.PINF_MODE) || "",
-			PINF_RUNTIME: (options.env && options.env.PINF_RUNTIME) || "",
-			PINF_PACKAGES: (options.env && options.env.PINF_PACKAGES) || "",
-			PINF_PROGRAM_PARENT: (options.env && options.env.PINF_PROGRAM_PARENT) || ""
-		});
-
-		// TODO: Get list of files to search from `pinf-for-nodejs/lib/context.LOOKUP_PATHS`. Exclude the 'program' paths.
-		(options.lookupPaths || exports.LOOKUP_PATHS).forEach(function(resolve) {
-
-			var filename = options._relpath(resolve(env));
-			if (!filename) return;
-
-			waitfor(function(done) {
-				return exports.parseDescriptor(filename, opts, function(err, descriptor) {
-					if (err) return done(err);
-
-					descriptor.lookupPaths.forEach(function(path) {
-						packageDescriptor.lookupPaths.unshift(path);
-					});
-
-					if (Object.keys(descriptor.raw).length > 0) {
-						descriptor.descriptorPaths.forEach(function(path) {
-							packageDescriptor.descriptorPaths.unshift(path);
-						});
-					}
-
-					filename = PATH.relative(options._realpath(packagePath), options._realpath(filename));
-
-					if (Object.keys(descriptor.raw).length > 0) {
-						packageDescriptor.raw[filename] = descriptor.raw;
-					}
-					packageDescriptor.normalized[filename] = descriptor.normalized;
-
-					packageDescriptor.combined = DEEPMERGE(descriptor.normalized, packageDescriptor.combined);
-
-					descriptor.warnings.forEach(function(warning) {
-						packageDescriptor.warnings.push([].concat(warning, "descriptor", filename));
-					});
-					descriptor.errors.forEach(function(error) {
-						packageDescriptor.errors.push([].concat(error, "descriptor", filename));
-					});
-
-					return done(null);
-				});
+		function bypassIfWeCan(proceedCallback) {
+			if (!options.$pinf) {
+				return proceedCallback(callback);
+			}
+			var gateway = options.$pinf.gateway("vfs-write-from-read-mtime-bypass", {
+				cacheNamespace: "pinf-it-package-insight"
 			});
+			// All criteria that makes this call (argument combination) unique.
+			var opts = {};
+			for (var name in options) {
+				if (name === "$pinf") continue;
+				if (name === "API") continue;
+				if (/^_/.test(name)) continue;
+				if (typeof options[name] === "function") continue;
+				opts[name] = options[name];
+			}
+			var shasum = CRYPTO.createHash("sha1");
+			shasum.update(options.lookupPaths.map(function(func) {
+				return func.toString();
+			}).join(""));
+			opts.lookupPaths = shasum.digest("hex");
+			shasum = CRYPTO.createHash("sha1");
+			shasum.update(JSON.stringify(opts));
+			gateway.setKey({
+				packagePath: options._realpath(packagePath),
+				optionsHash: shasum.digest("hex")
+			});
+			// NOTE: `callback` will be called by gateway right away if we can bypass.
+			return gateway.onDone(callback, function(err, proxiedCallback) {
+				if (err) return 
+				// If callback was triggered above we will get an empty callback back so we can just stop here.
+				if (!proxiedCallback) return;
+				options.API.FS = gateway.getAPI("FS");
+				return proceedCallback(proxiedCallback);
+			}, function(cachedData) {
+				return callback(null, cachedData);
+			});
+		}
+
+		return bypassIfWeCan(function(callback) {
+
+			try {
+
+				// TODO: Use async equivalent.
+				if (!options.API.FS.statSync(options._realpath(packagePath)).isDirectory()) {
+					packagePath = PATH.dirname(packagePath);
+				}
+
+				if (options.verbose) console.log("[pinf-it-package-insight] parse package: " + packagePath);
+
+				var shasum = CRYPTO.createHash("sha1");
+				shasum.update(packagePath);
+
+				var packageDescriptor = {
+					dirpath: packagePath,
+					id: shasum.digest("hex") + "-" + PATH.basename(packagePath),
+					lookupPaths: [],
+					descriptorPaths: [],
+					raw: {},
+					normalized: {},
+					combined: {},
+					warnings: [],
+					errors: []
+				};
+
+				var waitfor = WAITFOR.serial(function(err) {
+					if (err) return callback(err);
+					return callback(null, packageDescriptor, packageDescriptor);
+				});
+
+				var opts = {};
+				for (var key in options) {
+					opts[key] = options[key];
+				}
+				opts.packagePath = packagePath;
+
+				var env = PINF_PRIMITIVES.normalizeEnvironmentVariables(null, {
+					PINF_PROGRAM: (options.env && options.env.PINF_PROGRAM) || PATH.join(options._realpath(packagePath), "program.json"),
+					PINF_PACKAGE: (options.env && options.env.PINF_PACKAGE) || PATH.join(options._realpath(packagePath), "package.json"),
+					PINF_MODE: (options.env && options.env.PINF_MODE) || "",
+					PINF_RUNTIME: (options.env && options.env.PINF_RUNTIME) || "",
+					PINF_PACKAGES: (options.env && options.env.PINF_PACKAGES) || "",
+					PINF_PROGRAM_PARENT: (options.env && options.env.PINF_PROGRAM_PARENT) || ""
+				});
+
+				// TODO: Get list of files to search from `pinf-for-nodejs/lib/context.LOOKUP_PATHS`. Exclude the 'program' paths.
+				(options.lookupPaths).forEach(function(resolve) {
+
+					var filename = options._relpath(resolve(env));
+					if (!filename) return;
+
+					waitfor(function(done) {
+						return exports.parseDescriptor(filename, opts, function(err, descriptor) {
+							if (err) return done(err);
+
+							descriptor.lookupPaths.forEach(function(path) {
+								packageDescriptor.lookupPaths.unshift(path);
+							});
+
+							if (Object.keys(descriptor.raw).length > 0) {
+								descriptor.descriptorPaths.forEach(function(path) {
+									packageDescriptor.descriptorPaths.unshift(path);
+								});
+							}
+
+							filename = PATH.relative(options._realpath(packagePath), options._realpath(filename));
+
+							if (Object.keys(descriptor.raw).length > 0) {
+								packageDescriptor.raw[filename] = descriptor.raw;
+							}
+							packageDescriptor.normalized[filename] = descriptor.normalized;
+
+							packageDescriptor.combined = DEEPMERGE(descriptor.normalized, packageDescriptor.combined);
+
+							descriptor.warnings.forEach(function(warning) {
+								packageDescriptor.warnings.push([].concat(warning, "descriptor", filename));
+							});
+							descriptor.errors.forEach(function(error) {
+								packageDescriptor.errors.push([].concat(error, "descriptor", filename));
+							});
+
+							return done(null);
+						});
+					});
+				});
+				return waitfor();
+
+			} catch(err) {
+				return callback(err);
+			}
 		});
-		return waitfor();
 
 	} catch(err) {
 		return callback(err);
