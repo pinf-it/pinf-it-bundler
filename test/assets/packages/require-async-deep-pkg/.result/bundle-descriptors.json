@@ -451,7 +451,15 @@
                                         "./lib/main.js": "./context"
                                     },
                                     "scripts": {
-                                        "test": "node_modules/.bin/mocha --reporter list test/*.js"
+                                        "test": "node_modules/.bin/mocha --reporter list test/*.js",
+                                        "build": "./bin/pinf bundle"
+                                    },
+                                    "exports": {
+                                        "bundles": {
+                                            "lib/pinf.js": "./lib/pinf.js",
+                                            "lib/main.js": "./lib/main.js",
+                                            "lib/loader.js": "./lib/loader.js"
+                                        }
                                     },
                                     "overrides": {
                                         "./node_modules/request/node_modules/hawk/node_modules/boom": {
@@ -601,7 +609,8 @@
                                             "pinf": "./bin/pinf"
                                         },
                                         "scripts": {
-                                            "test": "node_modules/.bin/mocha --reporter list test/*.js"
+                                            "test": "node_modules/.bin/mocha --reporter list test/*.js",
+                                            "build": "./bin/pinf bundle"
                                         },
                                         "main": "./lib/pinf.js"
                                     },
@@ -693,7 +702,8 @@
                                         "pinf": "./bin/pinf"
                                     },
                                     "scripts": {
-                                        "test": "node_modules/.bin/mocha --reporter list test/*.js"
+                                        "test": "node_modules/.bin/mocha --reporter list test/*.js",
+                                        "build": "./bin/pinf bundle"
                                     },
                                     "main": "./lib/pinf.js"
                                 },
@@ -730,6 +740,12 @@
                                 }
                             },
                             "warnings": [
+                                [
+                                    "normalize",
+                                    "Property 'exports' was ignored",
+                                    "descriptor",
+                                    "package.json"
+                                ],
                                 [
                                     "normalize",
                                     "Property 'overrides' was ignored",

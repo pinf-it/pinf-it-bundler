@@ -739,7 +739,10 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 		                	event: eventId
 		                }, function(err, result) {
 			                if (options.verbose) console.log(("[pinf-for-nodejs][context][END] (" + (Date.now()-notifyStartTime) + " ms) Notify '" + packageInfo.dirpath + "' about '" + eventId + "'").blue);
-		                    if (err) return done(err);
+		                    if (err) {
+		                    	console.error("ERROR", err.stack);
+		                    	return done(err);
+		                    }
 		                    config.daemons[handler.uid] = result;
 		                    return done();
 		                });
@@ -871,6 +874,68 @@ console.log("TODO: Call `context.config.open` to open program.");
 				active: false
 			});
 		});
+	}
+
+	Context.prototype.bundleProgram = function(bundleOptions, callback) {
+		var self = this;
+		if (typeof bundleOptions === "function" && typeof callback === "undefined") {
+			callback = bundleOptions;
+			bundleOptions = null;
+		}
+		bundleOptions = bundleOptions || {};
+		var programInfo = self.getProgramInfo();
+		if (
+			!programInfo ||
+			!programInfo.program ||
+			!programInfo.program.descriptor ||
+			!programInfo.program.descriptor.boot ||
+			!programInfo.program.descriptor.boot.package
+		) {
+			return callback(new Error("No `boot.package` property specified in program descriptor!"));
+		}
+		var bootPackageInfo = programInfo.packages[programInfo.program.descriptor.boot.package];
+		if (
+			!bootPackageInfo.descriptor ||
+			!bootPackageInfo.descriptor.exports ||
+			!bootPackageInfo.descriptor.exports.bundles
+		) {
+			return callback(new Error("No `exports.bundles` property specified in boot package descriptor!"));
+		}
+		var bundles = bootPackageInfo.descriptor.exports.bundles;
+		var opts = {};
+		for (var name in options) {
+			opts[name] = options[name];
+		}
+		for (var name in bundleOptions) {
+			opts[name] = bundleOptions[name];
+		}
+		opts.rootPath = bootPackageInfo.dirpath;
+		opts.distPath = opts.distPath || PATH.join(self.paths.program, (
+			bootPackageInfo.descriptor.layout &&
+			bootPackageInfo.descriptor.layout.directories &&
+			bootPackageInfo.descriptor.layout.directories.bundle
+		) || "bundles");
+		var vm = new VM(self);
+		var summary = {
+			"bundles": {}
+		};
+		var waitfor = WAITFOR.serial(function(err) {
+			if (err) return callback(err);
+			return callback(null, summary);
+		});
+		for (var uri in bundles) {
+			waitfor(uri, function(uri, done) {
+				opts.rootModule = bundles[uri];
+				if (options.verbose) console.log(("[pinf-for-nodejs][context] generate bundle for: " + opts.rootModule).yellow);
+		        return vm.loadPackage(".", opts, function(err, info) {
+		        	if (err) return done(err);
+		        	// TODO: Attach more info from the vm.
+		        	summary.bundles[bundles[uri]] = {};
+					return done();
+		        });
+			});
+		}
+		return waitfor();
 	}
 
 
@@ -8442,51 +8507,119 @@ VM.prototype.loadPackage = function(uri, options, callback) {
 		return callback(null, self.sandboxes[key]);
 	}
 
-	var distPath = self.$pinf.makePath("cache", PATH.join("vm", CONTEXT.uriToFilename(uri), "dist"));
-	var opts = self.$pinf.makeOptions({
-		$pinf: options.$pinf || null,
-		verbose: options.verbose || false,
-		debug: options.debug || false,
-		test: options.test || false,
-		rootPath: options.rootPath,
-		rootModule: options.rootModule,
-		distPath: distPath,
-		onRun: function(bundlePath, sandboxOptions, callback) {
-			return LOADER.sandbox(bundlePath, sandboxOptions, function(sandbox) {
-				return callback();
-			}, callback);
-		},
-		getLoaderReport: function() {
-			return LOADER.getReport();
-		}
-	});
-
-	if (options.$pinf && options.$pinf.ttl === -1) {
-		// Remove the dist path to force re-generate the bundle.
-		FS.removeSync(opts.distPath);
-	} else {
-		// TODO: We don't remove the dist path by default now that the bundler cache is working.
-		//       We may still need to get the bundler to delete the dist file or clean it up
-		//		 rather than just agument it if it retains stale data.
+	options._realpath = function(path) {
+		if (!options.rootPath) return path;
+		if (/^\//.test(path)) return path;
+		return PATH.join(options.rootPath, path);
 	}
 
-	return VFS.open("file://", opts, function(err, vfs) {
+	options._relpath = function(path) {
+		if (!path || !options.rootPath || !/^\//.test(path)) return path;
+		return PATH.relative(options.rootPath, path);
+	}
+
+	// If we can find a bundled package we use it instead of bundeling again
+	// unless `forceBundle` is set.
+	function loadBundledPackage(bundleCallback) {
+		if (options.forceBundle) {
+			return bundleCallback(null);
+		}
+		// Load package descriptor to look for bundle config info.
+		return FS.readJson(options._realpath(PATH.join(uri, "package.json")), function(err, descriptor) {
+			if (err) {
+				return callback(new Error("Error '" + err.message + "' parsing package descriptor: " + options._realpath(uri)));
+			}
+			if (
+				!descriptor.exports ||
+				!descriptor.exports.main ||
+				!descriptor.layout ||
+				!descriptor.layout.directories ||
+				!descriptor.layout.directories.bundle
+			) {
+				// Insufficient config info to reach pre-built bundles.
+				return bundleCallback(null);
+			}
+			var rootBundlePath = PATH.join(uri, descriptor.layout.directories.bundle, descriptor.exports.main);
+			return FS.exists(options._realpath(rootBundlePath), function(exists) {
+				if (!exists) {
+					// Root bundle not found where it should be. It has likely not been generated yet.
+					return bundleCallback(null);
+				}
+				return LOADER.sandbox(rootBundlePath, {
+					verbose: options.verbose || false,
+					debug: options.debug || false,
+					rootPath: options.rootPath,
+					globals: options.globals,
+					resolveDynamicSync: function (moduleObj, pkg, sandbox, canonicalId, options) {
+						if (/^\//.test(canonicalId)) {
+							return PATH.join(moduleObj.bundle.replace(/\.js$/, ""), canonicalId);
+						} else {
+							// TODO: Deal with package alias prefixes.
+						}
+						console.log("canonicalId", canonicalId);
+		            	throw new Error("`resolveDynamicSync` should not be called here! Make sure all dynamic links are declared in the package descriptor!");
+		            },
+					ensureAsync: function(moduleObj, pkg, sandbox, canonicalId, options, callback) {
+						// We assume dynamic link points to a generated bundle.
+						return callback(null);
+		            }
+				}, function(sandbox) {
+					self.sandboxes[key] = sandbox;
+					return callback(null, sandbox);
+				}, callback);
+			});			
+		});
+	}
+
+	return loadBundledPackage(function(err) {
 		if (err) return callback(err);
 
-		opts.$pinf._api.FS = vfs;
+		var distPath = options.distPath || self.$pinf.makePath("cache", PATH.join("vm", CONTEXT.uriToFilename(uri), "dist"));
+		var opts = self.$pinf.makeOptions({
+			$pinf: options.$pinf || null,
+			verbose: options.verbose || false,
+			debug: options.debug || false,
+			test: options.test || false,
+			rootPath: options.rootPath,
+			rootModule: options.rootModule,
+			distPath: distPath,
+			onRun: function(bundlePath, sandboxOptions, callback) {
+				return LOADER.sandbox(bundlePath, sandboxOptions, function(sandbox) {
+					return callback();
+				}, callback);
+			},
+			getLoaderReport: function() {
+				return LOADER.getReport();
+			}
+		});
 
-		return RT_BUNDLER.bundlePackage(uri, opts, function(err, bundleDescriptors, helpers) {
+		if (options.$pinf && options.$pinf.ttl === -1) {
+			// Remove the dist path to force re-generate the bundle.
+			FS.removeSync(opts.distPath);
+		} else {
+			// TODO: We don't remove the dist path by default now that the bundler cache is working.
+			//       We may still need to get the bundler to delete the dist file or clean it up
+			//		 rather than just agument it if it retains stale data.
+		}
+
+		return VFS.open("file://", opts, function(err, vfs) {
 			if (err) return callback(err);
 
-			return LOADER.sandbox(bundleDescriptors["#pinf"].data.rootBundlePath, {
-				verbose: options.verbose || false,
-				debug: options.debug || false,
-	            resolveDynamicSync: helpers.resolveDynamicSync,
-	            ensureAsync: helpers.ensureAsync
-			}, function(sandbox) {
-				self.sandboxes[key] = sandbox;
-				return callback(null, sandbox);
-			}, callback);
+			opts.$pinf._api.FS = vfs;
+
+			return RT_BUNDLER.bundlePackage(uri, opts, function(err, bundleDescriptors, helpers) {
+				if (err) return callback(err);
+
+				return LOADER.sandbox(bundleDescriptors["#pinf"].data.rootBundlePath, {
+					verbose: options.verbose || false,
+					debug: options.debug || false,
+		            resolveDynamicSync: helpers.resolveDynamicSync,
+		            ensureAsync: helpers.ensureAsync
+				}, function(sandbox) {
+					self.sandboxes[key] = sandbox;
+					return callback(null, sandbox);
+				}, callback);
+			});
 		});
 	});
 }
@@ -8528,7 +8661,9 @@ exports.bundlePackage = function(bundlePackagePath, bundleOptions, callback) {
 		// All criteria that makes this call (argument combination) unique.
 		gateway.setKey({
 			bundlePackagePath: bundlePackagePath,
-			distPath: bundleOptions.distPath
+			distPath: bundleOptions.distPath,
+			rootModule: bundleOptions.rootModule,
+			rootPath: bundleOptions.rootPath
 		});
 		// NOTE: `callback` will be called by gateway right away if we can bypass.
 		return gateway.onDone(callback, function(err, proxiedCallback) {
@@ -12606,8 +12741,8 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 					bundle: {
 						path: PATH.join(options.distPath,
 							options.distFilename ||
-							(descriptor && bundleFilePath.substring(descriptor.dirpath.length + 1)) ||
-							PATH.basename(bundleFilePath)
+							(descriptor && descriptor.dirpath !== "." && bundleFilePath.substring(descriptor.dirpath.length + 1)) ||
+							(/^\//.test(bundleFilePath) ? PATH.basename(bundleFilePath) : bundleFilePath)
 						)
 					},
 					warnings: [],
@@ -12754,8 +12889,14 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 		}
 
 		function addDynamic(path, memoizeId, opts, callback) {
+			if (!opts.existingModules) {
+				opts.existingModules = {};
+			}
+			for (var id in bundleDescriptor.modules) {
+				opts.existingModules[id] = {};
+			}
 			if (/^\//.test(memoizeId)) {
-				opts.distPath = PATH.join(opts.distPath, PATH.basename(bundleFilePath.replace(/\.js$/, "")), PATH.dirname(memoizeId.replace(/^\//, "")));
+				opts.distPath = PATH.join(opts.distPath, opts.parentMemoizeId.replace(/^\/|\.js$/g, ""));
 				delete opts.rootModule;
 				return exports.bundleFile(path, opts, function(err, descriptor) {
 					if (err) return callback(err);
@@ -12820,6 +12961,16 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 						return resolveModuleId(descriptor, id, options, function(err, path, memoizeId, packageExtras) {
 							if (err) return callback(err);
 
+							if (
+								bundleDescriptor.modules[exports.normalizeExtension(memoizeId)] ||
+								bundleDescriptor.expectExistingModules[exports.normalizeExtension(memoizeId)]
+							) return callback(null);
+
+							if (options.existingModules && options.existingModules[exports.normalizeExtension(memoizeId)]) {
+								bundleDescriptor.expectExistingModules[memoizeId] = options.existingModules[exports.normalizeExtension(memoizeId)];
+								return callback(null, descriptor);
+							}
+
 							if (path === true && !memoizeId) {
 								// We have a system module.
 								return callback(null);
@@ -12835,6 +12986,8 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 							if (options.forceMemoizeFiles && options.forceMemoizeFiles[exports.normalizeExtension(memoizeId)]) {
 								return addStatic(path, memoizeId, opts, callback);
 							}
+
+							opts.parentMemoizeId = exports.normalizeExtension(options.id);
 
 							return addDynamic(path, memoizeId, opts, callback);
 						});
@@ -12858,6 +13011,7 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 							lookupId = exports.normalizeExtension(options.id.replace(packageDescriptor.id, "."));
 						}
 						var rules = packageDescriptor.combined["require.async"];
+
 						// TODO: Expand on these matching rules to incrorporate '*' wildcard selectors.
 						if (rules[lookupId]) {
 							waitfor("dynamic", rules[lookupId], addDependency);
