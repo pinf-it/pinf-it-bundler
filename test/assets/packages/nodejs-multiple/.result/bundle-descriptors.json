@@ -480,18 +480,6 @@
                                         "directories": {
                                             "dependency": "./node_modules"
                                         }
-                                    },
-                                    "dependencies": {
-                                        "bundled": {
-                                            "greeting": ".",
-                                            "letter-e": "../letter-e",
-                                            "words": "../words"
-                                        }
-                                    },
-                                    "mappings": {
-                                        "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
-                                        "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
                                     }
                                 },
                                 "package.json": {
@@ -690,22 +678,6 @@
                                     },
                                     "exports": {
                                         "main": "./index.js"
-                                    },
-                                    "dependencies": {
-                                        "bundled": {
-                                            "letters": ".",
-                                            "o": "../o",
-                                            "greeting": "../../../greeting",
-                                            "letter-e": "../../../letter-e",
-                                            "words": "../.."
-                                        }
-                                    },
-                                    "mappings": {
-                                        "letters": "bf2f7a7dd34e5e9fbce86c91388c656ba20be988-letters",
-                                        "o": "0d9a386644a6bc19a809e0eb36349e69e24c8501-o",
-                                        "greeting": "8d3bd8c321233c7ae6dd8e16ac592b1038e76049-greeting",
-                                        "letter-e": "a711c52f40b12f2767cf31809da64b10f8bef1e1-letter-e",
-                                        "words": "85b2fe6f2976fbb5995739b47d993956ad97c068-words"
                                     }
                                 },
                                 "package.json": {

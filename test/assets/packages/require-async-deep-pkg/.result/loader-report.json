@@ -639,7 +639,7 @@
             "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/package.json": {},
             "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/package.json": {},
             "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/context.js": {
-                "exports": 5
+                "exports": 6
             },
             "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/helpers/cycle.js": {
                 "exports": 3

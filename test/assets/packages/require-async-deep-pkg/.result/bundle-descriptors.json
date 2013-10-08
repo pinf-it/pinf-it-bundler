@@ -215,7 +215,7 @@
                             "filename": "main.js",
                             "filepath": "test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/main.js",
                             "mtime": 0,
-                            "code": "\nrequire(\"require.async\")(require);\n\n\nexports.main = function(main, module, options, callback) {\n\tif (typeof module === \"function\" && typeof options === \"undefined\" && typeof callback === \"undefined\") {\n\t\tcallback = module;\n\t\tmodule = null;\n\t}\n\tif (typeof options === \"function\" && typeof callback === \"undefined\") {\n\t\tcallback = options;\n\t\toptions = null;\n\t}\n\n\toptions = options || {};\n\n\tfunction done(err) {\n\t\tif (callback) {\n\t\t\ttry {\n\t\t\t\treturn callback.apply(null, arguments);\n\t\t\t} catch(err) {\n                console.error(err.stack);\n\t            process.exit(1);\n\t\t\t}\n\t\t}\n        if (err) {\n            if (err !== true) {\n                console.error(err.stack);\n            }\n            process.exit(1);\n        }\n        process.exit(0);\n\t}\n\tif (!module) {\n\t    try {\n\t\t\tvar ret = main(done);\t\t\t\n\t\t\tif (ret === true) {\n\t\t\t\treturn done(null);\n\t\t\t}\n\t\t\treturn;\n\t    } catch(err) {\n\t        return done(err);\n\t    }\n\t}\n\n\tmodule.exports.main = main;\n\n\t// Don't call app unless it is the main file loaded or there is a callback registered.\n\tif (require.main !== module && !callback) {\n\t\treturn;\n\t}\n\n\t// TODO: module.pinf should be set and memoized in bundle based on the program context and available at `module.pinf`.\n\tif (typeof module.pinf === \"object\") {\n\t\treturn callback(null, module.pinf);\n\t}\n\n\t// TODO: Only continue below if no context found in cache.\n\t//       Only load cache module and determine cache path by looking at PINF_RUNTIME and own package uid (use pinf-primitives-js to do this).\n\t//\t\t Cache module is in primitives package as well.\n\treturn require.async(\"./context\", function(CONTEXT) {\n\t\treturn CONTEXT.contextForModule(module, options, function(err, context) {\n\t\t\tif (err) return done(err);\n\t\t    try {\n\t\t    \tvar opts = {};\n\t\t    \tfor (var name in options) {\n\t\t    \t\topts[name] = options[name];\n\t\t    \t}\n\t\t    \topts.$pinf = context;\n\t\t\t\tvar ret = main(opts, done);\n\t\t\t\tif (ret === true) {\n\t\t\t\t\treturn done(null);\n\t\t\t\t}\n\t\t\t\treturn;\n\t\t    } catch(err) {\n\t\t        return done(err);\n\t\t    }\t\t\n\t\t});\n\t}, done);\n}\n",
+                            "code": "\nrequire(\"require.async\")(require);\n\n\nexports.main = function(main, module, options, callback) {\n\tif (typeof module === \"function\" && typeof options === \"undefined\" && typeof callback === \"undefined\") {\n\t\tcallback = module;\n\t\tmodule = null;\n\t}\n\tif (typeof options === \"function\" && typeof callback === \"undefined\") {\n\t\tcallback = options;\n\t\toptions = null;\n\t}\n\n\toptions = options || {};\n\n\tfunction done(err) {\n\t\tif (callback) {\n\t\t\ttry {\n\t\t\t\treturn callback.apply(null, arguments);\n\t\t\t} catch(err) {\n                console.error(err.stack);\n\t            process.exit(1);\n\t\t\t}\n\t\t}\n        if (err) {\n            if (err !== true) {\n                console.error(err.stack);\n            }\n            if (typeof arguments[1] !== \"object\" || arguments[1].EXIT !== false) process.exit(1);\n        }\n        if (typeof arguments[1] !== \"object\" || arguments[1].EXIT !== false) process.exit(0);\n\t}\n\tif (!module) {\n\t    try {\n\t\t\tvar ret = main(done);\t\t\t\n\t\t\tif (ret === true) {\n\t\t\t\treturn done(null);\n\t\t\t}\n\t\t\treturn;\n\t    } catch(err) {\n\t        return done(err);\n\t    }\n\t}\n\n\tmodule.exports.main = main;\n\n\t// Don't call app unless it is the main file loaded or there is a callback registered.\n\tif (require.main !== module && !callback) {\n\t\treturn;\n\t}\n\n\t// TODO: module.pinf should be set and memoized in bundle based on the program context and available at `module.pinf`.\n\tif (typeof module.pinf === \"object\") {\n\t\treturn callback(null, module.pinf);\n\t}\n\n\t// TODO: Only continue below if no context found in cache.\n\t//       Only load cache module and determine cache path by looking at PINF_RUNTIME and own package uid (use pinf-primitives-js to do this).\n\t//\t\t Cache module is in primitives package as well.\n\treturn require.async(\"./context\", function(CONTEXT) {\n\t\treturn CONTEXT.contextForModule(module, options, function(err, context) {\n\t\t\tif (err) return done(err);\n\t\t    try {\n\t\t    \tvar opts = {};\n\t\t    \tfor (var name in options) {\n\t\t    \t\topts[name] = options[name];\n\t\t    \t}\n\t\t    \topts.$pinf = context;\n\t\t\t\tvar ret = main(opts, done);\n\t\t\t\tif (ret === true) {\n\t\t\t\t\treturn done(null);\n\t\t\t\t}\n\t\t\t\treturn;\n\t\t    } catch(err) {\n\t\t        return done(err);\n\t\t    }\t\t\n\t\t});\n\t}, done);\n}\n",
                             "globals": {
                                 "require": {
                                     "type": "reference"
@@ -249,7 +249,7 @@
                         "wrapper": {
                             "type": "commonjs",
                             "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';\n\nrequire(\"require.async\")(require);\n\n\nexports.main = function(main, module, options, callback) {\n\tif (typeof module === \"function\" && typeof options === \"undefined\" && typeof callback === \"undefined\") {\n\t\tcallback = module;\n\t\tmodule = null;\n\t}\n\tif (typeof options === \"function\" && typeof callback === \"undefined\") {\n\t\tcallback = options;\n\t\toptions = null;\n\t}\n\n\toptions = options || {};\n\n\tfunction done(err) {\n\t\tif (callback) {\n\t\t\ttry {\n\t\t\t\treturn callback.apply(null, arguments);\n\t\t\t} catch(err) {\n                console.error(err.stack);\n\t            process.exit(1);\n\t\t\t}\n\t\t}\n        if (err) {\n            if (err !== true) {\n                console.error(err.stack);\n            }\n            process.exit(1);\n        }\n        process.exit(0);\n\t}\n\tif (!module) {\n\t    try {\n\t\t\tvar ret = main(done);\t\t\t\n\t\t\tif (ret === true) {\n\t\t\t\treturn done(null);\n\t\t\t}\n\t\t\treturn;\n\t    } catch(err) {\n\t        return done(err);\n\t    }\n\t}\n\n\tmodule.exports.main = main;\n\n\t// Don't call app unless it is the main file loaded or there is a callback registered.\n\tif (require.main !== module && !callback) {\n\t\treturn;\n\t}\n\n\t// TODO: module.pinf should be set and memoized in bundle based on the program context and available at `module.pinf`.\n\tif (typeof module.pinf === \"object\") {\n\t\treturn callback(null, module.pinf);\n\t}\n\n\t// TODO: Only continue below if no context found in cache.\n\t//       Only load cache module and determine cache path by looking at PINF_RUNTIME and own package uid (use pinf-primitives-js to do this).\n\t//\t\t Cache module is in primitives package as well.\n\treturn require.async(\"./context\", function(CONTEXT) {\n\t\treturn CONTEXT.contextForModule(module, options, function(err, context) {\n\t\t\tif (err) return done(err);\n\t\t    try {\n\t\t    \tvar opts = {};\n\t\t    \tfor (var name in options) {\n\t\t    \t\topts[name] = options[name];\n\t\t    \t}\n\t\t    \topts.$pinf = context;\n\t\t\t\tvar ret = main(opts, done);\n\t\t\t\tif (ret === true) {\n\t\t\t\t\treturn done(null);\n\t\t\t\t}\n\t\t\t\treturn;\n\t\t    } catch(err) {\n\t\t        return done(err);\n\t\t    }\t\t\n\t\t});\n\t}, done);\n}\n\n}",
+                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';\n\nrequire(\"require.async\")(require);\n\n\nexports.main = function(main, module, options, callback) {\n\tif (typeof module === \"function\" && typeof options === \"undefined\" && typeof callback === \"undefined\") {\n\t\tcallback = module;\n\t\tmodule = null;\n\t}\n\tif (typeof options === \"function\" && typeof callback === \"undefined\") {\n\t\tcallback = options;\n\t\toptions = null;\n\t}\n\n\toptions = options || {};\n\n\tfunction done(err) {\n\t\tif (callback) {\n\t\t\ttry {\n\t\t\t\treturn callback.apply(null, arguments);\n\t\t\t} catch(err) {\n                console.error(err.stack);\n\t            process.exit(1);\n\t\t\t}\n\t\t}\n        if (err) {\n            if (err !== true) {\n                console.error(err.stack);\n            }\n            if (typeof arguments[1] !== \"object\" || arguments[1].EXIT !== false) process.exit(1);\n        }\n        if (typeof arguments[1] !== \"object\" || arguments[1].EXIT !== false) process.exit(0);\n\t}\n\tif (!module) {\n\t    try {\n\t\t\tvar ret = main(done);\t\t\t\n\t\t\tif (ret === true) {\n\t\t\t\treturn done(null);\n\t\t\t}\n\t\t\treturn;\n\t    } catch(err) {\n\t        return done(err);\n\t    }\n\t}\n\n\tmodule.exports.main = main;\n\n\t// Don't call app unless it is the main file loaded or there is a callback registered.\n\tif (require.main !== module && !callback) {\n\t\treturn;\n\t}\n\n\t// TODO: module.pinf should be set and memoized in bundle based on the program context and available at `module.pinf`.\n\tif (typeof module.pinf === \"object\") {\n\t\treturn callback(null, module.pinf);\n\t}\n\n\t// TODO: Only continue below if no context found in cache.\n\t//       Only load cache module and determine cache path by looking at PINF_RUNTIME and own package uid (use pinf-primitives-js to do this).\n\t//\t\t Cache module is in primitives package as well.\n\treturn require.async(\"./context\", function(CONTEXT) {\n\t\treturn CONTEXT.contextForModule(module, options, function(err, context) {\n\t\t\tif (err) return done(err);\n\t\t    try {\n\t\t    \tvar opts = {};\n\t\t    \tfor (var name in options) {\n\t\t    \t\topts[name] = options[name];\n\t\t    \t}\n\t\t    \topts.$pinf = context;\n\t\t\t\tvar ret = main(opts, done);\n\t\t\t\tif (ret === true) {\n\t\t\t\t\treturn done(null);\n\t\t\t\t}\n\t\t\t\treturn;\n\t\t    } catch(err) {\n\t\t        return done(err);\n\t\t    }\t\t\n\t\t});\n\t}, done);\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {
@@ -432,6 +432,7 @@
                                         "pinf-it-program-insight": "~0.1.0",
                                         "deepcopy": "~0.3.1",
                                         "require.async": "~0.1.1",
+                                        "send": "~0.1.4",
                                         "pinf-it-bundler": "github.com/pinf-it/pinf-it-bundler/~0.1.1"
                                     },
                                     "devDependencies": {
@@ -530,6 +531,7 @@
                                             "q": "./node_modules/q",
                                             "request": "./node_modules/request",
                                             "require.async": "./node_modules/require.async",
+                                            "send": "./node_modules/send",
                                             "waitfor": "./node_modules/waitfor"
                                         }
                                     },
@@ -551,6 +553,7 @@
                                         "q": "5a0ccec13f2baa749563c93e0d37f93136dc5579-q",
                                         "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
                                         "require.async": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async",
+                                        "send": "4456002ddeb1a631af5d6819a0e44f7626ab1103-send",
                                         "waitfor": "57afe811a234d961a291b977f64e22b42a1b4735-waitfor"
                                     }
                                 },
@@ -574,6 +577,7 @@
                                             "pinf-it-program-insight": "~0.1.0",
                                             "deepcopy": "~0.3.1",
                                             "require.async": "~0.1.1",
+                                            "send": "~0.1.4",
                                             "pinf-it-bundler": "github.com/pinf-it/pinf-it-bundler/~0.1.1"
                                         },
                                         "development": {
@@ -601,6 +605,7 @@
                                             "q": "./node_modules/q",
                                             "request": "./node_modules/request",
                                             "require.async": "./node_modules/require.async",
+                                            "send": "./node_modules/send",
                                             "waitfor": "./node_modules/waitfor"
                                         }
                                     },
@@ -613,6 +618,44 @@
                                             "build": "./bin/pinf bundle"
                                         },
                                         "main": "./lib/pinf.js"
+                                    },
+                                    "overrides": {
+                                        "./node_modules/request/node_modules/hawk/node_modules/boom": {
+                                            "descriptor": {
+                                                "config": {
+                                                    "pinf/0/bundler/options/0": {
+                                                        "mapParentSiblingPackages": 2
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "./node_modules/request/node_modules/hawk/node_modules/sntp": {
+                                            "descriptor": {
+                                                "config": {
+                                                    "pinf/0/bundler/options/0": {
+                                                        "mapParentSiblingPackages": 2
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "./node_modules/request/node_modules/hawk/node_modules/cryptiles": {
+                                            "descriptor": {
+                                                "config": {
+                                                    "pinf/0/bundler/options/0": {
+                                                        "mapParentSiblingPackages": 2
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "./node_modules/request/node_modules/form-data": {
+                                            "descriptor": {
+                                                "config": {
+                                                    "pinf/0/bundler/options/0": {
+                                                        "mapParentSiblingPackages": 2
+                                                    }
+                                                }
+                                            }
+                                        }
                                     },
                                     "events": {
                                         "publish": true
@@ -643,6 +686,7 @@
                                         "q": "5a0ccec13f2baa749563c93e0d37f93136dc5579-q",
                                         "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
                                         "require.async": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async",
+                                        "send": "4456002ddeb1a631af5d6819a0e44f7626ab1103-send",
                                         "waitfor": "57afe811a234d961a291b977f64e22b42a1b4735-waitfor"
                                     }
                                 }
@@ -667,6 +711,7 @@
                                         "pinf-it-program-insight": "~0.1.0",
                                         "deepcopy": "~0.3.1",
                                         "require.async": "~0.1.1",
+                                        "send": "~0.1.4",
                                         "pinf-it-bundler": "github.com/pinf-it/pinf-it-bundler/~0.1.1"
                                     },
                                     "development": {
@@ -694,6 +739,7 @@
                                         "q": "./node_modules/q",
                                         "request": "./node_modules/request",
                                         "require.async": "./node_modules/require.async",
+                                        "send": "./node_modules/send",
                                         "waitfor": "./node_modules/waitfor"
                                     }
                                 },
@@ -706,6 +752,44 @@
                                         "build": "./bin/pinf bundle"
                                     },
                                     "main": "./lib/pinf.js"
+                                },
+                                "overrides": {
+                                    "./node_modules/request/node_modules/hawk/node_modules/boom": {
+                                        "descriptor": {
+                                            "config": {
+                                                "pinf/0/bundler/options/0": {
+                                                    "mapParentSiblingPackages": 2
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "./node_modules/request/node_modules/hawk/node_modules/sntp": {
+                                        "descriptor": {
+                                            "config": {
+                                                "pinf/0/bundler/options/0": {
+                                                    "mapParentSiblingPackages": 2
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "./node_modules/request/node_modules/hawk/node_modules/cryptiles": {
+                                        "descriptor": {
+                                            "config": {
+                                                "pinf/0/bundler/options/0": {
+                                                    "mapParentSiblingPackages": 2
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "./node_modules/request/node_modules/form-data": {
+                                        "descriptor": {
+                                            "config": {
+                                                "pinf/0/bundler/options/0": {
+                                                    "mapParentSiblingPackages": 2
+                                                }
+                                            }
+                                        }
+                                    }
                                 },
                                 "events": {
                                     "publish": true
@@ -736,6 +820,7 @@
                                     "q": "5a0ccec13f2baa749563c93e0d37f93136dc5579-q",
                                     "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
                                     "require.async": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async",
+                                    "send": "4456002ddeb1a631af5d6819a0e44f7626ab1103-send",
                                     "waitfor": "57afe811a234d961a291b977f64e22b42a1b4735-waitfor"
                                 }
                             },
@@ -743,12 +828,6 @@
                                 [
                                     "normalize",
                                     "Property 'exports' was ignored",
-                                    "descriptor",
-                                    "package.json"
-                                ],
-                                [
-                                    "normalize",
-                                    "Property 'overrides' was ignored",
                                     "descriptor",
                                     "package.json"
                                 ]
