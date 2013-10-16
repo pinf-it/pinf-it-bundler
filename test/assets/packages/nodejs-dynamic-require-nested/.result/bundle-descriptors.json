@@ -270,13 +270,16 @@
                     "filename": "hello.js",
                     "filepath": "test/assets/packages/nodejs-dynamic-require-nested/hello.js",
                     "mtime": 0,
-                    "code": "\nvar APP = require(\"./app\");\n\nexports.getWord = function() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\treturn APP.getLetterH() + \"e\" + GREETING.getLetterL() + \"l\" + require((\"./\" + \"o\")).getLetter();\n}\n",
+                    "code": "\nvar APP = require(\"./app\");\nvar LETTER_E = require(\"./e\");\n\nexports.getWord = function() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\treturn APP.getLetterH() + LETTER_E.getLetter() + GREETING.getLetterL() + \"l\" + require((\"./\" + \"o\")).getLetter();\n}\n",
                     "globals": {
                         "APP": {
                             "type": "assign"
                         },
                         "require": {
                             "type": "call"
+                        },
+                        "LETTER_E": {
+                            "type": "assign"
                         },
                         "exports": {
                             "type": "reference"
@@ -290,6 +293,9 @@
                         "static": {
                             "./app": {
                                 "where": "inline"
+                            },
+                            "./e": {
+                                "where": "inline"
                             }
                         },
                         "dynamic": {},
@@ -299,15 +305,55 @@
                 "wrapper": {
                     "type": "commonjs",
                     "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-nested';",
-                    "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-nested';\n\nvar APP = require(\"./app\");\n\nexports.getWord = function() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\treturn APP.getLetterH() + \"e\" + GREETING.getLetterL() + \"l\" + require((\"./\" + \"o\")).getLetter();\n}\n\n}",
+                    "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-nested';\n\nvar APP = require(\"./app\");\nvar LETTER_E = require(\"./e\");\n\nexports.getWord = function() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\treturn APP.getLetterH() + LETTER_E.getLetter() + GREETING.getLetterL() + \"l\" + require((\"./\" + \"o\")).getLetter();\n}\n\n}",
                     "bottom": "}"
                 },
                 "dependencies": {
                     "static": {
                         "./app": {
                             "where": "inline"
+                        },
+                        "./e": {
+                            "where": "inline"
                         }
                     },
+                    "dynamic": {},
+                    "computed": false
+                },
+                "warnings": [],
+                "errors": []
+            },
+            "/e/index.js": {
+                "requireId": "/e/index",
+                "memoizeId": "/e/index.js",
+                "descriptor": {
+                    "filename": "index.js",
+                    "filepath": "test/assets/packages/nodejs-dynamic-require-nested/e/index.js",
+                    "mtime": 0,
+                    "code": "\nexports.getLetter = function() {\n\treturn \"e\";\n}\n",
+                    "globals": {
+                        "exports": {
+                            "type": "reference"
+                        }
+                    },
+                    "syntax": "javascript",
+                    "format": "commonjs",
+                    "undefine": [],
+                    "uses": {},
+                    "dependencies": {
+                        "static": {},
+                        "dynamic": {},
+                        "computed": false
+                    }
+                },
+                "wrapper": {
+                    "type": "commonjs",
+                    "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-nested/e';",
+                    "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-nested/e';\n\nexports.getLetter = function() {\n\treturn \"e\";\n}\n\n}",
+                    "bottom": "}"
+                },
+                "dependencies": {
+                    "static": {},
                     "dynamic": {},
                     "computed": false
                 },

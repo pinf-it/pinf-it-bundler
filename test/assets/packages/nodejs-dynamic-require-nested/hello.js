@@ -1,5 +1,6 @@
 
 var APP = require("./app");
+var LETTER_E = require("./e");
 
 exports.getWord = function() {
 
@@ -7,5 +8,5 @@ exports.getWord = function() {
 
 	var GREETING = require(moduleId);
 
-	return APP.getLetterH() + "e" + GREETING.getLetterL() + "l" + require(("./" + "o")).getLetter();
+	return APP.getLetterH() + LETTER_E.getLetter() + GREETING.getLetterL() + "l" + require(("./" + "o")).getLetter();
 }

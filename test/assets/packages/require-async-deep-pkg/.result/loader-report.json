@@ -43,7 +43,6 @@
                 "mappings": {
                     "jsonfile": "95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile",
                     "mkdirp": "5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp",
-                    "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs": "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra",
                     "ncp": "2b0048c6a305ad176d4e3489f01d68c879da772f-ncp",
                     "rimraf": "67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf"
                 },
@@ -244,7 +243,6 @@
                 "mappings": {
                     "jsonfile": "c080a61be940c5b59af0cef485503c204af31aa3-jsonfile",
                     "mkdirp": "cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp",
-                    "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs": "617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra",
                     "ncp": "b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp",
                     "rimraf": "88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf"
                 },
@@ -318,7 +316,6 @@
                 "mappings": {
                     "jsonfile": "d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile",
                     "mkdirp": "549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp",
-                    "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs": "bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra",
                     "ncp": "b4c553f584b025a7c9b2375916830b245a00a167-ncp",
                     "rimraf": "921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf"
                 },

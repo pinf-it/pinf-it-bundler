@@ -610,6 +610,11 @@
                                         }
                                     },
                                     "exports": {
+                                        "bundles": {
+                                            "lib/pinf.js": "./lib/pinf.js",
+                                            "lib/main.js": "./lib/main.js",
+                                            "lib/loader.js": "./lib/loader.js"
+                                        },
                                         "bin": {
                                             "pinf": "./bin/pinf"
                                         },
@@ -744,6 +749,11 @@
                                     }
                                 },
                                 "exports": {
+                                    "bundles": {
+                                        "lib/pinf.js": "./lib/pinf.js",
+                                        "lib/main.js": "./lib/main.js",
+                                        "lib/loader.js": "./lib/loader.js"
+                                    },
                                     "bin": {
                                         "pinf": "./bin/pinf"
                                     },
@@ -824,14 +834,7 @@
                                     "waitfor": "57afe811a234d961a291b977f64e22b42a1b4735-waitfor"
                                 }
                             },
-                            "warnings": [
-                                [
-                                    "normalize",
-                                    "Property 'exports' was ignored",
-                                    "descriptor",
-                                    "package.json"
-                                ]
-                            ],
+                            "warnings": [],
                             "errors": [],
                             "memoized": {
                                 "main": "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/pinf.js",

@@ -96,6 +96,7 @@ const VFS = require("./vfs");
 const LOADER = require("./loader");
 const CRYPTO = require("__SYSTEM__/crypto");
 const ZLIB = require("__SYSTEM__/zlib");
+const SPAWN = require('__SYSTEM__/child_process').spawn;
 
 
 exports.contextForProgram = function(programUri, options, callback) {
@@ -197,6 +198,9 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 	};
 
 	var contextStartTime = Date.now();
+
+	var originalProgramDescriptorPath = programDescriptorPath;
+	var originalPackageDescriptorPath = packageDescriptorPath;
 
 	var originalCallback = callback;
 	callback = function() {
@@ -557,7 +561,7 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 									var waitfor = WAITFOR.parallel(function(err) {
 										if (err) return callback(err);
 										if (canBypass === true) {
-											if (gatewayOptions.verbose) console.log(("[pinf-for-nodejs][context] gateway using cache (checked " + Object.keys(data.paths).length + " (key: " + rawKey + ") paths in " + (Date.now() - gatewayStartTime) + " ms)").green);
+											if (gatewayOptions.verbose) console.log(("[pinf-for-nodejs][context] gateway using cache (" + cachePath + " checked " + Object.keys(data.paths).length + " (key: " + rawKey + ") paths in " + (Date.now() - gatewayStartTime) + " ms)").green);
 											// self.getAPI("console").cache("Using cached data based on path mtimes in '" + path + "'");
 											return notModifiedCallback(data.data, {
 												cachePath: cachePath
@@ -635,6 +639,13 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 	}
 
 	function makeConfigKey($pinf, ns) {
+		if (ns.length === 0) {
+			return ["config", $pinf.uid];
+		} else
+		if (ns[0] === "/") {
+			return ["config"].concat(ns.slice(1));
+		} else
+		// TODO: Deprecate. Use `ns[0] === "/"`.
 		if (ns[0] === "pinf/0/runtime/control/0") {
 			return ["config"].concat(ns);
 		} else {
@@ -646,6 +657,11 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 	Context.prototype.ensureDefaultConfig = function(ns, config, callback) {
 		if (!this.uid) {
 			return callback(new Error("`uid` must be set for package '" + options._realpath(this.paths.package) + "'"));
+		}
+		if (typeof callback === "undefined" && typeof config === "function") {
+			callback = config;
+			config = ns;
+			ns = [];
 		}
 		try {
 			//   3) /.program.json (~ $PINF_PROGRAM)
@@ -673,6 +689,11 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 		if (!this.uid) {
 			return callback(new Error("`uid` must be set for package '" + options._realpath(this.paths.package) + "'"));
 		}
+		if (typeof callback === "undefined" && typeof config === "function") {
+			callback = config;
+			config = ns;
+			ns = [];
+		}
 		try {
 			var store = new JSON_FILE_STORE(this.env.PINF_RUNTIME);
 			if (!store.exists()) store.init();
@@ -695,6 +716,10 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 		if (!this.uid) {
 			return callback(new Error("`uid` must be set for package '" + options._realpath(this.paths.package) + "'"));
 		}
+		if (typeof callback === "undefined" && typeof ns === "function") {
+			callback = ns;
+			ns = [];
+		}
 		try {
 			var store = new JSON_FILE_STORE(this.env.PINF_RUNTIME);
 			if (!store.exists()) return callback(null, {});
@@ -709,6 +734,10 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 	Context.prototype.clearRuntimeConfig = function(ns, callback) {
 		if (!this.uid) {
 			return callback(new Error("`uid` must be set for package '" + options._realpath(this.paths.package) + "'"));
+		}
+		if (typeof callback === "undefined" && typeof ns === "function") {
+			callback = ns;
+			ns = [];
 		}
 		try {
 			var store = new JSON_FILE_STORE(this.env.PINF_RUNTIME);
@@ -726,6 +755,10 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 	Context.prototype.clearDefaultConfig = function(ns, callback) {
 		if (!this.uid) {
 			return callback(new Error("`uid` must be set for package '" + options._realpath(this.paths.package) + "'"));
+		}
+		if (typeof callback === "undefined" && typeof ns === "function") {
+			callback = ns;
+			ns = [];
 		}
 		try {
 			//   3) /.program.json (~ $PINF_PROGRAM)
@@ -826,6 +859,33 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 			});
 		});
 		return waitfor();
+	}
+
+	// @unstable
+	Context.prototype.devProgram = function(callback) {
+		var self = this;
+		if (!self._programInfo.package) {
+			return callback(new Error("No `boot.package` declared in program descriptor!"));
+		}
+		var devScript = self._programInfo.package.descriptor.exports.scripts.dev;
+		if (!devScript) {
+			return callback(new Error("No `dev` script declared!"));
+		}
+        if (options.verbose) console.log(("[pinf-for-nodejs][devProgram] Running dev script: " + devScript.bold).cyan);
+		devScript = devScript.split(" ");
+		var proc = SPAWN(devScript.shift(), devScript, {
+			cwd: self._programInfo.package.path
+		});
+		proc.stdout.on('data', function (data) {
+			process.stdout.write(data);
+		});
+		proc.stderr.on('data', function (data) {
+			process.stderr.write(data);
+		});
+		proc.on('close', function (code) {
+			// TODO: Deal with exit code?
+			return callback(null);
+		});
 	}
 
 	// @unstable
@@ -1029,13 +1089,14 @@ console.log("TODO: Call `context.config.open` to open program.");
 			}
 			var gateway = options.$pinf.gateway("vfs-write-from-read-mtime-bypass", {
 				cacheNamespace: "pinf-context",
-				skipFSCheck: (scope === "packages" && env.PINF_MODE === "production")
+				skipFSCheck: (scope === "packages" && options.scanPackages !== true)
 			});
 			// All criteria that makes this call (argument combination) unique.
 			gateway.setKey({
 				scope: scope,
 				programDescriptorPath: programDescriptorPath,
-				packageDescriptorPath: packageDescriptorPath
+				packageDescriptorPath: packageDescriptorPath,
+				PINF_RUNTIME: env.PINF_RUNTIME
 			});
 
 			// NOTE: `callback` will be called by gateway right away if we can bypass.
@@ -1245,6 +1306,20 @@ console.log("TODO: Call `context.config.open` to open program.");
 							context.env[name] = options._relpath(context.env[name]);
 						}
 					});
+					if (
+						context._descriptors.program &&
+						context._descriptors.program.combined &&
+						context._descriptors.program.combined.boot
+					) {
+						if (originalProgramDescriptorPath && !originalPackageDescriptorPath) {
+							if (context._descriptors.program.combined.boot.package) {
+								context.env.PINF_PACKAGE = context._descriptors.program.combined.boot.package;
+							}
+						}
+						if (context._descriptors.program.combined.boot.runtime) {
+							context.env.PINF_RUNTIME = context._descriptors.program.combined.boot.runtime;
+						}
+					}
 					return callback(null);
 				}
 
@@ -1324,10 +1399,12 @@ console.log("TODO: Call `context.config.open` to open program.");
 				        },
 				        program: {
 				            path: context.paths.program,
+				            package: context.paths.package,
 				            runtime: context.env.PINF_RUNTIME,
 				            events: {},
 				            descriptor: DEEPCOPY(context._descriptors.program.combined)
 				        },
+				        package: null,
 				        packages: {}
 			        };
 			        // Convert paths to IDs.
@@ -1429,9 +1506,14 @@ console.log("TODO: Call `context.config.open` to open program.");
 				    			config = DEEPMERGE(config, context._descriptors.program.combined.config[packages[uri].combined.uid]);
 				    		}
 					        info.package.config = config;
-							context._packageInfo[path] = info;
 							if (path !== realpath) {
 								context._packageInfo[realpath] = info;
+								context._packageInfo[path] = context._packageInfo[realpath];
+							} else {
+								context._packageInfo[path] = info;
+							}
+							if (path === context._programInfo.program.package) {
+								context._programInfo.package = context._packageInfo[path].package;
 							}
 						}
 						return callback(null);
@@ -1539,6 +1621,7 @@ console.log("TODO: Call `context.config.open` to open program.");
 
 				rootContext._programInfo = packagesContext._programInfo;
 				rootContext._packageInfo = packagesContext._packageInfo;
+
 				rootContext._api = {};
 
 				return callback(null, rootContext);
@@ -4965,6 +5048,8 @@ function normalize(descriptorPath, descriptor, options, callback) {
 			helpers.objectToObject("engines", ["requirements", "engines"]);
 			helpers.objectToObject("os", ["config", "os"]);
 
+			helpers.mergeObjectTo("exports", "exports");
+
 			helpers.objectToObject("bin", ["exports", "bin"]);
 
 			if (options.type === "component") {
@@ -5184,13 +5269,18 @@ function normalize(descriptorPath, descriptor, options, callback) {
 
 				function normalize(property, callback) {
 					if (property === "boot.package") {
-						if (
-							descriptor.normalized.boot &&
-							descriptor.normalized.boot.package &&
-							/^\./.test(descriptor.normalized.boot.package)
-						) {
-							descriptor.normalized.boot.package = options._relpath(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.boot.package));
-						}
+						[
+							"package",
+							"runtime"
+						].forEach(function(property) {
+							if (
+								descriptor.normalized.boot &&
+								descriptor.normalized.boot[property] &&
+								/^\./.test(descriptor.normalized.boot[property])
+							) {
+								descriptor.normalized.boot[property] = options._relpath(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.boot[property]));
+							}
+						});
 					} else
 					if (property === "exports.main" && descriptorPath) {
 						if (
@@ -6152,6 +6242,7 @@ exports.parse = function(programPath, options, callback) {
 			var waitfor = WAITFOR.serial(callback);
 			for (var alias in descriptor.combined.dependencies.bundled) {
 				waitfor(alias, function(alias, done) {
+					if (!descriptor.combined.dependencies.bundled[alias]) return done();
 					return followPackage(PATH.join(descriptor.dirpath, descriptor.combined.dependencies.bundled[alias]), done);
 				});
 			}
@@ -7517,6 +7608,8 @@ function normalize(descriptorPath, descriptor, options, callback) {
 			helpers.objectToObject("engines", ["requirements", "engines"]);
 			helpers.objectToObject("os", ["config", "os"]);
 
+			helpers.mergeObjectTo("exports", "exports");
+
 			helpers.objectToObject("bin", ["exports", "bin"]);
 
 			if (options.type === "component") {
@@ -7736,13 +7829,18 @@ function normalize(descriptorPath, descriptor, options, callback) {
 
 				function normalize(property, callback) {
 					if (property === "boot.package") {
-						if (
-							descriptor.normalized.boot &&
-							descriptor.normalized.boot.package &&
-							/^\./.test(descriptor.normalized.boot.package)
-						) {
-							descriptor.normalized.boot.package = options._relpath(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.boot.package));
-						}
+						[
+							"package",
+							"runtime"
+						].forEach(function(property) {
+							if (
+								descriptor.normalized.boot &&
+								descriptor.normalized.boot[property] &&
+								/^\./.test(descriptor.normalized.boot[property])
+							) {
+								descriptor.normalized.boot[property] = options._relpath(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.boot[property]));
+							}
+						});
 					} else
 					if (property === "exports.main" && descriptorPath) {
 						if (
@@ -12614,6 +12712,7 @@ exports.bundlePackage = function(bundlePackagePath, options, callback) {
 				}
 
 				function resolvePackageId(id, callback) {
+
 					function checkDescriptor(packageDescriptor, callback) {
 						if (
 							packageDescriptor.combined.dependencies &&
@@ -12633,27 +12732,27 @@ exports.bundlePackage = function(bundlePackagePath, options, callback) {
 						// If we are dealing with dependencies in `node_modules` directories we go up the tree.
 						// This is the default behavior.
 						function resolve(path) {
-							if (PATH.basename(path) !== "node_modules") return callback(null);
-							return options.API.FS.exists(PATH.join(options._realpath(path), id), function(exists) {
+							return options.API.FS.exists(PATH.join(path, "node_modules", id), function(exists) {
 								if (exists) {
 									return getPackageDescriptorForPath(
-										PATH.join(path, id),
+										options._relpath(PATH.join(path, "node_modules", id)),
 										options,
 										function(err, aliasdPackageDescriptor, packageExtras) {
 											if (err) return callback(err);
-											return callback(null, PATH.join(path, id), aliasdPackageDescriptor, packageExtras);
+											return callback(null, options._relpath(PATH.join(path, "node_modules", id)), aliasdPackageDescriptor, packageExtras);
 										}
 									);
 								}
-								return resolve(PATH.dirname(PATH.dirname(path)));
+								if (PATH.dirname(path) === path) return callback(null);
+								return resolve(PATH.dirname(path));
 							});
 						}
 
-						if (path === packageDescriptor.dirpath) {
+						if (!id && path === packageDescriptor.dirpath) {
+							console.log("NOTE: Check when this is called!", new Error().stack);
 							return callback(null, path, packages[path][0], packages[path][1]);
 						}
-
-						return resolve(PATH.dirname(path));
+						return resolve(PATH.dirname(options._realpath(path)));
 					}
 					return checkDescriptor(packageDescriptor, callback);
 				}
@@ -12683,6 +12782,15 @@ exports.bundlePackage = function(bundlePackagePath, options, callback) {
 
 						return resolvePackageId(idParts[0], function(err, aliasedPackagePath, aliasdPackageDescriptor, packageExtras) {
 							if (err) return callback(err);
+
+							if (!aliasedPackagePath) {
+								// We assume package will be provided at runtime.
+								return callback(null, true, "", {});
+							}
+
+//console.log("options.rootPath", options.rootPath);
+//console.log("aliasedPackagePath", aliasedPackagePath, aliasdPackageDescriptor);
+
 							try {
 								if (!packageDescriptor.memoized.mappings) {
 									packageDescriptor.memoized.mappings = {};
@@ -13010,7 +13118,6 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 				// Assume path is relative to bundle root module.
 				return callback(null, PATH.join(descriptor.descriptor.filepath, "..", id), "/" + memoizeId);
 			}
-
 			// Check for id relative to module.
 			if (/^\./.test(id)) {
 				return options.API.FS.exists(PATH.join(descriptor.descriptor.filepath, "..", memoizeId.replace(/\.js$/, "")), function(exists) {
@@ -13046,6 +13153,13 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 						return callback(null, true);
 					}
 					if (!path || !memoizeId) return finalize(callback);
+
+					return options.API.FS.exists(options._realpath(path), function(exists) {
+						if (exists) {
+							return callback(null, path, memoizeId, packageExtras);
+						}
+						return callback(null, PATH.join(path.replace(/\.js$/, ""), "index.js"), PATH.join(memoizeId, "index"));
+					});
 					return callback(null, path, memoizeId, packageExtras);
 				});
 			}
@@ -13117,7 +13231,6 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 					});
 
 					function addDependency(type, id, done) {
-
 						function callback(err) {
 							if (err) {
 								var stack = err.stack;
@@ -13132,17 +13245,14 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 						}
 						return resolveModuleId(descriptor, id, options, function(err, path, memoizeId, packageExtras) {
 							if (err) return callback(err);
-
 							if (
 								bundleDescriptor.modules[exports.normalizeExtension(memoizeId)] ||
 								bundleDescriptor.expectExistingModules[exports.normalizeExtension(memoizeId)]
 							) return callback(null);
-
 							if (options.existingModules && options.existingModules[exports.normalizeExtension(memoizeId)]) {
 								bundleDescriptor.expectExistingModules[memoizeId] = options.existingModules[exports.normalizeExtension(memoizeId)];
 								return callback(null, descriptor);
 							}
-
 							if (path === true && !memoizeId) {
 								// We have a system module.
 								return callback(null);
@@ -20658,6 +20768,8 @@ function normalize(descriptorPath, descriptor, options, callback) {
 			helpers.objectToObject("engines", ["requirements", "engines"]);
 			helpers.objectToObject("os", ["config", "os"]);
 
+			helpers.mergeObjectTo("exports", "exports");
+
 			helpers.objectToObject("bin", ["exports", "bin"]);
 
 			if (options.type === "component") {
@@ -20877,13 +20989,18 @@ function normalize(descriptorPath, descriptor, options, callback) {
 
 				function normalize(property, callback) {
 					if (property === "boot.package") {
-						if (
-							descriptor.normalized.boot &&
-							descriptor.normalized.boot.package &&
-							/^\./.test(descriptor.normalized.boot.package)
-						) {
-							descriptor.normalized.boot.package = options._relpath(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.boot.package));
-						}
+						[
+							"package",
+							"runtime"
+						].forEach(function(property) {
+							if (
+								descriptor.normalized.boot &&
+								descriptor.normalized.boot[property] &&
+								/^\./.test(descriptor.normalized.boot[property])
+							) {
+								descriptor.normalized.boot[property] = options._relpath(PATH.join(PATH.dirname(options._realpath(descriptorPath)), descriptor.normalized.boot[property]));
+							}
+						});
 					} else
 					if (property === "exports.main" && descriptorPath) {
 						if (
@@ -22180,6 +22297,15 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 		readyStates = { 'loaded': 1, 'interactive': 1, 'complete': 1 },
 		lastModule = null;
 
+	// For older browsers that don't have `Object.keys()` (Firefox 3.6)
+	function keys(obj) {
+		var keys = [];
+		for (var key in obj) {
+			keys.push(key);
+		}
+		return keys;
+	}
+
 	function normalizeSandboxArguments(implementation) {
 		return function(programIdentifier, options, loadedCallback, errorCallback) {
 			/*DEBUG*/ if (typeof options === "function" && typeof loadedCallback === "object") {
@@ -22516,7 +22642,7 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 							typeof moduleInterface.exports !== "undefined" &&
 							(
 								typeof moduleInterface.exports !== "object" ||
-								Object.keys(moduleInterface.exports).length !== 0
+								keys(moduleInterface.exports).length !== 0
 							)
 						) {
 							module.exports = moduleInterface.exports;
@@ -62749,6 +62875,15 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 		readyStates = { 'loaded': 1, 'interactive': 1, 'complete': 1 },
 		lastModule = null;
 
+	// For older browsers that don't have `Object.keys()` (Firefox 3.6)
+	function keys(obj) {
+		var keys = [];
+		for (var key in obj) {
+			keys.push(key);
+		}
+		return keys;
+	}
+
 	function normalizeSandboxArguments(implementation) {
 		return function(programIdentifier, options, loadedCallback, errorCallback) {
 			/*DEBUG*/ if (typeof options === "function" && typeof loadedCallback === "object") {
@@ -63085,7 +63220,7 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 							typeof moduleInterface.exports !== "undefined" &&
 							(
 								typeof moduleInterface.exports !== "object" ||
-								Object.keys(moduleInterface.exports).length !== 0
+								keys(moduleInterface.exports).length !== 0
 							)
 						) {
 							module.exports = moduleInterface.exports;
@@ -63548,7 +63683,6 @@ require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/package.json"
     "mappings": {
         "jsonfile": "95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile",
         "mkdirp": "5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp",
-        "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs": "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra",
         "ncp": "2b0048c6a305ad176d4e3489f01d68c879da772f-ncp",
         "rimraf": "67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf"
     },
@@ -63816,7 +63950,6 @@ require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/package.json"
     "mappings": {
         "jsonfile": "c080a61be940c5b59af0cef485503c204af31aa3-jsonfile",
         "mkdirp": "cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp",
-        "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs": "617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra",
         "ncp": "b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp",
         "rimraf": "88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf"
     },
@@ -63911,7 +64044,6 @@ require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/package.json"
     "mappings": {
         "jsonfile": "d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile",
         "mkdirp": "549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp",
-        "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs": "bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra",
         "ncp": "b4c553f584b025a7c9b2375916830b245a00a167-ncp",
         "rimraf": "921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf"
     },

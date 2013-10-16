@@ -70,34 +70,33 @@
                     "normalized": {
                         ".package.json": {},
                         "package.json": {
+                            "exports": {
+                                "bundles": {
+                                    "app.js": "./app.js"
+                                },
+                                "main": "./app.js"
+                            },
                             "require.async": {
                                 "./app.js": "./greeting",
                                 "./greeting.js": "./hello",
                                 "./hello.js": "./o"
-                            },
-                            "exports": {
-                                "main": "./app.js"
                             }
                         }
                     },
                     "combined": {
+                        "exports": {
+                            "bundles": {
+                                "app.js": "./app.js"
+                            },
+                            "main": "./app.js"
+                        },
                         "require.async": {
                             "./app.js": "./greeting",
                             "./greeting.js": "./hello",
                             "./hello.js": "./o"
-                        },
-                        "exports": {
-                            "main": "./app.js"
                         }
                     },
-                    "warnings": [
-                        [
-                            "normalize",
-                            "Property 'exports' was ignored",
-                            "descriptor",
-                            "package.json"
-                        ]
-                    ],
+                    "warnings": [],
                     "errors": [],
                     "memoized": {
                         "main": "/app.js",
@@ -200,34 +199,33 @@
                     "normalized": {
                         ".package.json": {},
                         "package.json": {
+                            "exports": {
+                                "bundles": {
+                                    "app.js": "./app.js"
+                                },
+                                "main": "./app.js"
+                            },
                             "require.async": {
                                 "./app.js": "./greeting",
                                 "./greeting.js": "./hello",
                                 "./hello.js": "./o"
-                            },
-                            "exports": {
-                                "main": "./app.js"
                             }
                         }
                     },
                     "combined": {
+                        "exports": {
+                            "bundles": {
+                                "app.js": "./app.js"
+                            },
+                            "main": "./app.js"
+                        },
                         "require.async": {
                             "./app.js": "./greeting",
                             "./greeting.js": "./hello",
                             "./hello.js": "./o"
-                        },
-                        "exports": {
-                            "main": "./app.js"
                         }
                     },
-                    "warnings": [
-                        [
-                            "normalize",
-                            "Property 'exports' was ignored",
-                            "descriptor",
-                            "package.json"
-                        ]
-                    ],
+                    "warnings": [],
                     "errors": [],
                     "memoized": {
                         "main": "/app.js",
@@ -332,34 +330,33 @@
                     "normalized": {
                         ".package.json": {},
                         "package.json": {
+                            "exports": {
+                                "bundles": {
+                                    "app.js": "./app.js"
+                                },
+                                "main": "./app.js"
+                            },
                             "require.async": {
                                 "./app.js": "./greeting",
                                 "./greeting.js": "./hello",
                                 "./hello.js": "./o"
-                            },
-                            "exports": {
-                                "main": "./app.js"
                             }
                         }
                     },
                     "combined": {
+                        "exports": {
+                            "bundles": {
+                                "app.js": "./app.js"
+                            },
+                            "main": "./app.js"
+                        },
                         "require.async": {
                             "./app.js": "./greeting",
                             "./greeting.js": "./hello",
                             "./hello.js": "./o"
-                        },
-                        "exports": {
-                            "main": "./app.js"
                         }
                     },
-                    "warnings": [
-                        [
-                            "normalize",
-                            "Property 'exports' was ignored",
-                            "descriptor",
-                            "package.json"
-                        ]
-                    ],
+                    "warnings": [],
                     "errors": [],
                     "memoized": {
                         "main": "/app.js",
@@ -463,34 +460,33 @@
                             "normalized": {
                                 ".package.json": {},
                                 "package.json": {
+                                    "exports": {
+                                        "bundles": {
+                                            "app.js": "./app.js"
+                                        },
+                                        "main": "./app.js"
+                                    },
                                     "require.async": {
                                         "./app.js": "./greeting",
                                         "./greeting.js": "./hello",
                                         "./hello.js": "./o"
-                                    },
-                                    "exports": {
-                                        "main": "./app.js"
                                     }
                                 }
                             },
                             "combined": {
+                                "exports": {
+                                    "bundles": {
+                                        "app.js": "./app.js"
+                                    },
+                                    "main": "./app.js"
+                                },
                                 "require.async": {
                                     "./app.js": "./greeting",
                                     "./greeting.js": "./hello",
                                     "./hello.js": "./o"
-                                },
-                                "exports": {
-                                    "main": "./app.js"
                                 }
                             },
-                            "warnings": [
-                                [
-                                    "normalize",
-                                    "Property 'exports' was ignored",
-                                    "descriptor",
-                                    "package.json"
-                                ]
-                            ],
+                            "warnings": [],
                             "errors": [],
                             "memoized": {
                                 "main": "/app.js",

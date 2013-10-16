@@ -25,6 +25,9 @@
             "/hello.js": {
                 "exports": 1
             },
+            "/e/index.js": {
+                "exports": 1
+            },
             "/o.js": {
                 "exports": 1
             }
