@@ -176,7 +176,8 @@ describe('bundler', function() {
 			"packages/nodejs-multiple",
 			"packages/nodejs-dynamic-require-declared",
 			"packages/require-async-deep-pkg",  // This use-case needs a major speed improvement
-			"packages/require-async"
+			"packages/require-async",
+			"packages/nodejs-to-browser"
 		].forEach(function(file) {
 
 			it('should bundle package - ' + file, function(done) {
