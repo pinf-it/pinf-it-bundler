@@ -233,6 +233,7 @@
                     "pinf-it-package-insight": "998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insight",
                     "pinf-loader-js": "c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js",
                     "requirejs": "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs",
+                    "browser-builtins": "ffefeba151b3e1d60d77b777efeb1610ab815b11-browser-builtins",
                     "colors": "92020e8e2c8b5925c17b8b3d3354f361a004a0c6-colors"
                 },
                 "directories": {},
@@ -416,6 +417,76 @@
             },
             "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs": {
                 "main": "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/bin/r.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "ffefeba151b3e1d60d77b777efeb1610ab815b11-browser-builtins": {
+                "main": "ffefeba151b3e1d60d77b777efeb1610ab815b11-browser-builtins/index.js",
+                "mappings": {
+                    "http-browserify": "d80d9e94744a5d49830e513672092a4515c69060-http-browserify",
+                    "vm-browserify": "54f8c4ea1a6e389d9a9df7c823f39e2e59bebcab-vm-browserify",
+                    "crypto-browserify": "4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify",
+                    "console-browserify": "75d8843069c6f625c2822b65f1079a5e5e319c15-console-browserify",
+                    "zlib-browserify": "3ccedb5b8c518947e3f098f0adce33b85dff2a59-zlib-browserify",
+                    "buffer-browserify": "c7913933203e4e5bf3bfde95e4d16d2fd79234df-buffer-browserify",
+                    "constants-browserify": "aca0f60c4cc330cb1e823e54ad8abfaf13a1cc78-constants-browserify",
+                    "os-browserify": "0603d7fc9bf0fa91150d412b68d2c73eb5f2a1c5-os-browserify"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "d80d9e94744a5d49830e513672092a4515c69060-http-browserify": {
+                "main": "d80d9e94744a5d49830e513672092a4515c69060-http-browserify/index.js",
+                "mappings": {
+                    "concat-stream": "9d92895d87ddaa8802dac650f93e3de2eca290aa-concat-stream",
+                    "Base64": "cf407a75742eaba6baeb9f30f848c4dd0ae5e6b5-Base64"
+                },
+                "directories": {
+                    "lib": "."
+                },
+                "libPath": "./"
+            },
+            "54f8c4ea1a6e389d9a9df7c823f39e2e59bebcab-vm-browserify": {
+                "main": "54f8c4ea1a6e389d9a9df7c823f39e2e59bebcab-vm-browserify/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify": {
+                "main": "4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "75d8843069c6f625c2822b65f1079a5e5e319c15-console-browserify": {
+                "main": "75d8843069c6f625c2822b65f1079a5e5e319c15-console-browserify/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "3ccedb5b8c518947e3f098f0adce33b85dff2a59-zlib-browserify": {
+                "main": "3ccedb5b8c518947e3f098f0adce33b85dff2a59-zlib-browserify/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "c7913933203e4e5bf3bfde95e4d16d2fd79234df-buffer-browserify": {
+                "main": "c7913933203e4e5bf3bfde95e4d16d2fd79234df-buffer-browserify/index.js",
+                "mappings": {
+                    "base64-js": "babb6c453ea042444cdcfcce1e1e9983035ae3f7-base64-js"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "aca0f60c4cc330cb1e823e54ad8abfaf13a1cc78-constants-browserify": {
+                "main": "aca0f60c4cc330cb1e823e54ad8abfaf13a1cc78-constants-browserify/constants.json",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "0603d7fc9bf0fa91150d412b68d2c73eb5f2a1c5-os-browserify": {
+                "main": "0603d7fc9bf0fa91150d412b68d2c73eb5f2a1c5-os-browserify/main.js",
                 "mappings": {},
                 "directories": {},
                 "libPath": ""
@@ -902,6 +973,38 @@
             "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/bin/r.js": {
                 "exports": 20
             },
+            "ffefeba151b3e1d60d77b777efeb1610ab815b11-browser-builtins/index.js": {
+                "exports": 39
+            },
+            "d80d9e94744a5d49830e513672092a4515c69060-http-browserify/index.js": {},
+            "d80d9e94744a5d49830e513672092a4515c69060-http-browserify/lib/request.js": {},
+            "d80d9e94744a5d49830e513672092a4515c69060-http-browserify/lib/response.js": {},
+            "9d92895d87ddaa8802dac650f93e3de2eca290aa-concat-stream/index.js": {},
+            "2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/index.js": {},
+            "2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/from.js": {},
+            "2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/to.js": {},
+            "2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/is.js": {},
+            "2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/subarray.js": {},
+            "2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/join.js": {},
+            "2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/copy.js": {},
+            "2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/create.js": {},
+            "2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/read.js": {},
+            "2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/write.js": {},
+            "cf407a75742eaba6baeb9f30f848c4dd0ae5e6b5-Base64/base64.js": {},
+            "54f8c4ea1a6e389d9a9df7c823f39e2e59bebcab-vm-browserify/index.js": {},
+            "4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/index.js": {},
+            "4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/sha.js": {},
+            "4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/helpers.js": {},
+            "4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/sha256.js": {},
+            "4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/rng.js": {},
+            "4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/md5.js": {},
+            "75d8843069c6f625c2822b65f1079a5e5e319c15-console-browserify/index.js": {},
+            "3ccedb5b8c518947e3f098f0adce33b85dff2a59-zlib-browserify/index.js": {},
+            "3ccedb5b8c518947e3f098f0adce33b85dff2a59-zlib-browserify/zlib.js": {},
+            "c7913933203e4e5bf3bfde95e4d16d2fd79234df-buffer-browserify/index.js": {},
+            "babb6c453ea042444cdcfcce1e1e9983035ae3f7-base64-js/lib/b64.js": {},
+            "c7913933203e4e5bf3bfde95e4d16d2fd79234df-buffer-browserify/buffer_ieee754.js": {},
+            "0603d7fc9bf0fa91150d412b68d2c73eb5f2a1c5-os-browserify/main.js": {},
             "92020e8e2c8b5925c17b8b3d3354f361a004a0c6-colors/colors.js": {
                 "exports": 31
             },
@@ -1124,6 +1227,19 @@
             "91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/package.json": {},
             "c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js/package.json": {},
             "f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/package.json": {},
+            "ffefeba151b3e1d60d77b777efeb1610ab815b11-browser-builtins/package.json": {},
+            "d80d9e94744a5d49830e513672092a4515c69060-http-browserify/package.json": {},
+            "9d92895d87ddaa8802dac650f93e3de2eca290aa-concat-stream/package.json": {},
+            "2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/package.json": {},
+            "cf407a75742eaba6baeb9f30f848c4dd0ae5e6b5-Base64/package.json": {},
+            "54f8c4ea1a6e389d9a9df7c823f39e2e59bebcab-vm-browserify/package.json": {},
+            "4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/package.json": {},
+            "75d8843069c6f625c2822b65f1079a5e5e319c15-console-browserify/package.json": {},
+            "3ccedb5b8c518947e3f098f0adce33b85dff2a59-zlib-browserify/package.json": {},
+            "c7913933203e4e5bf3bfde95e4d16d2fd79234df-buffer-browserify/package.json": {},
+            "babb6c453ea042444cdcfcce1e1e9983035ae3f7-base64-js/package.json": {},
+            "aca0f60c4cc330cb1e823e54ad8abfaf13a1cc78-constants-browserify/package.json": {},
+            "0603d7fc9bf0fa91150d412b68d2c73eb5f2a1c5-os-browserify/package.json": {},
             "92020e8e2c8b5925c17b8b3d3354f361a004a0c6-colors/package.json": {},
             "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request/package.json": {},
             "a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs/package.json": {},

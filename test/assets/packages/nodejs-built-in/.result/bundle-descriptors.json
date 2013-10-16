@@ -5350,6 +5350,7 @@
                                             "fs-extra": "~0.6.3"
                                         },
                                         "bundled": {
+                                            "browser-builtins": "../../../../node_modules/browser-builtins",
                                             "colors": "../../../../node_modules/colors",
                                             "deepcopy": "../../../../node_modules/deepcopy",
                                             "fs-extra": "../../../../node_modules/fs-extra",
@@ -5413,6 +5414,7 @@
                                         }
                                     },
                                     "mappings": {
+                                        "browser-builtins": "71737247a41ee3dcd396b4b2bd46bea1aa65299e-browser-builtins",
                                         "colors": "cea8853e485c16de5615a7a50d031a5dd03bc673-colors",
                                         "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
                                         "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
@@ -5439,6 +5441,7 @@
                                         "fs-extra": "~0.6.3"
                                     },
                                     "bundled": {
+                                        "browser-builtins": "../../../../node_modules/browser-builtins",
                                         "colors": "../../../../node_modules/colors",
                                         "deepcopy": "../../../../node_modules/deepcopy",
                                         "fs-extra": "../../../../node_modules/fs-extra",
@@ -5502,6 +5505,7 @@
                                     }
                                 },
                                 "mappings": {
+                                    "browser-builtins": "71737247a41ee3dcd396b4b2bd46bea1aa65299e-browser-builtins",
                                     "colors": "cea8853e485c16de5615a7a50d031a5dd03bc673-colors",
                                     "deepcopy": "11124220cd02b820fdc3ab7d0acdcfd08a720fbe-deepcopy",
                                     "fs-extra": "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra",
