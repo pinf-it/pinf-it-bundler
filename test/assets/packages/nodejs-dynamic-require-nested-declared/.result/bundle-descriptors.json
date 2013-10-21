@@ -26,8 +26,8 @@
                 },
                 "wrapper": {
                     "type": "commonjs",
-                    "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-nested-declared';",
-                    "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-nested-declared';\n\nexports.getLetter = function() {\n\treturn \"o\";\n}\n\n}",
+                    "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-nested-declared';",
+                    "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-nested-declared';\n\nexports.getLetter = function() {\n\treturn \"o\";\n}\n\n}",
                     "bottom": "}"
                 },
                 "dependencies": {
@@ -151,8 +151,8 @@
                 },
                 "wrapper": {
                     "type": "commonjs",
-                    "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-nested-declared';",
-                    "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-nested-declared';\n\nvar APP = require(\"./app\");\n\nexports.getWord = function() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\treturn APP.getLetterH() + \"e\" + GREETING.getLetterL() + \"l\" + require((\"./\" + \"o\")).getLetter();\n}\n\n}",
+                    "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-nested-declared';",
+                    "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-nested-declared';\n\nvar APP = require(\"./app\");\n\nexports.getWord = function() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\treturn APP.getLetterH() + \"e\" + GREETING.getLetterL() + \"l\" + require((\"./\" + \"o\")).getLetter();\n}\n\n}",
                     "bottom": "}"
                 },
                 "dependencies": {
@@ -282,8 +282,8 @@
                 },
                 "wrapper": {
                     "type": "commonjs",
-                    "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-nested-declared';",
-                    "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-nested-declared';\n\nvar APP = require(\"./app\");\n\nexports.getGreeting = function() {\n\n\tvar moduleId = \"./hello\";\n\n\tvar HELLO = require(moduleId);\n\n\treturn HELLO.getWord() + \" \" + APP.getWorld();\n}\n\nexports.getLetterL = function() {\n\treturn \"l\";\t\n}\n\n}",
+                    "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-nested-declared';",
+                    "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-nested-declared';\n\nvar APP = require(\"./app\");\n\nexports.getGreeting = function() {\n\n\tvar moduleId = \"./hello\";\n\n\tvar HELLO = require(moduleId);\n\n\treturn HELLO.getWord() + \" \" + APP.getWorld();\n}\n\nexports.getLetterL = function() {\n\treturn \"l\";\t\n}\n\n}",
                     "bottom": "}"
                 },
                 "dependencies": {
@@ -416,8 +416,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-nested-declared';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-nested-declared';\n\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nexports.getWorld = function() {\n\treturn \"World\";\t\n}\n\nexports.getLetterH = function() {\n\treturn \"H\";\t\n}\n\nif (require.main === module) {\n\tmain();\n}\n\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-nested-declared';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-nested-declared';\n\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nexports.getWorld = function() {\n\treturn \"World\";\t\n}\n\nexports.getLetterH = function() {\n\treturn \"H\";\t\n}\n\nif (require.main === module) {\n\tmain();\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {

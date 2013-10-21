@@ -46,8 +46,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/self-require';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/self-require';\n\nconst APP = require(\".\");\n\nfunction main() {\n\tconsole.log(APP.getGreeting());\n}\n\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n\nif (require.main === module) {\n\tmain();\n}\n\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/self-require';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/self-require';\n\nconst APP = require(\".\");\n\nfunction main() {\n\tconsole.log(APP.getGreeting());\n}\n\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n\nif (require.main === module) {\n\tmain();\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {

@@ -2,7 +2,7 @@
 PINF.bundle("", function(require) {
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-dynamic-require-nested-declared/app.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/app.js"}
 require.memoize("/app.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-nested-declared';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-nested-declared';
 
 function main() {
 

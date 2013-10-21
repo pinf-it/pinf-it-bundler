@@ -2,7 +2,7 @@
 PINF.bundle("", function(require) {
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l/l.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l/l.js"}
 require.memoize("a7cccbec540b3144a9118e36296b68cb3dd574ea-letter-l/l.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l';
 
 exports.getLetter = function() {
 	return "l";

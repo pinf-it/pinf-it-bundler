@@ -26,8 +26,8 @@
                 },
                 "wrapper": {
                     "type": "commonjs",
-                    "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-declared';",
-                    "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-declared';\n\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n\n}",
+                    "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-declared';",
+                    "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-declared';\n\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n\n}",
                     "bottom": "}"
                 },
                 "dependencies": {
@@ -134,8 +134,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs/leaky",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-declared';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-declared';\n\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\ttry {\n\t\tvar GREETING = require(moduleId);\n\n\t\tconsole.log(GREETING.getGreeting());\n\t} catch(err) {\n\t\tthrow new Error(\"Sould not have thrown!\");\n\t}\n}\n\nif (require.main === module) {\n\tmain();\n}\n\nreturn {\n    require: (typeof require !== \"undefined\") ? require : null,\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-declared';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-declared';\n\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\ttry {\n\t\tvar GREETING = require(moduleId);\n\n\t\tconsole.log(GREETING.getGreeting());\n\t} catch(err) {\n\t\tthrow new Error(\"Sould not have thrown!\");\n\t}\n}\n\nif (require.main === module) {\n\tmain();\n}\n\nreturn {\n    require: (typeof require !== \"undefined\") ? require : null,\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}",
                             "bottom": "return {\n    require: (typeof require !== \"undefined\") ? require : null,\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}"
                         },
                         "dependencies": {

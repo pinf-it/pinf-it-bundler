@@ -1004,6 +1004,7 @@
             "c7913933203e4e5bf3bfde95e4d16d2fd79234df-buffer-browserify/index.js": {},
             "babb6c453ea042444cdcfcce1e1e9983035ae3f7-base64-js/lib/b64.js": {},
             "c7913933203e4e5bf3bfde95e4d16d2fd79234df-buffer-browserify/buffer_ieee754.js": {},
+            "aca0f60c4cc330cb1e823e54ad8abfaf13a1cc78-constants-browserify/constants.json": {},
             "0603d7fc9bf0fa91150d412b68d2c73eb5f2a1c5-os-browserify/main.js": {},
             "92020e8e2c8b5925c17b8b3d3354f361a004a0c6-colors/colors.js": {
                 "exports": 31

@@ -2,7 +2,7 @@
 PINF.bundle("", function(require) {
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/extra.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/extra.js"}
 require.memoize("/extra.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg';
 
 const PINF_MAIN = require("pinf-for-nodejs/lib/main").main;
 
@@ -16,7 +16,7 @@ exports.run = function(callback) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/extra.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/main.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/main.js"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/main.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
 
 require("require.async")(require);
 
@@ -52,7 +52,8 @@ exports.main = function(main, module, options, callback) {
 	}
 	if (!module) {
 	    try {
-			var ret = main(done);			
+			var ret = main(done);
+			// If main function returns `true` we exit and don't wait for `done` callback.
 			if (ret === true) {
 				return done(null);
 			}
@@ -102,7 +103,7 @@ exports.main = function(main, module, options, callback) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/main.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/require.async/require.async.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/require.async.js"}
 require.memoize("f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async/require.async.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/require.async';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/require.async';
 /**
  * Author: Christoph Dorn <christoph@christophdorn.com>
  * [UNLICENSE](http://unlicense.org/)

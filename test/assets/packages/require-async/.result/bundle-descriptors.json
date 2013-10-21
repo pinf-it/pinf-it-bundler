@@ -34,8 +34,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/require-async';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/require-async';\n\nexports.main = function (callback) {\n\trequire.async(\"./extra\", function(EXTRA) {\n\t\tconsole.log(EXTRA.getGreeting());\n\t\treturn callback(null, {\n\t\t\tloaded: true\n\t\t});\n\t}, callback);\n\treturn null;\n}\n\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async';\n\nexports.main = function (callback) {\n\trequire.async(\"./extra\", function(EXTRA) {\n\t\tconsole.log(EXTRA.getGreeting());\n\t\treturn callback(null, {\n\t\t\tloaded: true\n\t\t});\n\t}, callback);\n\treturn null;\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {
@@ -133,8 +133,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/require-async';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/require-async';\n\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async';\n\nexports.getGreeting = function() {\n\treturn \"Hello World\";\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {

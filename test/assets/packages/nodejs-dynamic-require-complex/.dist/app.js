@@ -2,7 +2,7 @@
 PINF.bundle("", function(require) {
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-dynamic-require-complex/app.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"/app.js"}
 require.memoize("/app.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex';
 
 function main() {
 

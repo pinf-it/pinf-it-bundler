@@ -2,7 +2,7 @@
 PINF.bundle("", function(require) {
 // @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/r.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/r.js"}
 require.memoize("/r.js", 
-function(require, exports, module) {var __dirname = 'node_modules/pinf-it-module-insight/test/assets/various';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'node_modules/pinf-it-module-insight/test/assets/various';
 
 /**
  * @license r.js 2.1.8 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.

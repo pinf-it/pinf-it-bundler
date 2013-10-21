@@ -2,7 +2,7 @@
 PINF.bundle("", function(require) {
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-dynamic-require-nested/hello.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/hello.js"}
 require.memoize("/hello.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-nested';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-nested';
 
 var APP = require("./app");
 var LETTER_E = require("./e");
@@ -20,7 +20,7 @@ exports.getWord = function() {
 , {"filename":"test/assets/packages/nodejs-dynamic-require-nested/hello.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-dynamic-require-nested/e/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/e/index.js"}
 require.memoize("/e/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-nested/e';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-nested/e';
 
 exports.getLetter = function() {
 	return "e";

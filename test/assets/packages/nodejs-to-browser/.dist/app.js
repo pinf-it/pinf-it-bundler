@@ -2,7 +2,7 @@
 PINF.bundle("", function(require) {
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-to-browser/app.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"/app.js"}
 require.memoize("/app.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-to-browser';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-to-browser';
 
 var OS = require("__SYSTEM__/os");
 
@@ -27,7 +27,7 @@ return {
 , {"filename":"test/assets/packages/nodejs-to-browser/app.js"});
 // @pinf-bundle-module: {"file":"/Volumes/Ginseng-Independence-Desktop/ginseng-source/projects/github.com+pinf-it+pinf-it-bundler/node_modules/browser-builtins/node_modules/os-browserify/browser.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/__SYSTEM__/os.js"}
 require.memoize("/__SYSTEM__/os.js", 
-function(require, exports, module) {var __dirname = 'Volumes/Ginseng-Independence-Desktop/ginseng-source/projects/github.com+pinf-it+pinf-it-bundler/node_modules/browser-builtins/node_modules/os-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'Volumes/Ginseng-Independence-Desktop/ginseng-source/projects/github.com+pinf-it+pinf-it-bundler/node_modules/browser-builtins/node_modules/os-browserify';
 exports.endianness = function () { return 'LE' };
 
 exports.hostname = function () {

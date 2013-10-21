@@ -36,8 +36,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs/leaky",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex';\n\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nif (require.main === module) {\n\tmain();\n}\n\nreturn {\n    require: (typeof require !== \"undefined\") ? require : null,\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex';\n\nfunction main() {\n\n\tvar moduleId = \"./greeting\";\n\n\tvar GREETING = require(moduleId);\n\n\tconsole.log(GREETING.getGreeting());\n}\n\nif (require.main === module) {\n\tmain();\n}\n\nreturn {\n    require: (typeof require !== \"undefined\") ? require : null,\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}",
                             "bottom": "return {\n    require: (typeof require !== \"undefined\") ? require : null,\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}"
                         },
                         "dependencies": {
@@ -202,8 +202,8 @@
                 },
                 "wrapper": {
                     "type": "commonjs",
-                    "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex';",
-                    "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex';\n\nexports.getGreeting = function() {\n\n\tvar moduleId = \"./assemble\";\n\n\treturn require(moduleId).assemble();\n}\n\n}",
+                    "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex';",
+                    "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex';\n\nexports.getGreeting = function() {\n\n\tvar moduleId = \"./assemble\";\n\n\treturn require(moduleId).assemble();\n}\n\n}",
                     "bottom": "}"
                 },
                 "dependencies": {
@@ -368,8 +368,8 @@
                 },
                 "wrapper": {
                     "type": "commonjs",
-                    "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex';",
-                    "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex';\n\nexports.assemble = function() {\n\n\tvar moduleId = \"letters/e\";\n\n\tvar LETTER_E = require(moduleId).getLetter();\n\tvar LETTER_L = require(\"letter-l/l\").getLetter();\n\tvar LETTER_O = require(\"letter-o/o\").getLetter();\n\n\treturn \"H\" + LETTER_E + \"l\" + LETTER_L + LETTER_O + \" W\" + require(moduleId).getLetterO() + \"r\" + require(moduleId).getLetterL() + \"d\";\n}\n\n}",
+                    "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex';",
+                    "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex';\n\nexports.assemble = function() {\n\n\tvar moduleId = \"letters/e\";\n\n\tvar LETTER_E = require(moduleId).getLetter();\n\tvar LETTER_L = require(\"letter-l/l\").getLetter();\n\tvar LETTER_O = require(\"letter-o/o\").getLetter();\n\n\treturn \"H\" + LETTER_E + \"l\" + LETTER_L + LETTER_O + \" W\" + require(moduleId).getLetterO() + \"r\" + require(moduleId).getLetterL() + \"d\";\n}\n\n}",
                     "bottom": "}"
                 },
                 "dependencies": {
@@ -568,8 +568,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters';\n\nvar moduleId = \"./more\";\n\nvar MORE = require(moduleId);\n\nexports.getLetter = function() {\n\treturn \"e\";\n}\n\nexports.getLetterL = MORE.getLetterL;\n\nexports.getLetterO = MORE.getLetterO;\n\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters';\n\nvar moduleId = \"./more\";\n\nvar MORE = require(moduleId);\n\nexports.getLetter = function() {\n\treturn \"e\";\n}\n\nexports.getLetterL = MORE.getLetterL;\n\nexports.getLetterO = MORE.getLetterO;\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {
@@ -730,8 +730,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters';\n\nexports.getLetterL = function() {\n\treturn require(\"letter-l/l\").getLetter();\n}\n\nexports.getLetterO = function() {\n\tvar moduleId = \"letter-o/o\";\n\treturn require(moduleId).getLetter();\n}\n\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letters';\n\nexports.getLetterL = function() {\n\treturn require(\"letter-l/l\").getLetter();\n}\n\nexports.getLetterO = function() {\n\tvar moduleId = \"letter-o/o\";\n\treturn require(moduleId).getLetter();\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {
@@ -771,8 +771,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l';\n\nexports.getLetter = function() {\n\treturn \"l\";\n}\n\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l';\n\nexports.getLetter = function() {\n\treturn \"l\";\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {
@@ -1083,8 +1083,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l';\n\nexports.getLetter = function() {\n\treturn \"l\";\n}\n\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-l';\n\nexports.getLetter = function() {\n\treturn \"l\";\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {
@@ -1194,8 +1194,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o';\n\nexports.getLetter = function() {\n\treturn \"o\";\n}\n\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o';\n\nexports.getLetter = function() {\n\treturn \"o\";\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {
@@ -1305,8 +1305,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o';\n\nexports.getLetter = function() {\n\treturn \"o\";\n}\n\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex/node_modules/letter-o';\n\nexports.getLetter = function() {\n\treturn \"o\";\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {

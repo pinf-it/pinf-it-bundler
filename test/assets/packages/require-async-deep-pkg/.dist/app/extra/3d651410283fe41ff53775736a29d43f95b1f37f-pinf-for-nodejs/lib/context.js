@@ -75,10 +75,11 @@ function wrapAMD(callback) {
 }
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/context.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/context.js"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/context.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
 
 require("./helpers/cycle");
 
+const ASSERT = require("__SYSTEM__/assert");
 const PATH = require("__SYSTEM__/path");
 const FS = require("fs-extra");
 const URL = require("__SYSTEM__/url");
@@ -231,6 +232,13 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 	if (options.debug) console.log("[pinf-for-nodejs][context] env:", env);
 
 
+	function ensurePath() {
+		var path = PATH.join.apply(null, [].slice.call(arguments));
+		if (FS.existsSync(path)) return path;
+		FS.mkdirsSync(path);
+		return path;
+	}
+
 	function ensureParentPath() {
 		var path = PATH.join.apply(null, [].slice.call(arguments));
 		if (FS.existsSync(PATH.dirname(path))) return path;
@@ -351,15 +359,59 @@ exports.context = function(programDescriptorPath, packageDescriptorPath, options
 	}
 
 	// @unstable
-	Context.prototype.makePath = function(type, path) {
+	Context.prototype.makePath = function(type, path, options) {
 		if (!this.paths[type]) return null;
-		if (!path) return ensureParentPath(this.paths[type]);
+		options = options || {};
+		var origType = type;
+		var origPath = path;
+		function finalize(path) {
+			if (options.shorten) {
+				// NOTE: This code path is rarely used.
+
+				path = ensurePath(path);
+				var homeDir = null;
+				if (/\/Volumes\//.test(path)) {
+					homeDir = path.split("/").slice(0, 3).join("/");
+				} else {
+					ASSERT(typeof process.env.HOME, "string");
+					ASSERT(FS.existsSync(process.env.HOME), true);
+					homeDir = process.env.HOME;
+				}
+				var shortSymlinkDir = null;
+				if (options.shorten === "TO_ROOT") {
+					if (type) {
+						shortSymlinkDir = PATH.join(homeDir, ".s");
+					} else {
+						shortSymlinkDir = PATH.join(homeDir, ".s");
+					}
+				} else {
+					if (type) {
+						shortSymlinkDir = PATH.join(homeDir, ".pinf", type, ".shorts");
+					} else {
+						shortSymlinkDir = PATH.join(homeDir, ".pinf", ".shorts");
+					}
+				}
+				var shasum = CRYPTO.createHash("sha1");
+				shasum.update(path);
+				var filename = shasum.digest("hex");
+				if (!FS.existsSync(shortSymlinkDir)) {
+					FS.mkdirsSync(shortSymlinkDir);
+				}				
+				if (!FS.existsSync(PATH.join(shortSymlinkDir, filename))) {
+					FS.renameSync(path, PATH.join(shortSymlinkDir, filename));
+					FS.symlinkSync(PATH.join(shortSymlinkDir, filename), path);
+				}
+				path = PATH.join(shortSymlinkDir, filename);
+			}
+			return path;
+		}
+		if (!path) return finalize(ensureParentPath(this.paths[type]));
 		if (Array.isArray(path)) {
 			path = path.map(function(segment) {
 				return segment.replace(/\//g, "+");
 			}).join("/");
 		}
-		return ensureParentPath(this.paths[type], path);
+		return finalize(ensureParentPath(this.paths[type], path));
 	}
 
 	// @experimental
@@ -1635,7 +1687,7 @@ console.log("TODO: Call `context.config.open` to open program.");
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/context.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/helpers/cycle.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/helpers/cycle.js"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/helpers/cycle.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/helpers';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/helpers';
 /*
     cycle.js
     2013-02-19
@@ -1817,7 +1869,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/helpers/cycle.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/index.js"}
 require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
 "use strict"
 
 var fs = null
@@ -1947,7 +1999,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/jsonfile/lib/jsonfile.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile/lib/jsonfile.js"}
 require.memoize("95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile/lib/jsonfile.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/jsonfile/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/jsonfile/lib';
 var fs = require('__SYSTEM__/fs');
 
 var me = module.exports;
@@ -1996,7 +2048,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/jsonfile/lib/jsonfile.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/json.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/json.js"}
 require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/json.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
 "use strict"
 
 var jsonFile = require('jsonfile')
@@ -2040,7 +2092,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/json.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/mkdir.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/mkdir.js"}
 require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/mkdir.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
 "use strict"
 
 var mkdirp = require('mkdirp');
@@ -2059,7 +2111,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/mkdir.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/mkdirp/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp/index.js"}
 require.memoize("5553ffcafc82c908b99fae6c0e6f61c4c9d77c1d-mkdirp/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/mkdirp';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/mkdirp';
 var path = require('__SYSTEM__/path');
 var fs = require('__SYSTEM__/fs');
 
@@ -2156,7 +2208,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/mkdirp/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/copy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/copy.js"}
 require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/copy.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
 "use strict"
 
 var fs = require('__SYSTEM__/fs')
@@ -2216,7 +2268,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/copy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/ncp/lib/ncp.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"2b0048c6a305ad176d4e3489f01d68c879da772f-ncp/lib/ncp.js"}
 require.memoize("2b0048c6a305ad176d4e3489f01d68c879da772f-ncp/lib/ncp.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/ncp/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/ncp/lib';
 var fs = require('__SYSTEM__/fs'),
     path = require('__SYSTEM__/path');
 
@@ -2453,7 +2505,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/ncp/lib/ncp.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/remove.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/remove.js"}
 require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/remove.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
 "use strict"
 
 var rimraf = require('rimraf')
@@ -2486,7 +2538,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/remove.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/rimraf.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf/rimraf.js"}
 require.memoize("67b62927f327982f9b919b6d3f2f2ad1508f4d82-rimraf/rimraf.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf';
 module.exports = rimraf
 rimraf.sync = rimrafSync
 
@@ -2676,7 +2728,7 @@ function rmkidsSync (p) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/rimraf.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/graceful-fs.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/graceful-fs.js"}
 require.memoize("b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/graceful-fs.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
 // Monkey-patching the fs module.
 // It's ugly, but there is simply no other way to do this.
 var fs = module.exports = require('__SYSTEM__/fs')
@@ -2860,7 +2912,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/graceful-fs.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/polyfills.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/polyfills.js"}
 require.memoize("b9d0ad54195cca287d7ac92574763cbc1889ea29-graceful-fs/polyfills.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
 var fs = require('__SYSTEM__/fs')
 var constants = require('__SYSTEM__/constants')
 
@@ -3110,7 +3162,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/polyfills.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/create.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/create.js"}
 require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/create.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
 "use strict"
 
 var mkdir = require('./mkdir')
@@ -3181,7 +3233,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/create.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib/output.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/output.js"}
 require.memoize("f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/output.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/fs-extra/lib';
 "use strict"
 
 var mkdir = require('./mkdir')
@@ -3395,7 +3447,7 @@ wrapAMD(function(require, define) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/waitfor/waitfor.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/waitfor/node_modules/setimmediate/setImmediate.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"5fab7dc417e5225664a9e48c30bbaa96a9da45fa-setimmediate/setImmediate.js"}
 require.memoize("5fab7dc417e5225664a9e48c30bbaa96a9da45fa-setimmediate/setImmediate.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/waitfor/node_modules/setimmediate';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/waitfor/node_modules/setimmediate';
 (function (global, undefined) {
     "use strict";
 
@@ -3627,7 +3679,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/waitfor/node_modules/setimmediate/setImmediate.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepmerge/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"98c6b74665bd9abac5c33394e3edfcf04ef251a1-deepmerge/index.js"}
 require.memoize("98c6b74665bd9abac5c33394e3edfcf04ef251a1-deepmerge/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepmerge';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepmerge';
 module.exports = function merge (target, src) {
     var array = Array.isArray(src)
     var dst = array && [] || {}
@@ -3678,7 +3730,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepmerge/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepcopy/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/index.js"}
 require.memoize("36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepcopy';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepcopy';
 /*!
  * deepcopy.js Copyright(c) 2013 sasa+1
  * https://github.com/sasaplus1/deepcopy.js
@@ -3697,7 +3749,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepcopy/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepcopy/lib/deepcopy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/lib/deepcopy.js"}
 require.memoize("36ebf7c610a6889fa8fe5be58716124489db5c81-deepcopy/lib/deepcopy.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepcopy/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepcopy/lib';
 /*!
  * @license deepcopy.js Copyright(c) 2013 sasa+1
  * https://github.com/sasaplus1/deepcopy.js
@@ -3871,7 +3923,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/deepcopy/lib/deepcopy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/json-file-store.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/json-file-store.js"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/json-file-store.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
 
 // TODO: Move into own project at `github.com/cadorn/json-file-store`.
 
@@ -4032,7 +4084,7 @@ JsonFileStore.prototype.save = function(force) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/json-file-store.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/primitives.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js/primitives.js"}
 require.memoize("76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js/primitives.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js';
 
 const PATH = require("__SYSTEM__/path");
 const DEEPCOPY = require("deepcopy");
@@ -4075,7 +4127,7 @@ exports.normalizeEnvironmentVariables = function(env, overrides) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/primitives.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/node_modules/deepcopy/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"e3b83304b558e386f1e075262340169bec08eeba-deepcopy/index.js"}
 require.memoize("e3b83304b558e386f1e075262340169bec08eeba-deepcopy/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/node_modules/deepcopy';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/node_modules/deepcopy';
 /*!
  * deepcopy.js Copyright(c) 2013 sasa+1
  * https://github.com/sasaplus1/deepcopy.js
@@ -4094,7 +4146,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/node_modules/deepcopy/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/node_modules/deepcopy/lib/deepcopy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"e3b83304b558e386f1e075262340169bec08eeba-deepcopy/lib/deepcopy.js"}
 require.memoize("e3b83304b558e386f1e075262340169bec08eeba-deepcopy/lib/deepcopy.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/node_modules/deepcopy/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/node_modules/deepcopy/lib';
 /*!
  * @license deepcopy.js Copyright(c) 2013 sasa+1
  * https://github.com/sasaplus1/deepcopy.js
@@ -4268,7 +4320,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-primitives-js/node_modules/deepcopy/lib/deepcopy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/lib/package-insight.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insight/lib/package-insight.js"}
 require.memoize("a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insight/lib/package-insight.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/lib';
 
 const ASSERT = require("__SYSTEM__/assert");
 const PATH = require("__SYSTEM__/path");
@@ -5644,7 +5696,7 @@ wrapAMD(function(require, define) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/waitfor/waitfor.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate/setImmediate.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"0d84eddf2b38974fcbed1ef0232a4cdc7794d07a-setimmediate/setImmediate.js"}
 require.memoize("0d84eddf2b38974fcbed1ef0232a4cdc7794d07a-setimmediate/setImmediate.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate';
 (function (global, undefined) {
     "use strict";
 
@@ -5876,7 +5928,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate/setImmediate.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/deepmerge/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"314839f5c7c2de31691d70d145a810b24f13d359-deepmerge/index.js"}
 require.memoize("314839f5c7c2de31691d70d145a810b24f13d359-deepmerge/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/deepmerge';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/deepmerge';
 module.exports = function merge (target, src) {
     var array = Array.isArray(src)
     var dst = array && [] || {}
@@ -5927,7 +5979,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/deepmerge/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/primitives.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"a168e2ff3e007b8ae4b4dce8bb03fc10343d6411-pinf-primitives-js/primitives.js"}
 require.memoize("a168e2ff3e007b8ae4b4dce8bb03fc10343d6411-pinf-primitives-js/primitives.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js';
 
 const PATH = require("__SYSTEM__/path");
 const DEEPCOPY = require("deepcopy");
@@ -5970,7 +6022,7 @@ exports.normalizeEnvironmentVariables = function(env, overrides) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/primitives.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/index.js"}
 require.memoize("eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy';
 /*!
  * deepcopy.js Copyright(c) 2013 sasa+1
  * https://github.com/sasaplus1/deepcopy.js
@@ -5989,7 +6041,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib/deepcopy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/lib/deepcopy.js"}
 require.memoize("eccd269dfb61e2268a8805227220f6012fa50e4b-deepcopy/lib/deepcopy.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib';
 /*!
  * @license deepcopy.js Copyright(c) 2013 sasa+1
  * https://github.com/sasaplus1/deepcopy.js
@@ -6163,7 +6215,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib/deepcopy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/lib/program-insight.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight/lib/program-insight.js"}
 require.memoize("c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight/lib/program-insight.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/lib';
 
 const ASSERT = require("__SYSTEM__/assert");
 const PATH = require("__SYSTEM__/path");
@@ -6472,7 +6524,7 @@ wrapAMD(function(require, define) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/waitfor/waitfor.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/waitfor/node_modules/setimmediate/setImmediate.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"98f59820510eba78223c81ad6d109534d335f224-setimmediate/setImmediate.js"}
 require.memoize("98f59820510eba78223c81ad6d109534d335f224-setimmediate/setImmediate.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/waitfor/node_modules/setimmediate';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/waitfor/node_modules/setimmediate';
 (function (global, undefined) {
     "use strict";
 
@@ -6704,7 +6756,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/waitfor/node_modules/setimmediate/setImmediate.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepmerge/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bae60f4c72f89c0542d04faab5f4e6c6f0678907-deepmerge/index.js"}
 require.memoize("bae60f4c72f89c0542d04faab5f4e6c6f0678907-deepmerge/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepmerge';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepmerge';
 module.exports = function merge (target, src) {
     var array = Array.isArray(src)
     var dst = array && [] || {}
@@ -6755,7 +6807,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepmerge/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepcopy/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/index.js"}
 require.memoize("c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepcopy';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepcopy';
 // deepcopy Copyright(c) 2013 sasa+1
 // https://github.com/sasaplus1/deepcopy
 // Released under the MIT License.
@@ -6770,7 +6822,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepcopy/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepcopy/lib/deepcopy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/lib/deepcopy.js"}
 require.memoize("c066f376ac57b1a182e1f31b19fb0c461b323ecf-deepcopy/lib/deepcopy.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepcopy/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepcopy/lib';
 // deepcopy Copyright(c) 2013 sasa+1
 // https://github.com/sasaplus1/deepcopy
 // Released under the MIT License.
@@ -6828,7 +6880,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/deepcopy/lib/deepcopy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/lib/package-insight.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"f38e4f605d8ca2a7773428c53b62e3d07f59a736-pinf-it-package-insight/lib/package-insight.js"}
 require.memoize("f38e4f605d8ca2a7773428c53b62e3d07f59a736-pinf-it-package-insight/lib/package-insight.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/lib';
 
 const ASSERT = require("__SYSTEM__/assert");
 const PATH = require("__SYSTEM__/path");
@@ -8204,7 +8256,7 @@ wrapAMD(function(require, define) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/waitfor/waitfor.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate/setImmediate.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"34d03f6968e3f4fc04264f08c1450f78f5848fe4-setimmediate/setImmediate.js"}
 require.memoize("34d03f6968e3f4fc04264f08c1450f78f5848fe4-setimmediate/setImmediate.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate';
 (function (global, undefined) {
     "use strict";
 
@@ -8436,7 +8488,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate/setImmediate.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/deepmerge/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"ce11c10dca64b2b60e0fb1528b0b56c3811aa662-deepmerge/index.js"}
 require.memoize("ce11c10dca64b2b60e0fb1528b0b56c3811aa662-deepmerge/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/deepmerge';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/deepmerge';
 module.exports = function merge (target, src) {
     var array = Array.isArray(src)
     var dst = array && [] || {}
@@ -8487,7 +8539,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/deepmerge/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/primitives.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"aabe78d7de2b47ab14e2726122f43c2e2c6f8113-pinf-primitives-js/primitives.js"}
 require.memoize("aabe78d7de2b47ab14e2726122f43c2e2c6f8113-pinf-primitives-js/primitives.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js';
 
 const PATH = require("__SYSTEM__/path");
 const DEEPCOPY = require("deepcopy");
@@ -8530,7 +8582,7 @@ exports.normalizeEnvironmentVariables = function(env, overrides) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/primitives.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"edc8d965636e19f737f2ececa6386b2162350540-deepcopy/index.js"}
 require.memoize("edc8d965636e19f737f2ececa6386b2162350540-deepcopy/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy';
 /*!
  * deepcopy.js Copyright(c) 2013 sasa+1
  * https://github.com/sasaplus1/deepcopy.js
@@ -8549,7 +8601,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib/deepcopy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"edc8d965636e19f737f2ececa6386b2162350540-deepcopy/lib/deepcopy.js"}
 require.memoize("edc8d965636e19f737f2ececa6386b2162350540-deepcopy/lib/deepcopy.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib';
 /*!
  * @license deepcopy.js Copyright(c) 2013 sasa+1
  * https://github.com/sasaplus1/deepcopy.js
@@ -8723,7 +8775,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-program-insight/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib/deepcopy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/vm.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/vm.js"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/vm.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
 
 const ASSERT = require("__SYSTEM__/assert");
 const PATH = require("__SYSTEM__/path");
@@ -8898,7 +8950,7 @@ VM.prototype.loadPackage = function(uri, options, finalCallback) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/vm.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib/rt-bundler.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/rt-bundler.js"}
 require.memoize("5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/rt-bundler.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib';
 
 const ASSERT = require("__SYSTEM__/assert");
 const PATH = require("__SYSTEM__/path");
@@ -9380,6 +9432,7 @@ exports.bundlePackage = function(bundlePackagePath, bundleOptions, callback) {
 					bundleOptions.onRun(bundlePath, {
 						$pinf: bundleOptions.$pinf || null,
 						debug: bundleOptions.debug || false,
+						test: bundleOptions.test || false,
 						rootPath: bundleOptions.rootPath,
 						resolveDynamicSync: resolveDynamicSync,
 						ensureAsync: ensureAsync
@@ -9428,7 +9481,7 @@ exports.bundlePackage = function(bundlePackagePath, bundleOptions, callback) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib/rt-bundler.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/index.js"}
 require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
 "use strict"
 
 var fs = null
@@ -9558,7 +9611,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/jsonfile/lib/jsonfile.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"c080a61be940c5b59af0cef485503c204af31aa3-jsonfile/lib/jsonfile.js"}
 require.memoize("c080a61be940c5b59af0cef485503c204af31aa3-jsonfile/lib/jsonfile.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/jsonfile/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/jsonfile/lib';
 var fs = require('__SYSTEM__/fs');
 
 var me = module.exports;
@@ -9607,7 +9660,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/jsonfile/lib/jsonfile.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/json.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/json.js"}
 require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/json.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
 "use strict"
 
 var jsonFile = require('jsonfile')
@@ -9651,7 +9704,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/json.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/mkdir.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/mkdir.js"}
 require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/mkdir.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
 "use strict"
 
 var mkdirp = require('mkdirp');
@@ -9670,7 +9723,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/mkdir.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/mkdirp/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp/index.js"}
 require.memoize("cb414df3a679cb022b875fa5a6aeecc90f348eb0-mkdirp/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/mkdirp';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/mkdirp';
 var path = require('__SYSTEM__/path');
 var fs = require('__SYSTEM__/fs');
 
@@ -9767,7 +9820,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/mkdirp/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/copy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/copy.js"}
 require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/copy.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
 "use strict"
 
 var fs = require('__SYSTEM__/fs')
@@ -9827,7 +9880,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/copy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/ncp/lib/ncp.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp/lib/ncp.js"}
 require.memoize("b11db169cd69f99b08237e7b0a305cda29f5d5da-ncp/lib/ncp.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/ncp/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/ncp/lib';
 var fs = require('__SYSTEM__/fs'),
     path = require('__SYSTEM__/path');
 
@@ -10064,7 +10117,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/ncp/lib/ncp.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/remove.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/remove.js"}
 require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/remove.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
 "use strict"
 
 var rimraf = require('rimraf')
@@ -10097,7 +10150,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/remove.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/rimraf.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf/rimraf.js"}
 require.memoize("88ddcc04f40884e4519cd1a6b4f29b527aa9b636-rimraf/rimraf.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf';
 module.exports = rimraf
 rimraf.sync = rimrafSync
 
@@ -10287,7 +10340,7 @@ function rmkidsSync (p) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/rimraf.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/graceful-fs.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/graceful-fs.js"}
 require.memoize("8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/graceful-fs.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
 // Monkey-patching the fs module.
 // It's ugly, but there is simply no other way to do this.
 var fs = module.exports = require('__SYSTEM__/fs')
@@ -10471,7 +10524,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/graceful-fs.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/polyfills.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/polyfills.js"}
 require.memoize("8f4d56fe9b8b9118aeba4af58db70df4f0439ea7-graceful-fs/polyfills.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
 var fs = require('__SYSTEM__/fs')
 var constants = require('__SYSTEM__/constants')
 
@@ -10721,7 +10774,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/polyfills.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/create.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/create.js"}
 require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/create.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
 "use strict"
 
 var mkdir = require('./mkdir')
@@ -10792,7 +10845,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/create.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib/output.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/output.js"}
 require.memoize("617674c1604a2ea05a63f8ee9d067d5366cfe16d-fs-extra/lib/output.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/fs-extra/lib';
 "use strict"
 
 var mkdir = require('./mkdir')
@@ -12602,7 +12655,7 @@ return Q;
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/q/q.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib/bundler.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/bundler.js"}
 require.memoize("5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/bundler.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib';
 
 const ASSERT = require("__SYSTEM__/assert");
 const PATH = require("__SYSTEM__/path");
@@ -12695,7 +12748,9 @@ exports.bundlePackage = function(bundlePackagePath, options, callback) {
 				if (path === bundleFilePath) {
 					packageDescriptor.id = "";
 				}
-				packageDescriptor.memoized = {};
+				if (!packageDescriptor.memoized) {
+					packageDescriptor.memoized = {};
+				}
 				if (
 					packageDescriptor.combined.exports &&
 					packageDescriptor.combined.exports.main
@@ -12773,7 +12828,7 @@ exports.bundlePackage = function(bundlePackagePath, options, callback) {
 							// NOTE: We assume we are running on nodejs.
 							try {
 								if (id !== "require" && require.resolve(id) === id) {
-									// We have a system module.
+									// We have a system module and assume it will be provided at runtime.
 									return callback(null, true, "", {});
 								}
 							} catch(err) {}
@@ -12914,7 +12969,10 @@ exports.bundlePackage = function(bundlePackagePath, options, callback) {
 
 				bundleDescriptor.id = bundleId;
 
-				if (bundleDescriptor.modules[rootPackage + "/package.json"] && typeof bundleDescriptor.modules[rootPackage + "/package.json"].descriptor.dirpath === "undefined") {
+				if (
+					bundleDescriptor.modules[rootPackage + "/package.json"] &&
+					typeof bundleDescriptor.modules[rootPackage + "/package.json"].descriptor.dirpath === "undefined"
+				) {
 					packageDescriptor.memoized = bundleDescriptor.modules[rootPackage + "/package.json"].descriptor.memoized;
 					bundleDescriptor.modules[rootPackage + "/package.json"].descriptor = packageDescriptor;
 				}
@@ -13127,7 +13185,6 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 										if (err) return callback(err);
 										if (path === true && !memoizeId) {
 											// We have a system module.
-											// TODO: Optionally use https://github.com/substack/node-browserify to bundle shim.
 											return callback(null, true);
 										}
 										if (!path || !memoizeId) return finalize(callback);
@@ -13429,7 +13486,7 @@ exports.bundleFile = function(bundleFilePath, options, callback) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib/bundler.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/deepcopy/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/index.js"}
 require.memoize("a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/deepcopy';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/deepcopy';
 // deepcopy Copyright(c) 2013 sasa+1
 // https://github.com/sasaplus1/deepcopy
 // Released under the MIT License.
@@ -13444,7 +13501,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/deepcopy/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/deepcopy/lib/deepcopy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/lib/deepcopy.js"}
 require.memoize("a5e56301eb70d02275391bc5afde1cd2f62d0e69-deepcopy/lib/deepcopy.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/deepcopy/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/deepcopy/lib';
 // deepcopy Copyright(c) 2013 sasa+1
 // https://github.com/sasaplus1/deepcopy
 // Released under the MIT License.
@@ -13663,7 +13720,7 @@ wrapAMD(function(require, define) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/waitfor/waitfor.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/waitfor/node_modules/setimmediate/setImmediate.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"d739e44b4b3e49d3ecb628f8a908b40e63afa8e5-setimmediate/setImmediate.js"}
 require.memoize("d739e44b4b3e49d3ecb628f8a908b40e63afa8e5-setimmediate/setImmediate.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/waitfor/node_modules/setimmediate';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/waitfor/node_modules/setimmediate';
 (function (global, undefined) {
     "use strict";
 
@@ -13895,7 +13952,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/waitfor/node_modules/setimmediate/setImmediate.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/lib/module-insight.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"bf0ef0832fabbb13ac3cdcc25595e542732048f4-pinf-it-module-insight/lib/module-insight.js"}
 require.memoize("bf0ef0832fabbb13ac3cdcc25595e542732048f4-pinf-it-module-insight/lib/module-insight.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/lib';
 
 const PATH = require("__SYSTEM__/path");
 const FS = require("fs-extra");
@@ -14633,7 +14690,7 @@ function parseSyntax(descriptor, node) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/lib/module-insight.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/index.js"}
 require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
 "use strict"
 
 var fs = null
@@ -14763,7 +14820,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/jsonfile/lib/jsonfile.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile/lib/jsonfile.js"}
 require.memoize("d6c3ac6ae17eb7a804213065ec6c0d6767e3495e-jsonfile/lib/jsonfile.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/jsonfile/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/jsonfile/lib';
 var fs = require('__SYSTEM__/fs');
 
 var me = module.exports;
@@ -14812,7 +14869,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/jsonfile/lib/jsonfile.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/json.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/json.js"}
 require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/json.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
 "use strict"
 
 var jsonFile = require('jsonfile')
@@ -14856,7 +14913,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/json.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/mkdir.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/mkdir.js"}
 require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/mkdir.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
 "use strict"
 
 var mkdirp = require('mkdirp');
@@ -14875,7 +14932,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/mkdir.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/mkdirp/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp/index.js"}
 require.memoize("549eb86beb39d08a8dcc74b19b460b644536d236-mkdirp/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/mkdirp';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/mkdirp';
 var path = require('__SYSTEM__/path');
 var fs = require('__SYSTEM__/fs');
 
@@ -14972,7 +15029,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/mkdirp/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/copy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/copy.js"}
 require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/copy.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
 "use strict"
 
 var fs = require('__SYSTEM__/fs')
@@ -15032,7 +15089,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/copy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/ncp/lib/ncp.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b4c553f584b025a7c9b2375916830b245a00a167-ncp/lib/ncp.js"}
 require.memoize("b4c553f584b025a7c9b2375916830b245a00a167-ncp/lib/ncp.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/ncp/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/ncp/lib';
 var fs = require('__SYSTEM__/fs'),
     path = require('__SYSTEM__/path');
 
@@ -15269,7 +15326,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/ncp/lib/ncp.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/remove.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/remove.js"}
 require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/remove.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
 "use strict"
 
 var rimraf = require('rimraf')
@@ -15302,7 +15359,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/remove.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/rimraf.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf/rimraf.js"}
 require.memoize("921ce5a2c728732e45a9a2f00a4678b6db237f7e-rimraf/rimraf.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf';
 module.exports = rimraf
 rimraf.sync = rimrafSync
 
@@ -15492,7 +15549,7 @@ function rmkidsSync (p) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/rimraf.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/graceful-fs.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/graceful-fs.js"}
 require.memoize("a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/graceful-fs.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
 // Monkey-patching the fs module.
 // It's ugly, but there is simply no other way to do this.
 var fs = module.exports = require('__SYSTEM__/fs')
@@ -15676,7 +15733,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/graceful-fs.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/polyfills.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/polyfills.js"}
 require.memoize("a2709042303ef6d80b0a176aae4660f9e4e8cde7-graceful-fs/polyfills.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
 var fs = require('__SYSTEM__/fs')
 var constants = require('__SYSTEM__/constants')
 
@@ -15926,7 +15983,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/polyfills.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/create.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/create.js"}
 require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/create.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
 "use strict"
 
 var mkdir = require('./mkdir')
@@ -15997,7 +16054,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/create.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/output.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/output.js"}
 require.memoize("bb037bdaf13d55115ed5d69b53a48ff6d1fe8177-fs-extra/lib/output.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib';
 "use strict"
 
 var mkdir = require('./mkdir')
@@ -16050,7 +16107,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/fs-extra/lib/output.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/jslint/lib/linter.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/lib/linter.js"}
 require.memoize("d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/lib/linter.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/jslint/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/jslint/lib';
 var JSLINT = require("../lib/nodelint");
 
 function addDefaults(options) {
@@ -16093,7 +16150,7 @@ exports.lint = function (script, options) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/jslint/lib/linter.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/jslint/lib/nodelint.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/lib/nodelint.js"}
 require.memoize("d80ed749eb5bbcb36b87a48419b5dc8e8f57682e-jslint/lib/nodelint.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/jslint/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/jslint/lib';
 /*jslint
     nomen: true
  */
@@ -20031,7 +20088,7 @@ parseStatement: true, parseSourceElement: true */
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-module-insight/node_modules/esprima/esprima.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/lib/package-insight.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insight/lib/package-insight.js"}
 require.memoize("998fc3306c6273e4a514a8c9b08f65220295eb9d-pinf-it-package-insight/lib/package-insight.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/lib';
 
 const ASSERT = require("__SYSTEM__/assert");
 const PATH = require("__SYSTEM__/path");
@@ -21407,7 +21464,7 @@ wrapAMD(function(require, define) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/waitfor/waitfor.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate/setImmediate.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"aad20786edb4bc037cc86c828e2729f5839d8ac6-setimmediate/setImmediate.js"}
 require.memoize("aad20786edb4bc037cc86c828e2729f5839d8ac6-setimmediate/setImmediate.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate';
 (function (global, undefined) {
     "use strict";
 
@@ -21639,7 +21696,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/waitfor/node_modules/setimmediate/setImmediate.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/deepmerge/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"29f28531211b227d017dcf0cf57d7c26b36ab9ff-deepmerge/index.js"}
 require.memoize("29f28531211b227d017dcf0cf57d7c26b36ab9ff-deepmerge/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/deepmerge';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/deepmerge';
 module.exports = function merge (target, src) {
     var array = Array.isArray(src)
     var dst = array && [] || {}
@@ -21690,7 +21747,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/deepmerge/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/primitives.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"e72eacc9b0985a811179adfcfd7452b2cc6e904f-pinf-primitives-js/primitives.js"}
 require.memoize("e72eacc9b0985a811179adfcfd7452b2cc6e904f-pinf-primitives-js/primitives.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js';
 
 const PATH = require("__SYSTEM__/path");
 const DEEPCOPY = require("deepcopy");
@@ -21733,7 +21790,7 @@ exports.normalizeEnvironmentVariables = function(env, overrides) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/primitives.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/index.js"}
 require.memoize("91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy';
 /*!
  * deepcopy.js Copyright(c) 2013 sasa+1
  * https://github.com/sasaplus1/deepcopy.js
@@ -21752,7 +21809,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib/deepcopy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/lib/deepcopy.js"}
 require.memoize("91d272656f334752b0fe1fe9f3d99b9b159cd243-deepcopy/lib/deepcopy.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib';
 /*!
  * @license deepcopy.js Copyright(c) 2013 sasa+1
  * https://github.com/sasaplus1/deepcopy.js
@@ -21926,7 +21983,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-it-package-insight/node_modules/pinf-primitives-js/node_modules/deepcopy/lib/deepcopy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib/bundle.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/bundle.js"}
 require.memoize("5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/bundle.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib';
 
 const ASSERT = require("__SYSTEM__/assert");
 const PATH = require("__SYSTEM__/path");
@@ -22318,7 +22375,7 @@ Bundle.prototype.save = function(callback) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib/bundle.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-loader-js/loader.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js/./loader.js"}
 require.memoize("c55bd5d7ceb11a1943664126d137b21bd10fa5a3-pinf-loader-js/./loader.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-loader-js';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-loader-js';
 /**
  * Author: Christoph Dorn <christoph@christophdorn.com>
  * [UNLICENSE](http://unlicense.org/)
@@ -22932,7 +22989,7 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/pinf-loader-js/loader.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib/wrapper.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/wrapper.js"}
 require.memoize("5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler/lib/wrapper.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib';
 
 const PATH = require("__SYSTEM__/path");
 const FS = require("fs-extra");
@@ -23025,10 +23082,9 @@ exports.wrapModule = function(descriptor, options, callback) {
 
 					} else
 					if (descriptor.descriptor.format === "commonjs") {
-
 						descriptor.wrapper.type = "commonjs";
 						descriptor.wrapper.top = "function(require, exports, module) {" +
-							"var __dirname = '" + options._relpath(dirnameForModule) + "';";
+							"var __dirname = " + ((options.test && options.rootPath)?"TEST_ROOT_PATH + '/' + ":"") + "'" + options._relpath(dirnameForModule) + "';";
 						descriptor.wrapper.bottom = "}";
 
 					} else
@@ -23049,7 +23105,7 @@ exports.wrapModule = function(descriptor, options, callback) {
 						}
 						descriptor.wrapper.type = "commonjs/leaky";
 						descriptor.wrapper.top = "function(require, exports, module) {" +
-							"var __dirname = '" + options._relpath(dirnameForModule) + "';";
+							"var __dirname = " + ((options.test && options.rootPath)?"TEST_ROOT_PATH + '/' + ":"") + "'" + options._relpath(dirnameForModule) + "';";
 						descriptor.wrapper.bottom = "return {\n" + exports.join(",\n") + "\n};\n}";
 
 					} else
@@ -23063,6 +23119,11 @@ exports.wrapModule = function(descriptor, options, callback) {
 					} else {
 						return callback(new Error("Unrecognized format '" + descriptor.descriptor.format + "' for syntax '" + descriptor.descriptor.syntax + "'"));
 					}
+
+				} else
+				if (descriptor.descriptor.syntax === "json") {
+
+					descriptor.wrapper.type = "json";
 
 				} else
 				if (descriptor.descriptor.syntax === null) {
@@ -23261,7 +23322,7 @@ function wrapAMD(descriptor, callback) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/lib/wrapper.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/requirejs/bin/r.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/bin/r.js"}
 require.memoize("f45cd9cef2a7e969c737f26805218d7e06914093-requirejs/bin/r.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/requirejs/bin';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/requirejs/bin';
 
 /**
  * @license r.js 2.1.8 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.
@@ -49024,7 +49085,7 @@ function (args, quit, logger, build) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/requirejs/bin/r.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"ffefeba151b3e1d60d77b777efeb1610ab815b11-browser-builtins/index.js"}
 require.memoize("ffefeba151b3e1d60d77b777efeb1610ab815b11-browser-builtins/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins';
 
 var fs = require('__SYSTEM__/fs');
 var path = require('__SYSTEM__/path');
@@ -49064,7 +49125,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"d80d9e94744a5d49830e513672092a4515c69060-http-browserify/index.js"}
 require.memoize("d80d9e94744a5d49830e513672092a4515c69060-http-browserify/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify';
 var http = module.exports;
 var EventEmitter = require('__SYSTEM__/events').EventEmitter;
 var Request = require('./lib/request');
@@ -49139,7 +49200,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/lib/request.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"d80d9e94744a5d49830e513672092a4515c69060-http-browserify/lib/request.js"}
 require.memoize("d80d9e94744a5d49830e513672092a4515c69060-http-browserify/lib/request.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/lib';
 var Stream = require('__SYSTEM__/stream');
 var Response = require('./response');
 var concatStream = require('concat-stream');
@@ -49292,7 +49353,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/lib/request.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/lib/response.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"d80d9e94744a5d49830e513672092a4515c69060-http-browserify/lib/response.js"}
 require.memoize("d80d9e94744a5d49830e513672092a4515c69060-http-browserify/lib/response.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/lib';
 var Stream = require('__SYSTEM__/stream');
 var util = require('__SYSTEM__/util');
 
@@ -49431,7 +49492,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/lib/response.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"9d92895d87ddaa8802dac650f93e3de2eca290aa-concat-stream/index.js"}
 require.memoize("9d92895d87ddaa8802dac650f93e3de2eca290aa-concat-stream/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream';
 var stream = require('__SYSTEM__/stream')
 var bops = require('bops')
 var util = require('__SYSTEM__/util')
@@ -49495,7 +49556,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/index.js"}
 require.memoize("2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
 var proto = {}
 module.exports = proto
 
@@ -49526,7 +49587,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/from.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/from.js"}
 require.memoize("2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/from.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
 var Buffer = require('__SYSTEM__/buffer').Buffer
 
 module.exports = function(source, encoding) {
@@ -49542,7 +49603,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/from.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/to.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/to.js"}
 require.memoize("2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/to.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
 module.exports = function(source, encoding) {
   return source.toString(encoding)
 }
@@ -49554,7 +49615,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/to.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/is.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/is.js"}
 require.memoize("2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/is.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
 var Buffer = require('__SYSTEM__/buffer').Buffer
 
 module.exports = function(buffer) {
@@ -49570,7 +49631,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/is.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/subarray.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/subarray.js"}
 require.memoize("2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/subarray.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
 module.exports = function(source, from, to) {
   return arguments.length === 2 ?
     source.slice(from) :
@@ -49584,7 +49645,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/subarray.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/join.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/join.js"}
 require.memoize("2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/join.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
 var Buffer = require('__SYSTEM__/buffer').Buffer
 
 module.exports = function(targets, hint) {
@@ -49602,7 +49663,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/join.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/copy.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/copy.js"}
 require.memoize("2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/copy.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
 module.exports = copy
 
 function copy(source, target, target_start, source_start, source_end) {
@@ -49617,7 +49678,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/copy.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/create.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/create.js"}
 require.memoize("2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/create.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
 module.exports = create
 
 var Buffer = require('__SYSTEM__/buffer').Buffer
@@ -49636,7 +49697,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/create.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/read.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/read.js"}
 require.memoize("2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/read.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
 var proto = {}
   , rex = /read.+/
   , fn
@@ -49665,7 +49726,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/read.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/write.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/write.js"}
 require.memoize("2078efc377e9ed5d55f5adcbbec5bc8c73eeb7e9-bops/write.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops';
 var Buffer = require('__SYSTEM__/buffer').Buffer
 
 var proto = {}
@@ -49697,7 +49758,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/concat-stream/node_modules/bops/write.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/Base64/base64.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"cf407a75742eaba6baeb9f30f848c4dd0ae5e6b5-Base64/base64.js"}
 require.memoize("cf407a75742eaba6baeb9f30f848c4dd0ae5e6b5-Base64/base64.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/Base64';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/Base64';
 ;(function () {
 
   var
@@ -49758,7 +49819,7 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/http-browserify/node_modules/Base64/base64.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/vm-browserify/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"54f8c4ea1a6e389d9a9df7c823f39e2e59bebcab-vm-browserify/index.js"}
 require.memoize("54f8c4ea1a6e389d9a9df7c823f39e2e59bebcab-vm-browserify/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/vm-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/vm-browserify';
 var Object_keys = function (obj) {
     if (Object.keys) return Object.keys(obj)
     else {
@@ -49849,7 +49910,7 @@ exports.createContext = Script.createContext = function (context) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/vm-browserify/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/index.js"}
 require.memoize("4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify';
 var Buffer = require('__SYSTEM__/buffer').Buffer
 var sha = require('./sha')
 var sha256 = require('./sha256')
@@ -49950,7 +50011,7 @@ each(['createCredentials'
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify/sha.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/sha.js"}
 require.memoize("4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/sha.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify';
 /*
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-1, as defined
  * in FIPS PUB 180-1
@@ -50079,7 +50140,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify/sha.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify/helpers.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/helpers.js"}
 require.memoize("4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/helpers.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify';
 var Buffer = require('__SYSTEM__/buffer').Buffer;
 var intSize = 4;
 var zeroBuffer = new Buffer(intSize); zeroBuffer.fill(0);
@@ -50132,7 +50193,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify/helpers.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify/sha256.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/sha256.js"}
 require.memoize("4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/sha256.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify';
 
 /**
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-256, as defined
@@ -50232,7 +50293,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify/sha256.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify/rng.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/rng.js"}
 require.memoize("4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/rng.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify';
 // Original code adapted from Robert Kieffer.
 // details at https://github.com/broofa/node-uuid
 (function() {
@@ -50279,7 +50340,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify/rng.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify/md5.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/md5.js"}
 require.memoize("4f9e569bcc3032ad3e8b4c0899e21f770b3c148c-crypto-browserify/md5.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify';
 /*
  * A JavaScript implementation of the RSA Data Security, Inc. MD5 Message
  * Digest Algorithm, as defined in RFC 1321.
@@ -50464,7 +50525,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/crypto-browserify/md5.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/console-browserify/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"75d8843069c6f625c2822b65f1079a5e5e319c15-console-browserify/index.js"}
 require.memoize("75d8843069c6f625c2822b65f1079a5e5e319c15-console-browserify/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/console-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/console-browserify';
 /*global window, global*/
 var util = require("__SYSTEM__/util")
 var assert = require("__SYSTEM__/assert")
@@ -50580,7 +50641,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/console-browserify/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/zlib-browserify/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"3ccedb5b8c518947e3f098f0adce33b85dff2a59-zlib-browserify/index.js"}
 require.memoize("3ccedb5b8c518947e3f098f0adce33b85dff2a59-zlib-browserify/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/zlib-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/zlib-browserify';
 var Zlib = module.exports = require('./zlib');
 
 // the least I can do is make error messages for the rest of the node.js/zlib api.
@@ -50638,7 +50699,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/zlib-browserify/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/zlib-browserify/zlib.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"3ccedb5b8c518947e3f098f0adce33b85dff2a59-zlib-browserify/zlib.js"}
 require.memoize("3ccedb5b8c518947e3f098f0adce33b85dff2a59-zlib-browserify/zlib.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/zlib-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/zlib-browserify';
 /** @license zlib.js 0.1.7 2012 - imaya [ https://github.com/imaya/zlib.js ] The MIT License */(function() {'use strict';function q(b){throw b;}var t=void 0,u=!0;var A="undefined"!==typeof Uint8Array&&"undefined"!==typeof Uint16Array&&"undefined"!==typeof Uint32Array;function E(b,a){this.index="number"===typeof a?a:0;this.m=0;this.buffer=b instanceof(A?Uint8Array:Array)?b:new (A?Uint8Array:Array)(32768);2*this.buffer.length<=this.index&&q(Error("invalid index"));this.buffer.length<=this.index&&this.f()}E.prototype.f=function(){var b=this.buffer,a,c=b.length,d=new (A?Uint8Array:Array)(c<<1);if(A)d.set(b);else for(a=0;a<c;++a)d[a]=b[a];return this.buffer=d};
 E.prototype.d=function(b,a,c){var d=this.buffer,f=this.index,e=this.m,g=d[f],k;c&&1<a&&(b=8<a?(G[b&255]<<24|G[b>>>8&255]<<16|G[b>>>16&255]<<8|G[b>>>24&255])>>32-a:G[b]>>8-a);if(8>a+e)g=g<<a|b,e+=a;else for(k=0;k<a;++k)g=g<<1|b>>a-k-1&1,8===++e&&(e=0,d[f++]=G[g],g=0,f===d.length&&(d=this.f()));d[f]=g;this.buffer=d;this.m=e;this.index=f};E.prototype.finish=function(){var b=this.buffer,a=this.index,c;0<this.m&&(b[a]<<=8-this.m,b[a]=G[b[a]],a++);A?c=b.subarray(0,a):(b.length=a,c=b);return c};
 var aa=new (A?Uint8Array:Array)(256),J;for(J=0;256>J;++J){for(var N=J,Q=N,ba=7,N=N>>>1;N;N>>>=1)Q<<=1,Q|=N&1,--ba;aa[J]=(Q<<ba&255)>>>0}var G=aa;function R(b,a,c){var d,f="number"===typeof a?a:a=0,e="number"===typeof c?c:b.length;d=-1;for(f=e&7;f--;++a)d=d>>>8^S[(d^b[a])&255];for(f=e>>3;f--;a+=8)d=d>>>8^S[(d^b[a])&255],d=d>>>8^S[(d^b[a+1])&255],d=d>>>8^S[(d^b[a+2])&255],d=d>>>8^S[(d^b[a+3])&255],d=d>>>8^S[(d^b[a+4])&255],d=d>>>8^S[(d^b[a+5])&255],d=d>>>8^S[(d^b[a+6])&255],d=d>>>8^S[(d^b[a+7])&255];return(d^4294967295)>>>0}
@@ -50698,7 +50759,7 @@ function Cb(b){var a=new Buffer(b.length),c,d;c=0;for(d=b.length;c<d;++c)a[c]=b[
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/zlib-browserify/zlib.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/buffer-browserify/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"c7913933203e4e5bf3bfde95e4d16d2fd79234df-buffer-browserify/index.js"}
 require.memoize("c7913933203e4e5bf3bfde95e4d16d2fd79234df-buffer-browserify/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/buffer-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/buffer-browserify';
 var assert;
 exports.Buffer = Buffer;
 exports.SlowBuffer = Buffer;
@@ -51828,7 +51889,7 @@ Buffer.prototype.writeDoubleBE = function(value, offset, noAssert) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/buffer-browserify/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/buffer-browserify/node_modules/base64-js/lib/b64.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"babb6c453ea042444cdcfcce1e1e9983035ae3f7-base64-js/lib/b64.js"}
 require.memoize("babb6c453ea042444cdcfcce1e1e9983035ae3f7-base64-js/lib/b64.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/buffer-browserify/node_modules/base64-js/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/buffer-browserify/node_modules/base64-js/lib';
 (function (exports) {
 	'use strict';
 
@@ -51921,7 +51982,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/buffer-browserify/node_modules/base64-js/lib/b64.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/buffer-browserify/buffer_ieee754.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"c7913933203e4e5bf3bfde95e4d16d2fd79234df-buffer-browserify/buffer_ieee754.js"}
 require.memoize("c7913933203e4e5bf3bfde95e4d16d2fd79234df-buffer-browserify/buffer_ieee754.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/buffer-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/buffer-browserify';
 exports.readIEEE754 = function(buffer, offset, isBE, mLen, nBytes) {
   var e, m,
       eLen = nBytes * 8 - mLen - 1,
@@ -52009,9 +52070,193 @@ exports.writeIEEE754 = function(buffer, value, offset, isBE, mLen, nBytes) {
 
 }
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/buffer-browserify/buffer_ieee754.js"});
+// @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/constants-browserify/constants.json","mtime":0,"wrapper":"json","format":"json","id":"aca0f60c4cc330cb1e823e54ad8abfaf13a1cc78-constants-browserify/constants.json"}
+require.memoize("aca0f60c4cc330cb1e823e54ad8abfaf13a1cc78-constants-browserify/constants.json", 
+
+{
+  "O_RDONLY": 0,
+  "O_WRONLY": 1,
+  "O_RDWR": 2,
+  "S_IFMT": 61440,
+  "S_IFREG": 32768,
+  "S_IFDIR": 16384,
+  "S_IFCHR": 8192,
+  "S_IFBLK": 24576,
+  "S_IFIFO": 4096,
+  "S_IFLNK": 40960,
+  "S_IFSOCK": 49152,
+  "O_CREAT": 512,
+  "O_EXCL": 2048,
+  "O_NOCTTY": 131072,
+  "O_TRUNC": 1024,
+  "O_APPEND": 8,
+  "O_DIRECTORY": 1048576,
+  "O_NOFOLLOW": 256,
+  "O_SYNC": 128,
+  "O_SYMLINK": 2097152,
+  "S_IRWXU": 448,
+  "S_IRUSR": 256,
+  "S_IWUSR": 128,
+  "S_IXUSR": 64,
+  "S_IRWXG": 56,
+  "S_IRGRP": 32,
+  "S_IWGRP": 16,
+  "S_IXGRP": 8,
+  "S_IRWXO": 7,
+  "S_IROTH": 4,
+  "S_IWOTH": 2,
+  "S_IXOTH": 1,
+  "E2BIG": 7,
+  "EACCES": 13,
+  "EADDRINUSE": 48,
+  "EADDRNOTAVAIL": 49,
+  "EAFNOSUPPORT": 47,
+  "EAGAIN": 35,
+  "EALREADY": 37,
+  "EBADF": 9,
+  "EBADMSG": 94,
+  "EBUSY": 16,
+  "ECANCELED": 89,
+  "ECHILD": 10,
+  "ECONNABORTED": 53,
+  "ECONNREFUSED": 61,
+  "ECONNRESET": 54,
+  "EDEADLK": 11,
+  "EDESTADDRREQ": 39,
+  "EDOM": 33,
+  "EDQUOT": 69,
+  "EEXIST": 17,
+  "EFAULT": 14,
+  "EFBIG": 27,
+  "EHOSTUNREACH": 65,
+  "EIDRM": 90,
+  "EILSEQ": 92,
+  "EINPROGRESS": 36,
+  "EINTR": 4,
+  "EINVAL": 22,
+  "EIO": 5,
+  "EISCONN": 56,
+  "EISDIR": 21,
+  "ELOOP": 62,
+  "EMFILE": 24,
+  "EMLINK": 31,
+  "EMSGSIZE": 40,
+  "EMULTIHOP": 95,
+  "ENAMETOOLONG": 63,
+  "ENETDOWN": 50,
+  "ENETRESET": 52,
+  "ENETUNREACH": 51,
+  "ENFILE": 23,
+  "ENOBUFS": 55,
+  "ENODATA": 96,
+  "ENODEV": 19,
+  "ENOENT": 2,
+  "ENOEXEC": 8,
+  "ENOLCK": 77,
+  "ENOLINK": 97,
+  "ENOMEM": 12,
+  "ENOMSG": 91,
+  "ENOPROTOOPT": 42,
+  "ENOSPC": 28,
+  "ENOSR": 98,
+  "ENOSTR": 99,
+  "ENOSYS": 78,
+  "ENOTCONN": 57,
+  "ENOTDIR": 20,
+  "ENOTEMPTY": 66,
+  "ENOTSOCK": 38,
+  "ENOTSUP": 45,
+  "ENOTTY": 25,
+  "ENXIO": 6,
+  "EOPNOTSUPP": 102,
+  "EOVERFLOW": 84,
+  "EPERM": 1,
+  "EPIPE": 32,
+  "EPROTO": 100,
+  "EPROTONOSUPPORT": 43,
+  "EPROTOTYPE": 41,
+  "ERANGE": 34,
+  "EROFS": 30,
+  "ESPIPE": 29,
+  "ESRCH": 3,
+  "ESTALE": 70,
+  "ETIME": 101,
+  "ETIMEDOUT": 60,
+  "ETXTBSY": 26,
+  "EWOULDBLOCK": 35,
+  "EXDEV": 18,
+  "SIGHUP": 1,
+  "SIGINT": 2,
+  "SIGQUIT": 3,
+  "SIGILL": 4,
+  "SIGTRAP": 5,
+  "SIGABRT": 6,
+  "SIGIOT": 6,
+  "SIGBUS": 10,
+  "SIGFPE": 8,
+  "SIGKILL": 9,
+  "SIGUSR1": 30,
+  "SIGSEGV": 11,
+  "SIGUSR2": 31,
+  "SIGPIPE": 13,
+  "SIGALRM": 14,
+  "SIGTERM": 15,
+  "SIGCHLD": 20,
+  "SIGCONT": 19,
+  "SIGSTOP": 17,
+  "SIGTSTP": 18,
+  "SIGTTIN": 21,
+  "SIGTTOU": 22,
+  "SIGURG": 16,
+  "SIGXCPU": 24,
+  "SIGXFSZ": 25,
+  "SIGVTALRM": 26,
+  "SIGPROF": 27,
+  "SIGWINCH": 28,
+  "SIGIO": 23,
+  "SIGSYS": 12,
+  "SSL_OP_ALL": 2147486719,
+  "SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION": 262144,
+  "SSL_OP_CIPHER_SERVER_PREFERENCE": 4194304,
+  "SSL_OP_CISCO_ANYCONNECT": 32768,
+  "SSL_OP_COOKIE_EXCHANGE": 8192,
+  "SSL_OP_CRYPTOPRO_TLSEXT_BUG": 2147483648,
+  "SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS": 2048,
+  "SSL_OP_EPHEMERAL_RSA": 2097152,
+  "SSL_OP_LEGACY_SERVER_CONNECT": 4,
+  "SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER": 32,
+  "SSL_OP_MICROSOFT_SESS_ID_BUG": 1,
+  "SSL_OP_MSIE_SSLV2_RSA_PADDING": 64,
+  "SSL_OP_NETSCAPE_CA_DN_BUG": 536870912,
+  "SSL_OP_NETSCAPE_CHALLENGE_BUG": 2,
+  "SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG": 1073741824,
+  "SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG": 8,
+  "SSL_OP_NO_COMPRESSION": 131072,
+  "SSL_OP_NO_QUERY_MTU": 4096,
+  "SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION": 65536,
+  "SSL_OP_NO_SSLv2": 16777216,
+  "SSL_OP_NO_SSLv3": 33554432,
+  "SSL_OP_NO_TICKET": 16384,
+  "SSL_OP_NO_TLSv1": 67108864,
+  "SSL_OP_NO_TLSv1_1": 268435456,
+  "SSL_OP_NO_TLSv1_2": 134217728,
+  "SSL_OP_PKCS1_CHECK_1": 0,
+  "SSL_OP_PKCS1_CHECK_2": 0,
+  "SSL_OP_SINGLE_DH_USE": 1048576,
+  "SSL_OP_SINGLE_ECDH_USE": 524288,
+  "SSL_OP_SSLEAY_080_CLIENT_DH_BUG": 128,
+  "SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG": 16,
+  "SSL_OP_TLS_BLOCK_PADDING_BUG": 512,
+  "SSL_OP_TLS_D5_BUG": 256,
+  "SSL_OP_TLS_ROLLBACK_BUG": 8388608,
+  "NPN_ENABLED": 1
+}
+
+
+, {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/constants-browserify/constants.json"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/os-browserify/main.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"0603d7fc9bf0fa91150d412b68d2c73eb5f2a1c5-os-browserify/main.js"}
 require.memoize("0603d7fc9bf0fa91150d412b68d2c73eb5f2a1c5-os-browserify/main.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/os-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/os-browserify';
 module.exports = require('__SYSTEM__/os');
 
 return {
@@ -52022,7 +52267,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/browser-builtins/node_modules/os-browserify/main.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/colors/colors.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"92020e8e2c8b5925c17b8b3d3354f361a004a0c6-colors/colors.js"}
 require.memoize("92020e8e2c8b5925c17b8b3d3354f361a004a0c6-colors/colors.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/colors';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/colors';
 /*
 colors.js
 
@@ -52370,7 +52615,7 @@ addProperty('zalgo', function () {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-it-bundler/node_modules/colors/colors.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/loader.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/loader.js"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/loader.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
 
 const ASSERT = require("__SYSTEM__/assert");
 const PATH = require("__SYSTEM__/path");
@@ -52471,6 +52716,9 @@ exports.sandbox = function(sandboxIdentifier, sandboxOptions, loadedCallback, er
     		for (var name in sandboxOptions.globals) {
     			globals[name] = sandboxOptions.globals[name];
     		}
+    	}
+    	if (sandboxOptions.test && sandboxOptions.rootPath) {
+    		globals.TEST_ROOT_PATH = sandboxOptions.rootPath;
     	}
         VM.runInNewContext(code, globals, uri, true);
 	}
@@ -52682,7 +52930,14 @@ exports.sandbox = function(sandboxIdentifier, sandboxOptions, loadedCallback, er
 					return origRequire(origModuleIdentifier);
 				}
 			}
+/*
+console.log("pkg.id", pkg.id);
+console.log("canonicalId", canonicalId);
 
+			if (pkg.id === "__SYSTEM__") {
+				return require(canonicalId.replace(/^__SYSTEM__\/|\.js$/g, ""));
+			}
+*/
 			// We encountered a dynamic sync require.
 
 			if (sandboxOptions.debug) console.log("[loader-for-nodejs][pkg.require]", "moduleIdentifier", moduleIdentifier, "pkg.id", pkg.id, "canonicalId", canonicalId);
@@ -52742,7 +52997,7 @@ exports.reset = LOADER.reset;
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/loader.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request/index.js"}
 require.memoize("e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request';
 // Copyright 2010-2012 Mikeal Rogers
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -54162,7 +54417,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/qs/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs/index.js"}
 require.memoize("a13b2b95ca51018b6d405a7e337ddb2d9da913d6-qs/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/qs';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/qs';
 /**
  * Object#toString() ref for stringify().
  */
@@ -54555,7 +54810,7 @@ function decode(str) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/qs/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/oauth-sign/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"0a2767d204df2a563b9513a5b12e7f2ef737e245-oauth-sign/index.js"}
 require.memoize("0a2767d204df2a563b9513a5b12e7f2ef737e245-oauth-sign/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/oauth-sign';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/oauth-sign';
 var crypto = require('__SYSTEM__/crypto')
   , qs = require('__SYSTEM__/querystring')
   ;
@@ -54604,7 +54859,7 @@ exports.rfc3986 = rfc3986
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/oauth-sign/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/index.js"}
 require.memoize("ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk';
 module.exports = require('./lib');
 return {
     module: (typeof module !== "undefined") ? module : null,
@@ -54614,7 +54869,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/index.js"}
 require.memoize("ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib';
 // Export sub-modules
 
 exports.error = exports.Error = require('boom');
@@ -54635,7 +54890,7 @@ exports.uri = {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/index.js"}
 require.memoize("bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom';
 module.exports = require('./lib');
 return {
     module: (typeof module !== "undefined") ? module : null,
@@ -54645,7 +54900,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/lib/index.js"}
 require.memoize("bf5f6d759723b81e09f0e0987c6471c189b1d06c-boom/lib/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/lib';
 // Load modules
 
 var Http = require('__SYSTEM__/http');
@@ -54858,7 +55113,7 @@ internals.Boom.passThrough = function (code, payload, contentType, headers) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"9579db8ec37f1c7107434638cd83ebcdde128669-hoek/index.js"}
 require.memoize("9579db8ec37f1c7107434638cd83ebcdde128669-hoek/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek';
 module.exports = require('./lib');
 return {
     module: (typeof module !== "undefined") ? module : null,
@@ -54868,7 +55123,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"9579db8ec37f1c7107434638cd83ebcdde128669-hoek/lib/index.js"}
 require.memoize("9579db8ec37f1c7107434638cd83ebcdde128669-hoek/lib/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/lib';
 // Load modules
 
 var Fs = require('__SYSTEM__/fs');
@@ -55459,7 +55714,7 @@ exports.nextTick = function (callback) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/lib/escape.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"9579db8ec37f1c7107434638cd83ebcdde128669-hoek/lib/escape.js"}
 require.memoize("9579db8ec37f1c7107434638cd83ebcdde128669-hoek/lib/escape.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/lib';
 // Declare internals
 
 var internals = {};
@@ -55596,7 +55851,7 @@ internals.safeCharCodes = (function () {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/boom/node_modules/hoek/lib/escape.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/index.js"}
 require.memoize("87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp';
 module.exports = require('./lib');
 return {
     module: (typeof module !== "undefined") ? module : null,
@@ -55606,7 +55861,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/lib/index.js"}
 require.memoize("87fef81bfb6e9c0756eb1aef7efafad814f6d037-sntp/lib/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/lib';
 // Load modules
 
 var Dgram = require('__SYSTEM__/dgram');
@@ -56021,7 +56276,7 @@ exports.now = function () {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"733132ef85628339b6e1a78283093c2a9208ca8a-hoek/index.js"}
 require.memoize("733132ef85628339b6e1a78283093c2a9208ca8a-hoek/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek';
 module.exports = require('./lib');
 return {
     module: (typeof module !== "undefined") ? module : null,
@@ -56031,7 +56286,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"733132ef85628339b6e1a78283093c2a9208ca8a-hoek/lib/index.js"}
 require.memoize("733132ef85628339b6e1a78283093c2a9208ca8a-hoek/lib/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/lib';
 // Load modules
 
 var Fs = require('__SYSTEM__/fs');
@@ -56622,7 +56877,7 @@ exports.nextTick = function (callback) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/lib/escape.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"733132ef85628339b6e1a78283093c2a9208ca8a-hoek/lib/escape.js"}
 require.memoize("733132ef85628339b6e1a78283093c2a9208ca8a-hoek/lib/escape.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/lib';
 // Declare internals
 
 var internals = {};
@@ -56759,7 +57014,7 @@ internals.safeCharCodes = (function () {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/sntp/node_modules/hoek/lib/escape.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/server.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/server.js"}
 require.memoize("ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/server.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib';
 // Load modules
 
 var Boom = require('boom');
@@ -57189,7 +57444,7 @@ exports.authenticateBewit = function (req, credentialsFunc, options, callback) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/server.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/index.js"}
 require.memoize("5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek';
 module.exports = require('./lib');
 return {
     module: (typeof module !== "undefined") ? module : null,
@@ -57199,7 +57454,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/lib/index.js"}
 require.memoize("5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/lib/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/lib';
 // Load modules
 
 var Fs = require('__SYSTEM__/fs');
@@ -57785,7 +58040,7 @@ exports.nextTick = function (callback) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/lib/escape.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/lib/escape.js"}
 require.memoize("5712c844784b75d73fa477ce4544c1fee1a73e9a-hoek/lib/escape.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/lib';
 // Declare internals
 
 var internals = {};
@@ -57922,7 +58177,7 @@ internals.safeCharCodes = (function () {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/hoek/lib/escape.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/cryptiles/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/index.js"}
 require.memoize("8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/cryptiles';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/cryptiles';
 module.exports = require('./lib');
 return {
     module: (typeof module !== "undefined") ? module : null,
@@ -57932,7 +58187,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/cryptiles/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/cryptiles/lib/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/lib/index.js"}
 require.memoize("8f6b20ea73af0e78673599afe177926b017fe185-cryptiles/lib/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/cryptiles/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/cryptiles/lib';
 // Load modules
 
 var Crypto = require('__SYSTEM__/crypto');
@@ -58006,7 +58261,7 @@ exports.fixedTimeComparison = function (a, b) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/node_modules/cryptiles/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/crypto.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/crypto.js"}
 require.memoize("ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/crypto.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib';
 // Load modules
 
 var Crypto = require('__SYSTEM__/crypto');
@@ -58123,7 +58378,7 @@ exports.calculateTsMac = function (ts, credentials) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/crypto.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/utils.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/utils.js"}
 require.memoize("ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/utils.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib';
 // Load modules
 
 var Hoek = require('hoek');
@@ -58303,7 +58558,7 @@ exports.unauthorized = function (message) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/utils.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/client.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/client.js"}
 require.memoize("ef2311c3452fcf0c060669446e9d1b7f2ae2fe07-hawk/lib/client.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib';
 // Load modules
 
 var Url = require('__SYSTEM__/url');
@@ -58594,7 +58849,7 @@ exports.getBewit = function (uri, options) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/hawk/lib/client.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/aws-sign/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"8d0d8b76fc7fb074fae1f24236fc2c5c9db07428-aws-sign/index.js"}
 require.memoize("8d0d8b76fc7fb074fae1f24236fc2c5c9db07428-aws-sign/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/aws-sign';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/aws-sign';
 
 /*!
  * knox - auth
@@ -58819,7 +59074,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/aws-sign/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/index.js"}
 require.memoize("504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib';
 // Copyright 2011 Joyent, Inc.  All rights reserved.
 
 var parser = require('./parser');
@@ -58858,7 +59113,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/parser.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/parser.js"}
 require.memoize("504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/parser.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib';
 // Copyright 2012 Joyent, Inc.  All rights reserved.
 
 var assert = require('assert-plus');
@@ -59171,7 +59426,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/parser.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/assert-plus/assert.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"4577e8ae6126946aeedc02c249aefacb641b25de-assert-plus/assert.js"}
 require.memoize("4577e8ae6126946aeedc02c249aefacb641b25de-assert-plus/assert.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/assert-plus';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/assert-plus';
 // Copyright (c) 2012, Mark Cavage. All rights reserved.
 
 var assert = require('__SYSTEM__/assert');
@@ -59399,7 +59654,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/assert-plus/assert.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/signer.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/signer.js"}
 require.memoize("504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/signer.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib';
 // Copyright 2012 Joyent, Inc.  All rights reserved.
 
 var assert = require('assert-plus');
@@ -59593,7 +59848,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/signer.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/verify.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/verify.js"}
 require.memoize("504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/verify.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib';
 // Copyright 2011 Joyent, Inc.  All rights reserved.
 
 var assert = require('assert-plus');
@@ -59647,7 +59902,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/verify.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/util.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/util.js"}
 require.memoize("504dacc61af7bbe1211e508279a261f00f9f80a6-http-signature/lib/util.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib';
 // Copyright 2012 Joyent, Inc.  All rights reserved.
 
 var assert = require('assert-plus');
@@ -59916,7 +60171,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/lib/util.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/index.js"}
 require.memoize("58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib';
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 // If you have no idea what ASN.1 or BER is, see this:
@@ -59947,7 +60202,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/index.js"}
 require.memoize("58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 var errors = require('./errors');
@@ -59990,7 +60245,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/errors.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/errors.js"}
 require.memoize("58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/errors.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 
@@ -60012,7 +60267,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/errors.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/types.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/types.js"}
 require.memoize("58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/types.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 
@@ -60057,7 +60312,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/types.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/reader.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/reader.js"}
 require.memoize("58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/reader.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 var assert = require('__SYSTEM__/assert');
@@ -60340,7 +60595,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/reader.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/writer.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/writer.js"}
 require.memoize("58bf8a5049a1321dd747766ae49de85b0d7c437b-asn1/lib/ber/writer.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber';
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 var assert = require('__SYSTEM__/assert');
@@ -60678,7 +60933,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/asn1/lib/ber/writer.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype/ctype.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctype.js"}
 require.memoize("59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctype.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype';
 /*
  * rm - Feb 2011
  * ctype.js
@@ -61628,7 +61883,7 @@ exports.wdouble = mod_ctio.wdouble;
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype/ctype.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype/ctf.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctf.js"}
 require.memoize("59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctf.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype';
 /*
  * ctf.js
  *
@@ -61879,7 +62134,7 @@ exports.ctfParseJson = ctfParseJson;
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype/ctf.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype/ctio.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctio.js"}
 require.memoize("59f3c6d403691c2aed6f9d3b8b397d193e93dee6-ctype/ctio.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/http-signature/node_modules/ctype';
 /*
  * rm - Feb 2011
  * ctio.js:
@@ -63621,7 +63876,7 @@ wrapAMD(function(require, define) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/node-uuid/uuid.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/mime/mime.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime/mime.js"}
 require.memoize("3224ac8e300a1626a99ef5dd8b50d9fed0d71852-mime/mime.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/mime';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/mime';
 var path = require('__SYSTEM__/path');
 var fs = require('__SYSTEM__/fs');
 
@@ -63753,7 +64008,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/mime/mime.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/tunnel-agent/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"108b28d120f242b00befd693696b25134ac10bef-tunnel-agent/index.js"}
 require.memoize("108b28d120f242b00befd693696b25134ac10bef-tunnel-agent/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/tunnel-agent';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/tunnel-agent';
 'use strict'
 
 var net = require('__SYSTEM__/net')
@@ -63986,7 +64241,7 @@ exports.debug = debug // for test
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/tunnel-agent/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/json-stringify-safe/stringify.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b3eb0c4e174b4fd3de6278f94c1c93bfce68bd6c-json-stringify-safe/stringify.js"}
 require.memoize("b3eb0c4e174b4fd3de6278f94c1c93bfce68bd6c-json-stringify-safe/stringify.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/json-stringify-safe';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/json-stringify-safe';
 module.exports = stringify;
 
 function getSerialize (fn, decycle) {
@@ -64023,7 +64278,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/json-stringify-safe/stringify.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/forever-agent/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"ac485b684341e74d2d223646d5b98969d287efa9-forever-agent/index.js"}
 require.memoize("ac485b684341e74d2d223646d5b98969d287efa9-forever-agent/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/forever-agent';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/forever-agent';
 module.exports = ForeverAgent
 ForeverAgent.SSL = ForeverAgentSSL
 
@@ -64160,7 +64415,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/forever-agent/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/lib/form_data.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b31d9d8844fd9f42ca88afa16a6316e74e8a6409-form-data/lib/form_data.js"}
 require.memoize("b31d9d8844fd9f42ca88afa16a6316e74e8a6409-form-data/lib/form_data.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/lib';
 var CombinedStream = require('combined-stream');
 var util = require('__SYSTEM__/util');
 var path = require('__SYSTEM__/path');
@@ -64476,7 +64731,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/lib/form_data.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream/lib/combined_stream.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"060655d1be854e806dc31729ef59e2992f3626c0-combined-stream/lib/combined_stream.js"}
 require.memoize("060655d1be854e806dc31729ef59e2992f3626c0-combined-stream/lib/combined_stream.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream/lib';
 var util = require('__SYSTEM__/util');
 var Stream = require('__SYSTEM__/stream').Stream;
 var DelayedStream = require('delayed-stream');
@@ -64676,7 +64931,7 @@ return {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream/lib/combined_stream.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/lib/delayed_stream.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream/lib/delayed_stream.js"}
 require.memoize("1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream/lib/delayed_stream.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/lib';
 var Stream = require('__SYSTEM__/stream').Stream;
 var util = require('__SYSTEM__/util');
 
@@ -65749,7 +66004,7 @@ wrapAMD(function(require, define) {
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/form-data/node_modules/async/lib/async.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/cookie-jar/index.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/index.js"}
 require.memoize("e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/index.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/cookie-jar';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/cookie-jar';
 /*!
  * Tobi - Cookie
  * Copyright(c) 2010 LearnBoost <dev@learnboost.com>
@@ -65821,7 +66076,7 @@ module.exports.Jar = require('./jar')
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/cookie-jar/index.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/cookie-jar/jar.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/jar.js"}
 require.memoize("e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/jar.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/cookie-jar';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/cookie-jar';
 /*!
 * Tobi - CookieJar
 * Copyright(c) 2010 LearnBoost <dev@learnboost.com>
@@ -65899,7 +66154,7 @@ CookieJar.prototype.cookieString = function(req){
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/request/node_modules/cookie-jar/jar.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-loader-js/loader.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/./loader.js"}
 require.memoize("bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/./loader.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-loader-js';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-loader-js';
 /**
  * Author: Christoph Dorn <christoph@christophdorn.com>
  * [UNLICENSE](http://unlicense.org/)
@@ -66513,7 +66768,7 @@ function(require, exports, module) {var __dirname = 'test/assets/packages/requir
 , {"filename":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/node_modules/pinf-loader-js/loader.js"});
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib/vfs.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/vfs.js"}
 require.memoize("3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/vfs.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async-deep-pkg/node_modules/pinf-for-nodejs/lib';
 
 const PATH = require("__SYSTEM__/path");
 const UTIL = require("__SYSTEM__/util");

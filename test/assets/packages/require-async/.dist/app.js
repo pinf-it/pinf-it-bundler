@@ -2,7 +2,7 @@
 PINF.bundle("", function(require) {
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async/app.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/app.js"}
 require.memoize("/app.js", 
-function(require, exports, module) {var __dirname = 'test/assets/packages/require-async';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async';
 
 exports.main = function (callback) {
 	require.async("./extra", function(EXTRA) {

@@ -49,8 +49,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs/leaky",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple';\n\nvar GREETING = require(\"greeting\");\nvar LIB = require(\"./lib\");\n\nfunction main() {\n\tconsole.log(GREETING[LIB.getGreetingMethodName()]());\n}\n\nif (require.main === module) {\n\tmain();\n}\n\nreturn {\n    GREETING: (typeof GREETING !== \"undefined\") ? GREETING : null,\n    require: (typeof require !== \"undefined\") ? require : null,\n    LIB: (typeof LIB !== \"undefined\") ? LIB : null,\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-multiple';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-multiple';\n\nvar GREETING = require(\"greeting\");\nvar LIB = require(\"./lib\");\n\nfunction main() {\n\tconsole.log(GREETING[LIB.getGreetingMethodName()]());\n}\n\nif (require.main === module) {\n\tmain();\n}\n\nreturn {\n    GREETING: (typeof GREETING !== \"undefined\") ? GREETING : null,\n    require: (typeof require !== \"undefined\") ? require : null,\n    LIB: (typeof LIB !== \"undefined\") ? LIB : null,\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}",
                             "bottom": "return {\n    GREETING: (typeof GREETING !== \"undefined\") ? GREETING : null,\n    require: (typeof require !== \"undefined\") ? require : null,\n    LIB: (typeof LIB !== \"undefined\") ? LIB : null,\n    console: (typeof console !== \"undefined\") ? console : null\n};\n}"
                         },
                         "dependencies": {
@@ -103,8 +103,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/node_modules/greeting';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/node_modules/greeting';\n\nvar HELLO = require(\"words/hello\");\n\nexports.getGreeting = function() {\n\treturn HELLO.getWord() + \" World\";\n}\n\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-multiple/node_modules/greeting';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-multiple/node_modules/greeting';\n\nvar HELLO = require(\"words/hello\");\n\nexports.getGreeting = function() {\n\treturn HELLO.getWord() + \" World\";\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {
@@ -154,8 +154,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/node_modules/words';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/node_modules/words';\n\nvar LETTERS = require(\"letters\");\n\nexports.getWord = function() {\n\treturn \"H\" + LETTERS.getLetterE() + \"ll\" + LETTERS.getLetterO();\n}\n\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-multiple/node_modules/words';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-multiple/node_modules/words';\n\nvar LETTERS = require(\"letters\");\n\nexports.getWord = function() {\n\treturn \"H\" + LETTERS.getLetterE() + \"ll\" + LETTERS.getLetterO();\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {
@@ -211,8 +211,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/node_modules/words/node_modules/letters';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/node_modules/words/node_modules/letters';\n\nvar LETTER_E = require(\"letter-e/e\");\nvar LETTER_O = require(\"o\");\n\nexports.getLetterE = function() {\n\treturn LETTER_E.getLetter();\n}\n\nexports.getLetterO = function() {\n\treturn LETTER_O;\n}\n\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-multiple/node_modules/words/node_modules/letters';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-multiple/node_modules/words/node_modules/letters';\n\nvar LETTER_E = require(\"letter-e/e\");\nvar LETTER_O = require(\"o\");\n\nexports.getLetterE = function() {\n\treturn LETTER_E.getLetter();\n}\n\nexports.getLetterO = function() {\n\treturn LETTER_O;\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {
@@ -255,8 +255,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/node_modules/letter-e';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/node_modules/letter-e';\n\nexports.getLetter = function() {\n\treturn \"e\";\n}\n\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-multiple/node_modules/letter-e';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-multiple/node_modules/letter-e';\n\nexports.getLetter = function() {\n\treturn \"e\";\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {
@@ -292,8 +292,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs/leaky",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/node_modules/words/node_modules/o';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/node_modules/words/node_modules/o';\n\nmodule.exports = \"o\";\n\nreturn {\n    module: (typeof module !== \"undefined\") ? module : null\n};\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-multiple/node_modules/words/node_modules/o';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-multiple/node_modules/words/node_modules/o';\n\nmodule.exports = \"o\";\n\nreturn {\n    module: (typeof module !== \"undefined\") ? module : null\n};\n}",
                             "bottom": "return {\n    module: (typeof module !== \"undefined\") ? module : null\n};\n}"
                         },
                         "dependencies": {
@@ -329,8 +329,8 @@
                         },
                         "wrapper": {
                             "type": "commonjs",
-                            "top": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/lib';",
-                            "code": "function(require, exports, module) {var __dirname = 'test/assets/packages/nodejs-multiple/lib';\n\nexports.getGreetingMethodName = function() {\n\treturn \"getGreeting\";\n}\n\n}",
+                            "top": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-multiple/lib';",
+                            "code": "function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-multiple/lib';\n\nexports.getGreetingMethodName = function() {\n\treturn \"getGreeting\";\n}\n\n}",
                             "bottom": "}"
                         },
                         "dependencies": {

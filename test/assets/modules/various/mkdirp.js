@@ -2,7 +2,7 @@
 PINF.bundle("", function(require) {
 // @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/mkdirp.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"/mkdirp.js"}
 require.memoize("/mkdirp.js", 
-function(require, exports, module) {var __dirname = 'node_modules/pinf-it-module-insight/test/assets/various';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'node_modules/pinf-it-module-insight/test/assets/various';
 
 // @source https://github.com/substack/node-mkdirp/blob/c7f496f776741bafd589a93ddaeffafbde01a45c/index.js
 

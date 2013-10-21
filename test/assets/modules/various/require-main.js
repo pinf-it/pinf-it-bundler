@@ -2,7 +2,7 @@
 PINF.bundle("", function(require) {
 // @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/require-main.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"/require-main.js"}
 require.memoize("/require-main.js", 
-function(require, exports, module) {var __dirname = 'node_modules/pinf-it-module-insight/test/assets/various';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'node_modules/pinf-it-module-insight/test/assets/various';
 
 function main() {
 	console.log("Hello World");
