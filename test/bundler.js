@@ -52,6 +52,7 @@ describe('bundler', function() {
 				var basePath = PATH.join(rootPath, relPath);
 				var options = {
 					debug: DEBUG,
+					verbose: DEBUG,
 					test: !DEBUG,
 					rootPath: rootPath,
 					distPath: PATH.join("test/assets/modules", PATH.dirname(file)),
@@ -86,6 +87,9 @@ describe('bundler', function() {
 						}
 
 						return PINF_FOR_NODEJS.sandbox(PATH.join(options.distPath, PATH.basename(file)), {
+							debug: DEBUG,
+							verbose: DEBUG,
+							test: !DEBUG,
 							rootPath: rootPath,
 							globals: {
 						    	// Fake common globals.
@@ -178,6 +182,8 @@ describe('bundler', function() {
 			"packages/require-async-deep-pkg",  // This use-case needs a major speed improvement
 			"packages/require-async",
 			"packages/nodejs-to-browser"
+// TODO: Enable after we bundle based on catalog info.
+//			"packages/require-local-fallback"
 		].forEach(function(file) {
 
 			it('should bundle package - ' + file, function(done) {
@@ -324,8 +330,11 @@ describe('bundler', function() {
 											error: console.error
 										}
 									},
+									debug: DEBUG,
+									verbose: DEBUG,
+									test: !DEBUG,
 									rootPath: rootPath,
-									ensureAsync: helpers.ensureAsync,
+									ensureAsync: helpers.ensureAsync
 								}, function(sandbox) {
 									var returned = false;
 									function callback(err, result) {
