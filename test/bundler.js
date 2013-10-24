@@ -181,7 +181,8 @@ describe('bundler', function() {
 			"packages/nodejs-dynamic-require-declared",
 			"packages/require-async-deep-pkg",  // This use-case needs a major speed improvement
 			"packages/require-async",
-			"packages/nodejs-to-browser"
+			"packages/nodejs-to-browser",
+			"packages/same-file-dir"
 // TODO: Enable after we bundle based on catalog info.
 //			"packages/require-local-fallback"
 		].forEach(function(file) {
