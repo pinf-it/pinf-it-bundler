@@ -52,6 +52,9 @@ Development
 Links
 =====
 
+Integrate:
+
+  * https://github.com/philbooth/complexity-report
   * https://github.com/douglascrockford/JSDev
 
 

@@ -27,7 +27,8 @@
                     "pinf-it-program-insight": "c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight",
                     "pinf-it-bundler": "5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler",
                     "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
-                    "pinf-loader-js": "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js"
+                    "pinf-loader-js": "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js",
+                    "pinf-vfs": "ab49b00e842187d508f091e478b4238c6fe2d0a3-pinf-vfs"
                 },
                 "directories": {},
                 "libPath": ""
@@ -688,6 +689,280 @@
                     "lib": "."
                 },
                 "libPath": "./"
+            },
+            "ab49b00e842187d508f091e478b4238c6fe2d0a3-pinf-vfs": {
+                "main": "ab49b00e842187d508f091e478b4238c6fe2d0a3-pinf-vfs/lib/vfs.js",
+                "mappings": {
+                    "fs-extra": "0cd4f996887fe3bb7bc2cd80be8fa0fd126c16f7-fs-extra",
+                    "pinf-proxy": "48ac305cf012aab581c31105053b4890047c5b6d-pinf-proxy"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "0cd4f996887fe3bb7bc2cd80be8fa0fd126c16f7-fs-extra": {
+                "main": "0cd4f996887fe3bb7bc2cd80be8fa0fd126c16f7-fs-extra/lib/index.js",
+                "mappings": {
+                    "jsonfile": "f0cf96566f8deee1aba8c3070ea5abd34f317337-jsonfile",
+                    "mkdirp": "bdca6f6bb05c3632aee430d6241a1dbd0911e15a-mkdirp",
+                    "ncp": "5b58190f862ba6f32f6f0e093c46e52dc8f35a69-ncp",
+                    "rimraf": "01b1ac3d03a7540bee85c6aff3aa1107100237a3-rimraf"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "f0cf96566f8deee1aba8c3070ea5abd34f317337-jsonfile": {
+                "main": "f0cf96566f8deee1aba8c3070ea5abd34f317337-jsonfile/lib/jsonfile.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "bdca6f6bb05c3632aee430d6241a1dbd0911e15a-mkdirp": {
+                "main": "bdca6f6bb05c3632aee430d6241a1dbd0911e15a-mkdirp/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "5b58190f862ba6f32f6f0e093c46e52dc8f35a69-ncp": {
+                "main": "5b58190f862ba6f32f6f0e093c46e52dc8f35a69-ncp/lib/ncp.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "01b1ac3d03a7540bee85c6aff3aa1107100237a3-rimraf": {
+                "main": "01b1ac3d03a7540bee85c6aff3aa1107100237a3-rimraf/rimraf.js",
+                "mappings": {
+                    "graceful-fs": "c814390663f8380b26f556f4356a95d0860cc8fc-graceful-fs"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "c814390663f8380b26f556f4356a95d0860cc8fc-graceful-fs": {
+                "main": "c814390663f8380b26f556f4356a95d0860cc8fc-graceful-fs/graceful-fs.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "48ac305cf012aab581c31105053b4890047c5b6d-pinf-proxy": {
+                "main": "48ac305cf012aab581c31105053b4890047c5b6d-pinf-proxy/lib/proxy.js",
+                "mappings": {
+                    "http-proxy": "b6173b2c3e91af39055a6a41b7506a3421da49e0-http-proxy",
+                    "empty-port": "ced8d3a56b61a7bac1f8aa0f1d76859b38a5c95b-empty-port",
+                    "request": "685b4ff7635533ef39e3b122158d8cfa4980b301-request"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "b6173b2c3e91af39055a6a41b7506a3421da49e0-http-proxy": {
+                "main": "b6173b2c3e91af39055a6a41b7506a3421da49e0-http-proxy/lib/node-http-proxy.js",
+                "mappings": {
+                    "pkginfo": "b8a541404830c1d27cc31b32993830e7093c74ee-pkginfo",
+                    "utile": "d9d5999ac73aa88cff64de97f1d035e6e8ee8c1c-utile"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "b8a541404830c1d27cc31b32993830e7093c74ee-pkginfo": {
+                "main": "b8a541404830c1d27cc31b32993830e7093c74ee-pkginfo/lib/pkginfo.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "d9d5999ac73aa88cff64de97f1d035e6e8ee8c1c-utile": {
+                "main": "d9d5999ac73aa88cff64de97f1d035e6e8ee8c1c-utile/lib/index.js",
+                "mappings": {
+                    "async": "0c08d0ba45e15dd8f8ceecf76c44bee1a9a1b30d-async",
+                    "i": "6c4d72f866c8ff5607a472534b0f399c3d86c49f-i",
+                    "mkdirp": "9dee272ed9e5c28263eb5731e369dc4604b912a0-mkdirp",
+                    "deep-equal": "e5d63fec7a293cea2d3fe394908e396e2a312959-deep-equal",
+                    "rimraf": "10366b02d071a3b553102db687f0f7cf7de08547-rimraf",
+                    "ncp": "a434266567e763036a95b1043481a5a65bf21aed-ncp"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "6c4d72f866c8ff5607a472534b0f399c3d86c49f-i": {
+                "main": "6c4d72f866c8ff5607a472534b0f399c3d86c49f-i/lib/inflect.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "ced8d3a56b61a7bac1f8aa0f1d76859b38a5c95b-empty-port": {
+                "main": "ced8d3a56b61a7bac1f8aa0f1d76859b38a5c95b-empty-port/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "685b4ff7635533ef39e3b122158d8cfa4980b301-request": {
+                "main": "685b4ff7635533ef39e3b122158d8cfa4980b301-request/index.js",
+                "mappings": {
+                    "cookie-jar": "73bea46536a96037ec9d8ea77af2437c759af32f-cookie-jar",
+                    "qs": "c70b9b617a7da4031b6086f59e85be2a33adb799-qs",
+                    "oauth-sign": "a539f9d7ca6a8781e1ff659d774d5f222017a60d-oauth-sign",
+                    "hawk": "21b992eb47787ae5f2a2504b6e19ebe669798d74-hawk",
+                    "aws-sign": "fd19611375576f45cadda2116c3987363f8c18f2-aws-sign",
+                    "http-signature": "7833b9d03c0ee9e88086520874a535ab933e4e12-http-signature",
+                    "node-uuid": "c0e0c010944c64f22cbef7cbf6c98c6f92ff0bee-node-uuid",
+                    "mime": "605d0653b789e3de9801f6c70dc6806f10f3df59-mime",
+                    "tunnel-agent": "d84bcf6c67f6981373f5d572f45044309b8869e9-tunnel-agent",
+                    "json-stringify-safe": "676738dbbe6012d457627e1573854d4b0f783d3f-json-stringify-safe",
+                    "forever-agent": "7c9aa9a5db66cc2b7202a9768e97e9faa14bf42c-forever-agent",
+                    "form-data": "f701ab5006089176e28016f244aac960ca36eb37-form-data"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "73bea46536a96037ec9d8ea77af2437c759af32f-cookie-jar": {
+                "main": "73bea46536a96037ec9d8ea77af2437c759af32f-cookie-jar/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "c70b9b617a7da4031b6086f59e85be2a33adb799-qs": {
+                "main": "c70b9b617a7da4031b6086f59e85be2a33adb799-qs/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "a539f9d7ca6a8781e1ff659d774d5f222017a60d-oauth-sign": {
+                "main": "a539f9d7ca6a8781e1ff659d774d5f222017a60d-oauth-sign/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "21b992eb47787ae5f2a2504b6e19ebe669798d74-hawk": {
+                "main": "21b992eb47787ae5f2a2504b6e19ebe669798d74-hawk/index.js",
+                "mappings": {
+                    "boom": "534b5360ded0c3c17e9ae90e3ee7827aaa6afd7c-boom",
+                    "sntp": "0db6895d23a6b3ed7e47e5424765fddf9872645a-sntp",
+                    "hoek": "8b5ffa12b07b655d7ddd822fe6f304cbcba27506-hoek",
+                    "cryptiles": "2436c1f20cb989f24dc08457a81b5583c29bca0e-cryptiles"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "534b5360ded0c3c17e9ae90e3ee7827aaa6afd7c-boom": {
+                "main": "534b5360ded0c3c17e9ae90e3ee7827aaa6afd7c-boom/index.js",
+                "mappings": {
+                    "hoek": "8b5ffa12b07b655d7ddd822fe6f304cbcba27506-hoek"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "8b5ffa12b07b655d7ddd822fe6f304cbcba27506-hoek": {
+                "main": "8b5ffa12b07b655d7ddd822fe6f304cbcba27506-hoek/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "0db6895d23a6b3ed7e47e5424765fddf9872645a-sntp": {
+                "main": "0db6895d23a6b3ed7e47e5424765fddf9872645a-sntp/index.js",
+                "mappings": {
+                    "hoek": "8b5ffa12b07b655d7ddd822fe6f304cbcba27506-hoek"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "2436c1f20cb989f24dc08457a81b5583c29bca0e-cryptiles": {
+                "main": "2436c1f20cb989f24dc08457a81b5583c29bca0e-cryptiles/index.js",
+                "mappings": {
+                    "boom": "534b5360ded0c3c17e9ae90e3ee7827aaa6afd7c-boom"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "fd19611375576f45cadda2116c3987363f8c18f2-aws-sign": {
+                "main": "fd19611375576f45cadda2116c3987363f8c18f2-aws-sign/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "7833b9d03c0ee9e88086520874a535ab933e4e12-http-signature": {
+                "main": "7833b9d03c0ee9e88086520874a535ab933e4e12-http-signature/lib/index.js",
+                "mappings": {
+                    "assert-plus": "8f17ce5faccfa48645e3b9e946567a604b0f9f82-assert-plus",
+                    "asn1": "51bc2634e96db9b6e2392b3cd8683d6b46ae5ca8-asn1",
+                    "ctype": "13ae81dc847476dd3831d19e014331db131f77a8-ctype"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "8f17ce5faccfa48645e3b9e946567a604b0f9f82-assert-plus": {
+                "main": "8f17ce5faccfa48645e3b9e946567a604b0f9f82-assert-plus/assert.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "51bc2634e96db9b6e2392b3cd8683d6b46ae5ca8-asn1": {
+                "main": "51bc2634e96db9b6e2392b3cd8683d6b46ae5ca8-asn1/lib/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "13ae81dc847476dd3831d19e014331db131f77a8-ctype": {
+                "main": "13ae81dc847476dd3831d19e014331db131f77a8-ctype/ctype.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "c0e0c010944c64f22cbef7cbf6c98c6f92ff0bee-node-uuid": {
+                "main": "c0e0c010944c64f22cbef7cbf6c98c6f92ff0bee-node-uuid/uuid.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "605d0653b789e3de9801f6c70dc6806f10f3df59-mime": {
+                "main": "605d0653b789e3de9801f6c70dc6806f10f3df59-mime/mime.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "d84bcf6c67f6981373f5d572f45044309b8869e9-tunnel-agent": {
+                "main": "d84bcf6c67f6981373f5d572f45044309b8869e9-tunnel-agent/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "676738dbbe6012d457627e1573854d4b0f783d3f-json-stringify-safe": {
+                "main": "676738dbbe6012d457627e1573854d4b0f783d3f-json-stringify-safe/stringify.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "7c9aa9a5db66cc2b7202a9768e97e9faa14bf42c-forever-agent": {
+                "main": "7c9aa9a5db66cc2b7202a9768e97e9faa14bf42c-forever-agent/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "f701ab5006089176e28016f244aac960ca36eb37-form-data": {
+                "main": "f701ab5006089176e28016f244aac960ca36eb37-form-data/lib/form_data.js",
+                "mappings": {
+                    "combined-stream": "c8a9ce490875f9a5f05a0370574a0bd596c19ba5-combined-stream",
+                    "mime": "605d0653b789e3de9801f6c70dc6806f10f3df59-mime",
+                    "async": "c90badc3722442d4e2cbe8b8d9c1905879911a3e-async"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "c8a9ce490875f9a5f05a0370574a0bd596c19ba5-combined-stream": {
+                "main": "c8a9ce490875f9a5f05a0370574a0bd596c19ba5-combined-stream/lib/combined_stream.js",
+                "mappings": {
+                    "delayed-stream": "a2ea37a3a6533f9397892010c93174e37d25765b-delayed-stream"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "a2ea37a3a6533f9397892010c93174e37d25765b-delayed-stream": {
+                "main": "a2ea37a3a6533f9397892010c93174e37d25765b-delayed-stream/lib/delayed_stream.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "c90badc3722442d4e2cbe8b8d9c1905879911a3e-async": {
+                "main": "c90badc3722442d4e2cbe8b8d9c1905879911a3e-async/lib/async.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
             }
         },
         "modules": {
@@ -713,7 +988,7 @@
                 "exports": 3
             },
             "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/lib/index.js": {
-                "exports": 115
+                "exports": 114
             },
             "95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile/lib/jsonfile.js": {
                 "exports": 5
@@ -1169,7 +1444,246 @@
                 "exports": 5
             },
             "3d651410283fe41ff53775736a29d43f95b1f37f-pinf-for-nodejs/lib/vfs.js": {
+                "exports": 4
+            },
+            "ab49b00e842187d508f091e478b4238c6fe2d0a3-pinf-vfs/lib/vfs.js": {
+                "exports": 4
+            },
+            "0cd4f996887fe3bb7bc2cd80be8fa0fd126c16f7-fs-extra/lib/index.js": {
+                "exports": 115
+            },
+            "f0cf96566f8deee1aba8c3070ea5abd34f317337-jsonfile/lib/jsonfile.js": {
+                "exports": 5
+            },
+            "0cd4f996887fe3bb7bc2cd80be8fa0fd126c16f7-fs-extra/lib/json.js": {
+                "exports": 2
+            },
+            "0cd4f996887fe3bb7bc2cd80be8fa0fd126c16f7-fs-extra/lib/mkdir.js": {
+                "exports": 2
+            },
+            "bdca6f6bb05c3632aee430d6241a1dbd0911e15a-mkdirp/index.js": {
                 "exports": 3
+            },
+            "0cd4f996887fe3bb7bc2cd80be8fa0fd126c16f7-fs-extra/lib/copy.js": {
+                "exports": 3
+            },
+            "5b58190f862ba6f32f6f0e093c46e52dc8f35a69-ncp/lib/ncp.js": {
+                "exports": 1
+            },
+            "0cd4f996887fe3bb7bc2cd80be8fa0fd126c16f7-fs-extra/lib/remove.js": {
+                "exports": 2
+            },
+            "01b1ac3d03a7540bee85c6aff3aa1107100237a3-rimraf/rimraf.js": {
+                "exports": 1
+            },
+            "c814390663f8380b26f556f4356a95d0860cc8fc-graceful-fs/graceful-fs.js": {
+                "exports": 78
+            },
+            "c814390663f8380b26f556f4356a95d0860cc8fc-graceful-fs/polyfills.js": {
+                "exports": 14
+            },
+            "0cd4f996887fe3bb7bc2cd80be8fa0fd126c16f7-fs-extra/lib/create.js": {
+                "exports": 2
+            },
+            "0cd4f996887fe3bb7bc2cd80be8fa0fd126c16f7-fs-extra/lib/output.js": {
+                "exports": 2
+            },
+            "48ac305cf012aab581c31105053b4890047c5b6d-pinf-proxy/lib/proxy.js": {
+                "exports": 4
+            },
+            "b6173b2c3e91af39055a6a41b7506a3421da49e0-http-proxy/lib/node-http-proxy.js": {
+                "exports": 1
+            },
+            "b8a541404830c1d27cc31b32993830e7093c74ee-pkginfo/lib/pkginfo.js": {
+                "exports": 3
+            },
+            "b6173b2c3e91af39055a6a41b7506a3421da49e0-http-proxy/lib/node-http-proxy/http-proxy.js": {
+                "exports": 1
+            },
+            "b6173b2c3e91af39055a6a41b7506a3421da49e0-http-proxy/lib/node-http-proxy/proxy-table.js": {
+                "exports": 1
+            },
+            "b6173b2c3e91af39055a6a41b7506a3421da49e0-http-proxy/lib/node-http-proxy/routing-proxy.js": {
+                "exports": 1
+            },
+            "d9d5999ac73aa88cff64de97f1d035e6e8ee8c1c-utile/lib/index.js": {
+                "exports": 33
+            },
+            "0c08d0ba45e15dd8f8ceecf76c44bee1a9a1b30d-async/index.js": {},
+            "0c08d0ba45e15dd8f8ceecf76c44bee1a9a1b30d-async/lib/async.js": {},
+            "6c4d72f866c8ff5607a472534b0f399c3d86c49f-i/lib/inflect.js": {
+                "exports": 0
+            },
+            "6c4d72f866c8ff5607a472534b0f399c3d86c49f-i/lib/methods.js": {
+                "exports": 15
+            },
+            "6c4d72f866c8ff5607a472534b0f399c3d86c49f-i/lib/util.js": {
+                "exports": 2
+            },
+            "6c4d72f866c8ff5607a472534b0f399c3d86c49f-i/lib/inflections.js": {
+                "exports": 11
+            },
+            "6c4d72f866c8ff5607a472534b0f399c3d86c49f-i/lib/defaults.js": {
+                "exports": 0
+            },
+            "6c4d72f866c8ff5607a472534b0f399c3d86c49f-i/lib/native.js": {},
+            "9dee272ed9e5c28263eb5731e369dc4604b912a0-mkdirp/index.js": {},
+            "e5d63fec7a293cea2d3fe394908e396e2a312959-deep-equal/index.js": {},
+            "10366b02d071a3b553102db687f0f7cf7de08547-rimraf/rimraf.js": {},
+            "a434266567e763036a95b1043481a5a65bf21aed-ncp/lib/ncp.js": {},
+            "d9d5999ac73aa88cff64de97f1d035e6e8ee8c1c-utile/lib/file.js": {},
+            "d9d5999ac73aa88cff64de97f1d035e6e8ee8c1c-utile/lib/args.js": {},
+            "d9d5999ac73aa88cff64de97f1d035e6e8ee8c1c-utile/lib/base64.js": {},
+            "d9d5999ac73aa88cff64de97f1d035e6e8ee8c1c-utile/lib/format.js": {},
+            "ced8d3a56b61a7bac1f8aa0f1d76859b38a5c95b-empty-port/index.js": {
+                "exports": 0
+            },
+            "685b4ff7635533ef39e3b122158d8cfa4980b301-request/index.js": {
+                "exports": 13
+            },
+            "73bea46536a96037ec9d8ea77af2437c759af32f-cookie-jar/index.js": {
+                "exports": 1
+            },
+            "73bea46536a96037ec9d8ea77af2437c759af32f-cookie-jar/jar.js": {
+                "exports": 0
+            },
+            "685b4ff7635533ef39e3b122158d8cfa4980b301-request/lib/copy.js": {
+                "exports": 0
+            },
+            "685b4ff7635533ef39e3b122158d8cfa4980b301-request/request.js": {
+                "exports": 1
+            },
+            "c70b9b617a7da4031b6086f59e85be2a33adb799-qs/index.js": {
+                "exports": 2
+            },
+            "a539f9d7ca6a8781e1ff659d774d5f222017a60d-oauth-sign/index.js": {
+                "exports": 2
+            },
+            "21b992eb47787ae5f2a2504b6e19ebe669798d74-hawk/index.js": {
+                "exports": 8
+            },
+            "21b992eb47787ae5f2a2504b6e19ebe669798d74-hawk/lib/index.js": {
+                "exports": 8
+            },
+            "534b5360ded0c3c17e9ae90e3ee7827aaa6afd7c-boom/index.js": {
+                "exports": 9
+            },
+            "534b5360ded0c3c17e9ae90e3ee7827aaa6afd7c-boom/lib/index.js": {
+                "exports": 9
+            },
+            "8b5ffa12b07b655d7ddd822fe6f304cbcba27506-hoek/index.js": {
+                "exports": 32
+            },
+            "8b5ffa12b07b655d7ddd822fe6f304cbcba27506-hoek/lib/index.js": {
+                "exports": 32
+            },
+            "8b5ffa12b07b655d7ddd822fe6f304cbcba27506-hoek/lib/escape.js": {
+                "exports": 2
+            },
+            "0db6895d23a6b3ed7e47e5424765fddf9872645a-sntp/index.js": {
+                "exports": 6
+            },
+            "0db6895d23a6b3ed7e47e5424765fddf9872645a-sntp/lib/index.js": {
+                "exports": 6
+            },
+            "21b992eb47787ae5f2a2504b6e19ebe669798d74-hawk/lib/server.js": {
+                "exports": 5
+            },
+            "2436c1f20cb989f24dc08457a81b5583c29bca0e-cryptiles/index.js": {
+                "exports": 3
+            },
+            "2436c1f20cb989f24dc08457a81b5583c29bca0e-cryptiles/lib/index.js": {
+                "exports": 3
+            },
+            "21b992eb47787ae5f2a2504b6e19ebe669798d74-hawk/lib/crypto.js": {
+                "exports": 8
+            },
+            "21b992eb47787ae5f2a2504b6e19ebe669798d74-hawk/lib/utils.js": {
+                "exports": 39
+            },
+            "21b992eb47787ae5f2a2504b6e19ebe669798d74-hawk/lib/client.js": {
+                "exports": 4
+            },
+            "fd19611375576f45cadda2116c3987363f8c18f2-aws-sign/index.js": {
+                "exports": 7
+            },
+            "7833b9d03c0ee9e88086520874a535ab933e4e12-http-signature/lib/index.js": {
+                "exports": 8
+            },
+            "7833b9d03c0ee9e88086520874a535ab933e4e12-http-signature/lib/parser.js": {
+                "exports": 1
+            },
+            "8f17ce5faccfa48645e3b9e946567a604b0f9f82-assert-plus/assert.js": {
+                "exports": 38
+            },
+            "7833b9d03c0ee9e88086520874a535ab933e4e12-http-signature/lib/signer.js": {
+                "exports": 1
+            },
+            "7833b9d03c0ee9e88086520874a535ab933e4e12-http-signature/lib/verify.js": {
+                "exports": 1
+            },
+            "7833b9d03c0ee9e88086520874a535ab933e4e12-http-signature/lib/util.js": {
+                "exports": 2
+            },
+            "51bc2634e96db9b6e2392b3cd8683d6b46ae5ca8-asn1/lib/index.js": {
+                "exports": 3
+            },
+            "51bc2634e96db9b6e2392b3cd8683d6b46ae5ca8-asn1/lib/ber/index.js": {
+                "exports": 34
+            },
+            "51bc2634e96db9b6e2392b3cd8683d6b46ae5ca8-asn1/lib/ber/errors.js": {
+                "exports": 1
+            },
+            "51bc2634e96db9b6e2392b3cd8683d6b46ae5ca8-asn1/lib/ber/types.js": {
+                "exports": 31
+            },
+            "51bc2634e96db9b6e2392b3cd8683d6b46ae5ca8-asn1/lib/ber/reader.js": {
+                "exports": 0
+            },
+            "51bc2634e96db9b6e2392b3cd8683d6b46ae5ca8-asn1/lib/ber/writer.js": {
+                "exports": 0
+            },
+            "13ae81dc847476dd3831d19e014331db131f77a8-ctype/ctype.js": {
+                "exports": 24
+            },
+            "13ae81dc847476dd3831d19e014331db131f77a8-ctype/ctf.js": {
+                "exports": 1
+            },
+            "13ae81dc847476dd3831d19e014331db131f77a8-ctype/ctio.js": {
+                "exports": 20
+            },
+            "c0e0c010944c64f22cbef7cbf6c98c6f92ff0bee-node-uuid/uuid.js": {
+                "exports": 5
+            },
+            "605d0653b789e3de9801f6c70dc6806f10f3df59-mime/mime.js": {
+                "exports": 10
+            },
+            "d84bcf6c67f6981373f5d572f45044309b8869e9-tunnel-agent/index.js": {
+                "exports": 5
+            },
+            "676738dbbe6012d457627e1573854d4b0f783d3f-json-stringify-safe/stringify.js": {
+                "exports": 1
+            },
+            "7c9aa9a5db66cc2b7202a9768e97e9faa14bf42c-forever-agent/index.js": {
+                "exports": 3
+            },
+            "f701ab5006089176e28016f244aac960ca36eb37-form-data/lib/form_data.js": {
+                "exports": 2
+            },
+            "c8a9ce490875f9a5f05a0370574a0bd596c19ba5-combined-stream/lib/combined_stream.js": {
+                "exports": 3
+            },
+            "a2ea37a3a6533f9397892010c93174e37d25765b-delayed-stream/lib/delayed_stream.js": {
+                "exports": 2
+            },
+            "c90badc3722442d4e2cbe8b8d9c1905879911a3e-async/lib/async.js": {
+                "exports": 55
+            },
+            "685b4ff7635533ef39e3b122158d8cfa4980b301-request/lib/debug.js": {
+                "exports": 0
+            },
+            "685b4ff7635533ef39e3b122158d8cfa4980b301-request/lib/getSafe.js": {
+                "exports": 0
             },
             "f1a425f1dbc850b26bfb40c809d7236c66018f22-fs-extra/package.json": {},
             "95e0d4cfbe6545ea046a3075e731b9d8c219ada1-jsonfile/package.json": {},
@@ -1267,7 +1781,48 @@
             "1bec134004038e4c00058fd84d773149d7b2e1c9-delayed-stream/package.json": {},
             "2e7a010e5b40e11bb94eb021d6eca99d00679e86-async/package.json": {},
             "e33e833ecc82726cf7ce002eee574891314ea230-cookie-jar/package.json": {},
-            "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/package.json": {}
+            "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js/package.json": {},
+            "ab49b00e842187d508f091e478b4238c6fe2d0a3-pinf-vfs/package.json": {},
+            "0cd4f996887fe3bb7bc2cd80be8fa0fd126c16f7-fs-extra/package.json": {},
+            "f0cf96566f8deee1aba8c3070ea5abd34f317337-jsonfile/package.json": {},
+            "bdca6f6bb05c3632aee430d6241a1dbd0911e15a-mkdirp/package.json": {},
+            "5b58190f862ba6f32f6f0e093c46e52dc8f35a69-ncp/package.json": {},
+            "01b1ac3d03a7540bee85c6aff3aa1107100237a3-rimraf/package.json": {},
+            "c814390663f8380b26f556f4356a95d0860cc8fc-graceful-fs/package.json": {},
+            "48ac305cf012aab581c31105053b4890047c5b6d-pinf-proxy/package.json": {},
+            "b6173b2c3e91af39055a6a41b7506a3421da49e0-http-proxy/package.json": {},
+            "b8a541404830c1d27cc31b32993830e7093c74ee-pkginfo/package.json": {},
+            "d9d5999ac73aa88cff64de97f1d035e6e8ee8c1c-utile/package.json": {},
+            "0c08d0ba45e15dd8f8ceecf76c44bee1a9a1b30d-async/package.json": {},
+            "6c4d72f866c8ff5607a472534b0f399c3d86c49f-i/package.json": {},
+            "9dee272ed9e5c28263eb5731e369dc4604b912a0-mkdirp/package.json": {},
+            "e5d63fec7a293cea2d3fe394908e396e2a312959-deep-equal/package.json": {},
+            "10366b02d071a3b553102db687f0f7cf7de08547-rimraf/package.json": {},
+            "a434266567e763036a95b1043481a5a65bf21aed-ncp/package.json": {},
+            "ced8d3a56b61a7bac1f8aa0f1d76859b38a5c95b-empty-port/package.json": {},
+            "685b4ff7635533ef39e3b122158d8cfa4980b301-request/package.json": {},
+            "73bea46536a96037ec9d8ea77af2437c759af32f-cookie-jar/package.json": {},
+            "c70b9b617a7da4031b6086f59e85be2a33adb799-qs/package.json": {},
+            "a539f9d7ca6a8781e1ff659d774d5f222017a60d-oauth-sign/package.json": {},
+            "21b992eb47787ae5f2a2504b6e19ebe669798d74-hawk/package.json": {},
+            "534b5360ded0c3c17e9ae90e3ee7827aaa6afd7c-boom/package.json": {},
+            "8b5ffa12b07b655d7ddd822fe6f304cbcba27506-hoek/package.json": {},
+            "0db6895d23a6b3ed7e47e5424765fddf9872645a-sntp/package.json": {},
+            "2436c1f20cb989f24dc08457a81b5583c29bca0e-cryptiles/package.json": {},
+            "fd19611375576f45cadda2116c3987363f8c18f2-aws-sign/package.json": {},
+            "7833b9d03c0ee9e88086520874a535ab933e4e12-http-signature/package.json": {},
+            "8f17ce5faccfa48645e3b9e946567a604b0f9f82-assert-plus/package.json": {},
+            "51bc2634e96db9b6e2392b3cd8683d6b46ae5ca8-asn1/package.json": {},
+            "13ae81dc847476dd3831d19e014331db131f77a8-ctype/package.json": {},
+            "c0e0c010944c64f22cbef7cbf6c98c6f92ff0bee-node-uuid/package.json": {},
+            "605d0653b789e3de9801f6c70dc6806f10f3df59-mime/package.json": {},
+            "d84bcf6c67f6981373f5d572f45044309b8869e9-tunnel-agent/package.json": {},
+            "676738dbbe6012d457627e1573854d4b0f783d3f-json-stringify-safe/package.json": {},
+            "7c9aa9a5db66cc2b7202a9768e97e9faa14bf42c-forever-agent/package.json": {},
+            "f701ab5006089176e28016f244aac960ca36eb37-form-data/package.json": {},
+            "c8a9ce490875f9a5f05a0370574a0bd596c19ba5-combined-stream/package.json": {},
+            "a2ea37a3a6533f9397892010c93174e37d25765b-delayed-stream/package.json": {},
+            "c90badc3722442d4e2cbe8b8d9c1905879911a3e-async/package.json": {}
         }
     }
 }

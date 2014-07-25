@@ -433,7 +433,9 @@
                                         "deepcopy": "~0.3.1",
                                         "require.async": "~0.1.1",
                                         "send": "~0.1.4",
-                                        "pinf-it-bundler": "github.com/pinf-it/pinf-it-bundler/~0.1.1"
+                                        "pinf-it-bundler": "github.com/pinf-it/pinf-it-bundler/~0.1.1",
+                                        "pinf-config": "github.com/pinf/pinf-config-js/~0.1.0",
+                                        "pinf-vfs": "github.com/pinf/pinf-vfs-js/~0.1.0"
                                     },
                                     "devDependencies": {
                                         "mocha": "~1.9.0",
@@ -443,7 +445,9 @@
                                         "pinf-loader-js": "github.com/pinf/pinf-loader-js/~0.4.5"
                                     },
                                     "mappings": {
-                                        "pinf-it-bundler": "github.com/pinf-it/pinf-it-bundler/~0.1.1"
+                                        "pinf-it-bundler": "github.com/pinf-it/pinf-it-bundler/~0.1.1",
+                                        "pinf-config": "github.com/pinf/pinf-config-js/~0.1.0",
+                                        "pinf-vfs": "github.com/pinf/pinf-vfs-js/~0.1.0"
                                     },
                                     "devMappings": {
                                         "pinf-loader-js": "github.com/pinf/pinf-loader-js/~0.4.5"
@@ -523,11 +527,13 @@
                                             "grunt": "./node_modules/grunt",
                                             "grunt-mocha": "./node_modules/grunt-mocha",
                                             "mocha": "./node_modules/mocha",
+                                            "pinf-config": "./node_modules/pinf-config",
                                             "pinf-it-bundler": "./node_modules/pinf-it-bundler",
                                             "pinf-it-package-insight": "./node_modules/pinf-it-package-insight",
                                             "pinf-it-program-insight": "./node_modules/pinf-it-program-insight",
                                             "pinf-loader-js": "./node_modules/pinf-loader-js",
                                             "pinf-primitives-js": "./node_modules/pinf-primitives-js",
+                                            "pinf-vfs": "./node_modules/pinf-vfs",
                                             "q": "./node_modules/q",
                                             "request": "./node_modules/request",
                                             "require.async": "./node_modules/require.async",
@@ -545,11 +551,13 @@
                                         "grunt": "55f01c620b3d1cc371c82a0e0c9cc18f417ad695-grunt",
                                         "grunt-mocha": "9ad2352e0c6c710deead157e42c91c5c7e6df9b5-grunt-mocha",
                                         "mocha": "c19842501527f9b5e9735e50b7adfdf0a03cd592-mocha",
+                                        "pinf-config": "2a6790ce1c3f6fa7f562efe0d6bdaffb57ca2c60-pinf-config",
                                         "pinf-it-bundler": "5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler",
                                         "pinf-it-package-insight": "a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insight",
                                         "pinf-it-program-insight": "c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight",
                                         "pinf-loader-js": "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js",
                                         "pinf-primitives-js": "76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js",
+                                        "pinf-vfs": "ab49b00e842187d508f091e478b4238c6fe2d0a3-pinf-vfs",
                                         "q": "5a0ccec13f2baa749563c93e0d37f93136dc5579-q",
                                         "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
                                         "require.async": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async",
@@ -578,7 +586,9 @@
                                             "deepcopy": "~0.3.1",
                                             "require.async": "~0.1.1",
                                             "send": "~0.1.4",
-                                            "pinf-it-bundler": "github.com/pinf-it/pinf-it-bundler/~0.1.1"
+                                            "pinf-it-bundler": "github.com/pinf-it/pinf-it-bundler/~0.1.1",
+                                            "pinf-config": "github.com/pinf/pinf-config-js/~0.1.0",
+                                            "pinf-vfs": "github.com/pinf/pinf-vfs-js/~0.1.0"
                                         },
                                         "development": {
                                             "mocha": "~1.9.0",
@@ -597,11 +607,13 @@
                                             "grunt": "./node_modules/grunt",
                                             "grunt-mocha": "./node_modules/grunt-mocha",
                                             "mocha": "./node_modules/mocha",
+                                            "pinf-config": "./node_modules/pinf-config",
                                             "pinf-it-bundler": "./node_modules/pinf-it-bundler",
                                             "pinf-it-package-insight": "./node_modules/pinf-it-package-insight",
                                             "pinf-it-program-insight": "./node_modules/pinf-it-program-insight",
                                             "pinf-loader-js": "./node_modules/pinf-loader-js",
                                             "pinf-primitives-js": "./node_modules/pinf-primitives-js",
+                                            "pinf-vfs": "./node_modules/pinf-vfs",
                                             "q": "./node_modules/q",
                                             "request": "./node_modules/request",
                                             "require.async": "./node_modules/require.async",
@@ -683,11 +695,13 @@
                                         "grunt": "55f01c620b3d1cc371c82a0e0c9cc18f417ad695-grunt",
                                         "grunt-mocha": "9ad2352e0c6c710deead157e42c91c5c7e6df9b5-grunt-mocha",
                                         "mocha": "c19842501527f9b5e9735e50b7adfdf0a03cd592-mocha",
+                                        "pinf-config": "2a6790ce1c3f6fa7f562efe0d6bdaffb57ca2c60-pinf-config",
                                         "pinf-it-bundler": "5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler",
                                         "pinf-it-package-insight": "a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insight",
                                         "pinf-it-program-insight": "c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight",
                                         "pinf-loader-js": "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js",
                                         "pinf-primitives-js": "76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js",
+                                        "pinf-vfs": "ab49b00e842187d508f091e478b4238c6fe2d0a3-pinf-vfs",
                                         "q": "5a0ccec13f2baa749563c93e0d37f93136dc5579-q",
                                         "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
                                         "require.async": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async",
@@ -717,7 +731,9 @@
                                         "deepcopy": "~0.3.1",
                                         "require.async": "~0.1.1",
                                         "send": "~0.1.4",
-                                        "pinf-it-bundler": "github.com/pinf-it/pinf-it-bundler/~0.1.1"
+                                        "pinf-it-bundler": "github.com/pinf-it/pinf-it-bundler/~0.1.1",
+                                        "pinf-config": "github.com/pinf/pinf-config-js/~0.1.0",
+                                        "pinf-vfs": "github.com/pinf/pinf-vfs-js/~0.1.0"
                                     },
                                     "development": {
                                         "mocha": "~1.9.0",
@@ -736,11 +752,13 @@
                                         "grunt": "./node_modules/grunt",
                                         "grunt-mocha": "./node_modules/grunt-mocha",
                                         "mocha": "./node_modules/mocha",
+                                        "pinf-config": "./node_modules/pinf-config",
                                         "pinf-it-bundler": "./node_modules/pinf-it-bundler",
                                         "pinf-it-package-insight": "./node_modules/pinf-it-package-insight",
                                         "pinf-it-program-insight": "./node_modules/pinf-it-program-insight",
                                         "pinf-loader-js": "./node_modules/pinf-loader-js",
                                         "pinf-primitives-js": "./node_modules/pinf-primitives-js",
+                                        "pinf-vfs": "./node_modules/pinf-vfs",
                                         "q": "./node_modules/q",
                                         "request": "./node_modules/request",
                                         "require.async": "./node_modules/require.async",
@@ -822,11 +840,13 @@
                                     "grunt": "55f01c620b3d1cc371c82a0e0c9cc18f417ad695-grunt",
                                     "grunt-mocha": "9ad2352e0c6c710deead157e42c91c5c7e6df9b5-grunt-mocha",
                                     "mocha": "c19842501527f9b5e9735e50b7adfdf0a03cd592-mocha",
+                                    "pinf-config": "2a6790ce1c3f6fa7f562efe0d6bdaffb57ca2c60-pinf-config",
                                     "pinf-it-bundler": "5aa4f8236a7c406bfaf61838e207a3e9254be2e6-pinf-it-bundler",
                                     "pinf-it-package-insight": "a71ccb4796135a5855ebb040bc30dc6e9a260ec7-pinf-it-package-insight",
                                     "pinf-it-program-insight": "c6035683eb37f4f966e46471e9a2606bd8fc5934-pinf-it-program-insight",
                                     "pinf-loader-js": "bebbcc612a5e00daf16d3661623ac92c82be881e-pinf-loader-js",
                                     "pinf-primitives-js": "76a2f12f0a8696a3a9d97df34f43db89b9601bda-pinf-primitives-js",
+                                    "pinf-vfs": "ab49b00e842187d508f091e478b4238c6fe2d0a3-pinf-vfs",
                                     "q": "5a0ccec13f2baa749563c93e0d37f93136dc5579-q",
                                     "request": "e8f0a2e912c12fb986839ec2212f3c6e4aa79037-request",
                                     "require.async": "f49fa9ddb2d9f9b859bcb1c1c85478a78e23ba61-require.async",
