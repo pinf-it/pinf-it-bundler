@@ -44,14 +44,6 @@
             },
             "16117a71d212e842209fc0336b7b2cf0572a5023-rimraf": {
                 "main": "16117a71d212e842209fc0336b7b2cf0572a5023-rimraf/rimraf.js",
-                "mappings": {
-                    "graceful-fs": "8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs"
-                },
-                "directories": {},
-                "libPath": ""
-            },
-            "8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs": {
-                "main": "8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/graceful-fs.js",
                 "mappings": {},
                 "directories": {},
                 "libPath": ""
@@ -234,7 +226,7 @@
                 "exports": 6
             },
             "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/index.js": {
-                "exports": 114
+                "exports": 108
             },
             "d5ba5d20168aa9175f55feda3f60aab1a6ace818-jsonfile/lib/jsonfile.js": {
                 "exports": 5
@@ -259,12 +251,6 @@
             },
             "16117a71d212e842209fc0336b7b2cf0572a5023-rimraf/rimraf.js": {
                 "exports": 1
-            },
-            "8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/graceful-fs.js": {
-                "exports": 78
-            },
-            "8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/polyfills.js": {
-                "exports": 14
             },
             "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/create.js": {
                 "exports": 2
@@ -411,7 +397,7 @@
                 "exports": 2
             },
             "257a70b6290719603e5079400727f3d2d2d1b03a-async/lib/async.js": {
-                "exports": 55
+                "exports": 58
             },
             "ed4bb06796db1905581e7b400da006dd7b8b1b55-request/lib/debug.js": {
                 "exports": 0
@@ -425,7 +411,6 @@
             "693ec9cb1f2f61428c63e9cd17e57775f4df0f74-mkdirp/package.json": {},
             "c99227b03d285ab9292c0748af53c56ffc9ac859-ncp/package.json": {},
             "16117a71d212e842209fc0336b7b2cf0572a5023-rimraf/package.json": {},
-            "8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/package.json": {},
             "ed4bb06796db1905581e7b400da006dd7b8b1b55-request/package.json": {},
             "96d6c97b8f07f8f227fbeb5b214187b162ad8c7c-cookie-jar/package.json": {},
             "bad905498fb7a8a034fa664d6ed1a9c67f1b189c-qs/package.json": {},

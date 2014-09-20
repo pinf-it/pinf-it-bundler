@@ -20,6 +20,8 @@ function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test
 
 require("require.async")(require);
 
+const PATH = require("__SYSTEM__/path");
+
 
 exports.main = function(main, module, options, callback) {
 	if (typeof module === "function" && typeof options === "undefined" && typeof callback === "undefined") {
@@ -79,7 +81,20 @@ exports.main = function(main, module, options, callback) {
 	//       Only load cache module and determine cache path by looking at PINF_RUNTIME and own package uid (use pinf-primitives-js to do this).
 	//		 Cache module is in primitives package as well.
 	return require.async("./context", function(CONTEXT) {
-		return CONTEXT.contextForModule(module, options, function(err, context) {
+
+		var opts = {};
+		for (var name in options) {
+			opts[name] = options[name];
+		}
+
+		if (typeof opts.PINF_PROGRAM === "undefined") {
+			opts.PINF_PROGRAM = PATH.join(__dirname, "program.json");
+		}
+		if (typeof options.PINF_RUNTIME === "undefined") {
+	        opts.PINF_RUNTIME = "";
+	    }
+
+		return CONTEXT.contextForModule(module, opts, function(err, context) {
 			if (err) return done(err);
 		    try {
 		    	var opts = {};
