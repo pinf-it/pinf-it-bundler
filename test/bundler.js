@@ -12,7 +12,7 @@ const PINF_FOR_NODEJS = require("pinf-for-nodejs");
 //const MODE = "test";
 const MODE = "write";
 
-const DEBUG = true;
+const DEBUG = false;
 
 describe('bundler', function() {
 
@@ -23,7 +23,7 @@ describe('bundler', function() {
 	it('should export `bundlePackage()`', function() {
 		ASSERT(typeof BUNDLER.bundlePackage === "function");
 	});
-/*
+
 	describe('`bundleFile()`', function() {
 
 		this.timeout(20 * 1000);
@@ -159,7 +159,7 @@ describe('bundler', function() {
 			});
 		});
 	});
-*/
+
 	describe('`bundlePackage()`', function() {
 
 		this.timeout(120 * 1000);
