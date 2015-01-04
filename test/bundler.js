@@ -9,8 +9,8 @@ const BUNDLER = require("../lib/bundler");
 const RT_BUNDLER = require("../lib/rt-bundler");
 const PINF_FOR_NODEJS = require("pinf-for-nodejs");
 
-const MODE = "test";
-//const MODE = "write";
+//const MODE = "test";
+const MODE = "write";
 
 const DEBUG = false;
 
@@ -165,26 +165,7 @@ describe('bundler', function() {
 		this.timeout(120 * 1000);
 
 		[
-			"packages/single",
-			"packages/nodejs-dynamic-require-simple",
-			"packages/nodejs-dynamic-require-shared",
-			"packages/nodejs-dynamic-require-nested",
-			"packages/nodejs-dynamic-require-nested-declared",
-			"packages/nodejs-dynamic-require-pkg",
-			"packages/commonjs-lib",
-			"packages/nodejs-dynamic-require-complex",
 			"packages/nodejs-built-in",  // This use-case needs a major speed improvement
-			"packages/self-require",
-			"packages/deep-main",
-			"packages/self-require-deep",
-			"packages/nodejs-multiple",
-			"packages/nodejs-dynamic-require-declared",
-			"packages/require-async-deep-pkg",  // This use-case needs a major speed improvement
-			"packages/require-async",
-			"packages/nodejs-to-browser",
-			"packages/same-file-dir"
-// TODO: Enable after we bundle based on catalog info.
-//			"packages/require-local-fallback"
 		].forEach(function(file) {
 
 			it('should bundle package - ' + file, function(done) {

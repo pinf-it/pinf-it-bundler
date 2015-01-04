@@ -778,15 +778,9 @@ function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'node
 module.exports = rimraf
 rimraf.sync = rimrafSync
 
+var assert = require("__SYSTEM__/assert")
 var path = require("__SYSTEM__/path")
-  , fs
-
-try {
-  // optional dependency
-  fs = require("graceful-fs")
-} catch (er) {
-  fs = require("__SYSTEM__/fs")
-}
+var fs = require("__SYSTEM__/fs")
 
 // for EMFILE handling
 var timeout = 0
@@ -795,25 +789,51 @@ exports.BUSYTRIES_MAX = 3
 
 var isWindows = (process.platform === "win32")
 
-function rimraf (p, cb) {
+function defaults (options) {
+  var methods = [
+    'unlink',
+    'chmod',
+    'stat',
+    'rmdir',
+    'readdir'
+  ]
+  methods.forEach(function(m) {
+    options[m] = options[m] || fs[m]
+    m = m + 'Sync'
+    options[m] = options[m] || fs[m]
+  })
+}
+
+function rimraf (p, options, cb) {
+  if (typeof options === 'function') {
+    cb = options
+    options = {}
+  }
+  assert(p)
+  assert(options)
+  assert(typeof cb === 'function')
+
+  defaults(options)
+
   if (!cb) throw new Error("No callback passed to rimraf()")
 
   var busyTries = 0
-  rimraf_(p, function CB (er) {
+  rimraf_(p, options, function CB (er) {
     if (er) {
-      if (er.code === "EBUSY" && busyTries < exports.BUSYTRIES_MAX) {
+      if (isWindows && (er.code === "EBUSY" || er.code === "ENOTEMPTY") &&
+          busyTries < exports.BUSYTRIES_MAX) {
         busyTries ++
         var time = busyTries * 100
         // try again, with the same exact callback as this one.
         return setTimeout(function () {
-          rimraf_(p, CB)
+          rimraf_(p, options, CB)
         }, time)
       }
 
       // this one won't happen if graceful-fs is used.
       if (er.code === "EMFILE" && timeout < exports.EMFILE_MAX) {
         return setTimeout(function () {
-          rimraf_(p, CB)
+          rimraf_(p, options, CB)
         }, timeout ++)
       }
 
@@ -837,64 +857,91 @@ function rimraf (p, cb) {
 //
 // If anyone ever complains about this, then I guess the strategy could
 // be made configurable somehow.  But until then, YAGNI.
-function rimraf_ (p, cb) {
-  fs.unlink(p, function (er) {
+function rimraf_ (p, options, cb) {
+  assert(p)
+  assert(options)
+  assert(typeof cb === 'function')
+
+  options.unlink(p, function (er) {
     if (er) {
       if (er.code === "ENOENT")
-        return cb()
+        return cb(null)
       if (er.code === "EPERM")
-        return (isWindows) ? fixWinEPERM(p, er, cb) : rmdir(p, er, cb)
+        return (isWindows)
+          ? fixWinEPERM(p, options, er, cb)
+          : rmdir(p, options, er, cb)
       if (er.code === "EISDIR")
-        return rmdir(p, er, cb)
+        return rmdir(p, options, er, cb)
     }
     return cb(er)
   })
 }
 
-function fixWinEPERM (p, er, cb) {
-  fs.chmod(p, 666, function (er2) {
+function fixWinEPERM (p, options, er, cb) {
+  assert(p)
+  assert(options)
+  assert(typeof cb === 'function')
+  if (er)
+    assert(er instanceof Error)
+
+  options.chmod(p, 666, function (er2) {
     if (er2)
       cb(er2.code === "ENOENT" ? null : er)
     else
-      fs.stat(p, function(er3, stats) {
+      options.stat(p, function(er3, stats) {
         if (er3)
           cb(er3.code === "ENOENT" ? null : er)
         else if (stats.isDirectory())
-          rmdir(p, er, cb)
+          rmdir(p, options, er, cb)
         else
-          fs.unlink(p, cb)
+          options.unlink(p, cb)
       })
   })
 }
 
-function fixWinEPERMSync (p, er, cb) {
+function fixWinEPERMSync (p, options, er) {
+  assert(p)
+  assert(options)
+  if (er)
+    assert(er instanceof Error)
+
   try {
-    fs.chmodSync(p, 666)
+    options.chmodSync(p, 666)
   } catch (er2) {
-    if (er2.code !== "ENOENT")
+    if (er2.code === "ENOENT")
+      return
+    else
       throw er
   }
 
   try {
-    var stats = fs.statSync(p)
+    var stats = options.statSync(p)
   } catch (er3) {
-    if (er3 !== "ENOENT")
+    if (er3.code === "ENOENT")
+      return
+    else
       throw er
   }
 
   if (stats.isDirectory())
-    rmdirSync(p, er)
+    rmdirSync(p, options, er)
   else
-    fs.unlinkSync(p)
+    options.unlinkSync(p)
 }
 
-function rmdir (p, originalEr, cb) {
+function rmdir (p, options, originalEr, cb) {
+  assert(p)
+  assert(options)
+  if (originalEr)
+    assert(originalEr instanceof Error)
+  assert(typeof cb === 'function')
+
   // try to rmdir first, and only readdir on ENOTEMPTY or EEXIST (SunOS)
   // if we guessed wrong, and it's not a directory, then
   // raise the original error.
-  fs.rmdir(p, function (er) {
-    if (er && (er.code === "ENOTEMPTY" || er.code === "EEXIST"))
-      rmkids(p, cb)
+  options.rmdir(p, function (er) {
+    if (er && (er.code === "ENOTEMPTY" || er.code === "EEXIST" || er.code === "EPERM"))
+      rmkids(p, options, cb)
     else if (er && er.code === "ENOTDIR")
       cb(originalEr)
     else
@@ -902,22 +949,26 @@ function rmdir (p, originalEr, cb) {
   })
 }
 
-function rmkids(p, cb) {
-  fs.readdir(p, function (er, files) {
+function rmkids(p, options, cb) {
+  assert(p)
+  assert(options)
+  assert(typeof cb === 'function')
+
+  options.readdir(p, function (er, files) {
     if (er)
       return cb(er)
     var n = files.length
     if (n === 0)
-      return fs.rmdir(p, cb)
+      return options.rmdir(p, cb)
     var errState
     files.forEach(function (f) {
-      rimraf(path.join(p, f), function (er) {
+      rimraf(path.join(p, f), options, function (er) {
         if (errState)
           return
         if (er)
           return cb(errState = er)
         if (--n === 0)
-          fs.rmdir(p, cb)
+          options.rmdir(p, cb)
       })
     })
   })
@@ -926,476 +977,55 @@ function rmkids(p, cb) {
 // this looks simpler, and is strictly *faster*, but will
 // tie up the JavaScript thread and fail on excessively
 // deep directory trees.
-function rimrafSync (p) {
+function rimrafSync (p, options) {
+  options = options || {}
+  defaults(options)
+
+  assert(p)
+  assert(options)
+
   try {
-    fs.unlinkSync(p)
+    options.unlinkSync(p)
   } catch (er) {
     if (er.code === "ENOENT")
       return
     if (er.code === "EPERM")
-      return isWindows ? fixWinEPERMSync(p, er) : rmdirSync(p, er)
+      return isWindows ? fixWinEPERMSync(p, options, er) : rmdirSync(p, options, er)
     if (er.code !== "EISDIR")
       throw er
-    rmdirSync(p, er)
+    rmdirSync(p, options, er)
   }
 }
 
-function rmdirSync (p, originalEr) {
+function rmdirSync (p, options, originalEr) {
+  assert(p)
+  assert(options)
+  if (originalEr)
+    assert(originalEr instanceof Error)
+
   try {
-    fs.rmdirSync(p)
+    options.rmdirSync(p)
   } catch (er) {
     if (er.code === "ENOENT")
       return
     if (er.code === "ENOTDIR")
       throw originalEr
-    if (er.code === "ENOTEMPTY" || er.code === "EEXIST")
-      rmkidsSync(p)
+    if (er.code === "ENOTEMPTY" || er.code === "EEXIST" || er.code === "EPERM")
+      rmkidsSync(p, options)
   }
 }
 
-function rmkidsSync (p) {
-  fs.readdirSync(p).forEach(function (f) {
-    rimrafSync(path.join(p, f))
+function rmkidsSync (p, options) {
+  assert(p)
+  assert(options)
+  options.readdirSync(p).forEach(function (f) {
+    rimrafSync(path.join(p, f), options)
   })
-  fs.rmdirSync(p)
+  options.rmdirSync(p, options)
 }
 
 }
 , {"filename":"node_modules/fs-extra/node_modules/rimraf/rimraf.js"});
-// @pinf-bundle-module: {"file":"node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/graceful-fs.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/graceful-fs.js"}
-require.memoize("8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/graceful-fs.js", 
-function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
-// Monkey-patching the fs module.
-// It's ugly, but there is simply no other way to do this.
-var fs = module.exports = require('__SYSTEM__/fs')
-
-var assert = require('__SYSTEM__/assert')
-
-// fix up some busted stuff, mostly on windows and old nodes
-require('./polyfills.js')
-
-// The EMFILE enqueuing stuff
-
-var util = require('__SYSTEM__/util')
-
-function noop () {}
-
-var debug = noop
-var util = require('__SYSTEM__/util')
-if (util.debuglog)
-  debug = util.debuglog('gfs')
-else if (/\bgfs\b/i.test(process.env.NODE_DEBUG || ''))
-  debug = function() {
-    var m = util.format.apply(util, arguments)
-    m = 'GFS: ' + m.split(/\n/).join('\nGFS: ')
-    console.error(m)
-  }
-
-if (/\bgfs\b/i.test(process.env.NODE_DEBUG || '')) {
-  process.on('exit', function() {
-    debug('fds', fds)
-    debug(queue)
-    assert.equal(queue.length, 0)
-  })
-}
-
-
-var originalOpen = fs.open
-fs.open = open
-
-function open(path, flags, mode, cb) {
-  if (typeof mode === "function") cb = mode, mode = null
-  if (typeof cb !== "function") cb = noop
-  new OpenReq(path, flags, mode, cb)
-}
-
-function OpenReq(path, flags, mode, cb) {
-  this.path = path
-  this.flags = flags
-  this.mode = mode
-  this.cb = cb
-  Req.call(this)
-}
-
-util.inherits(OpenReq, Req)
-
-OpenReq.prototype.process = function() {
-  originalOpen.call(fs, this.path, this.flags, this.mode, this.done)
-}
-
-var fds = {}
-OpenReq.prototype.done = function(er, fd) {
-  debug('open done', er, fd)
-  if (fd)
-    fds['fd' + fd] = this.path
-  Req.prototype.done.call(this, er, fd)
-}
-
-
-var originalReaddir = fs.readdir
-fs.readdir = readdir
-
-function readdir(path, cb) {
-  if (typeof cb !== "function") cb = noop
-  new ReaddirReq(path, cb)
-}
-
-function ReaddirReq(path, cb) {
-  this.path = path
-  this.cb = cb
-  Req.call(this)
-}
-
-util.inherits(ReaddirReq, Req)
-
-ReaddirReq.prototype.process = function() {
-  originalReaddir.call(fs, this.path, this.done)
-}
-
-ReaddirReq.prototype.done = function(er, files) {
-  Req.prototype.done.call(this, er, files)
-  onclose()
-}
-
-
-var originalClose = fs.close
-fs.close = close
-
-function close (fd, cb) {
-  debug('close', fd)
-  if (typeof cb !== "function") cb = noop
-  delete fds['fd' + fd]
-  originalClose.call(fs, fd, function(er) {
-    onclose()
-    cb(er)
-  })
-}
-
-
-var originalCloseSync = fs.closeSync
-fs.closeSync = closeSync
-
-function closeSync (fd) {
-  try {
-    return originalCloseSync(fd)
-  } finally {
-    onclose()
-  }
-}
-
-
-// Req class
-function Req () {
-  // start processing
-  this.done = this.done.bind(this)
-  this.failures = 0
-  this.process()
-}
-
-Req.prototype.done = function (er, result) {
-  // if an error, and the code is EMFILE, then get in the queue
-  if (er && er.code === "EMFILE") {
-    this.failures ++
-    enqueue(this)
-  } else {
-    var cb = this.cb
-    cb(er, result)
-  }
-}
-
-var queue = []
-
-function enqueue(req) {
-  queue.push(req)
-  debug('enqueue %d %s', queue.length, req.constructor.name, req)
-}
-
-function onclose() {
-  var req = queue.shift()
-  if (req) {
-    debug('process', req.constructor.name, req)
-    req.process()
-  }
-}
-
-return {
-    fs: (typeof fs !== "undefined") ? fs : null,
-    module: (typeof module !== "undefined") ? module : null,
-    require: (typeof require !== "undefined") ? require : null,
-    assert: (typeof assert !== "undefined") ? assert : null,
-    util: (typeof util !== "undefined") ? util : null,
-    noop: (typeof noop !== "undefined") ? noop : null,
-    debug: (typeof debug !== "undefined") ? debug : null,
-    process: (typeof process !== "undefined") ? process : null,
-    console: (typeof console !== "undefined") ? console : null,
-    fds: (typeof fds !== "undefined") ? fds : null,
-    queue: (typeof queue !== "undefined") ? queue : null,
-    originalOpen: (typeof originalOpen !== "undefined") ? originalOpen : null,
-    open: (typeof open !== "undefined") ? open : null,
-    OpenReq: (typeof OpenReq !== "undefined") ? OpenReq : null,
-    Req: (typeof Req !== "undefined") ? Req : null,
-    originalReaddir: (typeof originalReaddir !== "undefined") ? originalReaddir : null,
-    readdir: (typeof readdir !== "undefined") ? readdir : null,
-    ReaddirReq: (typeof ReaddirReq !== "undefined") ? ReaddirReq : null,
-    onclose: (typeof onclose !== "undefined") ? onclose : null,
-    originalClose: (typeof originalClose !== "undefined") ? originalClose : null,
-    close: (typeof close !== "undefined") ? close : null,
-    originalCloseSync: (typeof originalCloseSync !== "undefined") ? originalCloseSync : null,
-    closeSync: (typeof closeSync !== "undefined") ? closeSync : null,
-    enqueue: (typeof enqueue !== "undefined") ? enqueue : null
-};
-}
-, {"filename":"node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/graceful-fs.js"});
-// @pinf-bundle-module: {"file":"node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/polyfills.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/polyfills.js"}
-require.memoize("8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/polyfills.js", 
-function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs';
-var fs = require('__SYSTEM__/fs')
-var constants = require('__SYSTEM__/constants')
-
-var origCwd = process.cwd
-var cwd = null
-process.cwd = function() {
-  if (!cwd)
-    cwd = origCwd.call(process)
-  return cwd
-}
-var chdir = process.chdir
-process.chdir = function(d) {
-  cwd = null
-  chdir.call(process, d)
-}
-
-// (re-)implement some things that are known busted or missing.
-
-// lchmod, broken prior to 0.6.2
-// back-port the fix here.
-if (constants.hasOwnProperty('O_SYMLINK') &&
-    process.version.match(/^v0\.6\.[0-2]|^v0\.5\./)) {
-  fs.lchmod = function (path, mode, callback) {
-    callback = callback || noop
-    fs.open( path
-           , constants.O_WRONLY | constants.O_SYMLINK
-           , mode
-           , function (err, fd) {
-      if (err) {
-        callback(err)
-        return
-      }
-      // prefer to return the chmod error, if one occurs,
-      // but still try to close, and report closing errors if they occur.
-      fs.fchmod(fd, mode, function (err) {
-        fs.close(fd, function(err2) {
-          callback(err || err2)
-        })
-      })
-    })
-  }
-
-  fs.lchmodSync = function (path, mode) {
-    var fd = fs.openSync(path, constants.O_WRONLY | constants.O_SYMLINK, mode)
-
-    // prefer to return the chmod error, if one occurs,
-    // but still try to close, and report closing errors if they occur.
-    var err, err2
-    try {
-      var ret = fs.fchmodSync(fd, mode)
-    } catch (er) {
-      err = er
-    }
-    try {
-      fs.closeSync(fd)
-    } catch (er) {
-      err2 = er
-    }
-    if (err || err2) throw (err || err2)
-    return ret
-  }
-}
-
-
-// lutimes implementation, or no-op
-if (!fs.lutimes) {
-  if (constants.hasOwnProperty("O_SYMLINK")) {
-    fs.lutimes = function (path, at, mt, cb) {
-      fs.open(path, constants.O_SYMLINK, function (er, fd) {
-        cb = cb || noop
-        if (er) return cb(er)
-        fs.futimes(fd, at, mt, function (er) {
-          fs.close(fd, function (er2) {
-            return cb(er || er2)
-          })
-        })
-      })
-    }
-
-    fs.lutimesSync = function (path, at, mt) {
-      var fd = fs.openSync(path, constants.O_SYMLINK)
-        , err
-        , err2
-        , ret
-
-      try {
-        var ret = fs.futimesSync(fd, at, mt)
-      } catch (er) {
-        err = er
-      }
-      try {
-        fs.closeSync(fd)
-      } catch (er) {
-        err2 = er
-      }
-      if (err || err2) throw (err || err2)
-      return ret
-    }
-
-  } else if (fs.utimensat && constants.hasOwnProperty("AT_SYMLINK_NOFOLLOW")) {
-    // maybe utimensat will be bound soonish?
-    fs.lutimes = function (path, at, mt, cb) {
-      fs.utimensat(path, at, mt, constants.AT_SYMLINK_NOFOLLOW, cb)
-    }
-
-    fs.lutimesSync = function (path, at, mt) {
-      return fs.utimensatSync(path, at, mt, constants.AT_SYMLINK_NOFOLLOW)
-    }
-
-  } else {
-    fs.lutimes = function (_a, _b, _c, cb) { process.nextTick(cb) }
-    fs.lutimesSync = function () {}
-  }
-}
-
-
-// https://github.com/isaacs/node-graceful-fs/issues/4
-// Chown should not fail on einval or eperm if non-root.
-
-fs.chown = chownFix(fs.chown)
-fs.fchown = chownFix(fs.fchown)
-fs.lchown = chownFix(fs.lchown)
-
-fs.chownSync = chownFixSync(fs.chownSync)
-fs.fchownSync = chownFixSync(fs.fchownSync)
-fs.lchownSync = chownFixSync(fs.lchownSync)
-
-function chownFix (orig) {
-  if (!orig) return orig
-  return function (target, uid, gid, cb) {
-    return orig.call(fs, target, uid, gid, function (er, res) {
-      if (chownErOk(er)) er = null
-      cb(er, res)
-    })
-  }
-}
-
-function chownFixSync (orig) {
-  if (!orig) return orig
-  return function (target, uid, gid) {
-    try {
-      return orig.call(fs, target, uid, gid)
-    } catch (er) {
-      if (!chownErOk(er)) throw er
-    }
-  }
-}
-
-function chownErOk (er) {
-  // if there's no getuid, or if getuid() is something other than 0,
-  // and the error is EINVAL or EPERM, then just ignore it.
-  // This specific case is a silent failure in cp, install, tar,
-  // and most other unix tools that manage permissions.
-  // When running as root, or if other types of errors are encountered,
-  // then it's strict.
-  if (!er || (!process.getuid || process.getuid() !== 0)
-      && (er.code === "EINVAL" || er.code === "EPERM")) return true
-}
-
-
-// if lchmod/lchown do not exist, then make them no-ops
-if (!fs.lchmod) {
-  fs.lchmod = function (path, mode, cb) {
-    process.nextTick(cb)
-  }
-  fs.lchmodSync = function () {}
-}
-if (!fs.lchown) {
-  fs.lchown = function (path, uid, gid, cb) {
-    process.nextTick(cb)
-  }
-  fs.lchownSync = function () {}
-}
-
-
-
-// on Windows, A/V software can lock the directory, causing this
-// to fail with an EACCES or EPERM if the directory contains newly
-// created files.  Try again on failure, for up to 1 second.
-if (process.platform === "win32") {
-  var rename_ = fs.rename
-  fs.rename = function rename (from, to, cb) {
-    var start = Date.now()
-    rename_(from, to, function CB (er) {
-      if (er
-          && (er.code === "EACCES" || er.code === "EPERM")
-          && Date.now() - start < 1000) {
-        return rename_(from, to, CB)
-      }
-      cb(er)
-    })
-  }
-}
-
-
-// if read() returns EAGAIN, then just try it again.
-var read = fs.read
-fs.read = function (fd, buffer, offset, length, position, callback_) {
-  var callback
-  if (callback_ && typeof callback_ === 'function') {
-    var eagCounter = 0
-    callback = function (er, _, __) {
-      if (er && er.code === 'EAGAIN' && eagCounter < 10) {
-        eagCounter ++
-        return read.call(fs, fd, buffer, offset, length, position, callback)
-      }
-      callback_.apply(this, arguments)
-    }
-  }
-  return read.call(fs, fd, buffer, offset, length, position, callback)
-}
-
-var readSync = fs.readSync
-fs.readSync = function (fd, buffer, offset, length, position) {
-  var eagCounter = 0
-  while (true) {
-    try {
-      return readSync.call(fs, fd, buffer, offset, length, position)
-    } catch (er) {
-      if (er.code === 'EAGAIN' && eagCounter < 10) {
-        eagCounter ++
-        continue
-      }
-      throw er
-    }
-  }
-}
-
-
-return {
-    fs: (typeof fs !== "undefined") ? fs : null,
-    require: (typeof require !== "undefined") ? require : null,
-    constants: (typeof constants !== "undefined") ? constants : null,
-    origCwd: (typeof origCwd !== "undefined") ? origCwd : null,
-    process: (typeof process !== "undefined") ? process : null,
-    cwd: (typeof cwd !== "undefined") ? cwd : null,
-    chdir: (typeof chdir !== "undefined") ? chdir : null,
-    chownFix: (typeof chownFix !== "undefined") ? chownFix : null,
-    chownFixSync: (typeof chownFixSync !== "undefined") ? chownFixSync : null,
-    chownErOk: (typeof chownErOk !== "undefined") ? chownErOk : null,
-    rename_: (typeof rename_ !== "undefined") ? rename_ : null,
-    Date: (typeof Date !== "undefined") ? Date : null,
-    read: (typeof read !== "undefined") ? read : null,
-    readSync: (typeof readSync !== "undefined") ? readSync : null
-};
-}
-, {"filename":"node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/polyfills.js"});
 // @pinf-bundle-module: {"file":"node_modules/fs-extra/lib/create.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/create.js"}
 require.memoize("b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/create.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'node_modules/fs-extra/lib';
@@ -3185,7 +2815,11 @@ var isArray = Array.isArray || function(arr) {
 
 var objectKeys = Object.keys || function(obj) {
   var ret = [];
-  for (var key in obj) ret.push(key);
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      ret.push(key);
+    }
+  }
   return ret;
 };
 
@@ -3211,24 +2845,14 @@ var reduce = function(arr, fn, initial) {
 };
 
 /**
- * Create a nullary object if possible
- */
-
-function createObject() {
-  return Object.create
-    ? Object.create(null)
-    : {};
-}
-
-/**
  * Cache non-integer test regexp.
  */
 
 var isint = /^[0-9]+$/;
 
 function promote(parent, key) {
-  if (parent[key].length == 0) return parent[key] = createObject();
-  var t = createObject();
+  if (parent[key].length == 0) return parent[key] = {}
+  var t = {};
   for (var i in parent[key]) {
     if (hasOwnProperty.call(parent[key], i)) {
       t[i] = parent[key][i];
@@ -3240,6 +2864,10 @@ function promote(parent, key) {
 
 function parse(parts, parent, key, val) {
   var part = parts.shift();
+  
+  // illegal
+  if (Object.getOwnPropertyDescriptor(Object.prototype, key)) return;
+  
   // end
   if (!part) {
     if (isArray(parent[key])) {
@@ -3288,7 +2916,7 @@ function merge(parent, key, val){
     // optimize
   } else {
     if (!isint.test(key) && isArray(parent.base)) {
-      var t = createObject();
+      var t = {};
       for (var k in parent.base) t[k] = parent.base[k];
       parent.base = t;
     }
@@ -3325,26 +2953,6 @@ function compact(obj) {
 }
 
 /**
- * Restore Object.prototype.
- * see pull-request #58
- */
-
-function restoreProto(obj) {
-  if (!Object.create) return obj;
-  if (isArray(obj)) return obj;
-  if (obj && 'object' != typeof obj) return obj;
-
-  for (var key in obj) {
-    if (hasOwnProperty.call(obj, key)) {
-      obj[key] = restoreProto(obj[key]);
-    }
-  }
-
-  obj.__proto__ = Object.prototype;
-  return obj;
-}
-
-/**
  * Parse the given obj.
  */
 
@@ -3375,9 +2983,9 @@ function parseString(str){
     if ('' == key) return ret;
 
     return merge(ret, decode(key), decode(val));
-  }, { base: createObject() }).base;
+  }, { base: {} }).base;
 
-  return restoreProto(compact(ret));
+  return compact(ret);
 }
 
 /**
@@ -3489,6 +3097,7 @@ function stringifyObject(obj, prefix) {
 
 function set(obj, key, val) {
   var v = obj[key];
+  if (Object.getOwnPropertyDescriptor(Object.prototype, key)) return;
   if (undefined === v) {
     obj[key] = val;
   } else if (isArray(v)) {
@@ -11788,7 +11397,7 @@ function ForeverAgent(options) {
       self.freeSockets[name].push(socket)
       
       // if an error happens while we don't use the socket anyway, meh, throw the socket away
-      function onIdleError() {
+      var onIdleError = function() {
         socket.destroy()
       }
       socket._onIdleError = onIdleError
@@ -11980,14 +11589,38 @@ FormData.prototype._trackLength = function(header, value, options) {
   this._lengthRetrievers.push(function(next) {
 
     if (value.hasOwnProperty('fd')) {
-      fs.stat(value.path, function(err, stat) {
-        if (err) {
-          next(err);
-          return;
-        }
 
-        next(null, stat.size);
-      });
+      // take read range into a account
+      // `end` = Infinity –> read file till the end
+      //
+      // TODO: Looks like there is bug in Node fs.createReadStream
+      // it doesn't respect `end` options without `start` options
+      // Fix it when node fixes it.
+      // https://github.com/joyent/node/issues/7819
+      if (value.end != undefined && value.end != Infinity && value.start != undefined) {
+
+        // when end specified
+        // no need to calculate range
+        // inclusive, starts with 0
+        next(null, value.end+1 - (value.start ? value.start : 0));
+
+      // not that fast snoopy
+      } else {
+        // still need to fetch file size from fs
+        fs.stat(value.path, function(err, stat) {
+
+          var fileSize;
+
+          if (err) {
+            next(err);
+            return;
+          }
+
+          // update final size based on the range options
+          fileSize = stat.size - (value.start ? value.start : 0);
+          next(null, fileSize);
+        });
+      }
 
     // or http response
     } else if (value.hasOwnProperty('httpVersion')) {
@@ -12152,49 +11785,59 @@ FormData.prototype.getLength = function(cb) {
 };
 
 FormData.prototype.submit = function(params, cb) {
+
+  var request
+    , options
+    , defaults = {
+        method : 'post'
+    };
+
+  // parse provided url if it's string
+  // or treat it as options object
+  if (typeof params == 'string') {
+    params = parseUrl(params);
+
+    options = populate({
+      port: params.port,
+      path: params.pathname,
+      host: params.hostname
+    }, defaults);
+  }
+  else // use custom params
+  {
+    options = populate(params, defaults);
+    // if no port provided use default one
+    if (!options.port) {
+      options.port = options.protocol == 'https:' ? 443 : 80;
+    }
+  }
+
+  // put that good code in getHeaders to some use
+  options.headers = this.getHeaders(params.headers);
+
+  // https if specified, fallback to http in any other case
+  if (params.protocol == 'https:') {
+    request = https.request(options);
+  } else {
+    request = http.request(options);
+  }
+
+  // get content length and fire away
   this.getLength(function(err, length) {
 
-    var request
-      , options
-      , defaults = {
-          method : 'post',
-          port   : 80,
-          headers: this.getHeaders({'Content-Length': length})
-      };
+    // TODO: Add chunked encoding when no length (if err)
 
-    // parse provided url if it's string
-    // or treat it as options object
-    if (typeof params == 'string') {
-      params = parseUrl(params);
-
-      options = populate({
-        port: params.port,
-        path: params.pathname,
-        host: params.hostname
-      }, defaults);
-    }
-    else // use custom params
-    {
-      options = populate(params, defaults);
-    }
-
-    // https if specified, fallback to http in any other case
-    if (params.protocol == 'https:') {
-      // override default port
-      if (!params.port) options.port = 443;
-      request = https.request(options);
-    } else {
-      request = http.request(options);
-    }
+    // add content length
+    request.setHeader('Content-Length', length);
 
     this.pipe(request);
     if (cb) {
       request.on('error', cb);
       request.on('response', cb.bind(this, null));
     }
-
-    return request;
   }.bind(this));
+
+  return request;
 };
 
 FormData.prototype._error = function(err) {
@@ -12304,6 +11947,7 @@ CombinedStream.prototype.append = function(stream) {
 CombinedStream.prototype.pipe = function(dest, options) {
   Stream.prototype.pipe.call(this, dest, options);
   this.resume();
+  return dest;
 };
 
 CombinedStream.prototype._getNext = function() {
@@ -12552,6 +12196,14 @@ return {
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/form-data/node_modules/async/lib/async.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"257a70b6290719603e5079400727f3d2d2d1b03a-async/lib/async.js"}
 require.memoize("257a70b6290719603e5079400727f3d2d2d1b03a-async/lib/async.js", 
 wrapAMD(function(require, define) {
+/*!
+ * async
+ * https://github.com/caolan/async
+ *
+ * Copyright 2010-2014 Caolan McMahon
+ * Released under the MIT license
+ */
+/*jshint onevar: false, indent:4 */
 /*global setImmediate: false, setTimeout: false, console: false */
 (function () {
 
@@ -12580,6 +12232,12 @@ wrapAMD(function(require, define) {
     }
 
     //// cross-browser compatiblity functions ////
+
+    var _toString = Object.prototype.toString;
+
+    var _isArray = Array.isArray || function (obj) {
+        return _toString.call(obj) === '[object Array]';
+    };
 
     var _each = function (arr, iterator) {
         if (arr.forEach) {
@@ -12645,7 +12303,10 @@ wrapAMD(function(require, define) {
     else {
         async.nextTick = process.nextTick;
         if (typeof setImmediate !== 'undefined') {
-            async.setImmediate = setImmediate;
+            async.setImmediate = function (fn) {
+              // not a direct alias for IE10 compatibility
+              setImmediate(fn);
+            };
         }
         else {
             async.setImmediate = async.nextTick;
@@ -12659,19 +12320,20 @@ wrapAMD(function(require, define) {
         }
         var completed = 0;
         _each(arr, function (x) {
-            iterator(x, only_once(function (err) {
-                if (err) {
-                    callback(err);
-                    callback = function () {};
-                }
-                else {
-                    completed += 1;
-                    if (completed >= arr.length) {
-                        callback(null);
-                    }
-                }
-            }));
+            iterator(x, only_once(done) );
         });
+        function done(err) {
+          if (err) {
+              callback(err);
+              callback = function () {};
+          }
+          else {
+              completed += 1;
+              if (completed >= arr.length) {
+                  callback();
+              }
+          }
+        }
     };
     async.forEach = async.each;
 
@@ -12690,7 +12352,7 @@ wrapAMD(function(require, define) {
                 else {
                     completed += 1;
                     if (completed >= arr.length) {
-                        callback(null);
+                        callback();
                     }
                     else {
                         iterate();
@@ -12770,18 +12432,26 @@ wrapAMD(function(require, define) {
 
 
     var _asyncMap = function (eachfn, arr, iterator, callback) {
-        var results = [];
         arr = _map(arr, function (x, i) {
             return {index: i, value: x};
         });
-        eachfn(arr, function (x, callback) {
-            iterator(x.value, function (err, v) {
-                results[x.index] = v;
-                callback(err);
+        if (!callback) {
+            eachfn(arr, function (x, callback) {
+                iterator(x.value, function (err) {
+                    callback(err);
+                });
             });
-        }, function (err) {
-            callback(err, results);
-        });
+        } else {
+            var results = [];
+            eachfn(arr, function (x, callback) {
+                iterator(x.value, function (err, v) {
+                    results[x.index] = v;
+                    callback(err);
+                });
+            }, function (err) {
+                callback(err, results);
+            });
+        }
     };
     async.map = doParallel(_asyncMap);
     async.mapSeries = doSeries(_asyncMap);
@@ -12947,8 +12617,9 @@ wrapAMD(function(require, define) {
     async.auto = function (tasks, callback) {
         callback = callback || function () {};
         var keys = _keys(tasks);
-        if (!keys.length) {
-            return callback(null);
+        var remainingTasks = keys.length
+        if (!remainingTasks) {
+            return callback();
         }
 
         var results = {};
@@ -12966,20 +12637,24 @@ wrapAMD(function(require, define) {
             }
         };
         var taskComplete = function () {
+            remainingTasks--
             _each(listeners.slice(0), function (fn) {
                 fn();
             });
         };
 
         addListener(function () {
-            if (_keys(results).length === keys.length) {
-                callback(null, results);
+            if (!remainingTasks) {
+                var theCallback = callback;
+                // prevent final callback from calling itself if it errors
                 callback = function () {};
+
+                theCallback(null, results);
             }
         });
 
         _each(keys, function (k) {
-            var task = (tasks[k] instanceof Function) ? [tasks[k]]: tasks[k];
+            var task = _isArray(tasks[k]) ? tasks[k]: [tasks[k]];
             var taskCallback = function (err) {
                 var args = Array.prototype.slice.call(arguments, 1);
                 if (args.length <= 1) {
@@ -13021,9 +12696,40 @@ wrapAMD(function(require, define) {
         });
     };
 
+    async.retry = function(times, task, callback) {
+        var DEFAULT_TIMES = 5;
+        var attempts = [];
+        // Use defaults if times not passed
+        if (typeof times === 'function') {
+            callback = task;
+            task = times;
+            times = DEFAULT_TIMES;
+        }
+        // Make sure times is a number
+        times = parseInt(times, 10) || DEFAULT_TIMES;
+        var wrappedTask = function(wrappedCallback, wrappedResults) {
+            var retryAttempt = function(task, finalAttempt) {
+                return function(seriesCallback) {
+                    task(function(err, result){
+                        seriesCallback(!err || finalAttempt, {err: err, result: result});
+                    }, wrappedResults);
+                };
+            };
+            while (times) {
+                attempts.push(retryAttempt(task, !(times-=1)));
+            }
+            async.series(attempts, function(done, data){
+                data = data[data.length - 1];
+                (wrappedCallback || callback)(data.err, data.result);
+            });
+        }
+        // If a callback is passed, run this as a controll flow
+        return callback ? wrappedTask() : wrappedTask
+    };
+
     async.waterfall = function (tasks, callback) {
         callback = callback || function () {};
-        if (tasks.constructor !== Array) {
+        if (!_isArray(tasks)) {
           var err = new Error('First argument to waterfall must be an array of functions');
           return callback(err);
         }
@@ -13056,7 +12762,7 @@ wrapAMD(function(require, define) {
 
     var _parallel = function(eachfn, tasks, callback) {
         callback = callback || function () {};
-        if (tasks.constructor === Array) {
+        if (_isArray(tasks)) {
             eachfn.map(tasks, function (fn, callback) {
                 if (fn) {
                     fn(function (err) {
@@ -13096,7 +12802,7 @@ wrapAMD(function(require, define) {
 
     async.series = function (tasks, callback) {
         callback = callback || function () {};
-        if (tasks.constructor === Array) {
+        if (_isArray(tasks)) {
             async.mapSeries(tasks, function (fn, callback) {
                 if (fn) {
                     fn(function (err) {
@@ -13184,7 +12890,8 @@ wrapAMD(function(require, define) {
             if (err) {
                 return callback(err);
             }
-            if (test()) {
+            var args = Array.prototype.slice.call(arguments, 1);
+            if (test.apply(null, args)) {
                 async.doWhilst(iterator, test, callback);
             }
             else {
@@ -13212,7 +12919,8 @@ wrapAMD(function(require, define) {
             if (err) {
                 return callback(err);
             }
-            if (!test()) {
+            var args = Array.prototype.slice.call(arguments, 1);
+            if (!test.apply(null, args)) {
                 async.doUntil(iterator, test, callback);
             }
             else {
@@ -13226,8 +12934,19 @@ wrapAMD(function(require, define) {
             concurrency = 1;
         }
         function _insert(q, data, pos, callback) {
-          if(data.constructor !== Array) {
+          if (!q.started){
+            q.started = true;
+          }
+          if (!_isArray(data)) {
               data = [data];
+          }
+          if(data.length == 0) {
+             // call drain immediately if there are no tasks
+             return async.setImmediate(function() {
+                 if (q.drain) {
+                     q.drain();
+                 }
+             });
           }
           _each(data, function(task) {
               var item = {
@@ -13241,7 +12960,7 @@ wrapAMD(function(require, define) {
                 q.tasks.push(item);
               }
 
-              if (q.saturated && q.tasks.length === concurrency) {
+              if (q.saturated && q.tasks.length === q.concurrency) {
                   q.saturated();
               }
               async.setImmediate(q.process);
@@ -13255,14 +12974,20 @@ wrapAMD(function(require, define) {
             saturated: null,
             empty: null,
             drain: null,
+            started: false,
+            paused: false,
             push: function (data, callback) {
               _insert(q, data, false, callback);
+            },
+            kill: function () {
+              q.drain = null;
+              q.tasks = [];
             },
             unshift: function (data, callback) {
               _insert(q, data, true, callback);
             },
             process: function () {
-                if (workers < q.concurrency && q.tasks.length) {
+                if (!q.paused && workers < q.concurrency && q.tasks.length) {
                     var task = q.tasks.shift();
                     if (q.empty && q.tasks.length === 0) {
                         q.empty();
@@ -13287,8 +13012,86 @@ wrapAMD(function(require, define) {
             },
             running: function () {
                 return workers;
+            },
+            idle: function() {
+                return q.tasks.length + workers === 0;
+            },
+            pause: function () {
+                if (q.paused === true) { return; }
+                q.paused = true;
+                q.process();
+            },
+            resume: function () {
+                if (q.paused === false) { return; }
+                q.paused = false;
+                q.process();
             }
         };
+        return q;
+    };
+    
+    async.priorityQueue = function (worker, concurrency) {
+        
+        function _compareTasks(a, b){
+          return a.priority - b.priority;
+        };
+        
+        function _binarySearch(sequence, item, compare) {
+          var beg = -1,
+              end = sequence.length - 1;
+          while (beg < end) {
+            var mid = beg + ((end - beg + 1) >>> 1);
+            if (compare(item, sequence[mid]) >= 0) {
+              beg = mid;
+            } else {
+              end = mid - 1;
+            }
+          }
+          return beg;
+        }
+        
+        function _insert(q, data, priority, callback) {
+          if (!q.started){
+            q.started = true;
+          }
+          if (!_isArray(data)) {
+              data = [data];
+          }
+          if(data.length == 0) {
+             // call drain immediately if there are no tasks
+             return async.setImmediate(function() {
+                 if (q.drain) {
+                     q.drain();
+                 }
+             });
+          }
+          _each(data, function(task) {
+              var item = {
+                  data: task,
+                  priority: priority,
+                  callback: typeof callback === 'function' ? callback : null
+              };
+              
+              q.tasks.splice(_binarySearch(q.tasks, item, _compareTasks) + 1, 0, item);
+
+              if (q.saturated && q.tasks.length === q.concurrency) {
+                  q.saturated();
+              }
+              async.setImmediate(q.process);
+          });
+        }
+        
+        // Start with a normal queue
+        var q = async.queue(worker, concurrency);
+        
+        // Override push to accept second parameter representing priority
+        q.push = function (data, priority, callback) {
+          _insert(q, data, priority, callback);
+        };
+        
+        // Remove unshift function
+        delete q.unshift;
+
         return q;
     };
 
@@ -13302,8 +13105,9 @@ wrapAMD(function(require, define) {
             saturated: null,
             empty: null,
             drain: null,
+            drained: true,
             push: function (data, callback) {
-                if(data.constructor !== Array) {
+                if (!_isArray(data)) {
                     data = [data];
                 }
                 _each(data, function(task) {
@@ -13311,6 +13115,7 @@ wrapAMD(function(require, define) {
                         data: task,
                         callback: typeof callback === 'function' ? callback : null
                     });
+                    cargo.drained = false;
                     if (cargo.saturated && tasks.length === payload) {
                         cargo.saturated();
                     }
@@ -13320,13 +13125,14 @@ wrapAMD(function(require, define) {
             process: function process() {
                 if (working) return;
                 if (tasks.length === 0) {
-                    if(cargo.drain) cargo.drain();
+                    if(cargo.drain && !cargo.drained) cargo.drain();
+                    cargo.drained = true;
                     return;
                 }
 
                 var ts = typeof payload === 'number'
                             ? tasks.splice(0, payload)
-                            : tasks.splice(0);
+                            : tasks.splice(0, tasks.length);
 
                 var ds = _map(ts, function (task) {
                     return task.data;
@@ -13394,7 +13200,9 @@ wrapAMD(function(require, define) {
             var callback = args.pop();
             var key = hasher.apply(null, args);
             if (key in memo) {
-                callback.apply(null, memo[key]);
+                async.nextTick(function () {
+                    callback.apply(null, memo[key]);
+                });
             }
             else if (key in queues) {
                 queues[key].push(callback);
@@ -13438,8 +13246,8 @@ wrapAMD(function(require, define) {
         return async.mapSeries(counter, iterator, callback);
     };
 
-    async.compose = function (/* functions... */) {
-        var fns = Array.prototype.reverse.call(arguments);
+    async.seq = function (/* functions... */) {
+        var fns = arguments;
         return function () {
             var that = this;
             var args = Array.prototype.slice.call(arguments);
@@ -13455,6 +13263,10 @@ wrapAMD(function(require, define) {
                 callback.apply(that, [err].concat(results));
             });
         };
+    };
+
+    async.compose = function (/* functions... */) {
+      return async.seq.apply(null, Array.prototype.reverse.call(arguments));
     };
 
     var _applyEach = function (eachfn, fns /*args...*/) {
@@ -13491,15 +13303,15 @@ wrapAMD(function(require, define) {
         next();
     };
 
+    // Node.js
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = async;
+    }
     // AMD / RequireJS
-    if (typeof define !== 'undefined' && define.amd) {
+    else if (typeof define !== 'undefined' && define.amd) {
         define([], function () {
             return async;
         });
-    }
-    // Node.js
-    else if (typeof module !== 'undefined' && module.exports) {
-        module.exports = async;
     }
     // included directly via <script> tag
     else {
@@ -13619,19 +13431,9 @@ require.memoize("c99227b03d285ab9292c0748af53c56ffc9ac859-ncp/package.json",
 require.memoize("16117a71d212e842209fc0336b7b2cf0572a5023-rimraf/package.json", 
 {
     "main": "16117a71d212e842209fc0336b7b2cf0572a5023-rimraf/rimraf.js",
-    "mappings": {
-        "graceful-fs": "8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs"
-    },
     "dirpath": "node_modules/fs-extra/node_modules/rimraf"
 }
 , {"filename":"node_modules/fs-extra/node_modules/rimraf/package.json"});
-// @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/package.json"}
-require.memoize("8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/package.json", 
-{
-    "main": "8221f2fbd3f3ff50c6ef3876a188d48a8e78bc6e-graceful-fs/graceful-fs.js",
-    "dirpath": "node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs"
-}
-, {"filename":"node_modules/fs-extra/node_modules/rimraf/node_modules/graceful-fs/package.json"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"ed4bb06796db1905581e7b400da006dd7b8b1b55-request/package.json"}
 require.memoize("ed4bb06796db1905581e7b400da006dd7b8b1b55-request/package.json", 
 {
