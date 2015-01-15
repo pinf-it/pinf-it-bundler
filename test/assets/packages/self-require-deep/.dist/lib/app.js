@@ -24,7 +24,6 @@ if (require.main === module) {
 require.memoize("/package.json", 
 {
     "main": "/lib/app.js",
-    "mappings": {},
     "dirpath": "test/assets/packages/self-require-deep"
 }
 , {"filename":"test/assets/packages/self-require-deep/package.json"});

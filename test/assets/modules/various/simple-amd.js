@@ -37,12 +37,14 @@ function define(id, dependencies, moduleInitializer) {
                     });
                 });
             } else {
-                return realRequire(id.replace(/^[^!]*!/, ""));
+                return realRequire(id);
             }
         }
         require.toUrl = function(id) {
             return realRequire.sandbox.id.replace(/\/[^\/]*$/, "") + realRequire.id(id);
         }
+        require.sandbox = realRequire.sandbox;
+        require.id = realRequire.id;
         if (typeof amdRequireImplementation !== "undefined") {
             amdRequireImplementation = require;
         }
@@ -60,6 +62,7 @@ function define(id, dependencies, moduleInitializer) {
     }
 }
 define.amd = { jQuery: true };
+require.def = define;
 // @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/simple-amd.js","mtime":0,"wrapper":"amd","format":"amd","id":"/simple-amd.js"}
 require.memoize("/simple-amd.js", 
 

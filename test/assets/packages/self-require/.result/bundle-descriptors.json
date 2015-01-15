@@ -98,7 +98,6 @@
                             "errors": [],
                             "memoized": {
                                 "main": "/app.js",
-                                "mappings": {},
                                 "dirpath": "test/assets/packages/self-require"
                             },
                             "mtime": "0"

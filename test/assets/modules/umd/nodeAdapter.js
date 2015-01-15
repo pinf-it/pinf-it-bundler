@@ -1,8 +1,8 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require) {
 // @pinf-bundle-header: {"helper":"amd-ish"}
-var amdRequireImplementation = null;
 function wrapAMD(callback) {
+    var amdRequireImplementation = null;
     function define(id, dependencies, moduleInitializer) {
         if (typeof dependencies === "undefined" && typeof moduleInitializer === "undefined") {
             if (typeof id === "function") {
@@ -39,12 +39,14 @@ function wrapAMD(callback) {
                         });
                     });
                 } else {
-                    return realRequire(id.replace(/^[^!]*!/, ""));
+                    return realRequire(id);
                 }
             }
             require.toUrl = function(id) {
                 return realRequire.sandbox.id.replace(/\/[^\/]*$/, "") + realRequire.id(id);
             }
+            require.sandbox = realRequire.sandbox;
+            require.id = realRequire.id;
             if (typeof amdRequireImplementation !== "undefined") {
                 amdRequireImplementation = require;
             }
@@ -62,14 +64,16 @@ function wrapAMD(callback) {
         }
     }
     define.amd = { jQuery: true };
+    require.def = define;
     var exports = null;
     function wrappedDefine() {
         exports = define.apply(null, arguments);
     }
+    wrappedDefine.amd = { jQuery: true };
     function amdRequire() {
         return amdRequireImplementation.apply(null, arguments);
     }
-    wrappedDefine.amd = { jQuery: true };
+    amdRequire.def = wrappedDefine
     callback(amdRequire, wrappedDefine);
     return exports;
 }
@@ -110,12 +114,14 @@ function define(id, dependencies, moduleInitializer) {
                     });
                 });
             } else {
-                return realRequire(id.replace(/^[^!]*!/, ""));
+                return realRequire(id);
             }
         }
         require.toUrl = function(id) {
             return realRequire.sandbox.id.replace(/\/[^\/]*$/, "") + realRequire.id(id);
         }
+        require.sandbox = realRequire.sandbox;
+        require.id = realRequire.id;
         if (typeof amdRequireImplementation !== "undefined") {
             amdRequireImplementation = require;
         }
@@ -133,6 +139,7 @@ function define(id, dependencies, moduleInitializer) {
     }
 }
 define.amd = { jQuery: true };
+require.def = define;
 // @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/umd/nodeAdapter.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/nodeAdapter.js"}
 require.memoize("/nodeAdapter.js", 
 wrapAMD(function(require, define) {

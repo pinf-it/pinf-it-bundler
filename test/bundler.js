@@ -165,7 +165,37 @@ describe('bundler', function() {
 		this.timeout(120 * 1000);
 
 		[
+			"packages/single",
+			"packages/nodejs-dynamic-require-simple",
+			"packages/nodejs-dynamic-require-shared",
+			"packages/nodejs-dynamic-require-nested",
+			"packages/nodejs-dynamic-require-nested-declared",
+			"packages/nodejs-dynamic-require-pkg",
+			"packages/commonjs-lib",
+			"packages/nodejs-dynamic-require-complex",
 			"packages/nodejs-built-in",  // This use-case needs a major speed improvement
+			"packages/self-require",
+			"packages/deep-main",
+			"packages/self-require-deep",
+			"packages/nodejs-multiple",
+			"packages/nodejs-dynamic-require-declared",
+			"packages/require-async",
+			"packages/nodejs-to-browser",
+			"packages/same-file-dir"
+/*
+TODO: This currently fails. Try fixing once we can log more of the internals of the bundler for debugging.
+1) bundler `bundlePackage()` should bundle package - packages/require-async-deep-pkg:
+     TypeError: Cannot read property 'modules' of null
+      at getMappingInfo (/playground/2014-12-26-promise-actor/pinf-it-bundler/lib/rt-bundler.js:191:41)
+      at Object.resolveDynamicSync (/playground/2014-12-26-promise-actor/pinf-it-bundler/lib/rt-bundler.js:375:21)
+      at moduleObj.require (/playground/2014-12-26-promise-actor/pinf-for-nodejs/lib/loader.js:243:31)
+
+
+			"packages/require-async-deep-pkg"  // This use-case needs a major speed improvement
+*/
+
+// TODO: Enable after we bundle based on catalog info.
+//			"packages/require-local-fallback"
 		].forEach(function(file) {
 
 			it('should bundle package - ' + file, function(done) {

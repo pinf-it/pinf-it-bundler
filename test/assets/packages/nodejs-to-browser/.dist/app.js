@@ -25,9 +25,9 @@ return {
 };
 }
 , {"filename":"test/assets/packages/nodejs-to-browser/app.js"});
-// @pinf-bundle-module: {"file":"/playground/2014-09-q-for-pinf/pinf-it-bundler/node_modules/browser-builtins/node_modules/os-browserify/browser.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/__SYSTEM__/os.js"}
+// @pinf-bundle-module: {"file":"/playground/2014-12-26-promise-actor/pinf-it-bundler/node_modules/browser-builtins/node_modules/os-browserify/browser.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/__SYSTEM__/os.js"}
 require.memoize("/__SYSTEM__/os.js", 
-function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'playground/2014-09-q-for-pinf/pinf-it-bundler/node_modules/browser-builtins/node_modules/os-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'playground/2014-12-26-promise-actor/pinf-it-bundler/node_modules/browser-builtins/node_modules/os-browserify';
 exports.endianness = function () { return 'LE' };
 
 exports.hostname = function () {
@@ -75,7 +75,7 @@ exports.tmpdir = exports.tmpDir = function () {
 exports.EOL = '\n';
 
 }
-, {"filename":"/playground/2014-09-q-for-pinf/pinf-it-bundler/node_modules/browser-builtins/node_modules/os-browserify/browser.js"});
+, {"filename":"/playground/2014-12-26-promise-actor/pinf-it-bundler/node_modules/browser-builtins/node_modules/os-browserify/browser.js"});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

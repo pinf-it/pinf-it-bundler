@@ -1,8 +1,8 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require) {
 // @pinf-bundle-header: {"helper":"amd-ish"}
-var amdRequireImplementation = null;
 function wrapAMD(callback) {
+    var amdRequireImplementation = null;
     function define(id, dependencies, moduleInitializer) {
         if (typeof dependencies === "undefined" && typeof moduleInitializer === "undefined") {
             if (typeof id === "function") {
@@ -39,12 +39,14 @@ function wrapAMD(callback) {
                         });
                     });
                 } else {
-                    return realRequire(id.replace(/^[^!]*!/, ""));
+                    return realRequire(id);
                 }
             }
             require.toUrl = function(id) {
                 return realRequire.sandbox.id.replace(/\/[^\/]*$/, "") + realRequire.id(id);
             }
+            require.sandbox = realRequire.sandbox;
+            require.id = realRequire.id;
             if (typeof amdRequireImplementation !== "undefined") {
                 amdRequireImplementation = require;
             }
@@ -62,14 +64,16 @@ function wrapAMD(callback) {
         }
     }
     define.amd = { jQuery: true };
+    require.def = define;
     var exports = null;
     function wrappedDefine() {
         exports = define.apply(null, arguments);
     }
+    wrappedDefine.amd = { jQuery: true };
     function amdRequire() {
         return amdRequireImplementation.apply(null, arguments);
     }
-    wrappedDefine.amd = { jQuery: true };
+    amdRequire.def = wrappedDefine
     callback(amdRequire, wrappedDefine);
     return exports;
 }
@@ -10719,9 +10723,9 @@ wrapAMD(function(require, define) {
   // Node.js crypto-based RNG - http://nodejs.org/docs/v0.6.2/api/crypto.html
   //
   // Moderately fast, high quality
-  if (typeof(require) == 'function') {
+  if (typeof(_global.require) == 'function') {
     try {
-      var _rb = require('__SYSTEM__/crypto').randomBytes;
+      var _rb = _global.require('crypto').randomBytes;
       _rng = _rb && function() {return _rb(16);};
     } catch(e) {}
   }
@@ -10754,7 +10758,7 @@ wrapAMD(function(require, define) {
   }
 
   // Buffer class to use
-  var BufferClass = typeof(Buffer) == 'function' ? Buffer : Array;
+  var BufferClass = typeof(_global.Buffer) == 'function' ? _global.Buffer : Array;
 
   // Maps for number <-> hex string conversion
   var _byteToHex = [];
@@ -11915,7 +11919,7 @@ CombinedStream.create = function(options) {
 CombinedStream.isStreamLike = function(stream) {
   return (typeof stream !== 'function')
     && (typeof stream !== 'string')
-    && (typeof stream !== 'boolean')    
+    && (typeof stream !== 'boolean')
     && (typeof stream !== 'number')
     && (!Buffer.isBuffer(stream));
 };
@@ -11925,12 +11929,12 @@ CombinedStream.prototype.append = function(stream) {
 
   if (isStreamLike) {
     if (!(stream instanceof DelayedStream)) {
-      stream.on('data', this._checkDataSize.bind(this));
-
-      stream = DelayedStream.create(stream, {
+      var newStream = DelayedStream.create(stream, {
         maxDataSize: Infinity,
         pauseStream: this.pauseStreams,
       });
+      stream.on('data', this._checkDataSize.bind(this));
+      stream = newStream;
     }
 
     this._handleErrors(stream);
@@ -11982,7 +11986,7 @@ CombinedStream.prototype._pipeNext = function(stream) {
 
   var isStreamLike = CombinedStream.isStreamLike(stream);
   if (isStreamLike) {
-    stream.on('end', this._getNext.bind(this))
+    stream.on('end', this._getNext.bind(this));
     stream.pipe(this, {end: false});
     return;
   }
@@ -12008,6 +12012,7 @@ CombinedStream.prototype.pause = function() {
     return;
   }
 
+  if(this.pauseStreams && this._currentStream && typeof(this._currentStream.pause) == 'function') this._currentStream.pause();
   this.emit('pause');
 };
 
@@ -12018,6 +12023,7 @@ CombinedStream.prototype.resume = function() {
     this._getNext();
   }
 
+  if(this.pauseStreams && this._currentStream && typeof(this._currentStream.resume) == 'function') this._currentStream.resume();
   this.emit('resume');
 };
 
@@ -12044,7 +12050,7 @@ CombinedStream.prototype._checkDataSize = function() {
   }
 
   var message =
-    'DelayedStream#maxDataSize of ' + this.maxDataSize + ' bytes exceeded.'
+    'DelayedStream#maxDataSize of ' + this.maxDataSize + ' bytes exceeded.';
   this._emitError(new Error(message));
 };
 
