@@ -69,5 +69,10 @@
         }
       }
     }
+  },
+  "config": {
+    "pio.deploy.converter": {
+      "name": "nodejs-lib"
+    }
   }
 }
