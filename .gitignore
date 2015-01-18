@@ -3,3 +3,4 @@
 /.sm/
 /node_modules/
 /examples/*/app/
+/.pio.cache/
