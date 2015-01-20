@@ -226,7 +226,7 @@
                 "exports": 6
             },
             "b98063a15c6bafaefa93c7f701af192d69a9efd8-fs-extra/lib/index.js": {
-                "exports": 108
+                "exports": 112
             },
             "d5ba5d20168aa9175f55feda3f60aab1a6ace818-jsonfile/lib/jsonfile.js": {
                 "exports": 5
@@ -328,13 +328,13 @@
                 "exports": 7
             },
             "6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature/lib/index.js": {
-                "exports": 8
+                "exports": 9
             },
             "6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature/lib/parser.js": {
                 "exports": 1
             },
             "fbda01465fe6db497c8c3e6b1a4a2bfae5a62cfc-assert-plus/assert.js": {
-                "exports": 38
+                "exports": 50
             },
             "6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature/lib/signer.js": {
                 "exports": 1
@@ -343,7 +343,7 @@
                 "exports": 1
             },
             "6f0d5981580f5664565c0af7ca279d689a790fb5-http-signature/lib/util.js": {
-                "exports": 2
+                "exports": 3
             },
             "e612e189cff4640079c1b54bfddcf962015c2f30-asn1/lib/index.js": {
                 "exports": 3

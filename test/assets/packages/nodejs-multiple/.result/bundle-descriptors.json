@@ -372,9 +372,15 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "greeting": "./node_modules/greeting",
-                                            "letter-e": "./node_modules/letter-e",
-                                            "words": "./node_modules/words"
+                                            "greeting": {
+                                                "location": "./node_modules/greeting"
+                                            },
+                                            "letter-e": {
+                                                "location": "./node_modules/letter-e"
+                                            },
+                                            "words": {
+                                                "location": "./node_modules/words"
+                                            }
                                         }
                                     },
                                     "mappings": {
@@ -397,9 +403,15 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "greeting": "./node_modules/greeting",
-                                            "letter-e": "./node_modules/letter-e",
-                                            "words": "./node_modules/words"
+                                            "greeting": {
+                                                "location": "./node_modules/greeting"
+                                            },
+                                            "letter-e": {
+                                                "location": "./node_modules/letter-e"
+                                            },
+                                            "words": {
+                                                "location": "./node_modules/words"
+                                            }
                                         }
                                     },
                                     "mappings": {
@@ -423,9 +435,15 @@
                                 },
                                 "dependencies": {
                                     "bundled": {
-                                        "greeting": "./node_modules/greeting",
-                                        "letter-e": "./node_modules/letter-e",
-                                        "words": "./node_modules/words"
+                                        "greeting": {
+                                            "location": "./node_modules/greeting"
+                                        },
+                                        "letter-e": {
+                                            "location": "./node_modules/letter-e"
+                                        },
+                                        "words": {
+                                            "location": "./node_modules/words"
+                                        }
                                     }
                                 },
                                 "mappings": {
@@ -501,9 +519,15 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "greeting": ".",
-                                            "letter-e": "../letter-e",
-                                            "words": "../words"
+                                            "greeting": {
+                                                "location": "."
+                                            },
+                                            "letter-e": {
+                                                "location": "../letter-e"
+                                            },
+                                            "words": {
+                                                "location": "../words"
+                                            }
                                         }
                                     },
                                     "mappings": {
@@ -532,9 +556,15 @@
                                 },
                                 "dependencies": {
                                     "bundled": {
-                                        "greeting": ".",
-                                        "letter-e": "../letter-e",
-                                        "words": "../words"
+                                        "greeting": {
+                                            "location": "."
+                                        },
+                                        "letter-e": {
+                                            "location": "../letter-e"
+                                        },
+                                        "words": {
+                                            "location": "../words"
+                                        }
                                     }
                                 },
                                 "mappings": {
@@ -581,8 +611,12 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "letters": "./node_modules/letters",
-                                            "o": "./node_modules/o"
+                                            "letters": {
+                                                "location": "./node_modules/letters"
+                                            },
+                                            "o": {
+                                                "location": "./node_modules/o"
+                                            }
                                         }
                                     },
                                     "mappings": {
@@ -601,8 +635,12 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "letters": "./node_modules/letters",
-                                            "o": "./node_modules/o"
+                                            "letters": {
+                                                "location": "./node_modules/letters"
+                                            },
+                                            "o": {
+                                                "location": "./node_modules/o"
+                                            }
                                         }
                                     },
                                     "mappings": {
@@ -622,8 +660,12 @@
                                 },
                                 "dependencies": {
                                     "bundled": {
-                                        "letters": "./node_modules/letters",
-                                        "o": "./node_modules/o"
+                                        "letters": {
+                                            "location": "./node_modules/letters"
+                                        },
+                                        "o": {
+                                            "location": "./node_modules/o"
+                                        }
                                     }
                                 },
                                 "mappings": {
@@ -699,11 +741,21 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "letters": ".",
-                                            "o": "../o",
-                                            "greeting": "../../../greeting",
-                                            "letter-e": "../../../letter-e",
-                                            "words": "../.."
+                                            "letters": {
+                                                "location": "."
+                                            },
+                                            "o": {
+                                                "location": "../o"
+                                            },
+                                            "greeting": {
+                                                "location": "../../../greeting"
+                                            },
+                                            "letter-e": {
+                                                "location": "../../../letter-e"
+                                            },
+                                            "words": {
+                                                "location": "../.."
+                                            }
                                         }
                                     },
                                     "mappings": {
@@ -734,11 +786,21 @@
                                 },
                                 "dependencies": {
                                     "bundled": {
-                                        "letters": ".",
-                                        "o": "../o",
-                                        "greeting": "../../../greeting",
-                                        "letter-e": "../../../letter-e",
-                                        "words": "../.."
+                                        "letters": {
+                                            "location": "."
+                                        },
+                                        "o": {
+                                            "location": "../o"
+                                        },
+                                        "greeting": {
+                                            "location": "../../../greeting"
+                                        },
+                                        "letter-e": {
+                                            "location": "../../../letter-e"
+                                        },
+                                        "words": {
+                                            "location": "../.."
+                                        }
                                     }
                                 },
                                 "mappings": {

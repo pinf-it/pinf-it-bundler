@@ -79,9 +79,15 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "letter-l": "./node_modules/letter-l",
-                                            "letter-o": "./node_modules/letter-o",
-                                            "letters": "./node_modules/letters"
+                                            "letter-l": {
+                                                "location": "./node_modules/letter-l"
+                                            },
+                                            "letter-o": {
+                                                "location": "./node_modules/letter-o"
+                                            },
+                                            "letters": {
+                                                "location": "./node_modules/letters"
+                                            }
                                         }
                                     },
                                     "mappings": {
@@ -104,9 +110,15 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "letter-l": "./node_modules/letter-l",
-                                            "letter-o": "./node_modules/letter-o",
-                                            "letters": "./node_modules/letters"
+                                            "letter-l": {
+                                                "location": "./node_modules/letter-l"
+                                            },
+                                            "letter-o": {
+                                                "location": "./node_modules/letter-o"
+                                            },
+                                            "letters": {
+                                                "location": "./node_modules/letters"
+                                            }
                                         }
                                     },
                                     "mappings": {
@@ -130,9 +142,15 @@
                                 },
                                 "dependencies": {
                                     "bundled": {
-                                        "letter-l": "./node_modules/letter-l",
-                                        "letter-o": "./node_modules/letter-o",
-                                        "letters": "./node_modules/letters"
+                                        "letter-l": {
+                                            "location": "./node_modules/letter-l"
+                                        },
+                                        "letter-o": {
+                                            "location": "./node_modules/letter-o"
+                                        },
+                                        "letters": {
+                                            "location": "./node_modules/letters"
+                                        }
                                     }
                                 },
                                 "mappings": {
@@ -247,9 +265,15 @@
                             },
                             "dependencies": {
                                 "bundled": {
-                                    "letter-l": "./node_modules/letter-l",
-                                    "letter-o": "./node_modules/letter-o",
-                                    "letters": "./node_modules/letters"
+                                    "letter-l": {
+                                        "location": "./node_modules/letter-l"
+                                    },
+                                    "letter-o": {
+                                        "location": "./node_modules/letter-o"
+                                    },
+                                    "letters": {
+                                        "location": "./node_modules/letters"
+                                    }
                                 }
                             },
                             "mappings": {
@@ -272,9 +296,15 @@
                             },
                             "dependencies": {
                                 "bundled": {
-                                    "letter-l": "./node_modules/letter-l",
-                                    "letter-o": "./node_modules/letter-o",
-                                    "letters": "./node_modules/letters"
+                                    "letter-l": {
+                                        "location": "./node_modules/letter-l"
+                                    },
+                                    "letter-o": {
+                                        "location": "./node_modules/letter-o"
+                                    },
+                                    "letters": {
+                                        "location": "./node_modules/letters"
+                                    }
                                 }
                             },
                             "mappings": {
@@ -298,9 +328,15 @@
                         },
                         "dependencies": {
                             "bundled": {
-                                "letter-l": "./node_modules/letter-l",
-                                "letter-o": "./node_modules/letter-o",
-                                "letters": "./node_modules/letters"
+                                "letter-l": {
+                                    "location": "./node_modules/letter-l"
+                                },
+                                "letter-o": {
+                                    "location": "./node_modules/letter-o"
+                                },
+                                "letters": {
+                                    "location": "./node_modules/letters"
+                                }
                             }
                         },
                         "mappings": {
@@ -431,9 +467,15 @@
                             },
                             "dependencies": {
                                 "bundled": {
-                                    "letter-l": "./node_modules/letter-l",
-                                    "letter-o": "./node_modules/letter-o",
-                                    "letters": "./node_modules/letters"
+                                    "letter-l": {
+                                        "location": "./node_modules/letter-l"
+                                    },
+                                    "letter-o": {
+                                        "location": "./node_modules/letter-o"
+                                    },
+                                    "letters": {
+                                        "location": "./node_modules/letters"
+                                    }
                                 }
                             },
                             "mappings": {
@@ -456,9 +498,15 @@
                             },
                             "dependencies": {
                                 "bundled": {
-                                    "letter-l": "./node_modules/letter-l",
-                                    "letter-o": "./node_modules/letter-o",
-                                    "letters": "./node_modules/letters"
+                                    "letter-l": {
+                                        "location": "./node_modules/letter-l"
+                                    },
+                                    "letter-o": {
+                                        "location": "./node_modules/letter-o"
+                                    },
+                                    "letters": {
+                                        "location": "./node_modules/letters"
+                                    }
                                 }
                             },
                             "mappings": {
@@ -482,9 +530,15 @@
                         },
                         "dependencies": {
                             "bundled": {
-                                "letter-l": "./node_modules/letter-l",
-                                "letter-o": "./node_modules/letter-o",
-                                "letters": "./node_modules/letters"
+                                "letter-l": {
+                                    "location": "./node_modules/letter-l"
+                                },
+                                "letter-o": {
+                                    "location": "./node_modules/letter-o"
+                                },
+                                "letters": {
+                                    "location": "./node_modules/letters"
+                                }
                             }
                         },
                         "mappings": {
@@ -630,9 +684,15 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "letter-l": "../letter-l",
-                                            "letter-o": "../letter-o",
-                                            "letters": "."
+                                            "letter-l": {
+                                                "location": "../letter-l"
+                                            },
+                                            "letter-o": {
+                                                "location": "../letter-o"
+                                            },
+                                            "letters": {
+                                                "location": "."
+                                            }
                                         }
                                     },
                                     "mappings": {
@@ -658,9 +718,15 @@
                                 },
                                 "dependencies": {
                                     "bundled": {
-                                        "letter-l": "../letter-l",
-                                        "letter-o": "../letter-o",
-                                        "letters": "."
+                                        "letter-l": {
+                                            "location": "../letter-l"
+                                        },
+                                        "letter-o": {
+                                            "location": "../letter-o"
+                                        },
+                                        "letters": {
+                                            "location": "."
+                                        }
                                     }
                                 },
                                 "mappings": {
@@ -833,9 +899,15 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "letter-l": "../letter-l",
-                                            "letter-o": "../letter-o",
-                                            "letters": "."
+                                            "letter-l": {
+                                                "location": "../letter-l"
+                                            },
+                                            "letter-o": {
+                                                "location": "../letter-o"
+                                            },
+                                            "letters": {
+                                                "location": "."
+                                            }
                                         }
                                     },
                                     "mappings": {
@@ -861,9 +933,15 @@
                                 },
                                 "dependencies": {
                                     "bundled": {
-                                        "letter-l": "../letter-l",
-                                        "letter-o": "../letter-o",
-                                        "letters": "."
+                                        "letter-l": {
+                                            "location": "../letter-l"
+                                        },
+                                        "letter-o": {
+                                            "location": "../letter-o"
+                                        },
+                                        "letters": {
+                                            "location": "."
+                                        }
                                     }
                                 },
                                 "mappings": {
@@ -991,9 +1069,15 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "letter-l": "../letter-l",
-                                            "letter-o": "../letter-o",
-                                            "letters": "."
+                                            "letter-l": {
+                                                "location": "../letter-l"
+                                            },
+                                            "letter-o": {
+                                                "location": "../letter-o"
+                                            },
+                                            "letters": {
+                                                "location": "."
+                                            }
                                         }
                                     },
                                     "mappings": {
@@ -1019,9 +1103,15 @@
                                 },
                                 "dependencies": {
                                     "bundled": {
-                                        "letter-l": "../letter-l",
-                                        "letter-o": "../letter-o",
-                                        "letters": "."
+                                        "letter-l": {
+                                            "location": "../letter-l"
+                                        },
+                                        "letter-o": {
+                                            "location": "../letter-o"
+                                        },
+                                        "letters": {
+                                            "location": "."
+                                        }
                                     }
                                 },
                                 "mappings": {

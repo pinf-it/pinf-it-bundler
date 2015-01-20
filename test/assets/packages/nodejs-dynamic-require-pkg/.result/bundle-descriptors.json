@@ -79,7 +79,9 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "greeting": "./node_modules/greeting"
+                                            "greeting": {
+                                                "location": "./node_modules/greeting"
+                                            }
                                         }
                                     },
                                     "mappings": {
@@ -100,7 +102,9 @@
                                     },
                                     "dependencies": {
                                         "bundled": {
-                                            "greeting": "./node_modules/greeting"
+                                            "greeting": {
+                                                "location": "./node_modules/greeting"
+                                            }
                                         }
                                     },
                                     "mappings": {
@@ -122,7 +126,9 @@
                                 },
                                 "dependencies": {
                                     "bundled": {
-                                        "greeting": "./node_modules/greeting"
+                                        "greeting": {
+                                            "location": "./node_modules/greeting"
+                                        }
                                     }
                                 },
                                 "mappings": {

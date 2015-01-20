@@ -6157,6 +6157,7 @@ module.exports = {
 
   sshKeyToPEM: util.sshKeyToPEM,
   sshKeyFingerprint: util.fingerprint,
+  pemToRsaSSHKey: util.pemToRsaSSHKey,
 
   verify: verify.verifySignature,
   verifySignature: verify.verifySignature
@@ -6513,6 +6514,7 @@ var util = require('__SYSTEM__/util');
 ///--- Globals
 
 var NDEBUG = process.env.NODE_NDEBUG || false;
+var UUID_REGEXP = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
 
 
 
@@ -6557,6 +6559,28 @@ function _assert(arg, type, name, stackFunc) {
 }
 
 
+function _instanceof(arg, type, name, stackFunc) {
+        if (!NDEBUG) {
+                name = name || type;
+                stackFunc = stackFunc || _instanceof.caller;
+
+                if (!(arg instanceof type)) {
+                        throw new assert.AssertionError({
+                                message: _(TYPE_REQUIRED, name, type.name),
+                                actual: _getClass(arg),
+                                expected: type.name,
+                                operator: 'instanceof',
+                                stackStartFunction: stackFunc
+                        });
+                }
+        }
+}
+
+function _getClass(object) {
+        return (Object.prototype.toString.call(object).slice(8, -1));
+};
+
+
 
 ///--- API
 
@@ -6589,7 +6613,7 @@ function bool(arg, name) {
 function buffer(arg, name) {
         if (!Buffer.isBuffer(arg)) {
                 throw new assert.AssertionError({
-                        message: _(TYPE_REQUIRED, name, type),
+                        message: _(TYPE_REQUIRED, name || '', 'Buffer'),
                         actual: typeof (arg),
                         expected: 'buffer',
                         operator: 'Buffer.isBuffer',
@@ -6606,6 +6630,15 @@ function func(arg, name) {
 
 function number(arg, name) {
         _assert(arg, 'number', name);
+        if (!NDEBUG && (isNaN(arg) || !isFinite(arg))) {
+                throw new assert.AssertionError({
+                        message: _(TYPE_REQUIRED, name, 'number'),
+                        actual: arg,
+                        expected: 'number',
+                        operator: 'isNaN',
+                        stackStartFunction: number
+                });
+        }
 }
 
 
@@ -6615,15 +6648,16 @@ function object(arg, name) {
 
 
 function stream(arg, name) {
-        if (!(arg instanceof Stream)) {
-                throw new assert.AssertionError({
-                        message: _(TYPE_REQUIRED, name, type),
-                        actual: typeof (arg),
-                        expected: 'Stream',
-                        operator: 'instanceof',
-                        stackStartFunction: buffer
-                });
-        }
+        _instanceof(arg, Stream, name);
+}
+
+
+function date(arg, name) {
+        _instanceof(arg, Date, name);
+}
+
+function regexp(arg, name) {
+        _instanceof(arg, RegExp, name);
 }
 
 
@@ -6632,17 +6666,33 @@ function string(arg, name) {
 }
 
 
+function uuid(arg, name) {
+        string(arg, name);
+        if (!NDEBUG && !UUID_REGEXP.test(arg)) {
+                throw new assert.AssertionError({
+                        message: _(TYPE_REQUIRED, name, 'uuid'),
+                        actual: 'string',
+                        expected: 'uuid',
+                        operator: 'test',
+                        stackStartFunction: uuid
+                });
+        }
+}
+
 
 ///--- Exports
 
 module.exports = {
         bool: bool,
         buffer: buffer,
+        date: date,
         func: func,
         number: number,
         object: object,
+        regexp: regexp,
         stream: stream,
-        string: string
+        string: string,
+        uuid: uuid
 };
 
 
@@ -6706,12 +6756,16 @@ return {
     util: (typeof util !== "undefined") ? util : null,
     NDEBUG: (typeof NDEBUG !== "undefined") ? NDEBUG : null,
     process: (typeof process !== "undefined") ? process : null,
+    UUID_REGEXP: (typeof UUID_REGEXP !== "undefined") ? UUID_REGEXP : null,
     ARRAY_TYPE_REQUIRED: (typeof ARRAY_TYPE_REQUIRED !== "undefined") ? ARRAY_TYPE_REQUIRED : null,
     TYPE_REQUIRED: (typeof TYPE_REQUIRED !== "undefined") ? TYPE_REQUIRED : null,
     capitalize: (typeof capitalize !== "undefined") ? capitalize : null,
     uncapitalize: (typeof uncapitalize !== "undefined") ? uncapitalize : null,
     _: (typeof _ !== "undefined") ? _ : null,
     _assert: (typeof _assert !== "undefined") ? _assert : null,
+    _instanceof: (typeof _instanceof !== "undefined") ? _instanceof : null,
+    _getClass: (typeof _getClass !== "undefined") ? _getClass : null,
+    Object: (typeof Object !== "undefined") ? Object : null,
     array: (typeof array !== "undefined") ? array : null,
     Array: (typeof Array !== "undefined") ? Array : null,
     bool: (typeof bool !== "undefined") ? bool : null,
@@ -6719,11 +6773,17 @@ return {
     Buffer: (typeof Buffer !== "undefined") ? Buffer : null,
     func: (typeof func !== "undefined") ? func : null,
     number: (typeof number !== "undefined") ? number : null,
+    isNaN: (typeof isNaN !== "undefined") ? isNaN : null,
+    isFinite: (typeof isFinite !== "undefined") ? isFinite : null,
     object: (typeof object !== "undefined") ? object : null,
     stream: (typeof stream !== "undefined") ? stream : null,
+    date: (typeof date !== "undefined") ? date : null,
+    Date: (typeof Date !== "undefined") ? Date : null,
+    regexp: (typeof regexp !== "undefined") ? regexp : null,
+    RegExp: (typeof RegExp !== "undefined") ? RegExp : null,
     string: (typeof string !== "undefined") ? string : null,
-    module: (typeof module !== "undefined") ? module : null,
-    Object: (typeof Object !== "undefined") ? Object : null
+    uuid: (typeof uuid !== "undefined") ? uuid : null,
+    module: (typeof module !== "undefined") ? module : null
 };
 }
 , {"filename":"node_modules/request/node_modules/http-signature/node_modules/assert-plus/assert.js"});
@@ -6878,7 +6938,6 @@ module.exports = {
         }
         stringToSign += h + ': ' + value;
       } else {
-        value =
         stringToSign +=
           request.method + ' ' + request.path + ' HTTP/' + options.httpVersion;
       }
@@ -7229,9 +7288,64 @@ module.exports = {
     }
 
     return fp;
+  },
+
+  /**
+  * Converts a PKGCS#8 PEM file to an OpenSSH public key (rsa)
+  *
+  * The reverse of the above function.
+  */
+  pemToRsaSSHKey: function pemToRsaSSHKey(pem, comment) {
+    assert.equal('string', typeof pem, 'typeof pem');
+
+    // chop off the BEGIN PUBLIC KEY and END PUBLIC KEY portion
+    var cleaned = pem.split('\n').slice(1, -2).join('');
+
+    var buf = new Buffer(cleaned, 'base64');
+
+    var der = new asn1.BerReader(buf);
+
+    der.readSequence();
+    der.readSequence();
+
+    var oid = der.readOID();
+    assert.equal(oid, '1.2.840.113549.1.1.1', 'pem not in RSA format');
+
+    // Null -- XXX this probably isn't good practice
+    der.readByte();
+    der.readByte();
+
+    // bit string sequence
+    der.readSequence(0x03);
+    der.readByte();
+    der.readSequence();
+
+    // modulus
+    assert.equal(der.peek(), asn1.Ber.Integer, 'modulus not an integer');
+    der._offset = der.readLength(der.offset + 1);
+    var modulus = der._buf.slice(der.offset, der.offset + der.length);
+    der._offset += der.length;
+
+    // exponent
+    assert.equal(der.peek(), asn1.Ber.Integer, 'exponent not an integer');
+    der._offset = der.readLength(der.offset + 1);
+    var exponent = der._buf.slice(der.offset, der.offset + der.length);
+    der._offset += der.length;
+
+    // now, make the key
+    var type = new Buffer('ssh-rsa');
+    var buffer = new Buffer(4 + type.length + 4 + modulus.length + 4 + exponent.length);
+    var i = 0;
+    buffer.writeUInt32BE(type.length, i);     i += 4;
+    type.copy(buffer, i);                     i += type.length;
+    buffer.writeUInt32BE(exponent.length, i); i += 4;
+    exponent.copy(buffer, i);                 i += exponent.length;
+    buffer.writeUInt32BE(modulus.length, i);  i += 4;
+    modulus.copy(buffer, i);                  i += modulus.length;
+
+    var s = type.toString() + ' ' + buffer.toString('base64') + ' ' + (comment || '');
+    return s;
   }
-
-
 };
 
 return {
