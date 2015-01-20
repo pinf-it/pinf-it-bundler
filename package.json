@@ -30,7 +30,7 @@
     "request": "~2.27.0"
   },
   "scripts": {
-    "test": "make test"
+    "test": "./node_modules/.bin/mocha --reporter list test/bundler.js"
   },
   "overrides": {
     "./node_modules/request/node_modules/hawk/node_modules/boom": {
