@@ -6122,7 +6122,8 @@
                                         }
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     }
                                 },
                                 "package.json": {
@@ -6155,7 +6156,8 @@
                                         "scripts": {
                                             "test": "tap test/*.js"
                                         },
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     },
                                     "licenses": [
                                         "MIT"
@@ -6214,7 +6216,8 @@
                                     "scripts": {
                                         "test": "tap test/*.js"
                                     },
-                                    "main": "./index.js"
+                                    "main": "./index.js",
+                                    "browser": "./index.js"
                                 },
                                 "licenses": [
                                     "MIT"
@@ -6928,7 +6931,8 @@
                                         "tunnel-agent": "11cb05bc0940ffae1a1e1f73ca7c89e4731519fe-tunnel-agent"
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     }
                                 },
                                 "package.json": {
@@ -7040,7 +7044,8 @@
                                         "scripts": {
                                             "test": "node tests/run.js"
                                         },
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     },
                                     "files": {
                                         "readme": "./README.md"
@@ -7185,7 +7190,8 @@
                                     "scripts": {
                                         "test": "node tests/run.js"
                                     },
-                                    "main": "./index.js"
+                                    "main": "./index.js",
+                                    "browser": "./index.js"
                                 },
                                 "files": {
                                     "readme": "./README.md"
@@ -7323,7 +7329,8 @@
                                         }
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     }
                                 },
                                 "package.json": {
@@ -7353,7 +7360,8 @@
                                         "scripts": {
                                             "test": "node tests/run.js"
                                         },
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     },
                                     "files": {
                                         "readme": "./README.md"
@@ -7402,7 +7410,8 @@
                                     "scripts": {
                                         "test": "node tests/run.js"
                                     },
-                                    "main": "./index.js"
+                                    "main": "./index.js",
+                                    "browser": "./index.js"
                                 },
                                 "files": {
                                     "readme": "./README.md"
@@ -7517,7 +7526,8 @@
                                         }
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     }
                                 },
                                 "package.json": {
@@ -7558,7 +7568,8 @@
                                         "scripts": {
                                             "test": "make test"
                                         },
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     },
                                     "files": {
                                         "readme": "./Readme.md"
@@ -7623,7 +7634,8 @@
                                     "scripts": {
                                         "test": "make test"
                                     },
-                                    "main": "./index.js"
+                                    "main": "./index.js",
+                                    "browser": "./index.js"
                                 },
                                 "files": {
                                     "readme": "./Readme.md"
@@ -7732,7 +7744,8 @@
                                         }
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     }
                                 },
                                 "package.json": {
@@ -7762,7 +7775,8 @@
                                         "scripts": {
                                             "test": "node test.js"
                                         },
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     },
                                     "files": {
                                         "readme": "./README.md"
@@ -7811,7 +7825,8 @@
                                     "scripts": {
                                         "test": "node test.js"
                                     },
-                                    "main": "./index.js"
+                                    "main": "./index.js",
+                                    "browser": "./index.js"
                                 },
                                 "files": {
                                     "readme": "./README.md"
@@ -7973,7 +7988,8 @@
                                         "sntp": "99cc0c112bc5e48183c985f6e4c69af129c98ba7-sntp"
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     }
                                 },
                                 "package.json": {
@@ -8045,7 +8061,8 @@
                                         "scripts": {
                                             "test": "make test-cov"
                                         },
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     },
                                     "licenses": [
                                         {
@@ -8154,7 +8171,8 @@
                                     "scripts": {
                                         "test": "make test-cov"
                                     },
-                                    "main": "./index.js"
+                                    "main": "./index.js",
+                                    "browser": "./index.js"
                                 },
                                 "licenses": [
                                     {
@@ -8304,7 +8322,8 @@
                                         }
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     }
                                 },
                                 "package.json": {
@@ -8364,7 +8383,8 @@
                                         "scripts": {
                                             "test": "make test-cov"
                                         },
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     },
                                     "licenses": [
                                         {
@@ -8459,7 +8479,8 @@
                                     "scripts": {
                                         "test": "make test-cov"
                                     },
-                                    "main": "./index.js"
+                                    "main": "./index.js",
+                                    "browser": "./index.js"
                                 },
                                 "licenses": [
                                     {
@@ -8609,7 +8630,8 @@
                                         }
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     }
                                 },
                                 "package.json": {
@@ -8650,7 +8672,8 @@
                                         "scripts": {
                                             "test": "make test-cov"
                                         },
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     },
                                     "licenses": [
                                         {
@@ -8723,7 +8746,8 @@
                                     "scripts": {
                                         "test": "make test-cov"
                                     },
-                                    "main": "./index.js"
+                                    "main": "./index.js",
+                                    "browser": "./index.js"
                                 },
                                 "licenses": [
                                     {
@@ -8863,7 +8887,8 @@
                                         }
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     }
                                 },
                                 "package.json": {
@@ -8923,7 +8948,8 @@
                                         "scripts": {
                                             "test": "make test-cov"
                                         },
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     },
                                     "licenses": [
                                         {
@@ -9019,7 +9045,8 @@
                                     "scripts": {
                                         "test": "make test-cov"
                                     },
-                                    "main": "./index.js"
+                                    "main": "./index.js",
+                                    "browser": "./index.js"
                                 },
                                 "licenses": [
                                     {
@@ -9166,7 +9193,8 @@
                                         }
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     }
                                 },
                                 "package.json": {
@@ -9226,7 +9254,8 @@
                                         "scripts": {
                                             "test": "make test-cov"
                                         },
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     },
                                     "licenses": [
                                         {
@@ -9322,7 +9351,8 @@
                                     "scripts": {
                                         "test": "make test-cov"
                                     },
-                                    "main": "./index.js"
+                                    "main": "./index.js",
+                                    "browser": "./index.js"
                                 },
                                 "licenses": [
                                     {
@@ -9444,7 +9474,8 @@
                                         }
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     }
                                 },
                                 "package.json": {
@@ -9471,7 +9502,8 @@
                                         }
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     },
                                     "files": {
                                         "readme": "./README.md"
@@ -9517,7 +9549,8 @@
                                     }
                                 },
                                 "exports": {
-                                    "main": "./index.js"
+                                    "main": "./index.js",
+                                    "browser": "./index.js"
                                 },
                                 "files": {
                                     "readme": "./README.md"
@@ -11076,7 +11109,8 @@
                                         }
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     }
                                 },
                                 "package.json": {
@@ -11103,7 +11137,8 @@
                                         }
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     },
                                     "files": {
                                         "readme": "./README.md"
@@ -11149,7 +11184,8 @@
                                     }
                                 },
                                 "exports": {
-                                    "main": "./index.js"
+                                    "main": "./index.js",
+                                    "browser": "./index.js"
                                 },
                                 "files": {
                                     "readme": "./README.md"
@@ -11443,7 +11479,8 @@
                                         }
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     }
                                 },
                                 "package.json": {
@@ -11470,7 +11507,8 @@
                                         }
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     },
                                     "files": {
                                         "readme": "./README.md"
@@ -11516,7 +11554,8 @@
                                     }
                                 },
                                 "exports": {
-                                    "main": "./index.js"
+                                    "main": "./index.js",
+                                    "browser": "./index.js"
                                 },
                                 "files": {
                                     "readme": "./README.md"

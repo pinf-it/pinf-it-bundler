@@ -229,7 +229,8 @@
                                         }
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     }
                                 },
                                 "package.json": {
@@ -242,7 +243,8 @@
                                         }
                                     },
                                     "exports": {
-                                        "main": "./index.js"
+                                        "main": "./index.js",
+                                        "browser": "./index.js"
                                     }
                                 }
                             },
@@ -256,7 +258,8 @@
                                     }
                                 },
                                 "exports": {
-                                    "main": "./index.js"
+                                    "main": "./index.js",
+                                    "browser": "./index.js"
                                 }
                             },
                             "warnings": [],
