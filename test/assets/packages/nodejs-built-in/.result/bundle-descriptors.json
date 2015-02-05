@@ -5524,7 +5524,7 @@
                                     },
                                     "_id": "fs-extra@0.6.4",
                                     "_shasum": "f46f0c75b7841f8d200b3348cd4d691d5a099d15",
-                                    "_from": "fs-extra@>=0.6.3 <0.7.0",
+                                    "_from": "fs-extra@~0.6.3",
                                     "_resolved": "https://registry.npmjs.org/fs-extra/-/fs-extra-0.6.4.tgz"
                                 }
                             },
@@ -5570,7 +5570,7 @@
                                     "description": "fs-extra contains methods that aren't included in the vanilla Node.js fs package. Such as mkdir -p, cp -r, and rm -rf.",
                                     "version": "0.6.4",
                                     "locator": {
-                                        "pointer": ">=0.6.3 <0.7.0"
+                                        "pointer": "~0.6.3"
                                     },
                                     "homepage": "https://github.com/jprichardson/node-fs-extra",
                                     "social": {
@@ -5696,7 +5696,7 @@
                                 "description": "fs-extra contains methods that aren't included in the vanilla Node.js fs package. Such as mkdir -p, cp -r, and rm -rf.",
                                 "version": "0.6.4",
                                 "locator": {
-                                    "pointer": ">=0.6.3 <0.7.0"
+                                    "pointer": "~0.6.3"
                                 },
                                 "homepage": "https://github.com/jprichardson/node-fs-extra",
                                 "social": {
@@ -5900,7 +5900,7 @@
                                     "homepage": "https://github.com/jprichardson/node-jsonfile",
                                     "_id": "jsonfile@1.0.1",
                                     "_shasum": "ea5efe40b83690b98667614a7392fc60e842c0dd",
-                                    "_from": "jsonfile@>=1.0.1 <1.1.0",
+                                    "_from": "jsonfile@~1.0.1",
                                     "_resolved": "https://registry.npmjs.org/jsonfile/-/jsonfile-1.0.1.tgz"
                                 }
                             },
@@ -5920,7 +5920,7 @@
                                     "description": "Easily read/write JSON files.",
                                     "version": "1.0.1",
                                     "locator": {
-                                        "pointer": ">=1.0.1 <1.1.0"
+                                        "pointer": "~1.0.1"
                                     },
                                     "homepage": "https://github.com/jprichardson/node-jsonfile",
                                     "social": {
@@ -5980,7 +5980,7 @@
                                 "description": "Easily read/write JSON files.",
                                 "version": "1.0.1",
                                 "locator": {
-                                    "pointer": ">=1.0.1 <1.1.0"
+                                    "pointer": "~1.0.1"
                                 },
                                 "homepage": "https://github.com/jprichardson/node-jsonfile",
                                 "social": {
@@ -6107,7 +6107,7 @@
                                     "homepage": "https://github.com/substack/node-mkdirp",
                                     "_id": "mkdirp@0.3.5",
                                     "_shasum": "de3e5f8961c88c787ee1368df849ac4413eca8d7",
-                                    "_from": "mkdirp@>=0.3.0 <0.4.0",
+                                    "_from": "mkdirp@0.3.x",
                                     "_resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.3.5.tgz"
                                 }
                             },
@@ -6131,7 +6131,7 @@
                                     "description": "Recursively mkdir, like `mkdir -p`",
                                     "version": "0.3.5",
                                     "locator": {
-                                        "pointer": ">=0.3.0 <0.4.0"
+                                        "pointer": "0.3.x"
                                     },
                                     "homepage": "https://github.com/substack/node-mkdirp",
                                     "social": {
@@ -6191,7 +6191,7 @@
                                 "description": "Recursively mkdir, like `mkdir -p`",
                                 "version": "0.3.5",
                                 "locator": {
-                                    "pointer": ">=0.3.0 <0.4.0"
+                                    "pointer": "0.3.x"
                                 },
                                 "homepage": "https://github.com/substack/node-mkdirp",
                                 "social": {
@@ -6329,7 +6329,7 @@
                                     "homepage": "https://github.com/AvianFlu/ncp",
                                     "_id": "ncp@0.4.2",
                                     "_shasum": "abcc6cbd3ec2ed2a729ff6e7c1fa8f01784a8574",
-                                    "_from": "ncp@>=0.4.2 <0.5.0",
+                                    "_from": "ncp@~0.4.2",
                                     "_resolved": "https://registry.npmjs.org/ncp/-/ncp-0.4.2.tgz"
                                 }
                             },
@@ -6349,7 +6349,7 @@
                                     "description": "Asynchronous recursive file copy utility.",
                                     "version": "0.4.2",
                                     "locator": {
-                                        "pointer": ">=0.4.2 <0.5.0"
+                                        "pointer": "~0.4.2"
                                     },
                                     "homepage": "https://github.com/AvianFlu/ncp",
                                     "social": {
@@ -6421,7 +6421,7 @@
                                 "description": "Asynchronous recursive file copy utility.",
                                 "version": "0.4.2",
                                 "locator": {
-                                    "pointer": ">=0.4.2 <0.5.0"
+                                    "pointer": "~0.4.2"
                                 },
                                 "homepage": "https://github.com/AvianFlu/ncp",
                                 "social": {
@@ -6585,7 +6585,7 @@
                                     "homepage": "https://github.com/isaacs/rimraf",
                                     "_id": "rimraf@2.2.8",
                                     "_shasum": "e439be2aaee327321952730f99a8929e4fc50582",
-                                    "_from": "rimraf@>=2.2.0 <2.3.0",
+                                    "_from": "rimraf@~2.2.0",
                                     "_resolved": "https://registry.npmjs.org/rimraf/-/rimraf-2.2.8.tgz"
                                 }
                             },
@@ -6605,7 +6605,7 @@
                                     "description": "A deep deletion module for node (like `rm -rf`)",
                                     "version": "2.2.8",
                                     "locator": {
-                                        "pointer": ">=2.2.0 <2.3.0"
+                                        "pointer": "~2.2.0"
                                     },
                                     "homepage": "https://github.com/isaacs/rimraf",
                                     "social": {
@@ -6680,7 +6680,7 @@
                                 "description": "A deep deletion module for node (like `rm -rf`)",
                                 "version": "2.2.8",
                                 "locator": {
-                                    "pointer": ">=2.2.0 <2.3.0"
+                                    "pointer": "~2.2.0"
                                 },
                                 "homepage": "https://github.com/isaacs/rimraf",
                                 "social": {
@@ -6858,7 +6858,7 @@
                                     "homepage": "https://github.com/mikeal/request",
                                     "_id": "request@2.27.0",
                                     "_shasum": "dfb1a224dd3a5a9bade4337012503d710e538668",
-                                    "_from": "request@>=2.27.0 <2.28.0",
+                                    "_from": "request@~2.27.0",
                                     "_resolved": "https://registry.npmjs.org/request/-/request-2.27.0.tgz"
                                 }
                             },
@@ -6940,7 +6940,7 @@
                                     "description": "Simplified HTTP request client.",
                                     "version": "2.27.0",
                                     "locator": {
-                                        "pointer": ">=2.27.0 <2.28.0"
+                                        "pointer": "~2.27.0"
                                     },
                                     "homepage": "https://github.com/mikeal/request",
                                     "social": {
@@ -7086,7 +7086,7 @@
                                 "description": "Simplified HTTP request client.",
                                 "version": "2.27.0",
                                 "locator": {
-                                    "pointer": ">=2.27.0 <2.28.0"
+                                    "pointer": "~2.27.0"
                                 },
                                 "homepage": "https://github.com/mikeal/request",
                                 "social": {
@@ -7314,7 +7314,7 @@
                                     "homepage": "https://github.com/mikeal/cookie-jar",
                                     "_id": "cookie-jar@0.3.0",
                                     "_shasum": "bc9a27d4e2b97e186cd57c9e2063cb99fa68cccc",
-                                    "_from": "cookie-jar@>=0.3.0 <0.4.0",
+                                    "_from": "cookie-jar@~0.3.0",
                                     "_resolved": "https://registry.npmjs.org/cookie-jar/-/cookie-jar-0.3.0.tgz"
                                 }
                             },
@@ -7338,7 +7338,7 @@
                                     "description": "Cookie Jar. Originally pulled form tobi, maintained as vendor in request, now a standalone module.",
                                     "version": "0.3.0",
                                     "locator": {
-                                        "pointer": ">=0.3.0 <0.4.0"
+                                        "pointer": "~0.3.0"
                                     },
                                     "homepage": "https://github.com/mikeal/cookie-jar",
                                     "social": {
@@ -7388,7 +7388,7 @@
                                 "description": "Cookie Jar. Originally pulled form tobi, maintained as vendor in request, now a standalone module.",
                                 "version": "0.3.0",
                                 "locator": {
-                                    "pointer": ">=0.3.0 <0.4.0"
+                                    "pointer": "~0.3.0"
                                 },
                                 "homepage": "https://github.com/mikeal/cookie-jar",
                                 "social": {
@@ -7511,7 +7511,7 @@
                                     "homepage": "https://github.com/visionmedia/node-querystring",
                                     "_id": "qs@0.6.6",
                                     "_shasum": "6e015098ff51968b8a3c819001d5f2c89bc4b107",
-                                    "_from": "qs@>=0.6.0 <0.7.0",
+                                    "_from": "qs@~0.6.0",
                                     "_resolved": "https://registry.npmjs.org/qs/-/qs-0.6.6.tgz"
                                 }
                             },
@@ -7535,7 +7535,7 @@
                                     "description": "querystring parser",
                                     "version": "0.6.6",
                                     "locator": {
-                                        "pointer": ">=0.6.0 <0.7.0"
+                                        "pointer": "~0.6.0"
                                     },
                                     "homepage": "https://github.com/visionmedia/node-querystring",
                                     "social": {
@@ -7601,7 +7601,7 @@
                                 "description": "querystring parser",
                                 "version": "0.6.6",
                                 "locator": {
-                                    "pointer": ">=0.6.0 <0.7.0"
+                                    "pointer": "~0.6.0"
                                 },
                                 "homepage": "https://github.com/visionmedia/node-querystring",
                                 "social": {
@@ -7729,7 +7729,7 @@
                                     "homepage": "https://github.com/mikeal/oauth-sign",
                                     "_id": "oauth-sign@0.3.0",
                                     "_shasum": "cb540f93bb2b22a7d5941691a288d60e8ea9386e",
-                                    "_from": "oauth-sign@>=0.3.0 <0.4.0",
+                                    "_from": "oauth-sign@~0.3.0",
                                     "_resolved": "https://registry.npmjs.org/oauth-sign/-/oauth-sign-0.3.0.tgz"
                                 }
                             },
@@ -7753,7 +7753,7 @@
                                     "description": "OAuth 1 signing. Formerly a vendor lib in mikeal/request, now a standalone module.",
                                     "version": "0.3.0",
                                     "locator": {
-                                        "pointer": ">=0.3.0 <0.4.0"
+                                        "pointer": "~0.3.0"
                                     },
                                     "homepage": "https://github.com/mikeal/oauth-sign",
                                     "social": {
@@ -7803,7 +7803,7 @@
                                 "description": "OAuth 1 signing. Formerly a vendor lib in mikeal/request, now a standalone module.",
                                 "version": "0.3.0",
                                 "locator": {
-                                    "pointer": ">=0.3.0 <0.4.0"
+                                    "pointer": "~0.3.0"
                                 },
                                 "homepage": "https://github.com/mikeal/oauth-sign",
                                 "social": {
@@ -7951,7 +7951,7 @@
                                     "homepage": "https://github.com/hueniverse/hawk",
                                     "_id": "hawk@1.0.0",
                                     "_shasum": "b90bb169807285411da7ffcb8dd2598502d3b52d",
-                                    "_from": "hawk@>=1.0.0 <1.1.0",
+                                    "_from": "hawk@~1.0.0",
                                     "_resolved": "https://registry.npmjs.org/hawk/-/hawk-1.0.0.tgz"
                                 }
                             },
@@ -7997,7 +7997,7 @@
                                     "description": "HTTP Hawk Authentication Scheme",
                                     "version": "1.0.0",
                                     "locator": {
-                                        "pointer": ">=1.0.0 <1.1.0"
+                                        "pointer": "~1.0.0"
                                     },
                                     "homepage": "https://github.com/hueniverse/hawk",
                                     "social": {
@@ -8107,7 +8107,7 @@
                                 "description": "HTTP Hawk Authentication Scheme",
                                 "version": "1.0.0",
                                 "locator": {
-                                    "pointer": ">=1.0.0 <1.1.0"
+                                    "pointer": "~1.0.0"
                                 },
                                 "homepage": "https://github.com/hueniverse/hawk",
                                 "social": {
@@ -8307,7 +8307,7 @@
                                     "homepage": "https://github.com/spumko/boom",
                                     "_id": "boom@0.4.2",
                                     "_shasum": "7a636e9ded4efcefb19cef4947a3c67dfaee911b",
-                                    "_from": "boom@>=0.4.0 <0.5.0",
+                                    "_from": "boom@0.4.x",
                                     "_resolved": "https://registry.npmjs.org/boom/-/boom-0.4.2.tgz"
                                 }
                             },
@@ -8331,7 +8331,7 @@
                                     "description": "HTTP-friendly error objects",
                                     "version": "0.4.2",
                                     "locator": {
-                                        "pointer": ">=0.4.0 <0.5.0"
+                                        "pointer": "0.4.x"
                                     },
                                     "homepage": "https://github.com/spumko/boom",
                                     "social": {
@@ -8427,7 +8427,7 @@
                                 "description": "HTTP-friendly error objects",
                                 "version": "0.4.2",
                                 "locator": {
-                                    "pointer": ">=0.4.0 <0.5.0"
+                                    "pointer": "0.4.x"
                                 },
                                 "homepage": "https://github.com/spumko/boom",
                                 "social": {
@@ -8615,7 +8615,7 @@
                                     "homepage": "https://github.com/spumko/hoek",
                                     "_id": "hoek@0.9.1",
                                     "_shasum": "3d322462badf07716ea7eb85baf88079cddce505",
-                                    "_from": "hoek@>=0.9.0 <0.10.0",
+                                    "_from": "hoek@0.9.x",
                                     "_resolved": "https://registry.npmjs.org/hoek/-/hoek-0.9.1.tgz"
                                 }
                             },
@@ -8639,7 +8639,7 @@
                                     "description": "General purpose node utilities",
                                     "version": "0.9.1",
                                     "locator": {
-                                        "pointer": ">=0.9.0 <0.10.0"
+                                        "pointer": "0.9.x"
                                     },
                                     "homepage": "https://github.com/spumko/hoek",
                                     "social": {
@@ -8713,7 +8713,7 @@
                                 "description": "General purpose node utilities",
                                 "version": "0.9.1",
                                 "locator": {
-                                    "pointer": ">=0.9.0 <0.10.0"
+                                    "pointer": "0.9.x"
                                 },
                                 "homepage": "https://github.com/spumko/hoek",
                                 "social": {
@@ -8872,7 +8872,7 @@
                                     "homepage": "https://github.com/hueniverse/sntp",
                                     "_id": "sntp@0.2.4",
                                     "_shasum": "fb885f18b0f3aad189f824862536bceeec750900",
-                                    "_from": "sntp@>=0.2.0 <0.3.0",
+                                    "_from": "sntp@0.2.x",
                                     "_resolved": "https://registry.npmjs.org/sntp/-/sntp-0.2.4.tgz"
                                 }
                             },
@@ -8896,7 +8896,7 @@
                                     "description": "SNTP Client",
                                     "version": "0.2.4",
                                     "locator": {
-                                        "pointer": ">=0.2.0 <0.3.0"
+                                        "pointer": "0.2.x"
                                     },
                                     "homepage": "https://github.com/hueniverse/sntp",
                                     "social": {
@@ -8993,7 +8993,7 @@
                                 "description": "SNTP Client",
                                 "version": "0.2.4",
                                 "locator": {
-                                    "pointer": ">=0.2.0 <0.3.0"
+                                    "pointer": "0.2.x"
                                 },
                                 "homepage": "https://github.com/hueniverse/sntp",
                                 "social": {
@@ -9178,7 +9178,7 @@
                                     "homepage": "https://github.com/hueniverse/cryptiles",
                                     "_id": "cryptiles@0.2.2",
                                     "_shasum": "ed91ff1f17ad13d3748288594f8a48a0d26f325c",
-                                    "_from": "cryptiles@>=0.2.0 <0.3.0",
+                                    "_from": "cryptiles@0.2.x",
                                     "_resolved": "https://registry.npmjs.org/cryptiles/-/cryptiles-0.2.2.tgz"
                                 }
                             },
@@ -9202,7 +9202,7 @@
                                     "description": "General purpose crypto utilities",
                                     "version": "0.2.2",
                                     "locator": {
-                                        "pointer": ">=0.2.0 <0.3.0"
+                                        "pointer": "0.2.x"
                                     },
                                     "homepage": "https://github.com/hueniverse/cryptiles",
                                     "social": {
@@ -9299,7 +9299,7 @@
                                 "description": "General purpose crypto utilities",
                                 "version": "0.2.2",
                                 "locator": {
-                                    "pointer": ">=0.2.0 <0.3.0"
+                                    "pointer": "0.2.x"
                                 },
                                 "homepage": "https://github.com/hueniverse/cryptiles",
                                 "social": {
@@ -9458,7 +9458,7 @@
                                     "homepage": "https://github.com/mikeal/aws-sign",
                                     "_id": "aws-sign@0.3.0",
                                     "_shasum": "3d81ca69b474b1e16518728b51c24ff0bbedc6e9",
-                                    "_from": "aws-sign@>=0.3.0 <0.4.0",
+                                    "_from": "aws-sign@~0.3.0",
                                     "_resolved": "https://registry.npmjs.org/aws-sign/-/aws-sign-0.3.0.tgz",
                                     "scripts": {}
                                 }
@@ -9483,7 +9483,7 @@
                                     "description": "AWS signing. Originally pulled from LearnBoost/knox, maintained as vendor in request, now a standalone module.",
                                     "version": "0.3.0",
                                     "locator": {
-                                        "pointer": ">=0.3.0 <0.4.0"
+                                        "pointer": "~0.3.0"
                                     },
                                     "homepage": "https://github.com/mikeal/aws-sign",
                                     "social": {
@@ -9530,7 +9530,7 @@
                                 "description": "AWS signing. Originally pulled from LearnBoost/knox, maintained as vendor in request, now a standalone module.",
                                 "version": "0.3.0",
                                 "locator": {
-                                    "pointer": ">=0.3.0 <0.4.0"
+                                    "pointer": "~0.3.0"
                                 },
                                 "homepage": "https://github.com/mikeal/aws-sign",
                                 "social": {
@@ -9672,7 +9672,7 @@
                                     "readmeFilename": "README.md",
                                     "_id": "http-signature@0.10.1",
                                     "_shasum": "4fbdac132559aa8323121e540779c0a012b27e66",
-                                    "_from": "http-signature@>=0.10.0 <0.11.0",
+                                    "_from": "http-signature@~0.10.0",
                                     "_resolved": "https://registry.npmjs.org/http-signature/-/http-signature-0.10.1.tgz"
                                 }
                             },
@@ -9710,7 +9710,7 @@
                                     "description": "Reference implementation of Joyent's HTTP Signature scheme.",
                                     "version": "0.10.1",
                                     "locator": {
-                                        "pointer": ">=0.10.0 <0.11.0"
+                                        "pointer": "~0.10.0"
                                     },
                                     "homepage": "https://github.com/joyent/node-http-signature/",
                                     "social": {
@@ -9813,7 +9813,7 @@
                                 "description": "Reference implementation of Joyent's HTTP Signature scheme.",
                                 "version": "0.10.1",
                                 "locator": {
-                                    "pointer": ">=0.10.0 <0.11.0"
+                                    "pointer": "~0.10.0"
                                 },
                                 "homepage": "https://github.com/joyent/node-http-signature/",
                                 "social": {
@@ -9980,7 +9980,7 @@
                                     "dependencies": {},
                                     "_id": "assert-plus@0.1.5",
                                     "_shasum": "ee74009413002d84cec7219c6ac811812e723160",
-                                    "_from": "assert-plus@>=0.1.5 <0.2.0",
+                                    "_from": "assert-plus@^0.1.5",
                                     "_resolved": "https://registry.npmjs.org/assert-plus/-/assert-plus-0.1.5.tgz",
                                     "scripts": {}
                                 }
@@ -10001,7 +10001,7 @@
                                     "description": "Extra assertions on top of node's assert module",
                                     "version": "0.1.5",
                                     "locator": {
-                                        "pointer": ">=0.1.5 <0.2.0"
+                                        "pointer": "^0.1.5"
                                     },
                                     "homepage": "https://github.com/mcavage/node-assert-plus",
                                     "social": {
@@ -10047,7 +10047,7 @@
                                 "description": "Extra assertions on top of node's assert module",
                                 "version": "0.1.5",
                                 "locator": {
-                                    "pointer": ">=0.1.5 <0.2.0"
+                                    "pointer": "^0.1.5"
                                 },
                                 "homepage": "https://github.com/mcavage/node-assert-plus",
                                 "social": {
@@ -10186,8 +10186,8 @@
                                     ],
                                     "directories": {},
                                     "_shasum": "559be18376d08a4ec4dbe80877d27818639b2df7",
-                                    "_resolved": "https://registry.npmjs.org/asn1/-/asn1-0.1.11.tgz",
                                     "_from": "asn1@0.1.11",
+                                    "_resolved": "https://registry.npmjs.org/asn1/-/asn1-0.1.11.tgz",
                                     "readme": "node-asn1 is a library for encoding and decoding ASN.1 datatypes in pure JS.\nCurrently BER encoding is supported; at some point I'll likely have to do DER.\n\n## Usage\n\nMostly, if you're *actually* needing to read and write ASN.1, you probably don't\nneed this readme to explain what and why.  If you have no idea what ASN.1 is,\nsee this: ftp://ftp.rsa.com/pub/pkcs/ascii/layman.asc\n\nThe source is pretty much self-explanatory, and has read/write methods for the\ncommon types out there.\n\n### Decoding\n\nThe following reads an ASN.1 sequence with a boolean.\n\n    var Ber = require('asn1').Ber;\n\n    var reader = new Ber.Reader(new Buffer([0x30, 0x03, 0x01, 0x01, 0xff]));\n\n    reader.readSequence();\n    console.log('Sequence len: ' + reader.length);\n    if (reader.peek() === Ber.Boolean)\n      console.log(reader.readBoolean());\n\n### Encoding\n\nThe following generates the same payload as above.\n\n    var Ber = require('asn1').Ber;\n\n    var writer = new Ber.Writer();\n\n    writer.startSequence();\n    writer.writeBoolean(true);\n    writer.endSequence();\n\n    console.log(writer.buffer);\n\n## Installation\n\n    npm install asn1\n\n## License\n\nMIT.\n\n## Bugs\n\nSee <https://github.com/mcavage/node-asn1/issues>.\n",
                                     "readmeFilename": "README.md",
                                     "bugs": {
@@ -10455,8 +10455,8 @@
                                     ],
                                     "directories": {},
                                     "_shasum": "82c18c2461f74114ef16c135224ad0b9144ca12f",
-                                    "_resolved": "https://registry.npmjs.org/ctype/-/ctype-0.5.3.tgz",
                                     "_from": "ctype@0.5.3",
+                                    "_resolved": "https://registry.npmjs.org/ctype/-/ctype-0.5.3.tgz",
                                     "readme": "Node-CType is a way to read and write binary data in structured and easy to use\nformat. Its name comes from the C header file.\n\nTo get started, simply clone the repository or use npm to install it. Once it is\nthere, simply require it.\n\ngit clone git://github.com/rmustacc/node-ctype\nnpm install ctype\nvar mod_ctype = require('ctype')\n\n\nThere are two APIs that you can use, depending on what abstraction you'd like.\nThe low level API let's you read and write individual integers and floats from\nbuffers. The higher level API let's you read and write structures of these. To\nillustrate this, let's looks look at how we would read and write a binary\nencoded x,y point.\n\nIn C we would define this structure as follows:\n\ntypedef struct point {\n\tuint16_t\tp_x;\n\tuint16_t\tp_y;\n} point_t;\n\nTo read a binary encoded point from a Buffer, we first need to create a CType\nparser (where we specify the endian and other options) and add the typedef.\n\nvar parser = new mod_ctype.Parser({ endian: 'big' });\nparser.typedef('point_t', [\n\t{ x: { type: 'uint16_t' } },\n\t{ y: { type: 'uint16_t' } }\n]);\n\nFrom here, given a buffer buf and an offset into it, we can read a point.\n\nvar out = parser.readData([ { point: { type: 'point_t' } } ], buffer, 0);\nconsole.log(out);\n{ point: { x: 23, y: 42 } }\n\nAnother way to get the same information would be to use the low level methods.\nNote that these require you to manually deal with the offset. Here's how we'd\nget the same values of x and y from the buffer.\n\nvar x = mod_ctype.ruint16(buf, 'big', 0);\nvar y = mod_ctype.ruint16(buf, 'big', 2);\nconsole.log(x + ', ' + y);\n23, 42\n\nThe true power of this API comes from the ability to define and nest typedefs,\njust as you would in C. By default, the following types are defined by default.\nNote that they return a Number, unless indicated otherwise.\n\n    * int8_t\n    * int16_t\n    * int32_t\n    * int64_t (returns an array where val[0] << 32 + val[1] would be the value)\n    * uint8_t\n    * uint16_t\n    * uint32_t\n    * uint64_t (returns an array where val[0] << 32 + val[1] would be the value)\n    * float\n    * double\n    * char (either returns a buffer with that character or a uint8_t)\n    * char[] (returns an object with the buffer and the number of characters read which is either the total amount requested or until the first 0)\n\n\nctf2json integration:\n\nNode-CType supports consuming the output of ctf2json. Once you read in a JSON file,\nall you have to do to add all the definitions it contains is:\n\nvar data, parser;\ndata = JSON.parse(parsedJSONData);\nparser = mod_ctype.parseCTF(data, { endian: 'big' });\n\nFor more documentation, see the file README.old. Full documentation is in the\nprocess of being rewritten as a series of manual pages which will be available\nin the repository and online for viewing.\n\nTo read the ctio manual page simple run, from the root of the workspace:\n\nman -Mman -s 3ctype ctio\n",
                                     "readmeFilename": "README",
                                     "bugs": {
@@ -10683,7 +10683,7 @@
                                     "homepage": "https://github.com/broofa/node-uuid",
                                     "_id": "node-uuid@1.4.2",
                                     "_shasum": "907db3d11b7b6a2cf4f905fb7199f14ae7379ba0",
-                                    "_from": "node-uuid@>=1.4.0 <1.5.0",
+                                    "_from": "node-uuid@~1.4.0",
                                     "_resolved": "https://registry.npmjs.org/node-uuid/-/node-uuid-1.4.2.tgz"
                                 }
                             },
@@ -10703,7 +10703,7 @@
                                     "description": "Rigorous implementation of RFC4122 (v1 and v4) UUIDs.",
                                     "version": "1.4.2",
                                     "locator": {
-                                        "pointer": ">=1.4.0 <1.5.0"
+                                        "pointer": "~1.4.0"
                                     },
                                     "homepage": "https://github.com/broofa/node-uuid",
                                     "social": {
@@ -10765,7 +10765,7 @@
                                 "description": "Rigorous implementation of RFC4122 (v1 and v4) UUIDs.",
                                 "version": "1.4.2",
                                 "locator": {
-                                    "pointer": ">=1.4.0 <1.5.0"
+                                    "pointer": "~1.4.0"
                                 },
                                 "homepage": "https://github.com/broofa/node-uuid",
                                 "social": {
@@ -10911,7 +10911,7 @@
                                     "homepage": "https://github.com/broofa/node-mime",
                                     "_id": "mime@1.2.11",
                                     "_shasum": "58203eed86e3a5ef17aed2b7d9ebd47f0a60dd10",
-                                    "_from": "mime@>=1.2.9 <1.3.0",
+                                    "_from": "mime@~1.2.9",
                                     "_resolved": "https://registry.npmjs.org/mime/-/mime-1.2.11.tgz",
                                     "scripts": {}
                                 }
@@ -10932,7 +10932,7 @@
                                     "description": "A comprehensive library for mime-type mapping",
                                     "version": "1.2.11",
                                     "locator": {
-                                        "pointer": ">=1.2.9 <1.3.0"
+                                        "pointer": "~1.2.9"
                                     },
                                     "homepage": "https://github.com/broofa/node-mime",
                                     "social": {
@@ -10983,7 +10983,7 @@
                                 "description": "A comprehensive library for mime-type mapping",
                                 "version": "1.2.11",
                                 "locator": {
-                                    "pointer": ">=1.2.9 <1.3.0"
+                                    "pointer": "~1.2.9"
                                 },
                                 "homepage": "https://github.com/broofa/node-mime",
                                 "social": {
@@ -11093,7 +11093,7 @@
                                     "homepage": "https://github.com/mikeal/tunnel-agent",
                                     "_id": "tunnel-agent@0.3.0",
                                     "_shasum": "ad681b68f5321ad2827c4cfb1b7d5df2cfe942ee",
-                                    "_from": "tunnel-agent@>=0.3.0 <0.4.0",
+                                    "_from": "tunnel-agent@~0.3.0",
                                     "_resolved": "https://registry.npmjs.org/tunnel-agent/-/tunnel-agent-0.3.0.tgz",
                                     "scripts": {}
                                 }
@@ -11118,7 +11118,7 @@
                                     "description": "HTTP proxy tunneling agent. Formerly part of mikeal/request, now a standalone module.",
                                     "version": "0.3.0",
                                     "locator": {
-                                        "pointer": ">=0.3.0 <0.4.0"
+                                        "pointer": "~0.3.0"
                                     },
                                     "homepage": "https://github.com/mikeal/tunnel-agent",
                                     "social": {
@@ -11165,7 +11165,7 @@
                                 "description": "HTTP proxy tunneling agent. Formerly part of mikeal/request, now a standalone module.",
                                 "version": "0.3.0",
                                 "locator": {
-                                    "pointer": ">=0.3.0 <0.4.0"
+                                    "pointer": "~0.3.0"
                                 },
                                 "homepage": "https://github.com/mikeal/tunnel-agent",
                                 "social": {
@@ -11276,7 +11276,7 @@
                                     "homepage": "https://github.com/isaacs/json-stringify-safe",
                                     "_id": "json-stringify-safe@5.0.0",
                                     "_shasum": "4c1f228b5050837eba9d21f50c2e6e320624566e",
-                                    "_from": "json-stringify-safe@>=5.0.0 <5.1.0",
+                                    "_from": "json-stringify-safe@~5.0.0",
                                     "_resolved": "https://registry.npmjs.org/json-stringify-safe/-/json-stringify-safe-5.0.0.tgz"
                                 }
                             },
@@ -11296,7 +11296,7 @@
                                     "description": "Like JSON.stringify, but doesn't blow up on circular refs",
                                     "version": "5.0.0",
                                     "locator": {
-                                        "pointer": ">=5.0.0 <5.1.0"
+                                        "pointer": "~5.0.0"
                                     },
                                     "homepage": "https://github.com/isaacs/json-stringify-safe",
                                     "social": {
@@ -11350,7 +11350,7 @@
                                 "description": "Like JSON.stringify, but doesn't blow up on circular refs",
                                 "version": "5.0.0",
                                 "locator": {
-                                    "pointer": ">=5.0.0 <5.1.0"
+                                    "pointer": "~5.0.0"
                                 },
                                 "homepage": "https://github.com/isaacs/json-stringify-safe",
                                 "social": {
@@ -11463,7 +11463,7 @@
                                     "homepage": "https://github.com/mikeal/forever-agent",
                                     "_id": "forever-agent@0.5.2",
                                     "_shasum": "6d0e09c4921f94a27f63d3b49c5feff1ea4c5130",
-                                    "_from": "forever-agent@>=0.5.0 <0.6.0",
+                                    "_from": "forever-agent@~0.5.0",
                                     "_resolved": "https://registry.npmjs.org/forever-agent/-/forever-agent-0.5.2.tgz",
                                     "scripts": {}
                                 }
@@ -11488,7 +11488,7 @@
                                     "description": "HTTP Agent that keeps socket connections alive between keep-alive requests. Formerly part of mikeal/request, now a standalone module.",
                                     "version": "0.5.2",
                                     "locator": {
-                                        "pointer": ">=0.5.0 <0.6.0"
+                                        "pointer": "~0.5.0"
                                     },
                                     "homepage": "https://github.com/mikeal/forever-agent",
                                     "social": {
@@ -11535,7 +11535,7 @@
                                 "description": "HTTP Agent that keeps socket connections alive between keep-alive requests. Formerly part of mikeal/request, now a standalone module.",
                                 "version": "0.5.2",
                                 "locator": {
-                                    "pointer": ">=0.5.0 <0.6.0"
+                                    "pointer": "~0.5.0"
                                 },
                                 "homepage": "https://github.com/mikeal/forever-agent",
                                 "social": {
@@ -11673,7 +11673,7 @@
                                     "homepage": "https://github.com/felixge/node-form-data",
                                     "_id": "form-data@0.1.4",
                                     "_shasum": "91abd788aba9702b1aabfa8bc01031a2ac9e3b12",
-                                    "_from": "form-data@>=0.1.0 <0.2.0",
+                                    "_from": "form-data@~0.1.0",
                                     "_resolved": "https://registry.npmjs.org/form-data/-/form-data-0.1.4.tgz"
                                 }
                             },
@@ -11707,7 +11707,7 @@
                                     "description": "A module to create readable \"multipart/form-data\" streams.  Can be used to submit forms and file uploads to other web applications.",
                                     "version": "0.1.4",
                                     "locator": {
-                                        "pointer": ">=0.1.0 <0.2.0"
+                                        "pointer": "~0.1.0"
                                     },
                                     "homepage": "https://github.com/felixge/node-form-data",
                                     "social": {
@@ -11853,7 +11853,7 @@
                                 "description": "A module to create readable \"multipart/form-data\" streams.  Can be used to submit forms and file uploads to other web applications.",
                                 "version": "0.1.4",
                                 "locator": {
-                                    "pointer": ">=0.1.0 <0.2.0"
+                                    "pointer": "~0.1.0"
                                 },
                                 "homepage": "https://github.com/felixge/node-form-data",
                                 "social": {
@@ -12074,7 +12074,7 @@
                                     },
                                     "_id": "combined-stream@0.0.7",
                                     "_shasum": "0137e657baa5a7541c57ac37ac5fc07d73b4dc1f",
-                                    "_from": "combined-stream@>=0.0.4 <0.1.0",
+                                    "_from": "combined-stream@~0.0.4",
                                     "_resolved": "https://registry.npmjs.org/combined-stream/-/combined-stream-0.0.7.tgz"
                                 }
                             },
@@ -12104,7 +12104,7 @@
                                     "description": "A stream that emits multiple other streams one after another.",
                                     "version": "0.0.7",
                                     "locator": {
-                                        "pointer": ">=0.0.4 <0.1.0"
+                                        "pointer": "~0.0.4"
                                     },
                                     "homepage": "https://github.com/felixge/node-combined-stream",
                                     "social": {
@@ -12174,7 +12174,7 @@
                                 "description": "A stream that emits multiple other streams one after another.",
                                 "version": "0.0.7",
                                 "locator": {
-                                    "pointer": ">=0.0.4 <0.1.0"
+                                    "pointer": "~0.0.4"
                                 },
                                 "homepage": "https://github.com/felixge/node-combined-stream",
                                 "social": {
@@ -12318,8 +12318,8 @@
                                     "scripts": {},
                                     "directories": {},
                                     "_shasum": "d4b1f43a93e8296dfe02694f4680bc37a313c73f",
-                                    "_resolved": "https://registry.npmjs.org/delayed-stream/-/delayed-stream-0.0.5.tgz",
                                     "_from": "delayed-stream@0.0.5",
+                                    "_resolved": "https://registry.npmjs.org/delayed-stream/-/delayed-stream-0.0.5.tgz",
                                     "readme": "# delayed-stream\n\nBuffers events from a stream until you are ready to handle them.\n\n## Installation\n\n``` bash\nnpm install delayed-stream\n```\n\n## Usage\n\nThe following example shows how to write a http echo server that delays its\nresponse by 1000 ms.\n\n``` javascript\nvar DelayedStream = require('delayed-stream');\nvar http = require('http');\n\nhttp.createServer(function(req, res) {\n  var delayed = DelayedStream.create(req);\n\n  setTimeout(function() {\n    res.writeHead(200);\n    delayed.pipe(res);\n  }, 1000);\n});\n```\n\nIf you are not using `Stream#pipe`, you can also manually release the buffered\nevents by calling `delayedStream.resume()`:\n\n``` javascript\nvar delayed = DelayedStream.create(req);\n\nsetTimeout(function() {\n  // Emit all buffered events and resume underlaying source\n  delayed.resume();\n}, 1000);\n```\n\n## Implementation\n\nIn order to use this meta stream properly, here are a few things you should\nknow about the implementation.\n\n### Event Buffering / Proxying\n\nAll events of the `source` stream are hijacked by overwriting the `source.emit`\nmethod. Until node implements a catch-all event listener, this is the only way.\n\nHowever, delayed-stream still continues to emit all events it captures on the\n`source`, regardless of whether you have released the delayed stream yet or\nnot.\n\nUpon creation, delayed-stream captures all `source` events and stores them in\nan internal event buffer. Once `delayedStream.release()` is called, all\nbuffered events are emitted on the `delayedStream`, and the event buffer is\ncleared. After that, delayed-stream merely acts as a proxy for the underlaying\nsource.\n\n### Error handling\n\nError events on `source` are buffered / proxied just like any other events.\nHowever, `delayedStream.create` attaches a no-op `'error'` listener to the\n`source`. This way you only have to handle errors on the `delayedStream`\nobject, rather than in two places.\n\n### Buffer limits\n\ndelayed-stream provides a `maxDataSize` property that can be used to limit\nthe amount of data being buffered. In order to protect you from bad `source`\nstreams that don't react to `source.pause()`, this feature is enabled by\ndefault.\n\n## API\n\n### DelayedStream.create(source, [options])\n\nReturns a new `delayedStream`. Available options are:\n\n* `pauseStream`\n* `maxDataSize`\n\nThe description for those properties can be found below.\n\n### delayedStream.source\n\nThe `source` stream managed by this object. This is useful if you are\npassing your `delayedStream` around, and you still want to access properties\non the `source` object.\n\n### delayedStream.pauseStream = true\n\nWhether to pause the underlaying `source` when calling\n`DelayedStream.create()`. Modifying this property afterwards has no effect.\n\n### delayedStream.maxDataSize = 1024 * 1024\n\nThe amount of data to buffer before emitting an `error`.\n\nIf the underlaying source is emitting `Buffer` objects, the `maxDataSize`\nrefers to bytes.\n\nIf the underlaying source is emitting JavaScript strings, the size refers to\ncharacters.\n\nIf you know what you are doing, you can set this property to `Infinity` to\ndisable this feature. You can also modify this property during runtime.\n\n### delayedStream.maxDataSize = 1024 * 1024\n\nThe amount of data to buffer before emitting an `error`.\n\nIf the underlaying source is emitting `Buffer` objects, the `maxDataSize`\nrefers to bytes.\n\nIf the underlaying source is emitting JavaScript strings, the size refers to\ncharacters.\n\nIf you know what you are doing, you can set this property to `Infinity` to\ndisable this feature.\n\n### delayedStream.dataSize = 0\n\nThe amount of data buffered so far.\n\n### delayedStream.readable\n\nAn ECMA5 getter that returns the value of `source.readable`.\n\n### delayedStream.resume()\n\nIf the `delayedStream` has not been released so far, `delayedStream.release()`\nis called.\n\nIn either case, `source.resume()` is called.\n\n### delayedStream.pause()\n\nCalls `source.pause()`.\n\n### delayedStream.pipe(dest)\n\nCalls `delayedStream.resume()` and then proxies the arguments to `source.pipe`.\n\n### delayedStream.release()\n\nEmits and clears all events that have been buffered up so far. This does not\nresume the underlaying source, use `delayedStream.resume()` instead.\n\n## License\n\ndelayed-stream is licensed under the MIT license.\n",
                                     "readmeFilename": "Readme.md",
                                     "bugs": {
@@ -12565,7 +12565,7 @@
                                     "homepage": "https://github.com/caolan/async",
                                     "_id": "async@0.9.0",
                                     "_shasum": "ac3613b1da9bed1b47510bb4651b8931e47146c7",
-                                    "_from": "async@>=0.9.0 <0.10.0",
+                                    "_from": "async@~0.9.0",
                                     "_resolved": "https://registry.npmjs.org/async/-/async-0.9.0.tgz"
                                 }
                             },
@@ -12585,7 +12585,7 @@
                                     "description": "Higher-order functions and common patterns for asynchronous code",
                                     "version": "0.9.0",
                                     "locator": {
-                                        "pointer": ">=0.9.0 <0.10.0"
+                                        "pointer": "~0.9.0"
                                     },
                                     "homepage": "https://github.com/caolan/async",
                                     "social": {
@@ -12647,7 +12647,7 @@
                                 "description": "Higher-order functions and common patterns for asynchronous code",
                                 "version": "0.9.0",
                                 "locator": {
-                                    "pointer": ">=0.9.0 <0.10.0"
+                                    "pointer": "~0.9.0"
                                 },
                                 "homepage": "https://github.com/caolan/async",
                                 "social": {

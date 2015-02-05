@@ -58,10 +58,14 @@ describe('bundler', function() {
 					distPath: PATH.join("test/assets/modules", PATH.dirname(file)),
 					distFilename: PATH.basename(file),
 					locateMissingFile: function(descriptor, path, callback) {
-						if (path.substring(0, relPath.length) !== relPath) {
+						if (path.substring(0, relPath.length) !== relPath) {						
 							return callback(new Error("Cannot locate missing file '" + path + "'"));
 						}
-						return callback(null, PATH.join(options.distPath, "mocks", PATH.basename(file), path.substring(relPath.length+1).replace(/\//g, "+")));
+						var path = PATH.join(options.distPath, "mocks", PATH.basename(file), path.substring(relPath.length+1).replace(/\//g, "+"));
+						if (!FS.existsSync(path)) {
+							path = path.replace(/\.js$/, "+index.js");
+						}
+						return callback(null, path);
 					}
 				};
 				// Special case to prevent dynamic link and bundle it statically instead.
