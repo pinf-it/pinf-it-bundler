@@ -170,6 +170,7 @@ describe('bundler', function() {
 
 		[
 			"packages/single",
+			"packages/multiple-declared-exports-bundles",
 			"packages/nodejs-dynamic-require-simple",
 			"packages/nodejs-dynamic-require-shared",
 			"packages/nodejs-dynamic-require-nested",
@@ -278,7 +279,7 @@ TODO: This currently fails. Try fixing once we can log more of the internals of 
 						var isPromise = false;
 						function testResult(result) {
 							try {
-								if (result !== null) {
+								if (result && result !== null) {
 									if (typeof result === "function") {
 										result = result();
 									}
@@ -362,6 +363,10 @@ TODO: This currently fails. Try fixing once we can log more of the internals of 
 											return done(err);
 										}
 
+										if (typeof result === "function") {
+											result = result();
+										}
+
 										var keys = null;
 										if (typeof result === "object") {
 											keys = Object.keys(result);
@@ -380,6 +385,11 @@ TODO: This currently fails. Try fixing once we can log more of the internals of 
 											});
 										}
 										if (result && result.$pinf) result.$pinf.now = 0;
+
+										if (DEBUG) {
+											console.log("actual console.json", buffer);
+											console.log("actual api.json", result);
+										}
 
 										ASSERT.deepEqual(buffer, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/console.json"))));
 										ASSERT.deepEqual(result, JSON.parse(FS.readFileSync(PATH.join(basePath, ".result/api.json"))));
