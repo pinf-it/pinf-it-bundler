@@ -1,4 +1,5 @@
 {
+  "uid": "github.com/pinf-it/pinf-it-bundler",
   "name": "pinf-it-bundler",
   "version": "0.1.9",
   "pm": "npm",
