@@ -27,9 +27,11 @@
   "devDependencies": {
     "mocha": "~1.9.0",
     "glob": "~3.1.21",
-    "pinf-for-nodejs": "0.1.x",
     "request": "~2.27.0"
   },
+  "expectedDependencies": [
+    "pinf-for-nodejs"
+  ],
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter list test/*.js"
   },
