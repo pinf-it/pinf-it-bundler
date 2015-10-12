@@ -1,5 +1,5 @@
 // @pinf-bundle-ignore: 
-PINF.bundle("", function(require) {
+PINF.bundle("", function(require, _____bundle_global) {
 // @pinf-bundle-header: {"helper":"amd-ish"}
 function wrapAMD(callback) {
     var amdRequireImplementation = null;
@@ -74,7 +74,7 @@ function wrapAMD(callback) {
         return amdRequireImplementation.apply(null, arguments);
     }
     amdRequire.def = wrappedDefine
-    callback(amdRequire, wrappedDefine);
+    callback.call(_____bundle_global || (typeof "global" !== "undefined" && global) || {}, amdRequire, wrappedDefine);
     return exports;
 }
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-built-in/app.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"/app.js"}
@@ -2769,7 +2769,7 @@ return {
     process: (typeof process !== "undefined") ? process : null,
     setTimeout: (typeof setTimeout !== "undefined") ? setTimeout : null,
     hasHeader: (typeof hasHeader !== "undefined") ? hasHeader : null,
-    getHeader: (typeof getHeader !== "undefined") ? getHeader : null,
+    _getHeader: (typeof _getHeader !== "undefined") ? _getHeader : null,
     Date: (typeof Date !== "undefined") ? Date : null,
     Math: (typeof Math !== "undefined") ? Math : null,
     toJSON: (typeof toJSON !== "undefined") ? toJSON : null,
@@ -6495,6 +6495,7 @@ return {
     InvalidParamsError: (typeof InvalidParamsError !== "undefined") ? InvalidParamsError : null,
     MissingHeaderError: (typeof MissingHeaderError !== "undefined") ? MissingHeaderError : null,
     module: (typeof module !== "undefined") ? module : null,
+    Object: (typeof Object !== "undefined") ? Object : null,
     Number: (typeof Number !== "undefined") ? Number : null,
     Math: (typeof Math !== "undefined") ? Math : null
 };
@@ -11047,12 +11048,14 @@ wrapAMD(function(require, define) {
   uuid.unparse = unparse;
   uuid.BufferClass = BufferClass;
 
-  if (typeof define === 'function' && define.amd) {
-    // Publish as AMD module
-    define(function() {return uuid;});
-  } else if (typeof(module) != 'undefined' && module.exports) {
+  if (typeof(module) != 'undefined' && module.exports) {
     // Publish as node.js module
     module.exports = uuid;
+  } else  if (typeof define === 'function' && define.amd) {
+    // Publish as AMD module
+    define(function() {return uuid;});
+ 
+
   } else {
     // Publish as global (in browsers)
     var _previousRoot = _global.uuid;
@@ -11434,56 +11437,37 @@ exports.debug = debug // for test
 
 }
 , {"filename":"node_modules/request/node_modules/tunnel-agent/index.js"});
-// @pinf-bundle-module: {"file":"node_modules/request/node_modules/json-stringify-safe/stringify.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"cd513417702c216d7e831b5e07732580c4cd46ff-json-stringify-safe/stringify.js"}
+// @pinf-bundle-module: {"file":"node_modules/request/node_modules/json-stringify-safe/stringify.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"cd513417702c216d7e831b5e07732580c4cd46ff-json-stringify-safe/stringify.js"}
 require.memoize("cd513417702c216d7e831b5e07732580c4cd46ff-json-stringify-safe/stringify.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'node_modules/request/node_modules/json-stringify-safe';
-module.exports = stringify;
+exports = module.exports = stringify
+exports.getSerialize = serializer
 
-function getSerialize (fn, decycle) {
-  var seen = [], keys = [];
-  decycle = decycle || function(key, value) {
-    return '[Circular ' + getPath(value, seen, keys) + ']'
-  };
+function stringify(obj, replacer, spaces, cycleReplacer) {
+  return JSON.stringify(obj, serializer(replacer, cycleReplacer), spaces)
+}
+
+function serializer(replacer, cycleReplacer) {
+  var stack = [], keys = []
+
+  if (cycleReplacer == null) cycleReplacer = function(key, value) {
+    if (stack[0] === value) return "[Circular ~]"
+    return "[Circular ~." + keys.slice(0, stack.indexOf(value)).join(".") + "]"
+  }
+
   return function(key, value) {
-    var ret = value;
-    if (typeof value === 'object' && value) {
-      if (seen.indexOf(value) !== -1)
-        ret = decycle(key, value);
-      else {
-        seen.push(value);
-        keys.push(key);
-      }
+    if (stack.length > 0) {
+      var thisPos = stack.indexOf(this)
+      ~thisPos ? stack.splice(thisPos + 1) : stack.push(this)
+      ~thisPos ? keys.splice(thisPos, Infinity, key) : keys.push(key)
+      if (~stack.indexOf(value)) value = cycleReplacer.call(this, key, value)
     }
-    if (fn) ret = fn(key, ret);
-    return ret;
+    else stack.push(value)
+
+    return replacer == null ? value : replacer.call(this, key, value)
   }
 }
 
-function getPath (value, seen, keys) {
-  var index = seen.indexOf(value);
-  var path = [ keys[index] ];
-  for (index--; index >= 0; index--) {
-    if (seen[index][ path[0] ] === value) {
-      value = seen[index];
-      path.unshift(keys[index]);
-    }
-  }
-  return '~' + path.join('.');
-}
-
-function stringify(obj, fn, spaces, decycle) {
-  return JSON.stringify(obj, getSerialize(fn, decycle), spaces);
-}
-
-stringify.getSerialize = getSerialize;
-
-return {
-    module: (typeof module !== "undefined") ? module : null,
-    getSerialize: (typeof getSerialize !== "undefined") ? getSerialize : null,
-    getPath: (typeof getPath !== "undefined") ? getPath : null,
-    stringify: (typeof stringify !== "undefined") ? stringify : null,
-    JSON: (typeof JSON !== "undefined") ? JSON : null
-};
 }
 , {"filename":"node_modules/request/node_modules/json-stringify-safe/stringify.js"});
 // @pinf-bundle-module: {"file":"node_modules/request/node_modules/forever-agent/index.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"0aece9af14f253ebe7db431e7f82a4db65578bac-forever-agent/index.js"}
@@ -12360,9 +12344,6 @@ wrapAMD(function(require, define) {
     };
 
     var _each = function (arr, iterator) {
-        if (arr.forEach) {
-            return arr.forEach(iterator);
-        }
         for (var i = 0; i < arr.length; i += 1) {
             iterator(arr[i], i, arr);
         }
@@ -13139,23 +13120,26 @@ wrapAMD(function(require, define) {
             pause: function () {
                 if (q.paused === true) { return; }
                 q.paused = true;
-                q.process();
             },
             resume: function () {
                 if (q.paused === false) { return; }
                 q.paused = false;
-                q.process();
+                // Need to call q.process once per concurrent
+                // worker to preserve full concurrency after pause
+                for (var w = 1; w <= q.concurrency; w++) {
+                    async.setImmediate(q.process);
+                }
             }
         };
         return q;
     };
-    
+
     async.priorityQueue = function (worker, concurrency) {
-        
+
         function _compareTasks(a, b){
           return a.priority - b.priority;
         };
-        
+
         function _binarySearch(sequence, item, compare) {
           var beg = -1,
               end = sequence.length - 1;
@@ -13169,7 +13153,7 @@ wrapAMD(function(require, define) {
           }
           return beg;
         }
-        
+
         function _insert(q, data, priority, callback) {
           if (!q.started){
             q.started = true;
@@ -13191,7 +13175,7 @@ wrapAMD(function(require, define) {
                   priority: priority,
                   callback: typeof callback === 'function' ? callback : null
               };
-              
+
               q.tasks.splice(_binarySearch(q.tasks, item, _compareTasks) + 1, 0, item);
 
               if (q.saturated && q.tasks.length === q.concurrency) {
@@ -13200,15 +13184,15 @@ wrapAMD(function(require, define) {
               async.setImmediate(q.process);
           });
         }
-        
+
         // Start with a normal queue
         var q = async.queue(worker, concurrency);
-        
+
         // Override push to accept second parameter representing priority
         q.push = function (data, priority, callback) {
           _insert(q, data, priority, callback);
         };
-        
+
         // Remove unshift function
         delete q.unshift;
 

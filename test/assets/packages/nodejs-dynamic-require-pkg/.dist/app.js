@@ -1,5 +1,5 @@
 // @pinf-bundle-ignore: 
-PINF.bundle("", function(require) {
+PINF.bundle("", function(require, _____bundle_global) {
 // @pinf-bundle-module: {"file":"test/assets/packages/nodejs-dynamic-require-pkg/app.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"/app.js"}
 require.memoize("/app.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-pkg';

@@ -1,5 +1,5 @@
 // @pinf-bundle-ignore: 
-PINF.bundle("", function(require) {
+PINF.bundle("", function(require, _____bundle_global) {
 // @pinf-bundle-header: {}
 function define(id, dependencies, moduleInitializer)
 {

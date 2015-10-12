@@ -1,5 +1,5 @@
 // @pinf-bundle-ignore: 
-PINF.bundle("", function(require) {
+PINF.bundle("", function(require, _____bundle_global) {
 // @pinf-bundle-module: {"file":"/02-LoaderFeatures/05-CrossPackageDependencies/main.js","fileMtime":1329109242000,"id":"/main.js"}
 require.memoize("/main.js", 
 function(require, exports, module)

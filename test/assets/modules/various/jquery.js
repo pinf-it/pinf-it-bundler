@@ -1,5 +1,5 @@
 // @pinf-bundle-ignore: 
-PINF.bundle("", function(require) {
+PINF.bundle("", function(require, _____bundle_global) {
 // @pinf-bundle-header: {"helper":"amd-ish"}
 function wrapAMD(callback) {
     var amdRequireImplementation = null;
@@ -74,7 +74,7 @@ function wrapAMD(callback) {
         return amdRequireImplementation.apply(null, arguments);
     }
     amdRequire.def = wrappedDefine
-    callback(amdRequire, wrappedDefine);
+    callback.call(_____bundle_global || (typeof "global" !== "undefined" && global) || {}, amdRequire, wrappedDefine);
     return exports;
 }
 // @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/jquery.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/jquery.js"}

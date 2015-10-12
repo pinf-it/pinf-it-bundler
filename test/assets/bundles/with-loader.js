@@ -3,7 +3,7 @@ var require, sourcemint;
 (function() {
     var rootBundleLoader = function(uri, loadedCallback) {
 // @pinf-bundle-ignore: 
-PINF.bundle("", function(require) {
+PINF.bundle("", function(require, _____bundle_global) {
 // @pinf-bundle-module: {"file":"/example/main.js","fileMtime":1331407689000,"id":"/main.js"}
 require.memoize("/main.js", 
 function(require, exports, module)

@@ -1,5 +1,5 @@
 // @pinf-bundle-ignore: 
-PINF.bundle("", function(require) {
+PINF.bundle("", function(require, _____bundle_global) {
 // @pinf-bundle-module: {"file":"test/assets/packages/multiple-declared-exports-bundles/util/worker-runner.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/worker-runner.js"}
 require.memoize("/worker-runner.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/multiple-declared-exports-bundles/util';

@@ -1,5 +1,5 @@
 // @pinf-bundle-ignore: 
-PINF.bundle("", function(require) {
+PINF.bundle("", function(require, _____bundle_global) {
 // @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/mime-types.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/mime-types.js"}
 require.memoize("/mime-types.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'node_modules/pinf-it-module-insight/test/assets/various';

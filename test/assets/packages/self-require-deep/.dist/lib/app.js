@@ -1,5 +1,5 @@
 // @pinf-bundle-ignore: 
-PINF.bundle("", function(require) {
+PINF.bundle("", function(require, _____bundle_global) {
 // @pinf-bundle-module: {"file":"test/assets/packages/self-require-deep/lib/app.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/lib/app.js"}
 require.memoize("/lib/app.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/self-require-deep/lib';

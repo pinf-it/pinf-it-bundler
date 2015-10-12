@@ -1,5 +1,5 @@
 // @pinf-bundle-ignore: 
-PINF.bundle("", function(require) {
+PINF.bundle("", function(require, _____bundle_global) {
 // @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/no-interface/no-globals-2.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/no-globals-2.js"}
 require.memoize("/no-globals-2.js", 
 function(require, exports, module) {

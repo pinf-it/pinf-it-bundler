@@ -1,5 +1,5 @@
 // @pinf-bundle-ignore: 
-PINF.bundle("", function(require) {
+PINF.bundle("", function(require, _____bundle_global) {
 // @pinf-bundle-module: {"file":"test/assets/packages/require-async/extra.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/extra.js"}
 require.memoize("/extra.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/require-async';

@@ -1,5 +1,5 @@
 // @pinf-bundle-ignore: 
-PINF.bundle("", function(require) {
+PINF.bundle("", function(require, _____bundle_global) {
 // @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/node-http-signature-parser.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"/node-http-signature-parser.js"}
 require.memoize("/node-http-signature-parser.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'node_modules/pinf-it-module-insight/test/assets/various';
@@ -325,6 +325,7 @@ return {
     InvalidParamsError: (typeof InvalidParamsError !== "undefined") ? InvalidParamsError : null,
     MissingHeaderError: (typeof MissingHeaderError !== "undefined") ? MissingHeaderError : null,
     module: (typeof module !== "undefined") ? module : null,
+    Object: (typeof Object !== "undefined") ? Object : null,
     Number: (typeof Number !== "undefined") ? Number : null,
     Math: (typeof Math !== "undefined") ? Math : null
 };
