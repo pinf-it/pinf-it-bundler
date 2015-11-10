@@ -63,7 +63,7 @@ function define(id, dependencies, moduleInitializer) {
 }
 define.amd = { jQuery: true };
 require.def = define;
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/exports-assign.js","mtime":0,"wrapper":"amd","format":"amd","id":"/exports-assign.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/exports-assign.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/exports-assign.js"}
 require.memoize("/exports-assign.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/exports/assign.js
 define("assign",
@@ -71,7 +71,7 @@ define("assign",
             function (require, exports, module) {
     module.exports = "assign";
 })
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/exports-assign.js"});
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/exports-assign.js","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

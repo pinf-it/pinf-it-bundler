@@ -63,7 +63,7 @@ function define(id, dependencies, moduleInitializer) {
 }
 define.amd = { jQuery: true };
 require.def = define;
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/har-preview.js","mtime":0,"wrapper":"amd","format":"amd","id":"/har-preview.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/har-preview.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/har-preview.js"}
 require.memoize("/har-preview.js", 
 /* See license.txt for terms of usage */
 
@@ -177,63 +177,63 @@ Trace.log("HarPreview; initialized OK");
         }
     };
 })
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/har-preview.js"});
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/har-preview.js","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/har-preview.js"
 }
 , {"filename":"node_modules/pinf-it-module-insight/test/assets/various/har-preview.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/har-preview.js/preview+requestList.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/preview/requestList.js"}
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/har-preview.js/preview+requestList.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","variation":"","id":"/preview/requestList.js"}
 require.memoize("/preview/requestList.js", 
 function(require, exports, module) {
 
 }
-, {"filename":"test/assets/modules/various/mocks/har-preview.js/preview+requestList.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/har-preview.js/preview+pageList.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/preview/pageList.js"}
+, {"filename":"test/assets/modules/various/mocks/har-preview.js/preview+requestList.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/har-preview.js/preview+pageList.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","variation":"","id":"/preview/pageList.js"}
 require.memoize("/preview/pageList.js", 
 function(require, exports, module) {
 
 }
-, {"filename":"test/assets/modules/various/mocks/har-preview.js/preview+pageList.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/har-preview.js/preview+harModel.js","mtime":0,"wrapper":"amd","format":"amd","id":"/preview/harModel.js"}
+, {"filename":"test/assets/modules/various/mocks/har-preview.js/preview+pageList.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/har-preview.js/preview+harModel.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/preview/harModel.js"}
 require.memoize("/preview/harModel.js", 
 
 define([],function () {
 	return function () {		
 	};
 })
-, {"filename":"test/assets/modules/various/mocks/har-preview.js/preview+harModel.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/har-preview.js/core+lib.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/core/lib.js"}
+, {"filename":"test/assets/modules/various/mocks/har-preview.js/preview+harModel.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/har-preview.js/core+lib.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","variation":"","id":"/core/lib.js"}
 require.memoize("/core/lib.js", 
 function(require, exports, module) {
 
 }
-, {"filename":"test/assets/modules/various/mocks/har-preview.js/core+lib.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/har-preview.js/core+trace.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/core/trace.js"}
+, {"filename":"test/assets/modules/various/mocks/har-preview.js/core+lib.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/har-preview.js/core+trace.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","variation":"","id":"/core/trace.js"}
 require.memoize("/core/trace.js", 
 function(require, exports, module) {
 
 }
-, {"filename":"test/assets/modules/various/mocks/har-preview.js/core+trace.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/har-preview.js/preview+menu.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/preview/menu.js"}
+, {"filename":"test/assets/modules/various/mocks/har-preview.js/core+trace.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/har-preview.js/preview+menu.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","variation":"","id":"/preview/menu.js"}
 require.memoize("/preview/menu.js", 
 function(require, exports, module) {
 
 }
-, {"filename":"test/assets/modules/various/mocks/har-preview.js/preview+menu.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/har-preview.js/preview+validationError.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/preview/validationError.js"}
+, {"filename":"test/assets/modules/various/mocks/har-preview.js/preview+menu.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/har-preview.js/preview+validationError.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","variation":"","id":"/preview/validationError.js"}
 require.memoize("/preview/validationError.js", 
 function(require, exports, module) {
 
 }
-, {"filename":"test/assets/modules/various/mocks/har-preview.js/preview+validationError.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/har-preview.js/nls+harPreview.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/nls/harPreview.js"}
+, {"filename":"test/assets/modules/various/mocks/har-preview.js/preview+validationError.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/har-preview.js/nls+harPreview.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","variation":"","id":"/nls/harPreview.js"}
 require.memoize("/nls/harPreview.js", 
 function(require, exports, module) {
 
 }
-, {"filename":"test/assets/modules/various/mocks/har-preview.js/nls+harPreview.js"});
+, {"filename":"test/assets/modules/various/mocks/har-preview.js/nls+harPreview.js","variation":""});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

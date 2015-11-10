@@ -77,7 +77,7 @@ function wrapAMD(callback) {
     callback.call(_____bundle_global || (typeof "global" !== "undefined" && global) || {}, amdRequire, wrappedDefine);
     return exports;
 }
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/q.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/q.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/q.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","variation":"","id":"/q.js"}
 require.memoize("/q.js", 
 wrapAMD(function(require, define) {
 // vim:ts=4:sts=4:sw=4:
@@ -1613,7 +1613,7 @@ return Q;
 });
 
 })
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/q.js"});
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/q.js","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

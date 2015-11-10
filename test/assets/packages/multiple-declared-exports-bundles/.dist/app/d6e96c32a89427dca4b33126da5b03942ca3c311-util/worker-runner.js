@@ -1,6 +1,6 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require, _____bundle_global) {
-// @pinf-bundle-module: {"file":"test/assets/packages/multiple-declared-exports-bundles/util/worker-runner.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/worker-runner.js"}
+// @pinf-bundle-module: {"file":"test/assets/packages/multiple-declared-exports-bundles/util/worker-runner.js","mtime":0,"wrapper":"commonjs","format":"commonjs","variation":"","id":"/worker-runner.js"}
 require.memoize("/worker-runner.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/multiple-declared-exports-bundles/util';
 
@@ -16,7 +16,7 @@ exports.main = function (callback) {
 }
 
 }
-, {"filename":"test/assets/packages/multiple-declared-exports-bundles/util/worker-runner.js"});
+, {"filename":"test/assets/packages/multiple-declared-exports-bundles/util/worker-runner.js","variation":""});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

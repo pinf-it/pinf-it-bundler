@@ -140,7 +140,7 @@ function define(id, dependencies, moduleInitializer) {
 }
 define.amd = { jQuery: true };
 require.def = define;
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/umd/jqueryPluginCommonjs.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/jqueryPluginCommonjs.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/umd/jqueryPluginCommonjs.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","variation":"","id":"/jqueryPluginCommonjs.js"}
 require.memoize("/jqueryPluginCommonjs.js", 
 wrapAMD(function(require, define) {
 // @see https://github.com/umdjs/umd/blob/master/jqueryPluginCommonjs.js
@@ -168,8 +168,8 @@ wrapAMD(function(require, define) {
     return $;
 }));
 })
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/umd/jqueryPluginCommonjs.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/umd/mocks/jqueryPluginCommonjs.js/jquery.js","mtime":0,"wrapper":"amd","format":"amd","id":"/jquery.js"}
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/umd/jqueryPluginCommonjs.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/umd/mocks/jqueryPluginCommonjs.js/jquery.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/jquery.js"}
 require.memoize("/jquery.js", 
 define([],function() {
 	return {
@@ -180,7 +180,7 @@ define([],function() {
         }
 	};
 })
-, {"filename":"test/assets/modules/umd/mocks/jqueryPluginCommonjs.js/jquery.js"});
+, {"filename":"test/assets/modules/umd/mocks/jqueryPluginCommonjs.js/jquery.js","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

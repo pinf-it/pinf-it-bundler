@@ -1,6 +1,6 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require, _____bundle_global) {
-// @pinf-bundle-module: {"file":"test/assets/packages/multiple-declared-exports-bundles/app.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/app.js"}
+// @pinf-bundle-module: {"file":"test/assets/packages/multiple-declared-exports-bundles/app.js","mtime":0,"wrapper":"commonjs","format":"commonjs","variation":"","id":"/app.js"}
 require.memoize("/app.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/multiple-declared-exports-bundles';
 
@@ -15,8 +15,8 @@ exports.main = function (callback) {
 }
 
 }
-, {"filename":"test/assets/packages/multiple-declared-exports-bundles/app.js"});
-// @pinf-bundle-module: {"file":"test/assets/packages/multiple-declared-exports-bundles/util/worker.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"d6e96c32a89427dca4b33126da5b03942ca3c311-util/worker.js"}
+, {"filename":"test/assets/packages/multiple-declared-exports-bundles/app.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/packages/multiple-declared-exports-bundles/util/worker.js","mtime":0,"wrapper":"commonjs","format":"commonjs","variation":"","id":"d6e96c32a89427dca4b33126da5b03942ca3c311-util/worker.js"}
 require.memoize("d6e96c32a89427dca4b33126da5b03942ca3c311-util/worker.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/multiple-declared-exports-bundles/util';
 
@@ -39,7 +39,7 @@ exports.run = function (callback) {
 }
 
 }
-, {"filename":"test/assets/packages/multiple-declared-exports-bundles/util/worker.js"});
+, {"filename":"test/assets/packages/multiple-declared-exports-bundles/util/worker.js","variation":""});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

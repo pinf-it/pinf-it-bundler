@@ -140,7 +140,7 @@ function define(id, dependencies, moduleInitializer) {
 }
 define.amd = { jQuery: true };
 require.def = define;
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/umd/commonjsStrictGlobal.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/commonjsStrictGlobal.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/umd/commonjsStrictGlobal.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","variation":"","id":"/commonjsStrictGlobal.js"}
 require.memoize("/commonjsStrictGlobal.js", 
 wrapAMD(function(require, define) {
 // @see https://github.com/umdjs/umd/blob/master/commonjsStrictGlobal.js
@@ -188,12 +188,12 @@ wrapAMD(function(require, define) {
 }));
 
 })
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/umd/commonjsStrictGlobal.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/umd/mocks/commonjsStrictGlobal.js/b.js","mtime":0,"wrapper":"amd","format":"amd","id":"/b.js"}
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/umd/commonjsStrictGlobal.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/umd/mocks/commonjsStrictGlobal.js/b.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/b.js"}
 require.memoize("/b.js", 
 define([],function() {
 })
-, {"filename":"test/assets/modules/umd/mocks/commonjsStrictGlobal.js/b.js"});
+, {"filename":"test/assets/modules/umd/mocks/commonjsStrictGlobal.js/b.js","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

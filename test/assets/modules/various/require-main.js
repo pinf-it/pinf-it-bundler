@@ -1,6 +1,6 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require, _____bundle_global) {
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/require-main.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"/require-main.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/require-main.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","variation":"","id":"/require-main.js"}
 require.memoize("/require-main.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'node_modules/pinf-it-module-insight/test/assets/various';
 
@@ -16,7 +16,7 @@ return {
     console: (typeof console !== "undefined") ? console : null
 };
 }
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/require-main.js"});
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/require-main.js","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

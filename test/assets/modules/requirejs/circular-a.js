@@ -63,30 +63,30 @@ function define(id, dependencies, moduleInitializer) {
 }
 define.amd = { jQuery: true };
 require.def = define;
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/circular-a.js","mtime":0,"wrapper":"amd","format":"amd","id":"/circular-a.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/circular-a.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/circular-a.js"}
 require.memoize("/circular-a.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/circular/a.js
 define(['b', 'exports'], function (b, exports) {
     exports.name = 'a';
     exports.b = b;
 })
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/circular-a.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/circular-a.js/b.js","mtime":0,"wrapper":"amd","format":"amd","id":"/b.js"}
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/circular-a.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/circular-a.js/b.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/b.js"}
 require.memoize("/b.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/circular/b.js
 define(['c', 'exports'], function (c, exports) {
     exports.name = 'b';
     exports.c = c;
 })
-, {"filename":"test/assets/modules/requirejs/mocks/circular-a.js/b.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/circular-a.js/c.js","mtime":0,"wrapper":"amd","format":"amd","id":"/c.js"}
+, {"filename":"test/assets/modules/requirejs/mocks/circular-a.js/b.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/circular-a.js/c.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/c.js"}
 require.memoize("/c.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/circular/c.js
 define(['circular-a', 'exports'], function (a, exports) {
     exports.name = 'c';
     exports.a = a;
 })
-, {"filename":"test/assets/modules/requirejs/mocks/circular-a.js/c.js"});
+, {"filename":"test/assets/modules/requirejs/mocks/circular-a.js/c.js","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

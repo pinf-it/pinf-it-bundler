@@ -63,13 +63,13 @@ function define(id, dependencies, moduleInitializer) {
 }
 define.amd = { jQuery: true };
 require.def = define;
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/anon-green.js","mtime":0,"wrapper":"amd","format":"amd","id":"/anon-green.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/anon-green.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/anon-green.js"}
 require.memoize("/anon-green.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/anon/green.js
 define({
     name: "green"
 })
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/anon-green.js"});
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/anon-green.js","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

@@ -140,7 +140,7 @@ function define(id, dependencies, moduleInitializer) {
 }
 define.amd = { jQuery: true };
 require.def = define;
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/umd/amdWeb.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/amdWeb.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/umd/amdWeb.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","variation":"","id":"/amdWeb.js"}
 require.memoize("/amdWeb.js", 
 wrapAMD(function(require, define) {
 // @see https://github.com/umdjs/umd/blob/master/amdWeb.js
@@ -184,12 +184,12 @@ wrapAMD(function(require, define) {
 }));
 
 })
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/umd/amdWeb.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/umd/mocks/amdWeb.js/b.js","mtime":0,"wrapper":"amd","format":"amd","id":"/b.js"}
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/umd/amdWeb.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/umd/mocks/amdWeb.js/b.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/b.js"}
 require.memoize("/b.js", 
 define([],function() {
 })
-, {"filename":"test/assets/modules/umd/mocks/amdWeb.js/b.js"});
+, {"filename":"test/assets/modules/umd/mocks/amdWeb.js/b.js","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

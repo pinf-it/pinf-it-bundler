@@ -77,7 +77,7 @@ function wrapAMD(callback) {
     callback(amdRequire, wrappedDefine);
     return exports;
 }
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/shim-array.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"/shim-array.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/shim-array.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","variation":"","id":"/shim-array.js"}
 require.memoize("/shim-array.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'node_modules/pinf-it-module-insight/test/assets/various';
 // @see https://github.com/kriskowal/collections/blob/d1420a5ed0cc1a9d1ba3bb0d8122414141828424/shim-array.js
@@ -172,31 +172,31 @@ return {
     ArrayIterator: (typeof ArrayIterator !== "undefined") ? ArrayIterator : null
 };
 }
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/shim-array.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/shim-array.js/shim-function.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/shim-function.js"}
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/shim-array.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/shim-array.js/shim-function.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","variation":"","id":"/shim-function.js"}
 require.memoize("/shim-function.js", 
 function(require, exports, module) {
 
 }
-, {"filename":"test/assets/modules/various/mocks/shim-array.js/shim-function.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/shim-array.js/generic-collection.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/generic-collection.js"}
+, {"filename":"test/assets/modules/various/mocks/shim-array.js/shim-function.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/shim-array.js/generic-collection.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","variation":"","id":"/generic-collection.js"}
 require.memoize("/generic-collection.js", 
 function(require, exports, module) {
 
 }
-, {"filename":"test/assets/modules/various/mocks/shim-array.js/generic-collection.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/shim-array.js/generic-order.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/generic-order.js"}
+, {"filename":"test/assets/modules/various/mocks/shim-array.js/generic-collection.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/shim-array.js/generic-order.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","variation":"","id":"/generic-order.js"}
 require.memoize("/generic-order.js", 
 function(require, exports, module) {
 
 }
-, {"filename":"test/assets/modules/various/mocks/shim-array.js/generic-order.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/shim-array.js/weak-map.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/weak-map.js"}
+, {"filename":"test/assets/modules/various/mocks/shim-array.js/generic-order.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/shim-array.js/weak-map.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","variation":"","id":"/weak-map.js"}
 require.memoize("/weak-map.js", 
 function(require, exports, module) {
 
 }
-, {"filename":"test/assets/modules/various/mocks/shim-array.js/weak-map.js"});
+, {"filename":"test/assets/modules/various/mocks/shim-array.js/weak-map.js","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

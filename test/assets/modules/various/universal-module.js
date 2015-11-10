@@ -77,7 +77,7 @@ function wrapAMD(callback) {
     callback.call(_____bundle_global || (typeof "global" !== "undefined" && global) || {}, amdRequire, wrappedDefine);
     return exports;
 }
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/universal-module.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/universal-module.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/universal-module.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","variation":"","id":"/universal-module.js"}
 require.memoize("/universal-module.js", 
 wrapAMD(function(require, define) {
 // @see https://gist.github.com/kitcambridge/1251221
@@ -108,7 +108,7 @@ wrapAMD(function(require, define) {
   return exports;
 });
 })
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/universal-module.js"});
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/universal-module.js","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

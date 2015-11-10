@@ -140,7 +140,7 @@ function define(id, dependencies, moduleInitializer) {
 }
 define.amd = { jQuery: true };
 require.def = define;
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/nestedRequire-a.js","mtime":0,"wrapper":"amd-ish","format":"amd","id":"/nestedRequire-a.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/nestedRequire-a.js","mtime":0,"wrapper":"amd-ish","format":"amd","variation":"","id":"/nestedRequire-a.js"}
 require.memoize("/nestedRequire-a.js", 
 wrapAMD(function(require, define) {
 // @see https://github.com/jrburke/requirejs/blob/master/tests/nestedRequire/a.js
@@ -173,8 +173,8 @@ define(['q', 'base'], function (Q, base) {
     return deferred.promise;
 })
 })
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/nestedRequire-a.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/nestedRequire-a.js/q.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/q.js"}
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/nestedRequire-a.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/nestedRequire-a.js/q.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","variation":"","id":"/q.js"}
 require.memoize("/q.js", 
 wrapAMD(function(require, define) {
 // vim:ts=4:sts=4:sw=4:
@@ -2103,14 +2103,14 @@ return Q;
 
 });
 })
-, {"filename":"test/assets/modules/requirejs/mocks/nestedRequire-a.js/q.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/nestedRequire-a.js/base.js","mtime":0,"wrapper":"amd","format":"amd","id":"/base.js"}
+, {"filename":"test/assets/modules/requirejs/mocks/nestedRequire-a.js/q.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/nestedRequire-a.js/base.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/base.js"}
 require.memoize("/base.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/nestedRequire/base.js
 define({
     name: 'base'
 })
-, {"filename":"test/assets/modules/requirejs/mocks/nestedRequire-a.js/base.js"});
+, {"filename":"test/assets/modules/requirejs/mocks/nestedRequire-a.js/base.js","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

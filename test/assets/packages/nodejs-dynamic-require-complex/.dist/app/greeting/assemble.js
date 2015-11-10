@@ -1,6 +1,6 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require, _____bundle_global) {
-// @pinf-bundle-module: {"file":"test/assets/packages/nodejs-dynamic-require-complex/assemble.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/assemble.js"}
+// @pinf-bundle-module: {"file":"test/assets/packages/nodejs-dynamic-require-complex/assemble.js","mtime":0,"wrapper":"commonjs","format":"commonjs","variation":"","id":"/assemble.js"}
 require.memoize("/assemble.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-dynamic-require-complex';
 
@@ -16,7 +16,7 @@ exports.assemble = function() {
 }
 
 }
-, {"filename":"test/assets/packages/nodejs-dynamic-require-complex/assemble.js"});
+, {"filename":"test/assets/packages/nodejs-dynamic-require-complex/assemble.js","variation":""});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

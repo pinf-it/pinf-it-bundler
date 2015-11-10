@@ -1,6 +1,6 @@
 // @pinf-bundle-ignore: 
-PINF.bundle("", function(require) {
-// @pinf-bundle-module: {"file":"test/assets/packages/nodejs-to-browser/app.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"/app.js"}
+PINF.bundle("", function(require, _____bundle_global) {
+// @pinf-bundle-module: {"file":"test/assets/packages/nodejs-to-browser/app.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","variation":"","id":"/app.js"}
 require.memoize("/app.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/nodejs-to-browser';
 
@@ -24,10 +24,10 @@ return {
     console: (typeof console !== "undefined") ? console : null
 };
 }
-, {"filename":"test/assets/packages/nodejs-to-browser/app.js"});
-// @pinf-bundle-module: {"file":"/genesis/os.inception/services/2-it.pinf/pinf-it-bundler/node_modules/browser-builtins/node_modules/os-browserify/browser.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/__SYSTEM__/os.js"}
+, {"filename":"test/assets/packages/nodejs-to-browser/app.js","variation":""});
+// @pinf-bundle-module: {"file":"/freedom/0.workspace/0/0.FireWidgets/.deps/github.com~pinf-it~pinf-it-bundler~0/source/installed/master/node_modules/browser-builtins/node_modules/os-browserify/browser.js","mtime":0,"wrapper":"commonjs","format":"commonjs","variation":"","id":"/__SYSTEM__/os.js"}
 require.memoize("/__SYSTEM__/os.js", 
-function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'genesis/os.inception/services/2-it.pinf/pinf-it-bundler/node_modules/browser-builtins/node_modules/os-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'freedom/0.workspace/0/0.FireWidgets/.deps/github.com~pinf-it~pinf-it-bundler~0/source/installed/master/node_modules/browser-builtins/node_modules/os-browserify';
 exports.endianness = function () { return 'LE' };
 
 exports.hostname = function () {
@@ -75,7 +75,7 @@ exports.tmpdir = exports.tmpDir = function () {
 exports.EOL = '\n';
 
 }
-, {"filename":"/genesis/os.inception/services/2-it.pinf/pinf-it-bundler/node_modules/browser-builtins/node_modules/os-browserify/browser.js"});
+, {"filename":"/freedom/0.workspace/0/0.FireWidgets/.deps/github.com~pinf-it~pinf-it-bundler~0/source/installed/master/node_modules/browser-builtins/node_modules/os-browserify/browser.js","variation":""});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

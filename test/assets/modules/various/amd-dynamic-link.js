@@ -140,7 +140,7 @@ function define(id, dependencies, moduleInitializer) {
 }
 define.amd = { jQuery: true };
 require.def = define;
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/amd-dynamic-link.js","mtime":0,"wrapper":"amd-ish","format":"amd","id":"/amd-dynamic-link.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/amd-dynamic-link.js","mtime":0,"wrapper":"amd-ish","format":"amd","variation":"","id":"/amd-dynamic-link.js"}
 require.memoize("/amd-dynamic-link.js", 
 wrapAMD(function(require, define) {
 // @see https://github.com/jrburke/requirejs/blob/master/tests/nestedRequire/a.js
@@ -174,8 +174,8 @@ define(['q-lib'], function (Q) {
     return deferred.promise;
 })
 })
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/amd-dynamic-link.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/amd-dynamic-link.js/q-lib.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","id":"/q-lib.js"}
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/amd-dynamic-link.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/amd-dynamic-link.js/q-lib.js","mtime":0,"wrapper":"amd-ish","format":"amd-ish","variation":"","id":"/q-lib.js"}
 require.memoize("/q-lib.js", 
 wrapAMD(function(require, define) {
 // vim:ts=4:sts=4:sw=4:
@@ -1705,13 +1705,13 @@ return Q;
 });
 
 })
-, {"filename":"test/assets/modules/various/mocks/amd-dynamic-link.js/q-lib.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/amd-dynamic-link.js/base.js","mtime":0,"wrapper":"amd","format":"amd","id":"/base.js"}
+, {"filename":"test/assets/modules/various/mocks/amd-dynamic-link.js/q-lib.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/amd-dynamic-link.js/base.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/base.js"}
 require.memoize("/base.js", 
 define({
     name: 'base'
 })
-, {"filename":"test/assets/modules/various/mocks/amd-dynamic-link.js/base.js"});
+, {"filename":"test/assets/modules/various/mocks/amd-dynamic-link.js/base.js","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

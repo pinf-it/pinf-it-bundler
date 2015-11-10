@@ -1,6 +1,6 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require, _____bundle_global) {
-// @pinf-bundle-module: {"file":"test/assets/packages/self-require-deep/lib/app.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/lib/app.js"}
+// @pinf-bundle-module: {"file":"test/assets/packages/self-require-deep/lib/app.js","mtime":0,"wrapper":"commonjs","format":"commonjs","variation":"","id":"/lib/app.js"}
 require.memoize("/lib/app.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'test/assets/packages/self-require-deep/lib';
 
@@ -19,7 +19,7 @@ if (require.main === module) {
 }
 
 }
-, {"filename":"test/assets/packages/self-require-deep/lib/app.js"});
+, {"filename":"test/assets/packages/self-require-deep/lib/app.js","variation":""});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

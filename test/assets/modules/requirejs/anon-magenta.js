@@ -63,7 +63,7 @@ function define(id, dependencies, moduleInitializer) {
 }
 define.amd = { jQuery: true };
 require.def = define;
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/anon-magenta.js","mtime":0,"wrapper":"amd","format":"amd","id":"/anon-magenta.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/anon-magenta.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/anon-magenta.js"}
 require.memoize("/anon-magenta.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/anon/magenta.js
 define(['require','exports','module','red','./blue','text!./message.txt'],function (require, exports, module) {
@@ -82,8 +82,8 @@ define(['require','exports','module','red','./blue','text!./message.txt'],functi
     exports.path = require.toUrl('./foo.html');
     exports.message = message;
 })
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/anon-magenta.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/anon-magenta.js/red.js","mtime":0,"wrapper":"amd","format":"amd","id":"/red.js"}
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/anon-magenta.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/anon-magenta.js/red.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/red.js"}
 require.memoize("/red.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/anon/red.js
 define("red",[], function () {
@@ -91,8 +91,8 @@ define("red",[], function () {
         name: "red"
     };
 })
-, {"filename":"test/assets/modules/requirejs/mocks/anon-magenta.js/red.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/anon-magenta.js/blue.js","mtime":0,"wrapper":"amd","format":"amd","id":"/blue.js"}
+, {"filename":"test/assets/modules/requirejs/mocks/anon-magenta.js/red.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/anon-magenta.js/blue.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/blue.js"}
 require.memoize("/blue.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/anon/blue.js
 define([],function () {
@@ -100,11 +100,11 @@ define([],function () {
         name: "blue"
     };
 })
-, {"filename":"test/assets/modules/requirejs/mocks/anon-magenta.js/blue.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/anon-magenta.js/message.txt","mtime":0,"wrapper":"url-encoded","format":"utf8","id":"/message.txt"}
+, {"filename":"test/assets/modules/requirejs/mocks/anon-magenta.js/blue.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/anon-magenta.js/message.txt","mtime":0,"wrapper":"url-encoded","format":"utf8","variation":"","id":"/message.txt"}
 require.memoize("/message.txt", 
 'hello%20world'
-, {"filename":"test/assets/modules/requirejs/mocks/anon-magenta.js/message.txt"});
+, {"filename":"test/assets/modules/requirejs/mocks/anon-magenta.js/message.txt","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

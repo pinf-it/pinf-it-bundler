@@ -1,6 +1,6 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require, _____bundle_global) {
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/mime-types.js","mtime":0,"wrapper":"commonjs","format":"commonjs","id":"/mime-types.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/mime-types.js","mtime":0,"wrapper":"commonjs","format":"commonjs","variation":"","id":"/mime-types.js"}
 require.memoize("/mime-types.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'node_modules/pinf-it-module-insight/test/assets/various';
 
@@ -80,31 +80,31 @@ function define(json) {
 }
 
 }
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/mime-types.js"});
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/mime-types.js","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/mime-types.js"
 }
 , {"filename":"node_modules/pinf-it-module-insight/test/assets/various/mime-types.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/mime-types.js/mime.json","mtime":0,"wrapper":"json","format":"json","id":"/mime.json"}
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/mime-types.js/mime.json","mtime":0,"wrapper":"json","format":"json","variation":"","id":"/mime.json"}
 require.memoize("/mime.json", 
 
 {}
 
-, {"filename":"test/assets/modules/various/mocks/mime-types.js/mime.json"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/mime-types.js/node.json","mtime":0,"wrapper":"json","format":"json","id":"/node.json"}
+, {"filename":"test/assets/modules/various/mocks/mime-types.js/mime.json","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/mime-types.js/node.json","mtime":0,"wrapper":"json","format":"json","variation":"","id":"/node.json"}
 require.memoize("/node.json", 
 
 {}
 
-, {"filename":"test/assets/modules/various/mocks/mime-types.js/node.json"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/mime-types.js/custom.json","mtime":0,"wrapper":"json","format":"json","id":"/custom.json"}
+, {"filename":"test/assets/modules/various/mocks/mime-types.js/node.json","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/mime-types.js/custom.json","mtime":0,"wrapper":"json","format":"json","variation":"","id":"/custom.json"}
 require.memoize("/custom.json", 
 
 {}
 
-, {"filename":"test/assets/modules/various/mocks/mime-types.js/custom.json"});
+, {"filename":"test/assets/modules/various/mocks/mime-types.js/custom.json","variation":""});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}

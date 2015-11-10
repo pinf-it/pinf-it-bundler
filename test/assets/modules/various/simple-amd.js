@@ -63,7 +63,7 @@ function define(id, dependencies, moduleInitializer) {
 }
 define.amd = { jQuery: true };
 require.def = define;
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/simple-amd.js","mtime":0,"wrapper":"amd","format":"amd","id":"/simple-amd.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/simple-amd.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/simple-amd.js"}
 require.memoize("/simple-amd.js", 
 
 define([],function() {
@@ -74,7 +74,7 @@ define([],function() {
 		}
 	};
 })
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/simple-amd.js"});
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/simple-amd.js","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

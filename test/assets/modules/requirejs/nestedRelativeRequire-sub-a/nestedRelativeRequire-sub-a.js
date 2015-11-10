@@ -63,14 +63,14 @@ function define(id, dependencies, moduleInitializer) {
 }
 define.amd = { jQuery: true };
 require.def = define;
-// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/nestedRelativeRequire-sub-a.js/b.js","mtime":0,"wrapper":"amd","format":"amd","id":"/b.js"}
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/nestedRelativeRequire-sub-a.js/b.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/b.js"}
 require.memoize("/b.js", 
 define([],function() {
 	return {
 		loaded: true
 	};
 })
-, {"filename":"test/assets/modules/requirejs/mocks/nestedRelativeRequire-sub-a.js/b.js"});
+, {"filename":"test/assets/modules/requirejs/mocks/nestedRelativeRequire-sub-a.js/b.js","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

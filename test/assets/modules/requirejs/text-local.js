@@ -63,7 +63,7 @@ function define(id, dependencies, moduleInitializer) {
 }
 define.amd = { jQuery: true };
 require.def = define;
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/text-local.js","mtime":0,"wrapper":"amd","format":"amd","id":"/text-local.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/requirejs/text-local.js","mtime":0,"wrapper":"amd","format":"amd","variation":"","id":"/text-local.js"}
 require.memoize("/text-local.js", 
 // @see https://github.com/jrburke/requirejs/blob/master/tests/text/local.js
 define(['text!./resources/local.html'], function (localHtml) {
@@ -71,11 +71,11 @@ define(['text!./resources/local.html'], function (localHtml) {
         localHtml: localHtml
     }
 })
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/text-local.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/text-local.js/resources+local.html","mtime":0,"wrapper":"url-encoded","format":"utf8","id":"/resources/local.html"}
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/requirejs/text-local.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/requirejs/mocks/text-local.js/resources+local.html","mtime":0,"wrapper":"url-encoded","format":"utf8","variation":"","id":"/resources/local.html"}
 require.memoize("/resources/local.html", 
 '%3Ch1%3ELocal%3C%2Fh1%3E'
-, {"filename":"test/assets/modules/requirejs/mocks/text-local.js/resources+local.html"});
+, {"filename":"test/assets/modules/requirejs/mocks/text-local.js/resources+local.html","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

@@ -1,6 +1,6 @@
 // @pinf-bundle-ignore: 
 PINF.bundle("", function(require, _____bundle_global) {
-// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/mkdirp.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","id":"/mkdirp.js"}
+// @pinf-bundle-module: {"file":"node_modules/pinf-it-module-insight/test/assets/various/mkdirp.js","mtime":0,"wrapper":"commonjs/leaky","format":"leaky","variation":"","id":"/mkdirp.js"}
 require.memoize("/mkdirp.js", 
 function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'node_modules/pinf-it-module-insight/test/assets/various';
 
@@ -107,25 +107,25 @@ return {
     parseInt: (typeof parseInt !== "undefined") ? parseInt : null
 };
 }
-, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/mkdirp.js"});
+, {"filename":"node_modules/pinf-it-module-insight/test/assets/various/mkdirp.js","variation":""});
 // @pinf-bundle-module: {"file":"","mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {
     "main": "/mkdirp.js"
 }
 , {"filename":"node_modules/pinf-it-module-insight/test/assets/various/mkdirp.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/mkdirp.js/path.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/path.js"}
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/mkdirp.js/path.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","variation":"","id":"/path.js"}
 require.memoize("/path.js", 
 function(require, exports, module) {
 
 }
-, {"filename":"test/assets/modules/various/mocks/mkdirp.js/path.js"});
-// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/mkdirp.js/fs.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","id":"/fs.js"}
+, {"filename":"test/assets/modules/various/mocks/mkdirp.js/path.js","variation":""});
+// @pinf-bundle-module: {"file":"test/assets/modules/various/mocks/mkdirp.js/fs.js","mtime":0,"wrapper":"commonjs/encapsulated","format":"encapsulated","variation":"","id":"/fs.js"}
 require.memoize("/fs.js", 
 function(require, exports, module) {
 
 }
-, {"filename":"test/assets/modules/various/mocks/mkdirp.js/fs.js"});
+, {"filename":"test/assets/modules/various/mocks/mkdirp.js/fs.js","variation":""});
 // @pinf-bundle-ignore: 
 });
 // @pinf-bundle-report: {}
