@@ -23,11 +23,15 @@ describe('bundle', function() {
 
 	it('should not allow 2+ `open()` on same bundle', function(done) {
 		var path = PATH.join(__dirname, "assets/bundles/with-loader.js");
-		return BUNDLE.open(path, {}, function(err, bundle) {
+		return BUNDLE.open(path, {
+			rootPath: PATH.dirname(__dirname)
+		}, function(err, bundle) {
 			if (err) return done(err);
-			return BUNDLE.open(path, {}, function(err) {
+			return BUNDLE.open(path, {
+				rootPath: PATH.dirname(__dirname)
+			}, function(err) {
 				ASSERT.equal(typeof err, "object");
-				ASSERT.equal(err.message, "Cannot open. Bundle already open by other instance.");
+				ASSERT.equal(err.message, "Cannot open '/test/assets/bundles/with-loader.js'. Bundle already open by other instance.");
 				return bundle.close(done);
 			});
 		});

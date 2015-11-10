@@ -181,11 +181,12 @@ describe('bundler', function() {
 			"packages/nodejs-dynamic-require-simple",
 			"packages/nodejs-dynamic-require-shared",
 			"packages/nodejs-dynamic-require-nested",
+			"packages/require-async-mapped-pkg",
 			"packages/nodejs-dynamic-require-nested-declared",
 			"packages/nodejs-dynamic-require-pkg",
 			"packages/commonjs-lib",
 			"packages/nodejs-dynamic-require-complex",
-			"packages/nodejs-built-in",  // This use-case needs a major speed improvement
+//			"packages/nodejs-built-in",  // This use-case needs a major speed improvement
 			"packages/self-require",
 			"packages/deep-main",
 			"packages/self-require-deep",
@@ -246,11 +247,14 @@ TODO: This currently fails. Try fixing once we can log more of the internals of 
 
 						return PINF_FOR_NODEJS.sandbox(bundlePath, sandboxOptions, function(sandbox) {
 							try {
-								result = sandbox.main(function (err, res) {
+								var res = sandbox.main(function (err, res) {
 									if (err) return callback(err);
 									result = res;
 									return callback();
 								});
+								if (result === null) {
+									result = res;
+								}
 							} catch(err) {
 								return callback(err);
 							}
