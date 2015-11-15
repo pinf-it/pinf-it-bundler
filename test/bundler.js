@@ -193,8 +193,12 @@ describe('bundler', function() {
 			"packages/nodejs-multiple",
 			"packages/nodejs-dynamic-require-declared",
 			"packages/require-async",
+			"packages/require-async-sub",
+			"packages/require-async-sub-via-mapped-pkg",
+			"packages/require-async-sub-via-mapped-pkg-twice",
 			"packages/nodejs-to-browser",
 			"packages/same-file-dir"
+
 /*
 TODO: This currently fails. Try fixing once we can log more of the internals of the bundler for debugging.
 1) bundler `bundlePackage()` should bundle package - packages/require-async-deep-pkg:
