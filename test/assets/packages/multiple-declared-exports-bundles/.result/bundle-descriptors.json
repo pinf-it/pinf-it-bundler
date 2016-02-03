@@ -245,6 +245,11 @@
                                             "util": {
                                                 "location": "./util"
                                             }
+                                        },
+                                        "bundled": {
+                                            "util": {
+                                                "location": "./util"
+                                            }
                                         }
                                     },
                                     "exports": {
@@ -261,6 +266,11 @@
                             "combined": {
                                 "dependencies": {
                                     "required": {
+                                        "util": {
+                                            "location": "./util"
+                                        }
+                                    },
+                                    "bundled": {
                                         "util": {
                                             "location": "./util"
                                         }

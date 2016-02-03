@@ -197,7 +197,8 @@ describe('bundler', function() {
 			"packages/require-async-sub-via-mapped-pkg",
 			"packages/require-async-sub-via-mapped-pkg-twice",
 			"packages/nodejs-to-browser",
-			"packages/same-file-dir"
+			"packages/same-file-dir",
+			"packages/nodejs-npm3-flat"
 
 /*
 TODO: This currently fails. Try fixing once we can log more of the internals of the bundler for debugging.

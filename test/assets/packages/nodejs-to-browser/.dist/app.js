@@ -25,9 +25,9 @@ return {
 };
 }
 , {"filename":"test/assets/packages/nodejs-to-browser/app.js","variation":""});
-// @pinf-bundle-module: {"file":"/freedom/0.workspace/0/0.FireWidgets/.deps/github.com~pinf-it~pinf-it-bundler~0/source/installed/master/node_modules/browser-builtins/node_modules/os-browserify/browser.js","mtime":0,"wrapper":"commonjs","format":"commonjs","variation":"","id":"/__SYSTEM__/os.js"}
+// @pinf-bundle-module: {"file":"/inception/mercury-rising/node_modules/pinf-it-bundler/node_modules/os-browserify/browser.js","mtime":0,"wrapper":"commonjs","format":"commonjs","variation":"","id":"/__SYSTEM__/os.js"}
 require.memoize("/__SYSTEM__/os.js", 
-function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'freedom/0.workspace/0/0.FireWidgets/.deps/github.com~pinf-it~pinf-it-bundler~0/source/installed/master/node_modules/browser-builtins/node_modules/os-browserify';
+function(require, exports, module) {var __dirname = TEST_ROOT_PATH + '/' + 'inception/mercury-rising/node_modules/pinf-it-bundler/node_modules/os-browserify';
 exports.endianness = function () { return 'LE' };
 
 exports.hostname = function () {
@@ -75,7 +75,7 @@ exports.tmpdir = exports.tmpDir = function () {
 exports.EOL = '\n';
 
 }
-, {"filename":"/freedom/0.workspace/0/0.FireWidgets/.deps/github.com~pinf-it~pinf-it-bundler~0/source/installed/master/node_modules/browser-builtins/node_modules/os-browserify/browser.js","variation":""});
+, {"filename":"/inception/mercury-rising/node_modules/pinf-it-bundler/node_modules/os-browserify/browser.js","variation":""});
 // @pinf-bundle-module: {"file":null,"mtime":0,"wrapper":"json","format":"json","id":"/package.json"}
 require.memoize("/package.json", 
 {

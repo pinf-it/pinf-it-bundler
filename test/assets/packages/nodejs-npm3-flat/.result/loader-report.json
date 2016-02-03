@@ -1,0 +1,603 @@
+{
+    "test/assets/packages/nodejs-npm3-flat/.dist/app": {
+        "bundles": {
+            "test/assets/packages/nodejs-npm3-flat/.dist/app.js": ""
+        },
+        "packages": {
+            "": {
+                "main": "/app.js",
+                "mappings": {
+                    "mercury": "5aa290c24f24dacbba3d98464ee2496c359e2fa9-mercury"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "5aa290c24f24dacbba3d98464ee2496c359e2fa9-mercury": {
+                "main": "5aa290c24f24dacbba3d98464ee2496c359e2fa9-mercury/index.js",
+                "mappings": {
+                    "geval": "fe0e6550bbef2c036fb585219c557a4fe6179940-geval",
+                    "xtend": "1785d6964ca526223d5851a54ae43268bcd80878-xtend",
+                    "main-loop": "a1266e7ecc769cb741acd7f364709f047959edb8-main-loop",
+                    "value-event": "a29c2975bc4244c93fd3a9d37997f4dc9011e252-value-event",
+                    "dom-delegator": "188b74e9d529dac6b050b35ac15dff0a815cd2a7-dom-delegator",
+                    "observ-array": "0353cf734fd45ec0398d1e901c8e16516fa00da2-observ-array",
+                    "observ-struct": "18225cba6f52ea4ccb31cf78cf073fe680ca694b-observ-struct",
+                    "observ-varhash": "3e8f5ffc0eec6592bd0d1b847bf253210576b5cd-observ-varhash",
+                    "observ": "763f9fee82cab36f35fe21dc7804803adeb52177-observ",
+                    "virtual-dom": "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom",
+                    "vdom-thunk": "87e971dbd021e714b29c3b61710491805a981f18-vdom-thunk"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "fe0e6550bbef2c036fb585219c557a4fe6179940-geval": {
+                "main": "fe0e6550bbef2c036fb585219c557a4fe6179940-geval/source.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "1785d6964ca526223d5851a54ae43268bcd80878-xtend": {
+                "main": "1785d6964ca526223d5851a54ae43268bcd80878-xtend/immutable.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "a1266e7ecc769cb741acd7f364709f047959edb8-main-loop": {
+                "main": "a1266e7ecc769cb741acd7f364709f047959edb8-main-loop/index.js",
+                "mappings": {
+                    "raf": "776fdf2bd359c0842eabb6e35eb383938b1c8a13-raf",
+                    "error": "b9238a6795a9ff3c21edb77008fe66b19e571992-error"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "776fdf2bd359c0842eabb6e35eb383938b1c8a13-raf": {
+                "main": "776fdf2bd359c0842eabb6e35eb383938b1c8a13-raf/index.js",
+                "mappings": {
+                    "performance-now": "747e45a55b2cfbbce6fc8c3da11ec4bc08bdbbf7-performance-now"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "747e45a55b2cfbbce6fc8c3da11ec4bc08bdbbf7-performance-now": {
+                "main": "747e45a55b2cfbbce6fc8c3da11ec4bc08bdbbf7-performance-now/lib/performance-now.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "b9238a6795a9ff3c21edb77008fe66b19e571992-error": {
+                "main": "b9238a6795a9ff3c21edb77008fe66b19e571992-error/index",
+                "mappings": {
+                    "camelize": "7a6afee7f88ad8b1ba389df4d83b4462b9997d16-camelize",
+                    "string-template": "e30cf416f3e94cb0ded210d62758303e4fde3abf-string-template",
+                    "xtend": "1785d6964ca526223d5851a54ae43268bcd80878-xtend"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "7a6afee7f88ad8b1ba389df4d83b4462b9997d16-camelize": {
+                "main": "7a6afee7f88ad8b1ba389df4d83b4462b9997d16-camelize/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "e30cf416f3e94cb0ded210d62758303e4fde3abf-string-template": {
+                "main": "e30cf416f3e94cb0ded210d62758303e4fde3abf-string-template/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "a29c2975bc4244c93fd3a9d37997f4dc9011e252-value-event": {
+                "main": "a29c2975bc4244c93fd3a9d37997f4dc9011e252-value-event/index",
+                "mappings": {
+                    "dom-delegator": "188b74e9d529dac6b050b35ac15dff0a815cd2a7-dom-delegator",
+                    "xtend": "822968178ae54008cf98ee66ff499fa2be684578-xtend",
+                    "form-data-set": "09e6f92cd04eda1fe09b6753906b14604f3493e5-form-data-set"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "188b74e9d529dac6b050b35ac15dff0a815cd2a7-dom-delegator": {
+                "main": "188b74e9d529dac6b050b35ac15dff0a815cd2a7-dom-delegator/index.js",
+                "mappings": {
+                    "individual": "bf72d7446c35cd68ebc718de4c886bae7574e077-individual",
+                    "cuid": "389ae956e18469d6376883cc8f4bfc8f983c9c13-cuid",
+                    "global": "13986d51e21380cfc0d85f20cf3b63da6e225b2e-global",
+                    "ev-store": "8e106d5677990df298bfc71bb4226fd7f310abfa-ev-store",
+                    "weakmap-shim": "d2dd073247e4f84cb840cd764bf6f2f953e4d71a-weakmap-shim",
+                    "inherits": "a42e50050a54413069e6526883e41b54232ecb51-inherits"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "bf72d7446c35cd68ebc718de4c886bae7574e077-individual": {
+                "main": "bf72d7446c35cd68ebc718de4c886bae7574e077-individual/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "389ae956e18469d6376883cc8f4bfc8f983c9c13-cuid": {
+                "main": "389ae956e18469d6376883cc8f4bfc8f983c9c13-cuid/dist/node-cuid.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "13986d51e21380cfc0d85f20cf3b63da6e225b2e-global": {
+                "main": "13986d51e21380cfc0d85f20cf3b63da6e225b2e-global/window.js",
+                "mappings": {
+                    "min-document": "0e6bec4cae623f8973c15bea63cc114d467281f9-min-document"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "0e6bec4cae623f8973c15bea63cc114d467281f9-min-document": {
+                "main": "0e6bec4cae623f8973c15bea63cc114d467281f9-min-document/index.js",
+                "mappings": {
+                    "dom-walk": "bafb1bd85d795649867d457cd2647f73cf5cf5f0-dom-walk"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "bafb1bd85d795649867d457cd2647f73cf5cf5f0-dom-walk": {
+                "main": "bafb1bd85d795649867d457cd2647f73cf5cf5f0-dom-walk/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "8e106d5677990df298bfc71bb4226fd7f310abfa-ev-store": {
+                "main": "8e106d5677990df298bfc71bb4226fd7f310abfa-ev-store/index.js",
+                "mappings": {
+                    "individual": "069cdb460b03a4609646e8111164c92d58ea0494-individual"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "069cdb460b03a4609646e8111164c92d58ea0494-individual": {
+                "main": "069cdb460b03a4609646e8111164c92d58ea0494-individual/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "d2dd073247e4f84cb840cd764bf6f2f953e4d71a-weakmap-shim": {
+                "main": "d2dd073247e4f84cb840cd764bf6f2f953e4d71a-weakmap-shim/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "a42e50050a54413069e6526883e41b54232ecb51-inherits": {
+                "main": "a42e50050a54413069e6526883e41b54232ecb51-inherits/inherits.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "822968178ae54008cf98ee66ff499fa2be684578-xtend": {
+                "main": "822968178ae54008cf98ee66ff499fa2be684578-xtend/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "09e6f92cd04eda1fe09b6753906b14604f3493e5-form-data-set": {
+                "main": "09e6f92cd04eda1fe09b6753906b14604f3493e5-form-data-set/index.js",
+                "mappings": {
+                    "dom-walk": "bafb1bd85d795649867d457cd2647f73cf5cf5f0-dom-walk"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "0353cf734fd45ec0398d1e901c8e16516fa00da2-observ-array": {
+                "main": "0353cf734fd45ec0398d1e901c8e16516fa00da2-observ-array/index.js",
+                "mappings": {
+                    "observ": "763f9fee82cab36f35fe21dc7804803adeb52177-observ",
+                    "adiff": "940ee15dbc47ffff9aab0426eb8d652731895883-adiff"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "763f9fee82cab36f35fe21dc7804803adeb52177-observ": {
+                "main": "763f9fee82cab36f35fe21dc7804803adeb52177-observ/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "940ee15dbc47ffff9aab0426eb8d652731895883-adiff": {
+                "main": "940ee15dbc47ffff9aab0426eb8d652731895883-adiff/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "18225cba6f52ea4ccb31cf78cf073fe680ca694b-observ-struct": {
+                "main": "18225cba6f52ea4ccb31cf78cf073fe680ca694b-observ-struct/index.js",
+                "mappings": {
+                    "observ": "763f9fee82cab36f35fe21dc7804803adeb52177-observ",
+                    "xtend": "1d83ab096fb740c2fae8491c4cd4ad2e18f011f7-xtend"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "1d83ab096fb740c2fae8491c4cd4ad2e18f011f7-xtend": {
+                "main": "1d83ab096fb740c2fae8491c4cd4ad2e18f011f7-xtend/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "3e8f5ffc0eec6592bd0d1b847bf253210576b5cd-observ-varhash": {
+                "main": "3e8f5ffc0eec6592bd0d1b847bf253210576b5cd-observ-varhash/index.js",
+                "mappings": {
+                    "observ": "763f9fee82cab36f35fe21dc7804803adeb52177-observ",
+                    "xtend": "0c321377f76ba4f1037f8b0fcd64cfc56c192488-xtend"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "0c321377f76ba4f1037f8b0fcd64cfc56c192488-xtend": {
+                "main": "0c321377f76ba4f1037f8b0fcd64cfc56c192488-xtend/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom": {
+                "main": "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/index.js",
+                "mappings": {
+                    "x-is-array": "7e70e8113b08f862aa24c1f5e47959e7f8915019-x-is-array",
+                    "is-object": "612ea617e4c6ef171db6393340a654971edd1f12-is-object",
+                    "global": "13986d51e21380cfc0d85f20cf3b63da6e225b2e-global",
+                    "browser-split": "cde4c90688533bd61b9bb9422cae15887bb6380f-browser-split",
+                    "ev-store": "8e106d5677990df298bfc71bb4226fd7f310abfa-ev-store"
+                },
+                "directories": {},
+                "libPath": ""
+            },
+            "7e70e8113b08f862aa24c1f5e47959e7f8915019-x-is-array": {
+                "main": "7e70e8113b08f862aa24c1f5e47959e7f8915019-x-is-array/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "612ea617e4c6ef171db6393340a654971edd1f12-is-object": {
+                "main": "612ea617e4c6ef171db6393340a654971edd1f12-is-object/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "87e971dbd021e714b29c3b61710491805a981f18-vdom-thunk": {
+                "main": "87e971dbd021e714b29c3b61710491805a981f18-vdom-thunk/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            },
+            "cde4c90688533bd61b9bb9422cae15887bb6380f-browser-split": {
+                "main": "cde4c90688533bd61b9bb9422cae15887bb6380f-browser-split/index.js",
+                "mappings": {},
+                "directories": {},
+                "libPath": ""
+            }
+        },
+        "modules": {
+            "/app.js": {
+                "exports": 4
+            },
+            "5aa290c24f24dacbba3d98464ee2496c359e2fa9-mercury/index.js": {
+                "exports": 32
+            },
+            "fe0e6550bbef2c036fb585219c557a4fe6179940-geval/single.js": {
+                "exports": 0
+            },
+            "fe0e6550bbef2c036fb585219c557a4fe6179940-geval/event.js": {
+                "exports": 0
+            },
+            "fe0e6550bbef2c036fb585219c557a4fe6179940-geval/multiple.js": {
+                "exports": 0
+            },
+            "1785d6964ca526223d5851a54ae43268bcd80878-xtend/immutable.js": {
+                "exports": 0
+            },
+            "a1266e7ecc769cb741acd7f364709f047959edb8-main-loop/index.js": {
+                "exports": 0
+            },
+            "776fdf2bd359c0842eabb6e35eb383938b1c8a13-raf/index.js": {
+                "exports": 1
+            },
+            "747e45a55b2cfbbce6fc8c3da11ec4bc08bdbbf7-performance-now/lib/performance-now.js": {
+                "exports": 0
+            },
+            "b9238a6795a9ff3c21edb77008fe66b19e571992-error/typed.js": {
+                "exports": 0
+            },
+            "7a6afee7f88ad8b1ba389df4d83b4462b9997d16-camelize/index.js": {
+                "exports": 0
+            },
+            "e30cf416f3e94cb0ded210d62758303e4fde3abf-string-template/index.js": {
+                "exports": 0
+            },
+            "1785d6964ca526223d5851a54ae43268bcd80878-xtend/mutable.js": {
+                "exports": 0
+            },
+            "a29c2975bc4244c93fd3a9d37997f4dc9011e252-value-event/base-event.js": {
+                "exports": 0
+            },
+            "188b74e9d529dac6b050b35ac15dff0a815cd2a7-dom-delegator/index.js": {
+                "exports": 2
+            },
+            "bf72d7446c35cd68ebc718de4c886bae7574e077-individual/index.js": {
+                "exports": 0
+            },
+            "389ae956e18469d6376883cc8f4bfc8f983c9c13-cuid/dist/node-cuid.js": {
+                "exports": 2
+            },
+            "13986d51e21380cfc0d85f20cf3b63da6e225b2e-global/document.js": {
+                "exports": 18
+            },
+            "0e6bec4cae623f8973c15bea63cc114d467281f9-min-document/index.js": {
+                "exports": 18
+            },
+            "0e6bec4cae623f8973c15bea63cc114d467281f9-min-document/document.js": {
+                "exports": 0
+            },
+            "bafb1bd85d795649867d457cd2647f73cf5cf5f0-dom-walk/index.js": {
+                "exports": 0
+            },
+            "0e6bec4cae623f8973c15bea63cc114d467281f9-min-document/dom-comment.js": {
+                "exports": 0
+            },
+            "0e6bec4cae623f8973c15bea63cc114d467281f9-min-document/dom-text.js": {
+                "exports": 0
+            },
+            "0e6bec4cae623f8973c15bea63cc114d467281f9-min-document/dom-element.js": {
+                "exports": 0
+            },
+            "0e6bec4cae623f8973c15bea63cc114d467281f9-min-document/event/dispatch-event.js": {
+                "exports": 0
+            },
+            "0e6bec4cae623f8973c15bea63cc114d467281f9-min-document/event/add-event-listener.js": {
+                "exports": 0
+            },
+            "0e6bec4cae623f8973c15bea63cc114d467281f9-min-document/event/remove-event-listener.js": {
+                "exports": 0
+            },
+            "0e6bec4cae623f8973c15bea63cc114d467281f9-min-document/serialize.js": {
+                "exports": 0
+            },
+            "0e6bec4cae623f8973c15bea63cc114d467281f9-min-document/dom-fragment.js": {
+                "exports": 0
+            },
+            "0e6bec4cae623f8973c15bea63cc114d467281f9-min-document/event.js": {
+                "exports": 0
+            },
+            "188b74e9d529dac6b050b35ac15dff0a815cd2a7-dom-delegator/dom-delegator.js": {
+                "exports": 2
+            },
+            "8e106d5677990df298bfc71bb4226fd7f310abfa-ev-store/index.js": {
+                "exports": 0
+            },
+            "069cdb460b03a4609646e8111164c92d58ea0494-individual/one-version.js": {
+                "exports": 0
+            },
+            "069cdb460b03a4609646e8111164c92d58ea0494-individual/index.js": {
+                "exports": 0
+            },
+            "d2dd073247e4f84cb840cd764bf6f2f953e4d71a-weakmap-shim/create-store.js": {
+                "exports": 0
+            },
+            "d2dd073247e4f84cb840cd764bf6f2f953e4d71a-weakmap-shim/hidden-store.js": {
+                "exports": 0
+            },
+            "188b74e9d529dac6b050b35ac15dff0a815cd2a7-dom-delegator/add-event.js": {
+                "exports": 0
+            },
+            "188b74e9d529dac6b050b35ac15dff0a815cd2a7-dom-delegator/remove-event.js": {
+                "exports": 0
+            },
+            "188b74e9d529dac6b050b35ac15dff0a815cd2a7-dom-delegator/proxy-event.js": {
+                "exports": 0
+            },
+            "a42e50050a54413069e6526883e41b54232ecb51-inherits/inherits.js": {
+                "exports": 0
+            },
+            "a29c2975bc4244c93fd3a9d37997f4dc9011e252-value-event/event.js": {
+                "exports": 0
+            },
+            "a29c2975bc4244c93fd3a9d37997f4dc9011e252-value-event/value.js": {
+                "exports": 0
+            },
+            "822968178ae54008cf98ee66ff499fa2be684578-xtend/index.js": {
+                "exports": 0
+            },
+            "822968178ae54008cf98ee66ff499fa2be684578-xtend/has-keys.js": {
+                "exports": 0
+            },
+            "09e6f92cd04eda1fe09b6753906b14604f3493e5-form-data-set/element.js": {
+                "exports": 0
+            },
+            "09e6f92cd04eda1fe09b6753906b14604f3493e5-form-data-set/index.js": {
+                "exports": 0
+            },
+            "a29c2975bc4244c93fd3a9d37997f4dc9011e252-value-event/submit.js": {
+                "exports": 0
+            },
+            "a29c2975bc4244c93fd3a9d37997f4dc9011e252-value-event/change.js": {
+                "exports": 0
+            },
+            "a29c2975bc4244c93fd3a9d37997f4dc9011e252-value-event/key.js": {
+                "exports": 0
+            },
+            "a29c2975bc4244c93fd3a9d37997f4dc9011e252-value-event/click.js": {
+                "exports": 0
+            },
+            "0353cf734fd45ec0398d1e901c8e16516fa00da2-observ-array/index.js": {
+                "exports": 0
+            },
+            "763f9fee82cab36f35fe21dc7804803adeb52177-observ/index.js": {
+                "exports": 0
+            },
+            "0353cf734fd45ec0398d1e901c8e16516fa00da2-observ-array/splice.js": {
+                "exports": 0
+            },
+            "0353cf734fd45ec0398d1e901c8e16516fa00da2-observ-array/add-listener.js": {
+                "exports": 0
+            },
+            "0353cf734fd45ec0398d1e901c8e16516fa00da2-observ-array/lib/set-non-enumerable.js": {
+                "exports": 0
+            },
+            "0353cf734fd45ec0398d1e901c8e16516fa00da2-observ-array/put.js": {
+                "exports": 0
+            },
+            "0353cf734fd45ec0398d1e901c8e16516fa00da2-observ-array/set.js": {
+                "exports": 0
+            },
+            "0353cf734fd45ec0398d1e901c8e16516fa00da2-observ-array/apply-patch.js": {
+                "exports": 0
+            },
+            "940ee15dbc47ffff9aab0426eb8d652731895883-adiff/index.js": {
+                "exports": 9
+            },
+            "0353cf734fd45ec0398d1e901c8e16516fa00da2-observ-array/transaction.js": {
+                "exports": 0
+            },
+            "0353cf734fd45ec0398d1e901c8e16516fa00da2-observ-array/array-methods.js": {
+                "exports": 0
+            },
+            "0353cf734fd45ec0398d1e901c8e16516fa00da2-observ-array/array-reverse.js": {},
+            "0353cf734fd45ec0398d1e901c8e16516fa00da2-observ-array/array-sort.js": {},
+            "18225cba6f52ea4ccb31cf78cf073fe680ca694b-observ-struct/index.js": {
+                "exports": 0
+            },
+            "1d83ab096fb740c2fae8491c4cd4ad2e18f011f7-xtend/index.js": {
+                "exports": 0
+            },
+            "3e8f5ffc0eec6592bd0d1b847bf253210576b5cd-observ-varhash/index.js": {
+                "exports": 0
+            },
+            "0c321377f76ba4f1037f8b0fcd64cfc56c192488-xtend/index.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vtree/diff.js": {
+                "exports": 0
+            },
+            "7e70e8113b08f862aa24c1f5e47959e7f8915019-x-is-array/index.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vnode/vpatch.js": {
+                "exports": 9
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vnode/version.js": {
+                "exports": 43
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vnode/is-vnode.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vnode/is-vtext.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vnode/is-widget.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vnode/is-thunk.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vnode/handle-thunk.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vtree/diff-props.js": {
+                "exports": 0
+            },
+            "612ea617e4c6ef171db6393340a654971edd1f12-is-object/index.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vnode/is-vhook.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vdom/patch.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vdom/dom-index.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vdom/patch-op.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vdom/apply-properties.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vdom/create-element.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vdom/update-widget.js": {
+                "exports": 0
+            },
+            "87e971dbd021e714b29c3b61710491805a981f18-vdom-thunk/index.js": {
+                "exports": 0
+            },
+            "87e971dbd021e714b29c3b61710491805a981f18-vdom-thunk/partial.js": {
+                "exports": 0
+            },
+            "87e971dbd021e714b29c3b61710491805a981f18-vdom-thunk/shallow-eq.js": {
+                "exports": 0
+            },
+            "87e971dbd021e714b29c3b61710491805a981f18-vdom-thunk/immutable-thunk.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/virtual-hyperscript/index.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vnode/vnode.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/vnode/vtext.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/virtual-hyperscript/parse-tag.js": {
+                "exports": 0
+            },
+            "cde4c90688533bd61b9bb9422cae15887bb6380f-browser-split/index.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/virtual-hyperscript/hooks/soft-set-hook.js": {
+                "exports": 0
+            },
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/virtual-hyperscript/hooks/ev-hook.js": {
+                "exports": 0
+            },
+            "763f9fee82cab36f35fe21dc7804803adeb52177-observ/computed.js": {
+                "exports": 0
+            },
+            "763f9fee82cab36f35fe21dc7804803adeb52177-observ/watch.js": {
+                "exports": 0
+            },
+            "/package.json": {},
+            "5aa290c24f24dacbba3d98464ee2496c359e2fa9-mercury/package.json": {},
+            "fe0e6550bbef2c036fb585219c557a4fe6179940-geval/package.json": {},
+            "1785d6964ca526223d5851a54ae43268bcd80878-xtend/package.json": {},
+            "a1266e7ecc769cb741acd7f364709f047959edb8-main-loop/package.json": {},
+            "776fdf2bd359c0842eabb6e35eb383938b1c8a13-raf/package.json": {},
+            "747e45a55b2cfbbce6fc8c3da11ec4bc08bdbbf7-performance-now/package.json": {},
+            "b9238a6795a9ff3c21edb77008fe66b19e571992-error/package.json": {},
+            "7a6afee7f88ad8b1ba389df4d83b4462b9997d16-camelize/package.json": {},
+            "e30cf416f3e94cb0ded210d62758303e4fde3abf-string-template/package.json": {},
+            "a29c2975bc4244c93fd3a9d37997f4dc9011e252-value-event/package.json": {},
+            "188b74e9d529dac6b050b35ac15dff0a815cd2a7-dom-delegator/package.json": {},
+            "bf72d7446c35cd68ebc718de4c886bae7574e077-individual/package.json": {},
+            "389ae956e18469d6376883cc8f4bfc8f983c9c13-cuid/package.json": {},
+            "13986d51e21380cfc0d85f20cf3b63da6e225b2e-global/package.json": {},
+            "0e6bec4cae623f8973c15bea63cc114d467281f9-min-document/package.json": {},
+            "bafb1bd85d795649867d457cd2647f73cf5cf5f0-dom-walk/package.json": {},
+            "8e106d5677990df298bfc71bb4226fd7f310abfa-ev-store/package.json": {},
+            "069cdb460b03a4609646e8111164c92d58ea0494-individual/package.json": {},
+            "d2dd073247e4f84cb840cd764bf6f2f953e4d71a-weakmap-shim/package.json": {},
+            "a42e50050a54413069e6526883e41b54232ecb51-inherits/package.json": {},
+            "822968178ae54008cf98ee66ff499fa2be684578-xtend/package.json": {},
+            "09e6f92cd04eda1fe09b6753906b14604f3493e5-form-data-set/package.json": {},
+            "0353cf734fd45ec0398d1e901c8e16516fa00da2-observ-array/package.json": {},
+            "763f9fee82cab36f35fe21dc7804803adeb52177-observ/package.json": {},
+            "940ee15dbc47ffff9aab0426eb8d652731895883-adiff/package.json": {},
+            "18225cba6f52ea4ccb31cf78cf073fe680ca694b-observ-struct/package.json": {},
+            "1d83ab096fb740c2fae8491c4cd4ad2e18f011f7-xtend/package.json": {},
+            "3e8f5ffc0eec6592bd0d1b847bf253210576b5cd-observ-varhash/package.json": {},
+            "0c321377f76ba4f1037f8b0fcd64cfc56c192488-xtend/package.json": {},
+            "879b7bc630ee95602566905ae6dfdedacc382f7f-virtual-dom/package.json": {},
+            "7e70e8113b08f862aa24c1f5e47959e7f8915019-x-is-array/package.json": {},
+            "612ea617e4c6ef171db6393340a654971edd1f12-is-object/package.json": {},
+            "87e971dbd021e714b29c3b61710491805a981f18-vdom-thunk/package.json": {},
+            "cde4c90688533bd61b9bb9422cae15887bb6380f-browser-split/package.json": {}
+        }
+    }
+}

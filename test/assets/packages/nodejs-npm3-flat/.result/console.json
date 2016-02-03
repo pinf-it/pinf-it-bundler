@@ -1,0 +1,21 @@
+[
+    "Hello World",
+    {
+        "tagName": "DIV",
+        "properties": {
+            "style": {
+                "textAlign": "center"
+            }
+        },
+        "children": [
+            {
+                "text": "3"
+            }
+        ],
+        "namespace": null,
+        "count": 1,
+        "hasWidgets": false,
+        "hasThunks": false,
+        "descendantHooks": false
+    }
+]
